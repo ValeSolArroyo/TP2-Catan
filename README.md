@@ -1,18 +1,19 @@
 
 ![tp2](https://github.com/fiuba/algo3_proyecto_base_tp2/actions/workflows/build.yml/badge.svg) [![codecov](https://codecov.io/gh/fiuba/algo3_proyecto_base_tp2/branch/master/graph/badge.svg)](https://codecov.io/gh/fiuba/algo3_proyecto_base_tp2)
 
-# TP2 Algoritmos 3: {nombre} 
+# TP2 Algoritmos 3: Catán
 
-Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUBA
+Trabajo Práctico número 2 de la materia Algoritmos y Programación III de FIUBA, implementación del juego de mesa Catán.
 
-## Grupo {N}
+## Grupo N°1
 
-* **Integrante 1** - [integrante1](https://github.com/integrante1)
-* **Integrante 2** - [integrante2](https://github.com/integrante2)
-* **Integrante 3** - [integrante3](https://github.com/integrante3)
-* **Integrante 4** - [integrante4](https://github.com/integrante4)
+* **Integrante 1**: Arias, Rafaela Pilar (112272) ↬ [rafaela-arias](https://github.com/rafaela-arias).
+* **Integrante 2**: Arroyo, Valentina Sol (112294) ↬ [ValeSolArroyo](https://github.com/ValeSolArroyo).
+* **Integrante 3**: Baéz, Brenda Carolina (112496) ↬ [breenbaeez](https://github.com/breenbaeez).
+* **Integrante 4**: López Angelini, Chiara (111225) ↬ [chiaraLopezAn](https://github.com/chiaraLopezAn).
+* **Integrante 5**: Marchesini, Carlota (112099) ↬ [carlota7mar](https://github.com/carlota7mar).
 
-Corrector: **{Corrector}**
+Correctores: **Joaquin Gomez** y **Mateo Castaño**.
 
 ## Aplicación
 
