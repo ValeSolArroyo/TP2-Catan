@@ -2,18 +2,17 @@ package edu.fiuba.algo3.entrega_1;
 
 import edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.Hexagono;
-import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.ArrayList;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TableroTest {
+public class Test01AsignacionAleatoriaDeHexagonosDeTerrenoYFichasNumero() {
 
     @Test
-    public void Test01AsignacionAleatoriaDeHexagonosDeTerrenoYFichasNumero() {
+    public void TableroTest() {
         // Act
         Tablero tablero1 = new Tablero();
         Tablero tablero2 = new Tablero();
