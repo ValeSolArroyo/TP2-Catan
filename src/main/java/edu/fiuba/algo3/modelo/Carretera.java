@@ -10,4 +10,8 @@ public class Carretera extends Construccion {
     public int obtenerPuntosVictoria() {
         return 0;
     }
+
+    @Override public int recursosProducidos() {
+        return 0;
+    }
 }

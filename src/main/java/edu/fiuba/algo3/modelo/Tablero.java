@@ -1,13 +1,16 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.excepciones.HexagonoInexistenteError;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
 
 public class Tablero {
-    private final List<Vertice> vertices = new ArrayList<>();
-    private final List<Arista> aristas = new ArrayList<>();
-    private List<Hexagono> hexagonos = new ArrayList<>();
+    private final List<Vertice> vertices;
+    private final List<Arista> aristas;
+    private List<Hexagono> hexagonos;
+    private Ladron ladron;
 
     //     0   1   2
     //   3   4   5   6
@@ -18,30 +21,26 @@ public class Tablero {
     // 19 hexágonos, 54 vértices, 72 aristas TOTAL
     // NO se puede construir en los bordes
 
-    //             (0,0)  (1,0)  (2,0)
-    //         (-1,1)  (0,1)  (1,1)  (2,1)
-    //    (-2,2)  (-1,2)  (0,2)  (1,2)  (2,2)
-    //         (-1,3)  (0,3)  (1,3)  (2,3)
-    //            (0,4)  (1,4)  (2,4)
-    //Acá se lo piensa como una pseudo matriz
-
-    public Tablero(){
+    public Tablero() {
+        this.vertices = new ArrayList<>();
+        this.aristas = new ArrayList<>();
+        this.hexagonos = new ArrayList<>();
+        this.ladron = new Ladron();
         inicializarHexagonos();
         definirAdyacencias();
     }
 
-    public void crearHexagono(int id, String tipoTerreno, Integer numeroFicha) {
-        Hexagono hexagono = new Hexagono(id, tipoTerreno, numeroFicha);
-        hexagonos.add(hexagono);
+    private void crearHexagono(int id, String tipoTerreno, Integer numeroFicha) {
+        hexagonos.add(new Hexagono(id, tipoTerreno, numeroFicha));
     }
 
-    private Hexagono obtenerHexagono(int id) {
+    public Hexagono obtenerHexagono(int id) {
         for (Hexagono h : hexagonos) {
             if (h.obtenerId() == id) {
                 return h;
             }
         }
-        throw new RuntimeException("No existe ese hexágono"); // TODO: poner excepción personalizada
+        throw new HexagonoInexistenteError("No existe ese hexágono");
     }
 
     public void inicializarHexagonos() {
@@ -69,7 +68,7 @@ public class Tablero {
         }
     }
 
-    private void agregarVecinos(int baseId, int... vecinos) {
+    private void agregarVecinos(int baseId, List<Integer> vecinos) {
         Hexagono base = obtenerHexagono(baseId);
         for (int idVecino : vecinos) {
             Hexagono vecino = obtenerHexagono(idVecino);
@@ -79,31 +78,53 @@ public class Tablero {
     }
 
     private void definirAdyacencias() {
-        agregarVecinos(0, 1, 3, 4);
-        agregarVecinos(1, 2, 4, 5);
-        agregarVecinos(2, 5, 6);
-        agregarVecinos(3, 4, 7, 8);
-        agregarVecinos(4, 5, 8, 9);
-        agregarVecinos(5, 6, 9, 10);
-        agregarVecinos(6, 10, 11);
-        agregarVecinos(7, 8, 12);
-        agregarVecinos(8, 9, 12, 13);
-        agregarVecinos(9, 10, 13, 14);
-        agregarVecinos(10, 11, 14, 15);
-        agregarVecinos(11, 15);
-        agregarVecinos(12, 13, 16);
-        agregarVecinos(13, 14, 16, 17);
-        agregarVecinos(14, 15, 17, 18);
-        agregarVecinos(15, 18);
-        agregarVecinos(16, 17);
-        agregarVecinos(17, 18);
+        agregarVecinos(0, List.of(1, 3, 4));
+        agregarVecinos(1, List.of(2, 4, 5));
+        agregarVecinos(2, List.of(5, 6));
+        agregarVecinos(3, List.of(4, 7, 8));
+        agregarVecinos(4, List.of(5, 8, 9));
+        agregarVecinos(5, List.of(6, 9, 10));
+        agregarVecinos(6, List.of(10, 11));
+        agregarVecinos(7, List.of(8, 12));
+        agregarVecinos(8, List.of(9, 12, 13));
+        agregarVecinos(9, List.of(10, 13, 14));
+        agregarVecinos(10, List.of(11, 14, 15));
+        agregarVecinos(11, List.of(15));
+        agregarVecinos(12, List.of(13, 16));
+        agregarVecinos(13, List.of(14, 16, 17));
+        agregarVecinos(14, List.of(15, 17, 18));
+        agregarVecinos(15, List.of(18));
+        agregarVecinos(16, List.of(17));
+        agregarVecinos(17, List.of(18));
     }
 
-    // Para el test de ahora
     public List<Hexagono> obtenerHexagonos() {
         return hexagonos;
     }
 
+    public Vertice encontrarVertice(int verticeId) {
+        for (Vertice vertice : vertices) {
+            if (vertice.tieneId(verticeId)) {
+                return vertice;
+            }
+        }
+        return null; // TODO: poner excepcion
+    }
+
+    public void producirRecursos(int numeroLanzado) {
+        for (Hexagono h : hexagonos) {
+            Integer numero = h.obtenerNumeroFicha();
+            if (numero != null && numero == numeroLanzado && !ladron.estaEn(h)) {
+                for (Vertice v : h.obtenerVertices()) {
+                    Construccion c = v.obtenerConstruccion();
+                    if (c != null) {
+                        Jugador j = c.obtenerPropietario();
+                        j.agregarRecursos(h.obtenerTipoTerreno(), c.recursosProducidos());
+                    }
+                }
+            }
+        }
+    }
 }
 
 

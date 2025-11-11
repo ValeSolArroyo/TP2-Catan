@@ -9,4 +9,8 @@ public class Poblado extends Construccion {
     public int obtenerPuntosVictoria() {
         return 1;
     }
+
+    @Override public int recursosProducidos() {
+        return 1;
+    }
 }
