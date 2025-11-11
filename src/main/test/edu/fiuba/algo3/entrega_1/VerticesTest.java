@@ -2,7 +2,8 @@ package edu.fiuba.algo3.entrega_1;
 
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Vertice;
-import edu.fiuba.algo3.excepciones.ReglaDeDistanciaError;
+import edu.fiuba.algo3.modelo.excepciones.ReglaDeDistanciaError;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

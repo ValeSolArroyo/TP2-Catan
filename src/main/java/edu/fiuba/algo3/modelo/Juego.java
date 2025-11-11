@@ -20,6 +20,7 @@ public class Juego {
         this.dados = new Dado();
         this.tablero = tablero;
         this.indiceTurno = 0;
+        this.ladron = new Ladron();
     }
 
     public Jugador obtenerTurnoActual() {
@@ -85,6 +86,10 @@ public class Juego {
 
         // Devolvemos la lista de posibles víctimas para que la interfaz decida
         return new ArrayList<>(jugadoresAfectados);
+    }
+
+    public void robarCartaDe(Jugador victima) {
+        obtenerTurnoActual().robarCarta(victima);
     }
 
     public void producirRecursos(int numeroLanzado) {
