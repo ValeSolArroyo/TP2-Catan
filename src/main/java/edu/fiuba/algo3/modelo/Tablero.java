@@ -1,9 +1,10 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.excepciones.HexagonoInexistenteError;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.fiuba.algo3.modelo.excepciones.HexagonoInexistenteError;
+
 import java.util.Collections;
 
 public class Tablero {

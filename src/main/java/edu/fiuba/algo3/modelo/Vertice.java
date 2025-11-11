@@ -1,10 +1,10 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.excepciones.AsentamientoExistenteError;
-import edu.fiuba.algo3.excepciones.ReglaDeDistanciaError;
-
 import java.util.ArrayList;
 import  java.util.List;
+
+import edu.fiuba.algo3.modelo.excepciones.AsentamientoExistenteError;
+import edu.fiuba.algo3.modelo.excepciones.ReglaDeDistanciaError;
 
 
 public class Vertice {
