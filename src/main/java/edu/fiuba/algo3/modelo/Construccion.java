@@ -11,5 +11,11 @@ public abstract class Construccion {
         return propietario;
     }
 
+    public boolean esPropietario(Jugador jugador) {
+        return this.propietario.equals(jugador);
+    }
+
     public abstract int obtenerPuntosVictoria();
+
+    public abstract int recursosProducidos();
 }

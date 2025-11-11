@@ -10,4 +10,8 @@ public class Ciudad extends Construccion {
     public int obtenerPuntosVictoria() {
         return 2;
     }
+
+    @Override public int recursosProducidos() {
+        return 2;
+    }
 }
