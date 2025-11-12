@@ -3,12 +3,15 @@ package edu.fiuba.algo3.modelo;
 import java.util.*;
 
 public class Jugador {
+    // ATRIBUTOS DE CLASE
+
+    // ATRIBUTOS
     private final int id;
     private final String nombre;
     private final Map<String, Integer> recursos;
     private ArrayList<Construccion> construcciones;
 
-
+    // CONSTRUCTORES
     public Jugador(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
@@ -16,10 +19,11 @@ public class Jugador {
         this.construcciones = new ArrayList<>();
     }
 
-    public String obtenerNombre() {
-        return nombre;
-    }
+    // MÉTODOS DE CLASE
 
+    // MÉTODOS GENERALES
+
+    // MÉTODOS DE COMPORTAMIENTO
     public void agregarRecursos(String tipoRecurso, int cantidad) {
         if (recursos.containsKey(tipoRecurso)) {
             recursos.put(tipoRecurso, recursos.get(tipoRecurso) + cantidad);
@@ -30,26 +34,6 @@ public class Jugador {
 
     public void agregarConstruccion(Construccion construccion) {
         construcciones.add(construccion);
-    }
-
-    public int obtenerCantidadDeConstrucciones() {
-        return construcciones.size();
-    }
-
-    public int obtenerCantidadDeRecurso(String tipoRecurso) {
-        if (recursos.containsKey(tipoRecurso)) {
-            return recursos.get(tipoRecurso);
-        } else {
-            return 0;
-        }
-    }
-
-    public int obtenerCantidadTotalDeRecursos() {
-        int total = 0;
-        for (int cantidad : recursos.values()) {
-            total += cantidad;
-        }
-        return total;
     }
 
     public void descartarMitadDeRecursos() {
@@ -116,4 +100,31 @@ public class Jugador {
         victima.recursos.put(recursoRobado, victima.recursos.get(recursoRobado)-1);
         this.agregarRecursos(recursoRobado, 1);
     }
+
+    // GETTERS
+    public String obtenerNombre() {
+        return nombre;
+    }
+
+    public int obtenerCantidadDeConstrucciones() {
+        return construcciones.size();
+    }
+
+    public int obtenerCantidadDeRecurso(String tipoRecurso) {
+        if (recursos.containsKey(tipoRecurso)) {
+            return recursos.get(tipoRecurso);
+        } else {
+            return 0;
+        }
+    }
+
+    public int obtenerCantidadTotalDeRecursos() {
+        int total = 0;
+        for (int cantidad : recursos.values()) {
+            total += cantidad;
+        }
+        return total;
+    }
+
+    // SETTERS
 }

@@ -4,15 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.fiuba.algo3.modelo.excepciones.HexagonoInexistenteError;
+import edu.fiuba.algo3.modelo.excepciones.VerticeInexistenteError;
 
 import java.util.Collections;
 
 public class Tablero {
-    private final List<Vertice> vertices;
-    private final List<Arista> aristas;
-    private List<Hexagono> hexagonos;
-    private Ladron ladron;
-
     //     0   1   2
     //   3   4   5   6
     // 7   8   9   10  11
@@ -20,8 +16,17 @@ public class Tablero {
     //     16  17  18
     // 19 hexágonos, 6 vértices por hexágono PERO HAY COMPARTIDOS
     // 19 hexágonos, 54 vértices, 72 aristas TOTAL
-    // NO se puede construir en los bordes
+    //SUPUESTO: Se puede crear poblados en vértices adyacentes al mar → permite el comercio marítimo.
 
+    // ATRIBUTOS DE CLASE
+
+    // ATRIBUTOS
+    private final List<Vertice> vertices;
+    private final List<Arista> aristas;
+    private List<Hexagono> hexagonos;
+    private Ladron ladron;
+
+    // CONSTRUCTORES
     public Tablero() {
         this.vertices = new ArrayList<>();
         this.aristas = new ArrayList<>();
@@ -31,17 +36,13 @@ public class Tablero {
         definirAdyacencias();
     }
 
+    // MÉTODOS DE CLASE
+
+    // MÉTODOS GENERALES
+
+    // MÉTODOS DE COMPORTAMIENTO
     private void crearHexagono(int id, String tipoTerreno, Integer numeroFicha) {
         hexagonos.add(new Hexagono(id, tipoTerreno, numeroFicha));
-    }
-
-    public Hexagono obtenerHexagono(int id) {
-        for (Hexagono h : hexagonos) {
-            if (h.obtenerId() == id) {
-                return h;
-            }
-        }
-        throw new HexagonoInexistenteError("No existe ese hexágono");
     }
 
     public void inicializarHexagonos() {
@@ -99,17 +100,13 @@ public class Tablero {
         agregarVecinos(17, List.of(18));
     }
 
-    public List<Hexagono> obtenerHexagonos() {
-        return hexagonos;
-    }
-
     public Vertice encontrarVertice(int verticeId) {
         for (Vertice vertice : vertices) {
             if (vertice.tieneId(verticeId)) {
                 return vertice;
             }
         }
-        return null; // TODO: poner excepcion
+        throw new VerticeInexistenteError("No existe ese vértice");
     }
 
     public void producirRecursos(int numeroLanzado) {
@@ -126,6 +123,22 @@ public class Tablero {
             }
         }
     }
+
+    // GETTERS
+    public Hexagono obtenerHexagono(int id) {
+        for (Hexagono h : hexagonos) {
+            if (h.obtenerId() == id) {
+                return h;
+            }
+        }
+        throw new HexagonoInexistenteError("No existe ese hexágono");
+    }
+
+    public List<Hexagono> obtenerHexagonos() {
+        return hexagonos;
+    }
+
+    // SETTERS
 }
 
 
