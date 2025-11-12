@@ -8,12 +8,16 @@ import edu.fiuba.algo3.modelo.excepciones.ReglaDeDistanciaError;
 
 
 public class Vertice {
+    // ATRIBUTOS DE CLASE
+
+    // ATRIBUTOS
     private final int id;
     private Construccion construccion;
     private final List<Arista> aristasAdyacentes;
     private final List<Hexagono> hexagonosAdyacentes;
     private final List<Vertice> verticesAdyacentes; // vecinos directos
 
+    // CONSTRUCTORES
     public Vertice(int id) {
         this.id = id;
         this.aristasAdyacentes = new ArrayList<>();
@@ -21,6 +25,11 @@ public class Vertice {
         this.verticesAdyacentes = new ArrayList<>();
     }
 
+    // MÉTODOS DE CLASE
+
+    // MÉTODOS GENERALES
+
+    // MÉTODOS DE COMPORTAMIENTO
     public void agregarArista(Arista arista) {
         if (!aristasAdyacentes.contains(arista)) {
             aristasAdyacentes.add(arista);
@@ -84,13 +93,13 @@ public class Vertice {
         this.construccion = new Ciudad(propietario);
     }
 
-
-    public int obtenerId() {
-        return id;
-    }
-
     public boolean tieneId(int id) {
         return this.id == id;
+    }
+
+    // GETTERS
+    public int obtenerId() {
+        return id;
     }
 
     public List<Vertice> obtenerVerticesAdyacentes() {
@@ -104,4 +113,6 @@ public class Vertice {
     public Construccion obtenerConstruccion() {
         return construccion;
     }
+
+    // SETTERS
 }

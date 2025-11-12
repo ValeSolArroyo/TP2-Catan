@@ -6,12 +6,16 @@ import java.util.List;
 import java.util.Set;
 
 public class Juego {
+    // ATRIBUTOS DE CLASE
+
+    // ATRIBUTOS
     private final List<Jugador> listaJugadores;
     private Tablero tablero;
     private int indiceTurno;
     private final Dado dados;
     private Ladron ladron;
 
+    // CONSTRUCTORES
     public Juego(List<Jugador> jugadores, Tablero tablero) {
         if (jugadores == null || jugadores.isEmpty()) {
             throw new IllegalArgumentException("Debe haber al menos un jugador.");
@@ -23,11 +27,11 @@ public class Juego {
         this.ladron = new Ladron();
     }
 
-    public Jugador obtenerTurnoActual() {
-        return listaJugadores.get(indiceTurno);
-    }
+    // MÉTODOS DE CLASE
 
+    // MÉTODOS GENERALES
 
+    // MÉTODOS DE COMPORTAMIENTO
     public int lanzarDados() {
         int resultado = dados.lanzar();
         if (resultado == 7) {
@@ -53,10 +57,6 @@ public class Juego {
                 jugador.agregarRecursos(h.obtenerTipoTerreno(), 1);
             }
         }
-    }
-
-    public Tablero obtenerTablero() {
-        return tablero;
     }
 
     public void verificarDescartesPorLadron() {
@@ -96,5 +96,14 @@ public class Juego {
         tablero.producirRecursos(numeroLanzado);
     }
 
+    // GETTERS
+    public Tablero obtenerTablero() {
+        return tablero;
+    }
 
+    public Jugador obtenerTurnoActual() {
+        return listaJugadores.get(indiceTurno);
+    }
+
+    // SETTERS
 }

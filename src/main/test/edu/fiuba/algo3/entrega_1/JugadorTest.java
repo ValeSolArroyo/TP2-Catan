@@ -36,8 +36,8 @@ public class JugadorTest {
     }
 
     @Test
-    public void test02JugadorRobaCartae() {
-        Jugador ladrón = new Jugador(1, "Ana");
+    public void test02JugadorRobaCartas() {
+        Jugador ladron = new Jugador(1, "Ana");
         Jugador victima = new Jugador(2, "Pepito");
 
         victima.agregarRecursos("Madera", 3);
@@ -46,9 +46,9 @@ public class JugadorTest {
         int totalAntes = victima.obtenerCantidadTotalDeRecursos();
 
         // Ana roba a Pepito
-        ladrón.robarCarta(victima);
+        ladron.robarCarta(victima);
 
         assertTrue(victima.obtenerCantidadTotalDeRecursos() < totalAntes);
-        assertEquals(1, ladrón.obtenerCantidadTotalDeRecursos());
+        assertEquals(1, ladron.obtenerCantidadTotalDeRecursos());
     }
 }
