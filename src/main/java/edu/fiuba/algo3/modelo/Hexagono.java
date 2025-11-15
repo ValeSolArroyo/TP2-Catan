@@ -4,16 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hexagono {
-    // ATRIBUTOS DE CLASE
-
-    // ATRIBUTOS
     private final int id;
     private String tipoTerreno;
     private Integer numeroFicha;
     private List<Integer> hexagonosAdyacentes;
     private List<Vertice> vertices;
 
-    // CONSTRUCTORES
     public Hexagono(int id, String tipoTerreno, Integer numeroFicha) {
         this.id = id;
         this.tipoTerreno = tipoTerreno;
@@ -22,11 +18,6 @@ public class Hexagono {
         this.vertices = new ArrayList<>(6);
     }
 
-    // MÉTODOS DE CLASE
-
-    // MÉTODOS GENERALES
-
-    // MÉTODOS DE COMPORTAMIENTO
     public void agregarAdyacente(int idVecino) {
         if (!hexagonosAdyacentes.contains(idVecino)) {
             hexagonosAdyacentes.add(idVecino);
@@ -78,7 +69,6 @@ public class Hexagono {
         return recurso;
     }
 
-    // GETTERS
     public int obtenerId() {
         return id;
     }
@@ -98,6 +88,4 @@ public class Hexagono {
     public List<Integer> obtenerAdyacentes() {
         return hexagonosAdyacentes;
     }
-
-    // SETTERS
 }

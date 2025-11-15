@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.excepciones.HexagonoInexistenteError;
 import edu.fiuba.algo3.modelo.excepciones.VerticeInexistenteError;
 
@@ -18,9 +19,6 @@ public class Tablero {
     // 19 hexágonos, 54 vértices, 72 aristas TOTAL
     //SUPUESTO: Se puede crear poblados en vértices adyacentes al mar → permite el comercio marítimo.
 
-    // ATRIBUTOS DE CLASE
-
-    // ATRIBUTOS
     private final List<Vertice> vertices;
     private final List<Arista> aristas;
     private List<Hexagono> hexagonos;
@@ -36,11 +34,6 @@ public class Tablero {
         definirAdyacencias();
     }
 
-    // MÉTODOS DE CLASE
-
-    // MÉTODOS GENERALES
-
-    // MÉTODOS DE COMPORTAMIENTO
     private void crearHexagono(int id, String tipoTerreno, Integer numeroFicha) {
         hexagonos.add(new Hexagono(id, tipoTerreno, numeroFicha));
     }
@@ -110,25 +103,24 @@ public class Tablero {
     }
 
     public void producirRecursos(int numeroLanzado) {
-        for (Hexagono h : hexagonos) {
-            Integer numero = h.obtenerNumeroFicha();
-            if (numero != null && numero == numeroLanzado && !ladron.estaEn(h)) {
-                for (Vertice v : h.obtenerVertices()) {
-                    Construccion c = v.obtenerConstruccion();
-                    if (c != null) {
-                        Jugador j = c.obtenerPropietario();
-                        j.agregarRecursos(h.obtenerTipoTerreno(), c.recursosProducidos());
+        for (Hexagono hexagono : hexagonos) {
+            Integer numero = hexagono.obtenerNumeroFicha();
+            if (numero != null && numero == numeroLanzado && !ladron.estaEn(hexagono)) {
+                for (Vertice vertice : hexagono.obtenerVertices()) {
+                    Construccion construccion = vertice.obtenerConstruccion();
+                    if (construccion != null) {
+                        Jugador jugador = construccion.obtenerPropietario();
+                        jugador.agregarRecursos(hexagono.obtenerTipoTerreno(), construccion.recursosProducidos());
                     }
                 }
             }
         }
     }
 
-    // GETTERS
     public Hexagono obtenerHexagono(int id) {
-        for (Hexagono h : hexagonos) {
-            if (h.obtenerId() == id) {
-                return h;
+        for (Hexagono hexagono : hexagonos) {
+            if (hexagono.obtenerId() == id) {
+                return hexagono;
             }
         }
         throw new HexagonoInexistenteError("No existe ese hexágono");
@@ -137,8 +129,6 @@ public class Tablero {
     public List<Hexagono> obtenerHexagonos() {
         return hexagonos;
     }
-
-    // SETTERS
 }
 
 

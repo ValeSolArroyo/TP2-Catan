@@ -1,31 +1,19 @@
 package edu.fiuba.algo3.modelo;
 
 public class Arista {
-    // ATRIBUTOS DE CLASE
 
-    // ATRIBUTOS
-    private final Vertice v1;
-    private final Vertice v2;
+    private final Vertice vertice1;
+    private final Vertice vertice2;
 
-    // CONSTRUCTORES
-    public Arista(Vertice v1, Vertice v2) {
-        this.v1 = v1;
-        this.v2 = v2;
+    public Arista(Vertice vertice1, Vertice vertice2) {
+        this.vertice1 = vertice1;
+        this.vertice2 = vertice2;
     }
 
-    // MÉTODOS DE CLASE
-
-    // MÉTODOS GENERALES
-
-    // MÉTODOS DE COMPORTAMIENTO
-
-    // GETTERS
     public Vertice obtenerV1() {
-        return v1;
+        return vertice1;
     }
     public Vertice obtenerV2() {
-        return v2;
+        return vertice2;
     }
-
-    // SETTERS
 }

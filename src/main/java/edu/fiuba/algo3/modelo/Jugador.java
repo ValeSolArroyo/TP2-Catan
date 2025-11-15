@@ -1,17 +1,15 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.construcciones.Construccion;
+
 import java.util.*;
 
 public class Jugador {
-    // ATRIBUTOS DE CLASE
-
-    // ATRIBUTOS
     private final int id;
     private final String nombre;
     private final Map<String, Integer> recursos;
     private ArrayList<Construccion> construcciones;
 
-    // CONSTRUCTORES
     public Jugador(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
@@ -19,11 +17,6 @@ public class Jugador {
         this.construcciones = new ArrayList<>();
     }
 
-    // MÉTODOS DE CLASE
-
-    // MÉTODOS GENERALES
-
-    // MÉTODOS DE COMPORTAMIENTO
     public void agregarRecursos(String tipoRecurso, int cantidad) {
         if (recursos.containsKey(tipoRecurso)) {
             recursos.put(tipoRecurso, recursos.get(tipoRecurso) + cantidad);
@@ -101,7 +94,6 @@ public class Jugador {
         this.agregarRecursos(recursoRobado, 1);
     }
 
-    // GETTERS
     public String obtenerNombre() {
         return nombre;
     }
@@ -125,6 +117,4 @@ public class Jugador {
         }
         return total;
     }
-
-    // SETTERS
 }
