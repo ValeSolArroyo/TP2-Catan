@@ -1,39 +1,32 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.construcciones.Poblado;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class Juego {
-    // ATRIBUTOS DE CLASE
-
-    // ATRIBUTOS
     private final List<Jugador> listaJugadores;
     private Tablero tablero;
     private int indiceTurno;
-    private final Dado dados;
+    private final Dado dado;
     private Ladron ladron;
 
-    // CONSTRUCTORES
     public Juego(List<Jugador> jugadores, Tablero tablero) {
         if (jugadores == null || jugadores.isEmpty()) {
             throw new IllegalArgumentException("Debe haber al menos un jugador.");
         }
         this.listaJugadores = jugadores;
-        this.dados = new Dado();
+        this.dado = new Dado();
         this.tablero = tablero;
         this.indiceTurno = 0;
         this.ladron = new Ladron();
     }
 
-    // MÉTODOS DE CLASE
-
-    // MÉTODOS GENERALES
-
-    // MÉTODOS DE COMPORTAMIENTO
     public int lanzarDados() {
-        int resultado = dados.lanzar();
+        int resultado = dado.lanzar();
         if (resultado == 7) {
             verificarDescartesPorLadron();
         }
@@ -52,9 +45,9 @@ public class Juego {
     }
 
     public void darRecursosIniciales(Jugador jugador, Vertice vertice) {
-        for (Hexagono h : vertice.obtenerHexagonosAdyacentes()) {
-            if (!h.esDesierto()) {
-                jugador.agregarRecursos(h.obtenerTipoTerreno(), 1);
+        for (Hexagono hexagono : vertice.obtenerHexagonosAdyacentes()) {
+            if (!hexagono.esDesierto()) {
+                jugador.agregarRecursos(hexagono.obtenerTipoTerreno(), 1);
             }
         }
     }
@@ -74,9 +67,9 @@ public class Juego {
         // Encuentra jugadores con construcciones alrededor del hexagono
         Set<Jugador> jugadoresAfectados = new HashSet<>();
 
-        for (Vertice v : destino.obtenerVertices()) {
-            if(v.yaTieneConstruccion()) {
-                Jugador propietario = v.obtenerConstruccion().obtenerPropietario();
+        for (Vertice vertice : destino.obtenerVertices()) {
+            if(vertice.yaTieneConstruccion()) {
+                Jugador propietario = vertice.obtenerConstruccion().obtenerPropietario();
                 jugadoresAfectados.add(propietario);
             }
         }
@@ -96,7 +89,6 @@ public class Juego {
         tablero.producirRecursos(numeroLanzado);
     }
 
-    // GETTERS
     public Tablero obtenerTablero() {
         return tablero;
     }
@@ -105,5 +97,4 @@ public class Juego {
         return listaJugadores.get(indiceTurno);
     }
 
-    // SETTERS
 }

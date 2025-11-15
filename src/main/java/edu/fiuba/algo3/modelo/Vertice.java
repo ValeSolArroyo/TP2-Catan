@@ -3,21 +3,20 @@ package edu.fiuba.algo3.modelo;
 import java.util.ArrayList;
 import  java.util.List;
 
+import edu.fiuba.algo3.modelo.construcciones.Ciudad;
+import edu.fiuba.algo3.modelo.construcciones.Construccion;
+import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.excepciones.AsentamientoExistenteError;
 import edu.fiuba.algo3.modelo.excepciones.ReglaDeDistanciaError;
 
 
 public class Vertice {
-    // ATRIBUTOS DE CLASE
-
-    // ATRIBUTOS
     private final int id;
     private Construccion construccion;
     private final List<Arista> aristasAdyacentes;
     private final List<Hexagono> hexagonosAdyacentes;
     private final List<Vertice> verticesAdyacentes; // vecinos directos
 
-    // CONSTRUCTORES
     public Vertice(int id) {
         this.id = id;
         this.aristasAdyacentes = new ArrayList<>();
@@ -25,26 +24,21 @@ public class Vertice {
         this.verticesAdyacentes = new ArrayList<>();
     }
 
-    // MÉTODOS DE CLASE
-
-    // MÉTODOS GENERALES
-
-    // MÉTODOS DE COMPORTAMIENTO
     public void agregarArista(Arista arista) {
         if (!aristasAdyacentes.contains(arista)) {
             aristasAdyacentes.add(arista);
         }
     }
 
-    public void agregarHexagono(Hexagono h) {
-        if (!hexagonosAdyacentes.contains(h)) {
-            hexagonosAdyacentes.add(h);
+    public void agregarHexagono(Hexagono hexagono) {
+        if (!hexagonosAdyacentes.contains(hexagono)) {
+            hexagonosAdyacentes.add(hexagono);
         }
     }
 
-    public void agregarVerticeAdyacente(Vertice v) {
-        if (!verticesAdyacentes.contains(v) && v != this) {
-            verticesAdyacentes.add(v);
+    public void agregarVerticeAdyacente(Vertice vertice) {
+        if (!verticesAdyacentes.contains(vertice) && vertice != this) {
+            verticesAdyacentes.add(vertice);
         }
     }
 
@@ -97,7 +91,6 @@ public class Vertice {
         return this.id == id;
     }
 
-    // GETTERS
     public int obtenerId() {
         return id;
     }
@@ -113,6 +106,4 @@ public class Vertice {
     public Construccion obtenerConstruccion() {
         return construccion;
     }
-
-    // SETTERS
 }
