@@ -1,6 +1,8 @@
-package edu.fiuba.algo3.modelo.patronHexagono;
+package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.Vertice;
+import edu.fiuba.algo3.modelo.patronHexagono.EstadoConLadron;
+import edu.fiuba.algo3.modelo.patronHexagono.EstadoHexagono;
+import edu.fiuba.algo3.modelo.patronHexagono.EstadoSinLadron;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
 
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ public class Hexagono {
         this.terreno = terreno;
         this.numeroFicha = numeroFicha;
         this.vertices = new ArrayList<>();
-        this.estadoActual = new EstadoSinLadron();
+        this.estadoActual = new EstadoSinLadron(); // Al principio es así
     }
 
     public void ponerLadron() {
@@ -39,7 +41,7 @@ public class Hexagono {
     }
 
 
-    public String obtenerTipoTerreno() {
+    public Terreno obtenerTipoTerreno() {
         return terreno;
     }
 

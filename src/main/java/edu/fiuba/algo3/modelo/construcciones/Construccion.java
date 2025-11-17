@@ -4,5 +4,5 @@ import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 
 public interface Construccion {
-    void producir(Jugador jugador, Recurso recurso);
+    void producir(Recurso recurso);
 }

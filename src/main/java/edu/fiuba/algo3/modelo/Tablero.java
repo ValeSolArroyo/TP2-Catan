@@ -5,7 +5,6 @@ import java.util.List;
 
 import edu.fiuba.algo3.modelo.excepciones.HexagonoInexistenteError;
 import edu.fiuba.algo3.modelo.excepciones.VerticeInexistenteError;
-import edu.fiuba.algo3.modelo.patronHexagono.Hexagono;
 
 import java.util.Collections;
 
