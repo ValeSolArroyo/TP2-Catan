@@ -9,10 +9,9 @@ import java.util.List;
 
 public class EstadoSinLadron implements EstadoHexagono {
     @Override
-    public void producirRecursos(Hexagono hexagono) {
+    public void producirRecursos(Hexagono hexagono, Terreno terreno) {
         for (Vertice vertice : hexagono.obtenerVertices()) {
-            Construccion construccion = vertice.obtenerConstruccion();
-            hexagono.obtenerTipoTerreno().producirPara(construccion);
+            vertice.producirSegunTerreno(terreno);
         }
     }
 }
