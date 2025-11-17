@@ -4,9 +4,9 @@ import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Ladrillo;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 
-public class Colina {
+public class Colina implements Terreno {
     @Override
-    public void producirPara(Construccion construccion, Jugador jugador) {
-        construccion.producir(jugador, new Ladrillo());
+    public void producirPara(Construccion construccion) {
+        construccion.producir(new Ladrillo());
     }
 }

@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.tests_integracion.entrega_1;
 
 import edu.fiuba.algo3.modelo.*;
-import edu.fiuba.algo3.modelo.patronHexagono.Hexagono;
+import edu.fiuba.algo3.modelo.Hexagono;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

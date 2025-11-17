@@ -8,7 +8,7 @@ import java.util.*;
 public class Jugador {
     private final int id;
     private final String nombre;
-    private Map<Recurso, Integer> recursos;
+    private Map<Class<? extends Recurso>, Integer> recursos;
     private List<Construccion> construcciones;
 
     public Jugador(int id, String nombre) {
@@ -19,16 +19,26 @@ public class Jugador {
     }
 
     public void recibir(Recurso recurso) {
-        agregarRecursos(recurso, 1);
-    }
+        Class<? extends Recurso> tipo = recurso.getClass();
 
-    public void agregarRecursos(Recurso tipoRecurso, int cantidad) {
-        if (recursos.containsKey(tipoRecurso)) {
-            recursos.put(tipoRecurso, recursos.get(tipoRecurso) + cantidad);
+        if (recursos.containsKey(tipo)) {
+            int cantidad = recursos.get(tipo);
+            recursos.put(tipo, cantidad + 1);
         } else {
-            recursos.put(tipoRecurso, cantidad);
+            recursos.put(tipo, 1);
         }
     }
+
+    public void agregarRecursos(Recurso recurso, int cantidad) {
+        Class<? extends Recurso> tipo = recurso.getClass();
+
+        if (recursos.containsKey(tipo)) {
+            recursos.put(tipo, recursos.get(tipo) + cantidad);
+        } else {
+            recursos.put(tipo, cantidad);
+        }
+    }
+
 
     public void agregarConstruccion(Construccion construccion) {
         construcciones.add(construccion);
