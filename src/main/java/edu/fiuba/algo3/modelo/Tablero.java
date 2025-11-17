@@ -3,9 +3,9 @@ package edu.fiuba.algo3.modelo;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.excepciones.HexagonoInexistenteError;
 import edu.fiuba.algo3.modelo.excepciones.VerticeInexistenteError;
+import edu.fiuba.algo3.modelo.patronHexagono.Hexagono;
 
 import java.util.Collections;
 
@@ -22,14 +22,12 @@ public class Tablero {
     private final List<Vertice> vertices;
     private final List<Arista> aristas;
     private List<Hexagono> hexagonos;
-    private Ladron ladron;
 
     // CONSTRUCTORES
     public Tablero() {
         this.vertices = new ArrayList<>();
         this.aristas = new ArrayList<>();
         this.hexagonos = new ArrayList<>();
-        this.ladron = new Ladron();
         inicializarHexagonos();
         definirAdyacencias();
     }
@@ -102,17 +100,10 @@ public class Tablero {
         throw new VerticeInexistenteError("No existe ese vértice");
     }
 
-    public void producirRecursos(int numeroLanzado) {
+    public void producir(int numero) {
         for (Hexagono hexagono : hexagonos) {
-            Integer numero = hexagono.obtenerNumeroFicha();
-            if (numero != null && numero == numeroLanzado && !ladron.estaEn(hexagono)) {
-                for (Vertice vertice : hexagono.obtenerVertices()) {
-                    Construccion construccion = vertice.obtenerConstruccion();
-                    if (construccion != null) {
-                        Jugador jugador = construccion.obtenerPropietario();
-                        jugador.agregarRecursos(hexagono.obtenerTipoTerreno(), construccion.recursosProducidos());
-                    }
-                }
+            if (hexagono.coincideNumero(numero)) {
+                hexagono.producirRecursos();
             }
         }
     }

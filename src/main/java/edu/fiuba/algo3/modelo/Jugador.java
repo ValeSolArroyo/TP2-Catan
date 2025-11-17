@@ -1,25 +1,33 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
-import edu.fiuba.algo3.modelo.recursos.Recurso;
+import edu.fiuba.algo3.modelo.recursos.*;
 
 import java.util.*;
 
 public class Jugador {
     private final int id;
     private final String nombre;
-    private List<Recurso> recursos;
-    private ArrayList<Construccion> construcciones;
+    private Map<Recurso, Integer> recursos;
+    private List<Construccion> construcciones;
 
     public Jugador(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
-        this.recursos = new ArrayList<>();
+        this.recursos = new HashMap<>();
         this.construcciones = new ArrayList<>();
     }
 
-    public void agregarRecursos(Recurso recurso) {
-        recursos.add(recurso);
+    public void recibir(Recurso recurso) {
+        agregarRecursos(recurso, 1);
+    }
+
+    public void agregarRecursos(Recurso tipoRecurso, int cantidad) {
+        if (recursos.containsKey(tipoRecurso)) {
+            recursos.put(tipoRecurso, recursos.get(tipoRecurso) + cantidad);
+        } else {
+            recursos.put(tipoRecurso, cantidad);
+        }
     }
 
     public void agregarConstruccion(Construccion construccion) {
@@ -32,7 +40,7 @@ public class Jugador {
 
         int aDescartar = total / 2; // redondea hacia abajo
         while (aDescartar > 0 && !recursos.isEmpty()) {
-            for (String tipo : new ArrayList<>(recursos.keySet())) {
+            for (Recurso tipo : new ArrayList<>(recursos.keySet())) {
                 if (aDescartar == 0) break;
 
                 int cantidad = recursos.get(tipo);
@@ -45,7 +53,7 @@ public class Jugador {
         }
     }
 
-    private void eliminarRecurso(String tipo, int cantidad) {
+    private void eliminarRecurso(Recurso tipo, int cantidad) {
         if (!recursos.containsKey(tipo)) {
             return; // Si no tiene ese recurso, no hace nada
         }
@@ -56,24 +64,24 @@ public class Jugador {
     }
 
     public void construirPoblado(Vertice vertice) {
-        eliminarRecurso("Madera", 1);
-        eliminarRecurso("Ladrillo", 1);
-        eliminarRecurso("Lana", 1);
-        eliminarRecurso("Grano", 1);
+        eliminarRecurso(new Madera(), 1);
+        eliminarRecurso(new Ladrillo(), 1);
+        eliminarRecurso(new Lana(), 1);
+        eliminarRecurso(new Grano(), 1);
         vertice.construirPoblado(this);
 
     }
 
     public void construirCiudad(Vertice vertice) {
-        eliminarRecurso("Grano", 2);
-        eliminarRecurso("Mineral", 3);
+        eliminarRecurso(new Grano(), 2);
+        eliminarRecurso(new Mineral(), 3);
         vertice.construirCiudad(this);
     }
 
     public void robarCarta(Jugador victima) {
         // Obtener los tipos de recursos que la víctima tiene (cantidad > 0)
-        List<String> recursosDisponibles = new ArrayList<>();
-        for (Map.Entry<String, Integer> entry : victima.recursos.entrySet()) {
+        List<Recurso> recursosDisponibles = new ArrayList<>();
+        for (Map.Entry<Recurso, Integer> entry : victima.recursos.entrySet()) {
             if (entry.getValue() > 0) {
                 recursosDisponibles.add(entry.getKey());
             }
@@ -85,7 +93,7 @@ public class Jugador {
         }
 
         Random random = new Random();
-        String recursoRobado = recursosDisponibles.get(random.nextInt(recursosDisponibles.size()));
+        Recurso recursoRobado = recursosDisponibles.get(random.nextInt(recursosDisponibles.size()));
 
         victima.recursos.put(recursoRobado, victima.recursos.get(recursoRobado)-1);
         this.agregarRecursos(recursoRobado, 1);
@@ -99,7 +107,7 @@ public class Jugador {
         return construcciones.size();
     }
 
-    public int obtenerCantidadDeRecurso(String tipoRecurso) {
+    public int obtenerCantidadDeRecurso(Recurso tipoRecurso) {
         if (recursos.containsKey(tipoRecurso)) {
             return recursos.get(tipoRecurso);
         } else {
