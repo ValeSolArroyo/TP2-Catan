@@ -37,12 +37,7 @@ public class Hexagono {
     }
 
     public void producirRecursos() {
-        estadoActual.producirRecursos(this);
-    }
-
-
-    public Terreno obtenerTipoTerreno() {
-        return terreno;
+        estadoActual.producirRecursos(this, terreno);
     }
 
     public Integer obtenerNumeroFicha() {

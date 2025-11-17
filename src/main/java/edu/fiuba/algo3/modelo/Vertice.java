@@ -9,6 +9,7 @@ import edu.fiuba.algo3.modelo.construcciones.NullConstruccion;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.excepciones.AsentamientoExistenteError;
 import edu.fiuba.algo3.modelo.excepciones.ReglaDeDistanciaError;
+import edu.fiuba.algo3.modelo.terrenos.Terreno;
 
 
 public class Vertice {
@@ -25,6 +26,10 @@ public class Vertice {
     public void construirCiudad(Jugador jugador) {
         // Validaciones
         this.construccion = new Ciudad(jugador);
+    }
+
+    public void producirSegunTerreno(Terreno terreno) {
+        terreno.producirPara(construccion);
     }
 
     //!!!!!!!!!!!! REVISAR !!!!!!!!!!!!!!!!!
