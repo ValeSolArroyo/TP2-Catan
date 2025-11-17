@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
+import edu.fiuba.algo3.modelo.patronHexagono.Hexagono;
 
 import java.util.ArrayList;
 import java.util.HashSet;

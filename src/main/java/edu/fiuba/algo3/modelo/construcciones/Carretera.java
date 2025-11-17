@@ -1,18 +1,17 @@
 package edu.fiuba.algo3.modelo.construcciones;
 
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.recursos.Recurso;
 
-public class Carretera extends Construccion {
+public class Carretera implements Construccion {
+    private Jugador propietario;
+
     public Carretera(Jugador propietario) {
-        super(propietario);
+        this.propietario = propietario;
     }
 
     @Override
-    public int obtenerPuntosVictoria() {
-        return 0;
-    }
-
-    @Override public int recursosProducidos() {
-        return 0;
+    public void producir(Recurso recurso) {
+        propietario.agregarRecurso(recurso.nombre(), 1);
     }
 }

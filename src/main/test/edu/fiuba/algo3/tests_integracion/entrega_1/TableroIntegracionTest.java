@@ -2,7 +2,7 @@ package edu.fiuba.algo3.tests_integracion.entrega_1;
 
 import edu.fiuba.algo3.modelo.Ladron;
 import edu.fiuba.algo3.modelo.Tablero;
-import edu.fiuba.algo3.modelo.Hexagono;
+import edu.fiuba.algo3.modelo.patronHexagono.Hexagono;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
