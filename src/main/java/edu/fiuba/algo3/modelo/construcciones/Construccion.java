@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo.construcciones;
 
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.recursos.Recurso;
+
 
 public abstract class Construccion {
     protected Jugador propietario;
@@ -20,4 +22,7 @@ public abstract class Construccion {
     public Jugador obtenerPropietario() {
         return propietario;
     }
+
+    public abstract void producir(Jugador jugador, Recurso recurso);
+
 }

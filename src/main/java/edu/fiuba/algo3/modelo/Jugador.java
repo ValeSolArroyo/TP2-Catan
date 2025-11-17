@@ -1,28 +1,25 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
+import edu.fiuba.algo3.modelo.recursos.Recurso;
 
 import java.util.*;
 
 public class Jugador {
     private final int id;
     private final String nombre;
-    private final Map<String, Integer> recursos;
+    private List<Recurso> recursos;
     private ArrayList<Construccion> construcciones;
 
     public Jugador(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
-        this.recursos = new HashMap<>();
+        this.recursos = new ArrayList<>();
         this.construcciones = new ArrayList<>();
     }
 
-    public void agregarRecursos(String tipoRecurso, int cantidad) {
-        if (recursos.containsKey(tipoRecurso)) {
-            recursos.put(tipoRecurso, recursos.get(tipoRecurso) + cantidad);
-        } else {
-            recursos.put(tipoRecurso, cantidad);
-        }
+    public void agregarRecursos(Recurso recurso) {
+        recursos.add(recurso);
     }
 
     public void agregarConstruccion(Construccion construccion) {
