@@ -5,4 +5,6 @@ import edu.fiuba.algo3.modelo.recursos.Recurso;
 
 public interface Construccion {
     void producir(Recurso recurso);
+
+    Jugador obtenerPropietario();
 }

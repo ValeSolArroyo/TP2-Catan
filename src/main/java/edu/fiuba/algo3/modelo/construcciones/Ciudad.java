@@ -15,4 +15,11 @@ public class Ciudad implements Construccion {
         recurso.asignarA(propietario);
         recurso.asignarA(propietario); // produce doble
     }
+
+    @Override
+    public Jugador obtenerPropietario() {
+        return this.propietario;
+    }
+
+
 }

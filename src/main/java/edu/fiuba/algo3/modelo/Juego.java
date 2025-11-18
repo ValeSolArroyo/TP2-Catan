@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
+import edu.fiuba.algo3.modelo.patronJuego.EstadoColocacionesIniciales;
+import edu.fiuba.algo3.modelo.patronJuego.EstadoJuego;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,47 +14,85 @@ public class Juego {
     private Tablero tablero;
     private int indiceTurno;
     private final Dado dado;
-    private Ladron ladron;
+    private EstadoJuego estadoActual;
+
 
     public Juego(List<Jugador> jugadores, Tablero tablero) {
-        if (jugadores == null || jugadores.isEmpty()) {
+        if (jugadores.isEmpty()) {
             throw new IllegalArgumentException("Debe haber al menos un jugador.");
         }
         this.listaJugadores = jugadores;
         this.dado = new Dado();
         this.tablero = tablero;
         this.indiceTurno = 0;
-        this.ladron = new Ladron();
+        this.estadoActual = new EstadoColocacionesIniciales();
+
+    }
+
+    public void setEstado(EstadoJuego estado) {
+        this.estadoActual = estado;
+    }
+
+    public void colocarPobladoInicial(Jugador jugador, int verticeID) {
+        estadoActual.colocarPobladoInicial(this, jugador, verticeID);
     }
 
     public int lanzarDados() {
-        int resultado = dado.lanzar();
-        if (resultado == 7) {
-            verificarDescartesPorLadron();
-        }
-        return resultado;
+        return estadoActual.lanzarDados(this);
     }
 
-    public void colocarPobladoInicial(Jugador jugador, int verticeId) {
-        Vertice vertice = tablero.encontrarVertice(verticeId);
+    public void verificarDescartesPorLadron() {
+        estadoActual.verificarDescartesPorLadron(this);
+    }
 
+    public List<Jugador> moverLadron(int hexagonoId) {
+        return estadoActual.moverLadron(this, hexagonoId);
+    }
+
+    public void robarCartaDe(Jugador victima) {
+        estadoActual.robarCartaDe(this, victima);
+    }
+
+    public void construirPoblado(int verticeId) {
+        estadoActual.construirPoblado(this, verticeId);
+    }
+
+    public void finalizarTurno() {
+        estadoActual.finalizarTurno(this);
+    }
+
+
+    public boolean todosTerminaronColocacionesIniciales() {
+        for (Jugador jugador : listaJugadores) {
+            if (jugador.obtenerCantidadDeConstrucciones() < 2) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public void colocarPobladoInicialInterno(Jugador jugador, int verticeId) {
+        Vertice vertice = tablero.encontrarVertice(verticeId);
         vertice.construirPoblado(jugador);
         jugador.agregarConstruccion(new Poblado(jugador));
 
         if (jugador.obtenerCantidadDeConstrucciones() == 2) {
-            darRecursosIniciales(jugador, vertice);
+            darRecursosInicialesInterno(jugador, vertice);
         }
     }
 
-    public void darRecursosIniciales(Jugador jugador, Vertice vertice) {
+    public void darRecursosInicialesInterno(Jugador jugador, Vertice vertice) {
         for (Hexagono hexagono : vertice.obtenerHexagonosAdyacentes()) {
-            if (!hexagono.esDesierto()) {
-                jugador.agregarRecursos(hexagono.obtenerTipoTerreno(), 1);
-            }
+            jugador.agregarRecursos(hexagono.obtenerTipoTerreno(), 1);
         }
     }
 
-    public void verificarDescartesPorLadron() {
+    public int lanzarDadosInterno() {
+        return dado.lanzar();
+    }
+
+    public void verificarDescartesPorLadronInterno() {
         for (Jugador jugador : listaJugadores) {
             if (jugador.obtenerCantidadTotalDeRecursos() > 7) {
                 jugador.descartarMitadDeRecursos();
@@ -60,41 +100,45 @@ public class Juego {
         }
     }
 
-    public List<Jugador> moverLadron(int hexagonoId){
+    public List<Jugador> moverLadronInterno(int hexagonoId) {
         Hexagono destino = tablero.obtenerHexagono(hexagonoId);
-        ladron.moverA(destino);
+        destino.ponerLadron();
 
-        // Encuentra jugadores con construcciones alrededor del hexagono
-        Set<Jugador> jugadoresAfectados = new HashSet<>();
-
+        Set<Jugador> afectados = new HashSet<>();
         for (Vertice vertice : destino.obtenerVertices()) {
-            if(vertice.yaTieneConstruccion()) {
-                Jugador propietario = vertice.obtenerConstruccion().obtenerPropietario();
-                jugadoresAfectados.add(propietario);
+            if (vertice.yaTieneConstruccion()) {
+                afectados.add(vertice.obtenerConstruccion().obtenerPropietario());
             }
         }
-
-        // No se puede robar a uno mismo
-        jugadoresAfectados.remove(obtenerTurnoActual());
-
-        // Devolvemos la lista de posibles víctimas para que la interfaz decida
-        return new ArrayList<>(jugadoresAfectados);
+        afectados.remove(obtenerTurnoActual());
+        return new ArrayList<>(afectados);
     }
 
-    public void robarCartaDe(Jugador victima) {
+    public void robarCartaDeInterno(Jugador victima) {
         obtenerTurnoActual().robarCarta(victima);
     }
 
-    public void producirRecursos(int numeroLanzado) {
-        tablero.producirRecursos(numeroLanzado);
+    public void construirPobladoInterno(int verticeId) {
+        Vertice vertice = tablero.encontrarVertice(verticeId);
+        vertice.construirPoblado(obtenerTurnoActual());
+    }
+
+    public void producirRecursos(int numero) {
+        tablero.producir(numero);
     }
 
     public Tablero obtenerTablero() {
         return tablero;
     }
 
+
     public Jugador obtenerTurnoActual() {
         return listaJugadores.get(indiceTurno);
     }
+
+    public void pasarAlSiguienteJugador() {
+        indiceTurno = (indiceTurno + 1) % listaJugadores.size();
+    }
+
 
 }

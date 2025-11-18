@@ -14,4 +14,9 @@ public class Carretera implements Construccion {
     public void producir(Recurso recurso) {
         // no produce nada
     }
+
+    @Override
+    public Jugador obtenerPropietario() {
+        return this.propietario;
+    }
 }
