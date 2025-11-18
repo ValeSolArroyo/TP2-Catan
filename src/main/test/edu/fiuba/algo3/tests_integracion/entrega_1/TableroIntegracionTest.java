@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.tests_integracion.entrega_1;
 
-import edu.fiuba.algo3.modelo.Ladron;
 import edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.Hexagono;
 

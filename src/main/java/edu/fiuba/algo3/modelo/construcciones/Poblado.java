@@ -14,4 +14,9 @@ public class Poblado implements Construccion {
     public void producir(Recurso recurso) {
         recurso.asignarA(propietario);
     }
+
+    @Override
+    public Jugador obtenerPropietario() {
+        return this.propietario;
+    }
 }
