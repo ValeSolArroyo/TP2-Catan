@@ -28,19 +28,21 @@ public class TableroCatanFactory implements TableroFactory {
         if (fichas.size() != 18)
             throw new IllegalArgumentException("Se necesitan exactamente 18 fichas");
 
-        List<Hexagono> hexagonos = crearHexagonos(terrenos, fichas);
+        Map<Integer, Hexagono> hexagonosPorId = crearHexagonosConMapa(terrenos, fichas);
+        List<Hexagono> hexagonos = new ArrayList<>(hexagonosPorId.values());
 
         // Patrón de vértices
         int[] cantidadVerticesPorFila = {3, 4, 4, 5, 5, 6, 6, 5, 5, 4, 4, 3};
         Vertice[][] vertices = new Vertice[12][];
-        List<Vertice> listaVertices = new ArrayList<>();
+        Map<Integer, Vertice> verticesPorId = new HashMap<>();
+        int verticeId = 1;
 
         for (int fila = 0; fila < 12; fila++) {
             vertices[fila] = new Vertice[cantidadVerticesPorFila[fila]];
             for (int columna = 0; columna < cantidadVerticesPorFila[fila]; columna++) {
-                Vertice vertice = new Vertice();
+                Vertice vertice = new Vertice(verticeId++);
                 vertices[fila][columna] = vertice;
-                listaVertices.add(vertice);
+                verticesPorId.put(vertice.obtenerId(), vertice);
             }
         }
 
@@ -100,22 +102,21 @@ public class TableroCatanFactory implements TableroFactory {
                 }
             }
         }
-
-        return new Tablero(hexagonos);
+        return new Tablero(hexagonos, verticesPorId, hexagonosPorId);
     }
 
-    private List<Hexagono> crearHexagonos(List<Terreno> terrenos, List<Integer> fichas) {
-        List<Hexagono> hexagonos = new ArrayList<>();
+    private Map<Integer, Hexagono> crearHexagonosConMapa(List<Terreno> terrenos, List<Integer> fichas) {
+        Map<Integer, Hexagono> hexagonosPorId = new HashMap<>();
         int indiceFicha = 0;
-
+        int hexagonoId = 1;
         for (Terreno terrenoActual : terrenos) {
             int numeroFicha;
             if (terrenoActual instanceof Desierto) numeroFicha = 0;
             else numeroFicha = fichas.get(indiceFicha++);
-            hexagonos.add(new Hexagono(terrenoActual, numeroFicha));
+            Hexagono hexagono = new Hexagono(hexagonoId++, terrenoActual, numeroFicha);
+            hexagonosPorId.put(hexagono.obtenerId(), hexagono);
         }
-
-        return hexagonos;
+        return hexagonosPorId;
     }
 
     private List<Terreno> generarTerrenosAleatorios() {

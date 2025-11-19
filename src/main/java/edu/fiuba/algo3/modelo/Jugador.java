@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.recursos.*;
+import edu.fiuba.algo3.modelo.construcciones.Poblado;
 
 import java.util.*;
 
@@ -26,6 +27,10 @@ public class Jugador {
         construcciones.add(construccion);
     }
 
+    public int obtenerCantidadDeConstrucciones() {
+        return construcciones.size();
+    }
+
     public void construirPoblado(Vertice vertice) {
         inventario.gastarRecursosPoblado();
         vertice.construirPoblado(this);
@@ -48,5 +53,13 @@ public class Jugador {
         Recurso robado = this.inventario.quitarRecursoAlAzar();
         robado.asignarA(ladron); // Solo le decimos al recurso que se asigne, si es NullRecurso no hace nada
     }
+
+    public void construirPobladoEn(Vertice v) {
+        v.validarConstruccionPoblado();
+        Poblado poblado = new Poblado(this);
+        this.agregarConstruccion(poblado);
+        v.asignarConstruccion(poblado);
+    }
+
 
 }
