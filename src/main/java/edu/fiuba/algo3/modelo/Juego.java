@@ -64,11 +64,11 @@ public class Juego {
 
 
     public void colocarPobladoInicialInterno(Jugador jugador, int verticeId) {
-       // Vertice vertice = tablero.encontrarVertice(verticeId);
+        Vertice vertice = tablero.encontrarVertice(verticeId);
         vertice.construirPoblado(jugador);
         jugador.agregarConstruccion(new Poblado(jugador));
 
-       // return vertice;
+        return vertice;
     }
 
     public boolean todosColocaronPrimerPoblado() {

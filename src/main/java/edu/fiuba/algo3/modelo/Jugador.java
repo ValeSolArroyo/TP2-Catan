@@ -46,9 +46,7 @@ public class Jugador {
 
     public void serRobadoPor(Jugador ladron) {
         Recurso robado = this.inventario.quitarRecursoAlAzar();
-        if (robado != null) { // TODO: null
-            ladron.recibir(robado);
-        }
+        robado.asignarA(ladron); // Solo le decimos al recurso que se asigne, si es NullRecurso no hace nada
     }
 
 }
