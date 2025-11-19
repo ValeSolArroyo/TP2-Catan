@@ -99,13 +99,12 @@ public class Inventario {
 
     public Recurso quitarRecursoAlAzar() {
         List<Recurso> misRecursos = materializarRecursos();
-        if (misRecursos.isEmpty()) return null;
-
+        if (misRecursos.isEmpty()) {
+            return new NullRecurso();
+        }
         Random random = new Random();
         Recurso robado = misRecursos.get(random.nextInt(misRecursos.size()));
-
         quitar(robado);
-
         return robado;
     }
 
