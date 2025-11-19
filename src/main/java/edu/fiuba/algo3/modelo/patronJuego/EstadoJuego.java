@@ -8,19 +8,12 @@ import java.util.List;
 
 
 public interface EstadoJuego {
-    default void colocarPobladoInicial(Juego juego, Jugador jugador, int verticeId) {
-        throw new IllegalStateException("Acción no permitida en este estado.");
-    }
 
-    default void darRecursosIniciales(Juego juego, Jugador j, Vertice v) {
-        throw new IllegalStateException("Acción no permitida en este estado.");
-    }
-
+    void colocarPobladoInicial(Juego juego, Jugador jugador, int verticeID, int aristaID);
 
     default int lanzarDados(Juego juego) {
         throw new IllegalStateException("Acción no permitida en este estado.");
     }
-
 
     default void verificarDescartesPorLadron(Juego juego) {
         throw new IllegalStateException("Acción no permitida en este estado.");

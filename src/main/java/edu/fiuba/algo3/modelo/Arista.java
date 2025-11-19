@@ -11,27 +11,24 @@ public class Arista {
     private final Vertice vertice1;
     private final Vertice vertice2;
     private Construccion construccion;
+    private final int id;
 
-    public Arista(Vertice vertice1, Vertice vertice2) {
+    public Arista(int id, Vertice vertice1, Vertice vertice2) {
         this.vertice1 = vertice1;
         this.vertice2 = vertice2;
+        this.id = id;
         this.construccion = new NullConstruccion();
 
         vertice1.agregarArista(this);
         vertice2.agregarArista(this);
     }
 
-    public void construirCarretera(Jugador jugador) {
-        try {
-            construccion.validarLugarLibre();
-        } catch (RuntimeException e) {
-            throw new RuntimeException("Ya hay una carretera en este camino.");
-        }
+    public int obtenerId() {
+        return this.id;
+    }
 
-        // 2. Validar conexión (alguno de los extremos debe conectarme)
-
-
-        this.construccion = new Carretera(jugador);
+    public void asignarConstruccion(Construccion construccion) {
+        this.construccion = construccion;
     }
 
 

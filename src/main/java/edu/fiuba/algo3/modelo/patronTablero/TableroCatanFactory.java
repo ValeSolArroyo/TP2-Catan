@@ -30,8 +30,6 @@ public class TableroCatanFactory implements TableroFactory {
 
         Map<Integer, Hexagono> hexagonosPorId = crearHexagonosConMapa(terrenos, fichas);
         List<Hexagono> hexagonos = new ArrayList<>(hexagonosPorId.values());
-
-        // Patrón de vértices
         int[] cantidadVerticesPorFila = {3, 4, 4, 5, 5, 6, 6, 5, 5, 4, 4, 3};
         Vertice[][] vertices = new Vertice[12][];
         Map<Integer, Vertice> verticesPorId = new HashMap<>();
@@ -46,7 +44,9 @@ public class TableroCatanFactory implements TableroFactory {
             }
         }
 
-        List<Arista> aristas = new ArrayList<>();
+        Map<Integer, Arista> aristasPorId = new HashMap<>();
+        Map<String, Arista> aristasUnicas = new HashMap<>();
+        int aristaId = 1;
 
         // Cantidad de hexágonos por fila de hexágonos
         int[] hexagonoPorFila = {3, 4, 5, 4, 3};
@@ -59,17 +59,13 @@ public class TableroCatanFactory implements TableroFactory {
             for (int columna = 0; columna < cantidadHexagonos; columna++) {
                 Hexagono hexagono = hexagonos.get(indice++);
 
-                // Filas de los vertices
                 int filaVerticeSuperior = fila + (fila < 2 ? 0 : fila - 1);
                 int filaVerticeInferior = filaVerticeSuperior + 1;
-
-                // Columnas de los vertices
                 int columnaSuperior1 = columna;
                 int columnaSuperior2 = columna + 1;
                 int columnaInferior1 = columna;
                 int columnaInferior2 = columna + 1;
 
-                // Ajustes según fila para alineación (por patrón de tablero)
                 if (fila == 0) { columnaInferior1 = columna; columnaInferior2 = columna + 1; }
                 if (fila == 1) { columnaInferior1 = columna; columnaInferior2 = columna + 1; }
                 if (fila == 2) { columnaInferior1 = columna; columnaInferior2 = columna + 1; }
@@ -88,21 +84,31 @@ public class TableroCatanFactory implements TableroFactory {
                 for (Vertice vertice : verticesHexagono) {
                     hexagono.agregarVertice(vertice);
                 }
-
-                // Aristas y vecinos
                 for (int i = 0; i < 6; i++) {
                     Vertice actual = verticesHexagono[i];
                     Vertice siguiente = verticesHexagono[(i + 1) % 6];
-                    actual.agregarVecino(siguiente);
-                    siguiente.agregarVecino(actual);
+                    int idMenor = Math.min(actual.obtenerId(), siguiente.obtenerId());
+                    int idMayor = Math.max(actual.obtenerId(), siguiente.obtenerId());
+                    String claveUnica = idMenor + "-" + idMayor;
 
-                    Arista arista = new Arista(actual, siguiente);
+                    Arista arista;
+                    if (!aristasUnicas.containsKey(claveUnica)) {
+                        arista = new Arista(aristaId++, actual, siguiente);
+                        aristasUnicas.put(claveUnica, arista);
+                        aristasPorId.put(arista.obtenerId(), arista);
+                        actual.agregarVecino(siguiente);
+                        siguiente.agregarVecino(actual);
+                    } else {
+                        arista = aristasUnicas.get(claveUnica);
+                        actual.agregarVecino(siguiente);
+                        siguiente.agregarVecino(actual);
+                    }
                     hexagono.agregarArista(arista);
-                    aristas.add(arista);
                 }
             }
         }
-        return new Tablero(hexagonos, verticesPorId, hexagonosPorId);
+
+        return new Tablero(hexagonos, verticesPorId, hexagonosPorId, aristasPorId);
     }
 
     private Map<Integer, Hexagono> crearHexagonosConMapa(List<Terreno> terrenos, List<Integer> fichas) {

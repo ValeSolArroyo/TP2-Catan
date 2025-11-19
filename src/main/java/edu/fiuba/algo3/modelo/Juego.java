@@ -32,10 +32,6 @@ public class Juego {
         this.estadoActual = estado;
     }
 
-    public void colocarPobladoInicial(Jugador jugador, int verticeID) {
-        estadoActual.colocarPobladoInicial(this, jugador, verticeID);
-    }
-
     public int lanzarDados() {
         return estadoActual.lanzarDados(this);
     }
@@ -71,9 +67,9 @@ public class Juego {
 
 
     public Vertice colocarPobladoInicialInterno(Jugador jugador, int verticeId) {
-        Vertice v = tablero.encontrarVertice(verticeId);
-        jugador.construirPobladoEn(v);
-        return v;
+        Vertice vertice = tablero.encontrarVertice(verticeId);
+        jugador.construirPobladoEn(vertice);
+        return vertice;
     }
 
 
@@ -126,11 +122,6 @@ public class Juego {
         tablero.producir(numero);
     }
 
-    public Tablero obtenerTablero() {
-        return tablero;
-    }
-
-
     public Jugador jugadorActual() {
         return listaJugadores.get(indiceTurno);
     }
@@ -150,5 +141,13 @@ public class Juego {
             }
         }
         return true;
+    }
+    public void darPuntoDeVictoria(Jugador jugador) {
+        jugador.sumarPuntoDeVictoria(1);
+    }
+
+    public void construirCarreteraInicialInterno(Jugador jugador, int aristaId) {
+        Arista arista = tablero.encontrarArista(aristaId);
+        jugador.construirCarreteraInicialEn(arista);
     }
 }

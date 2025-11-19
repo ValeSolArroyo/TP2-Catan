@@ -55,9 +55,9 @@ public class Vertice {
     }
 
     private void validarDistancia() {
-        for (Vertice v : vecinos) {
+        for (Vertice vertice : vecinos) {
             try {
-                v.validarSiEstaLibre();
+                vertice.validarSiEstaLibre();
             } catch (Exception e) {
                 throw new ReglaDeDistanciaError("TODO: personalizar");
             }
