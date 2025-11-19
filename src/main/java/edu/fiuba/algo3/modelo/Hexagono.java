@@ -7,10 +7,12 @@ import edu.fiuba.algo3.modelo.terrenos.Terreno;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Hexagono {
     private final Terreno terreno;
     private final int numeroFicha;
+    private final List<Arista> aristas;
     private List<Vertice> vertices;
     private EstadoHexagono estadoActual;
 
@@ -20,6 +22,7 @@ public class Hexagono {
         this.numeroFicha = numeroFicha;
         this.vertices = new ArrayList<>();
         this.estadoActual = new EstadoSinLadron(); // Al principio es así
+        this.aristas = new ArrayList<>();
     }
 
     public void ponerLadron() {
@@ -36,16 +39,15 @@ public class Hexagono {
         }
     }
 
-    public void producirRecursos() {
-        estadoActual.producirRecursos(this, terreno);
+    public void registrarPropietariosEn(Set<Jugador> jugadores) {
+        for (Vertice v : vertices) {
+            v.registrarPropietarioEn(jugadores);
+        }
     }
 
-    public Integer obtenerNumeroFicha() {
-        return numeroFicha;
+    public void producirRecursos(int numero) {
+        if (numero == this.numeroFicha) {
+            estadoActual.producirRecursos(vertices, terreno);
+        }
     }
-
-    public List<Vertice> obtenerVertices() {
-        return vertices;
-    }
-
 }

@@ -1,7 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
-import edu.fiuba.algo3.modelo.patronJuego.EstadoColocacionesIniciales;
+import edu.fiuba.algo3.modelo.patronJuego.EstadoPrimeraColocacion;
+import edu.fiuba.algo3.modelo.patronJuego.EstadoSegundaColocacion;
 import edu.fiuba.algo3.modelo.patronJuego.EstadoJuego;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class Juego {
         this.dado = new Dado();
         this.tablero = tablero;
         this.indiceTurno = 0;
-        this.estadoActual = new EstadoColocacionesIniciales();
+        this.estadoActual = new EstadoPrimeraColocacion();
 
     }
 
@@ -62,24 +63,19 @@ public class Juego {
     }
 
 
-    public boolean todosTerminaronColocacionesIniciales() {
-        for (Jugador jugador : listaJugadores) {
-            if (jugador.obtenerCantidadDeConstrucciones() < 2) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-
     public void colocarPobladoInicialInterno(Jugador jugador, int verticeId) {
-        Vertice vertice = tablero.encontrarVertice(verticeId);
+       // Vertice vertice = tablero.encontrarVertice(verticeId);
         vertice.construirPoblado(jugador);
         jugador.agregarConstruccion(new Poblado(jugador));
 
-        if (jugador.obtenerCantidadDeConstrucciones() == 2) {
-            darRecursosInicialesInterno(jugador, vertice);
+       // return vertice;
+    }
+
+    public boolean todosColocaronPrimerPoblado() {
+        for (Jugador jugador : listaJugadores) {
+            if(jugador.obtenerCantidadDeConstrucciones() < 1) return false;
         }
+        return true;
     }
 
     public void darRecursosInicialesInterno(Jugador jugador, Vertice vertice) {
@@ -104,14 +100,12 @@ public class Juego {
         Hexagono destino = tablero.obtenerHexagono(hexagonoId);
         destino.ponerLadron();
 
-        Set<Jugador> afectados = new HashSet<>();
-        for (Vertice vertice : destino.obtenerVertices()) {
-            if (vertice.yaTieneConstruccion()) {
-                afectados.add(vertice.obtenerConstruccion().obtenerPropietario());
-            }
-        }
-        afectados.remove(obtenerTurnoActual());
-        return new ArrayList<>(afectados);
+        Set<Jugador> listaAfectados = new HashSet<>();
+
+        destino.registrarPropietariosEn(listaAfectados);
+
+        listaAfectados.remove(obtenerTurnoActual());
+        return new ArrayList<>(listaAfectados);
     }
 
     public void robarCartaDeInterno(Jugador victima) {
@@ -140,5 +134,8 @@ public class Juego {
         indiceTurno = (indiceTurno + 1) % listaJugadores.size();
     }
 
+    public void pasarAlJugadorAnterior() {
+        indiceTurno = (indiceTurno - 1 + listaJugadores.size()) % listaJugadores.size();
+    }
 
 }
