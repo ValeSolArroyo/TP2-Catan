@@ -58,18 +58,26 @@ public class Juego {
         estadoActual.construirPoblado(this, verticeId);
     }
 
+    // METODOS PARA MÁS ADELANTE.
+    /*public void construirCiudad(int verticeId) {
+        estadoActual.construirCiudad(this, verticeId);
+    }
+
+    public void construirCarretera(int aristaId) {
+        estadoActual.construirCarretera(this, aristaId);
+    }*/
+
     public void finalizarTurno() {
         estadoActual.finalizarTurno(this);
     }
 
 
-    public void colocarPobladoInicialInterno(Jugador jugador, int verticeId) {
-        Vertice vertice = tablero.encontrarVertice(verticeId);
-        vertice.construirPoblado(jugador);
-        jugador.agregarConstruccion(new Poblado(jugador));
-
-        return vertice;
+    public Vertice colocarPobladoInicialInterno(Jugador jugador, int verticeId) {
+        Vertice v = tablero.encontrarVertice(verticeId);
+        jugador.construirPobladoEn(v);
+        return v;
     }
+
 
     public boolean todosColocaronPrimerPoblado() {
         for (Jugador jugador : listaJugadores) {
@@ -104,17 +112,18 @@ public class Juego {
 
         destino.registrarPropietariosEn(listaAfectados);
 
-        listaAfectados.remove(obtenerTurnoActual());
+        listaAfectados.remove(jugadorActual());
         return new ArrayList<>(listaAfectados);
     }
 
     public void robarCartaDeInterno(Jugador victima) {
-        obtenerTurnoActual().robarCarta(victima);
+        jugadorActual().robarCarta(victima);
     }
 
     public void construirPobladoInterno(int verticeId) {
         Vertice vertice = tablero.encontrarVertice(verticeId);
-        vertice.construirPoblado(obtenerTurnoActual());
+        Jugador jugador = jugadorActual();
+        jugador.construirPobladoEn(vertice);
     }
 
     public void producirRecursos(int numero) {
@@ -126,7 +135,7 @@ public class Juego {
     }
 
 
-    public Jugador obtenerTurnoActual() {
+    public Jugador jugadorActual() {
         return listaJugadores.get(indiceTurno);
     }
 

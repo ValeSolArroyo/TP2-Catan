@@ -16,11 +16,13 @@ public class Vertice {
     private Construccion construccion;
     private List<Vertice> vecinos;
     private List<Arista> aristas;
+    private final int id;
 
-    public Vertice() {
+    public Vertice(int id) {
         this.construccion = new NullConstruccion();
         this.vecinos = new ArrayList<>();
         this.aristas = new ArrayList<>();
+        this.id = id;
     }
 
     public void agregarVecino(Vertice vecino) {
@@ -51,6 +53,34 @@ public class Vertice {
 
     private void validarSiEstaLibre() {
         construccion.validarLugarLibre();
+    }
+
+    private void validarDistancia() {
+        for (Vertice v : vecinos) {
+            try {
+                v.validarSiEstaLibre();
+            } catch (Exception e) {
+                throw new ReglaDeDistanciaError("TODO: personalizar");
+            }
+        }
+    }
+
+    public void validarConstruccionPoblado() {
+        validarSiEstaLibre();
+        validarDistancia();
+    }
+
+
+    public void asignarConstruccion(Construccion construccion) {
+        this.construccion = construccion;
+    }
+
+    public Construccion obtenerConstruccion() {
+        return construccion;
+    }
+
+    public int obtenerId() {
+        return id;
     }
 
     public void registrarPropietarioEn(Set<Jugador> jugadores) {

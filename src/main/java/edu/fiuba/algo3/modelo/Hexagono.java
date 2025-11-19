@@ -13,16 +13,22 @@ public class Hexagono {
     private final Terreno terreno;
     private final int numeroFicha;
     private final List<Arista> aristas;
+    private final int id;
     private List<Vertice> vertices;
     private EstadoHexagono estadoActual;
 
 
-    public Hexagono(Terreno terreno, int numeroFicha) {
+    public Hexagono(int id, Terreno terreno, int numeroFicha) {
         this.terreno = terreno;
         this.numeroFicha = numeroFicha;
         this.vertices = new ArrayList<>();
+        this.id = id;
         this.estadoActual = new EstadoSinLadron(); // Al principio es así
         this.aristas = new ArrayList<>();
+    }
+
+    public int obtenerId(){
+        return this.id;
     }
 
     public void ponerLadron() {
@@ -56,4 +62,5 @@ public class Hexagono {
             estadoActual.producirRecursos(vertices, terreno);
         }
     }
+
 }
