@@ -22,4 +22,9 @@ public class EstadoActivarLadron implements EstadoJuego {
         juego.robarCartaDeInterno(victima);
         juego.setEstado(new EstadoAccionesTurno());
     }
+
+    @Override
+    public void colocarPobladoInicial(Juego juego, Jugador jugador, int verticeID, int aristaID) {
+        throw new IllegalStateException("No se puede realizar la colocación inicial en la fase de acciones del turno.");
+    }
 }

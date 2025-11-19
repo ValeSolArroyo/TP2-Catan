@@ -7,11 +7,13 @@ public class Tablero {
     private final List<Hexagono> hexagonos;
     private final Map<Integer, Vertice> verticesPorId;
     private final Map<Integer, Hexagono> hexagonosPorId;
+    private final Map<Integer, Arista> aristasPorId;
 
-    public Tablero(List<Hexagono> hexagonos, Map<Integer, Vertice> verticesPorId, Map<Integer, Hexagono> hexagonosPorId) {
+    public Tablero(List<Hexagono> hexagonos, Map<Integer, Vertice> verticesPorId, Map<Integer, Hexagono> hexagonosPorId, Map<Integer, Arista> aristasPorId) {
         this.hexagonos = hexagonos;
         this.verticesPorId = verticesPorId;
         this.hexagonosPorId = hexagonosPorId;
+        this.aristasPorId = aristasPorId;
     }
 
     public void producir(int numero) {
@@ -22,7 +24,7 @@ public class Tablero {
     public Vertice encontrarVertice(int verticeId) {
         Vertice vertice = verticesPorId.get(verticeId);
         if (vertice == null) {
-            throw new IllegalArgumentException("Vértice con ID " + verticeId + " no encontrado.");
+            return new NullVertice();
         }
         return vertice;
     }
@@ -30,9 +32,18 @@ public class Tablero {
     public Hexagono obtenerHexagono(int hexagonoId) {
         Hexagono hexagono = hexagonosPorId.get(hexagonoId);
         if (hexagono == null) {
-            throw new IllegalArgumentException("Hexágono con ID " + hexagonoId + " no encontrado.");
+            return new NullHexagono();
         }
         return hexagono;
+    }
+
+    public Arista encontrarArista(int aristaId) { // <--- NUEVO MÉTODO
+        Arista arista = aristasPorId.get(aristaId);
+        if (arista == null) {
+            // Usar patrón Null Object despues
+            throw new IllegalArgumentException("Arista con ID " + aristaId + " no encontrada.");
+        }
+        return arista;
     }
 
     public void darRecursosIniciales(Jugador jugador, Vertice vertice) {

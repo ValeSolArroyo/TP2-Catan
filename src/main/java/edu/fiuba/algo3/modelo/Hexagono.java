@@ -53,8 +53,8 @@ public class Hexagono {
     }
 
     public void registrarPropietariosEn(Set<Jugador> jugadores) {
-        for (Vertice v : vertices) {
-            v.registrarPropietarioEn(jugadores);
+        for (Vertice vertice : vertices) {
+            vertice.registrarPropietarioEn(jugadores);
         }
     }
 
