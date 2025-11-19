@@ -8,7 +8,6 @@ import edu.fiuba.algo3.modelo.construcciones.Ciudad;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.NullConstruccion;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
-import edu.fiuba.algo3.modelo.excepciones.AsentamientoExistenteError;
 import edu.fiuba.algo3.modelo.excepciones.ReglaDeDistanciaError;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
 
@@ -85,6 +84,10 @@ public class Vertice {
 
     public void registrarPropietarioEn(Set<Jugador> jugadores) {
         construccion.registrarPropietarioEn(jugadores);
+    }
+
+    public boolean esPropiedadDe(Jugador jugador) {
+        return this.construccion.esPropiedadDe(jugador);
     }
 
     public void producirSegunTerreno(Terreno terreno) {

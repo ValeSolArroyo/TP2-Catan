@@ -35,6 +35,17 @@ public class Tablero {
         return hexagono;
     }
 
+    public void darRecursosIniciales(Jugador jugador, Vertice vertice) {
+        for (Hexagono hexagono : hexagonos) {
+            if (hexagono.contieneVertice(vertice)) {
+                hexagono.entregarRecursoInicialA(jugador);
+            }
+        }
+    }
+
+    public List<Hexagono> obtenerHexagonos() {
+        return hexagonos;
+    }
 
 }
 
