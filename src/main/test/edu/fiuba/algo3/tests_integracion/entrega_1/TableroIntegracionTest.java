@@ -57,7 +57,8 @@ public class TableroIntegracionTest {
 
         hexagono.producirRecursos(8);
 
-        assertTrue(vertice.obtenerConstruccion() instanceof NullConstruccion);
+        assertTrue(vertice.obtenerConstruccion() instanceof NullConstruccion,
+                "El hexágono no debería producir recursos cuando el ladrón está presente");
     }
 
 
