@@ -6,5 +6,5 @@ import edu.fiuba.algo3.modelo.terrenos.Terreno;
 import java.util.List;
 
 public interface TableroFactory {
-    Tablero crearTablero(List<Terreno> terrenos, List<Integer> fichas);
+    Tablero crearTablero();
 }

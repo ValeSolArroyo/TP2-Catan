@@ -39,6 +39,12 @@ public class Hexagono {
         }
     }
 
+    public void agregarArista(Arista arista) {
+        if (!aristas.contains(arista) && aristas.size() < 6) {
+            aristas.add(arista);
+        }
+    }
+
     public void registrarPropietariosEn(Set<Jugador> jugadores) {
         for (Vertice v : vertices) {
             v.registrarPropietarioEn(jugadores);
