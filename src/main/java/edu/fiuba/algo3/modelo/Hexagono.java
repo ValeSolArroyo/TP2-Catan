@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.patronHexagono.EstadoConLadron;
 import edu.fiuba.algo3.modelo.patronHexagono.EstadoHexagono;
 import edu.fiuba.algo3.modelo.patronHexagono.EstadoSinLadron;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
+import edu.fiuba.algo3.modelo.terrenos.Desierto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +61,20 @@ public class Hexagono {
     public void producirRecursos(int numero) {
         if (numero == this.numeroFicha) {
             estadoActual.producirRecursos(vertices, terreno);
+        }
+    }
+
+
+    public boolean contieneVertice(Vertice vertice) {
+        return this.vertices.contains(vertice);
+    }
+
+    public void entregarRecursoInicialA(Jugador jugador) {
+        if (this.terreno instanceof Desierto) return;
+        for (Vertice vertice : vertices) {
+            if (vertice.esPropiedadDe(jugador)) {
+                vertice.producirSegunTerreno(this.terreno);
+            }
         }
     }
 

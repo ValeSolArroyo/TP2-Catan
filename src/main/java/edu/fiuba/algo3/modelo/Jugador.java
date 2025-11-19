@@ -61,5 +61,7 @@ public class Jugador {
         v.asignarConstruccion(poblado);
     }
 
-
+    public int obtenerCantidadTotalDeRecursos() {
+        return this.inventario.cantidadTotal();
+    }
 }

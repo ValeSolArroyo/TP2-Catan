@@ -3,7 +3,6 @@ package edu.fiuba.algo3.modelo.construcciones;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 
-import java.util.Queue;
 import java.util.Set;
 
 public class NullConstruccion implements Construccion {
@@ -21,5 +20,9 @@ public class NullConstruccion implements Construccion {
     @Override
     public void validarLugarLibre() {}
 
+    @Override
+    public boolean esPropiedadDe(Jugador jugador) {
+        return false;
+    }
 
 }

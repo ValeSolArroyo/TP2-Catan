@@ -1,8 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.patronJuego.EstadoPrimeraColocacion;
-import edu.fiuba.algo3.modelo.patronJuego.EstadoSegundaColocacion;
 import edu.fiuba.algo3.modelo.patronJuego.EstadoJuego;
 
 import java.util.ArrayList;
@@ -87,9 +85,7 @@ public class Juego {
     }
 
     public void darRecursosInicialesInterno(Jugador jugador, Vertice vertice) {
-        for (Hexagono hexagono : vertice.obtenerHexagonosAdyacentes()) {
-            jugador.agregarRecursos(hexagono.obtenerTipoTerreno(), 1);
-        }
+        tablero.darRecursosIniciales(jugador, vertice);
     }
 
     public int lanzarDadosInterno() {
@@ -147,4 +143,12 @@ public class Juego {
         indiceTurno = (indiceTurno - 1 + listaJugadores.size()) % listaJugadores.size();
     }
 
+    public boolean todosTerminaronColocacionesIniciales() {
+        for (Jugador jugador : listaJugadores) {
+            if (jugador.obtenerCantidadDeConstrucciones() < 2) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

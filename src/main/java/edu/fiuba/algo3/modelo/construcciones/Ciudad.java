@@ -28,4 +28,8 @@ public class Ciudad implements Construccion {
         throw new RuntimeException("El lugar ya está ocupado por una construcción."); //TODO: excepcion
     }
 
+    @Override
+    public boolean esPropiedadDe(Jugador jugador) {
+        return this.propietario.equals(jugador);
+    }
 }
