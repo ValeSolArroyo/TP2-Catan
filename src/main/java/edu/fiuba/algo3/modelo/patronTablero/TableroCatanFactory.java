@@ -1,74 +1,136 @@
+//     0   1   2
+//   3   4   5   6
+// 7   8   9   10  11
+//   12  13  14  15
+//     16  17  18
+// 19 hexágonos, 6 vértices por hexágono PERO HAY COMPARTIDOS
+// 19 hexágonos, 54 vértices, 72 aristas TOTAL
+//SUPUESTO: Se puede crear poblados en vértices adyacentes al mar → permite el comercio marítimo.
 package edu.fiuba.algo3.modelo.patronTablero;
 
-import edu.fiuba.algo3.modelo.Hexagono;
-import edu.fiuba.algo3.modelo.Tablero;
+import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.terrenos.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class TableroCatanFactory implements TableroFactory {
-    public Tablero crearTableroAleatorio() {
-        List<Terreno> terrenos = generarTerrenosAleatorios();
-        List<Integer> fichas = generarFichasAleatorias();
-        return crearTablero(terrenos, fichas);
-    }
 
     @Override
-    public Tablero crearTablero(List<Terreno> terrenos, List<Integer> fichas) {
-        if (terrenos.size() != 19) {
+    public Tablero crearTablero() {
+        List<Terreno> terrenosAleatorios = generarTerrenosAleatorios();
+        List<Integer> fichasAleatorias = generarFichasAleatorias();
+        return generarTablero(terrenosAleatorios, fichasAleatorias);
+    }
+
+    private Tablero generarTablero(List<Terreno> terrenos, List<Integer> fichas) {
+        if (terrenos.size() != 19)
             throw new IllegalArgumentException("Se necesitan exactamente 19 terrenos");
-        }
-        if (fichas.size() != 18) {
+        if (fichas.size() != 18)
             throw new IllegalArgumentException("Se necesitan exactamente 18 fichas");
-        }
 
         List<Hexagono> hexagonos = crearHexagonos(terrenos, fichas);
+
+        // Patrón de vértices
+        int[] cantidadVerticesPorFila = {3, 4, 4, 5, 5, 6, 6, 5, 5, 4, 4, 3};
+        Vertice[][] vertices = new Vertice[12][];
+        List<Vertice> listaVertices = new ArrayList<>();
+
+        for (int fila = 0; fila < 12; fila++) {
+            vertices[fila] = new Vertice[cantidadVerticesPorFila[fila]];
+            for (int columna = 0; columna < cantidadVerticesPorFila[fila]; columna++) {
+                Vertice vertice = new Vertice();
+                vertices[fila][columna] = vertice;
+                listaVertices.add(vertice);
+            }
+        }
+
+        List<Arista> aristas = new ArrayList<>();
+
+        // Cantidad de hexágonos por fila de hexágonos
+        int[] hexagonoPorFila = {3, 4, 5, 4, 3};
+        int indice = 0;
+
+        // Para cada fila de hexágonos
+        for (int fila = 0; fila < hexagonoPorFila.length; fila++) {
+            int cantidadHexagonos = hexagonoPorFila[fila];
+
+            for (int columna = 0; columna < cantidadHexagonos; columna++) {
+                Hexagono hexagono = hexagonos.get(indice++);
+
+                // Filas de los vertices
+                int filaVerticeSuperior = fila + (fila < 2 ? 0 : fila - 1);
+                int filaVerticeInferior = filaVerticeSuperior + 1;
+
+                // Columnas de los vertices
+                int columnaSuperior1 = columna;
+                int columnaSuperior2 = columna + 1;
+                int columnaInferior1 = columna;
+                int columnaInferior2 = columna + 1;
+
+                // Ajustes según fila para alineación (por patrón de tablero)
+                if (fila == 0) { columnaInferior1 = columna; columnaInferior2 = columna + 1; }
+                if (fila == 1) { columnaInferior1 = columna; columnaInferior2 = columna + 1; }
+                if (fila == 2) { columnaInferior1 = columna; columnaInferior2 = columna + 1; }
+                if (fila == 3) { columnaInferior1 = columna; columnaInferior2 = columna + 1; }
+                if (fila == 4) { columnaInferior1 = columna; columnaInferior2 = columna + 1; }
+
+                Vertice v1 = vertices[filaVerticeSuperior][columnaSuperior1];
+                Vertice v2 = vertices[filaVerticeSuperior][columnaSuperior2];
+                Vertice v3 = vertices[filaVerticeInferior][columnaInferior2];
+                Vertice v4 = vertices[filaVerticeInferior][columnaInferior2];
+                Vertice v5 = vertices[filaVerticeInferior][columnaInferior1];
+                Vertice v6 = vertices[filaVerticeSuperior][columnaSuperior1];
+
+                Vertice[] verticesHexagono = {v1, v2, v3, v4, v5, v6};
+
+                for (Vertice vertice : verticesHexagono) {
+                    hexagono.agregarVertice(vertice);
+                }
+
+                // Aristas y vecinos
+                for (int i = 0; i < 6; i++) {
+                    Vertice actual = verticesHexagono[i];
+                    Vertice siguiente = verticesHexagono[(i + 1) % 6];
+                    actual.agregarVecino(siguiente);
+                    siguiente.agregarVecino(actual);
+
+                    Arista arista = new Arista(actual, siguiente);
+                    hexagono.agregarArista(arista);
+                    aristas.add(arista);
+                }
+            }
+        }
+
         return new Tablero(hexagonos);
     }
 
     private List<Hexagono> crearHexagonos(List<Terreno> terrenos, List<Integer> fichas) {
         List<Hexagono> hexagonos = new ArrayList<>();
-        int fichaIndex = 0;
+        int indiceFicha = 0;
 
-        for (Terreno terreno : terrenos) {
+        for (Terreno terrenoActual : terrenos) {
             int numeroFicha;
-            if (terreno instanceof Desierto) {
-                numeroFicha = 0;
-            } else {
-                numeroFicha = fichas.get(fichaIndex++);
-            }
-            hexagonos.add(new Hexagono(terreno, numeroFicha));
+            if (terrenoActual instanceof Desierto) numeroFicha = 0;
+            else numeroFicha = fichas.get(indiceFicha++);
+            hexagonos.add(new Hexagono(terrenoActual, numeroFicha));
         }
 
         return hexagonos;
     }
 
-    public static List<Terreno> generarTerrenosAleatorios() {
+    private List<Terreno> generarTerrenosAleatorios() {
         List<Terreno> terrenos = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            terrenos.add(new Bosque());
-        }
-        for (int i = 0; i < 3; i++) {
-            terrenos.add(new Colina());
-        }
-        for (int i = 0; i < 4; i++) {
-            terrenos.add(new Pastizal());
-        }
-        for (int i = 0; i < 4; i++) {
-            terrenos.add(new Campo());
-        }
-        for (int i = 0; i < 3; i++) {
-            terrenos.add(new Montaña());
-        }
+        for (int i = 0; i < 4; i++) terrenos.add(new Bosque());
+        for (int i = 0; i < 3; i++) terrenos.add(new Colina());
+        for (int i = 0; i < 4; i++) terrenos.add(new Pastizal());
+        for (int i = 0; i < 4; i++) terrenos.add(new Campo());
+        for (int i = 0; i < 3; i++) terrenos.add(new Montaña());
         terrenos.add(new Desierto());
-
         Collections.shuffle(terrenos);
         return terrenos;
     }
 
-    public static List<Integer> generarFichasAleatorias() {
+    private List<Integer> generarFichasAleatorias() {
         List<Integer> fichas = new ArrayList<>(List.of(
                 2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12
         ));
@@ -76,3 +138,5 @@ public class TableroCatanFactory implements TableroFactory {
         return fichas;
     }
 }
+
+
