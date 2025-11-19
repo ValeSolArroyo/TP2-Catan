@@ -6,7 +6,7 @@ public class EstadoTirarDados implements EstadoJuego {
 
     @Override
     public int lanzarDados(Juego juego) {
-        int resultado = juego.lanzarDadosInterno();
+        int resultado = juego .lanzarDadosInterno();
 
         if (resultado == 7) {
             juego.setEstado(new EstadoActivarLadron());

@@ -46,24 +46,9 @@ public class Jugador {
 
     public void serRobadoPor(Jugador ladron) {
         Recurso robado = this.inventario.quitarRecursoAlAzar();
-        if (robado != null) {
+        if (robado != null) { // TODO: null
             ladron.recibir(robado);
         }
     }
 
-    public String obtenerNombre() {
-        return nombre;
-    }
-
-    public int obtenerCantidadDeConstrucciones() {
-        return construcciones.size();
-    }
-
-    public int obtenerCantidadDeRecurso(Recurso tipoRecurso) {
-        return 0; //Por ahora
-    }
-
-    public int obtenerCantidadTotalDeRecursos() {
-        return inventario.cantidadTotal();
-    }
 }

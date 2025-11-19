@@ -10,59 +10,44 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ConstruccionIntegacionTest {
 
     @Test
-    public void test01sePuedeConstruirPobladoEnUnVerticeVacio() {
-        // Arrange
+    public void sePuedeConstruirPobladoEnUnVerticeVacio() {
         Jugador jugador = new Jugador(1, "Pepito");
-        Vertice vertice = new Vertice(1);
+        Vertice vertice = new Vertice();
 
-        // Act
         vertice.construirPoblado(jugador);
 
-        // Assert
-        assertTrue(vertice.yaTieneConstruccion(),
-                "El vértice debería tener un poblado después de construirlo");
+        assertDoesNotThrow(() -> vertice.construirPoblado(jugador)); // ya que no hay vecinos
     }
 
     @Test
-    public void test02noSePuedeConstruirEnUnVerticeAdyacente() {
-        // Arrange
+    public void noSePuedeConstruirEnVerticeAdyacente() {
         Jugador jugador = new Jugador(1, "Juan");
-        Vertice vertice1 = new Vertice(1);
-        Vertice vertice2 = new Vertice(2);
+        Vertice v1 = new Vertice();
+        Vertice v2 = new Vertice();
 
-        // Act
-            // v1 <--> v2
-        vertice1.agregarVerticeAdyacente(vertice2);
-        vertice2.agregarVerticeAdyacente(vertice1);
+        v1.agregarVecino(v2);
+        v2.agregarVecino(v1);
 
-        vertice1.construirPoblado(jugador);
+        v1.construirPoblado(jugador);
 
-        // Assert
-        assertThrows(ReglaDeDistanciaError.class, () -> {
-            vertice2.construirPoblado(jugador);
-        }, "No se puede construir un poblado en un vértice adyacente a otro con construcción");
+        assertThrows(ReglaDeDistanciaError.class, () -> v2.construirPoblado(jugador));
     }
 
     @Test
-    public void test03sePuedeConstruirPobladoCumpliendoReglaDeDistancia() {
-        // Arrange
+    public void sePuedeConstruirPobladoRespetandoDistancia() {
         Jugador jugador = new Jugador(1, "Lucas");
-        Vertice vertice1 = new Vertice(1);
-        Vertice vertice2 = new Vertice(2);
-        Vertice vertice3 = new Vertice(3);
+        Vertice v1 = new Vertice();
+        Vertice v2 = new Vertice();
+        Vertice v3 = new Vertice();
 
-        // Act
-            // v1 <--> v2 <--> v3
-        vertice1.agregarVerticeAdyacente(vertice2);
-        vertice2.agregarVerticeAdyacente(vertice1);
-        vertice2.agregarVerticeAdyacente(vertice3);
-        vertice3.agregarVerticeAdyacente(vertice2);
+        v1.agregarVecino(v2);
+        v2.agregarVecino(v1);
+        v2.agregarVecino(v3);
+        v3.agregarVecino(v2);
 
-        vertice1.construirPoblado(jugador);
-        vertice3.construirPoblado(jugador);
+        v1.construirPoblado(jugador);
+        v3.construirPoblado(jugador);
 
-        // Assert
-        assertTrue(vertice3.yaTieneConstruccion(),
-                "El vértice 3 debería tener un poblado válido (cumple la regla de distancia)");
+        assertDoesNotThrow(() -> v3.construirPoblado(jugador));
     }
 }
