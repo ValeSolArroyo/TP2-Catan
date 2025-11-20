@@ -3,6 +3,8 @@ package edu.fiuba.algo3.modelo;
 import edu.fiuba.algo3.modelo.construcciones.Carretera;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.NullConstruccion;
+import edu.fiuba.algo3.modelo.excepciones.AsentamientoExistenteError;
+import edu.fiuba.algo3.modelo.excepciones.CaminoNoConectadoError;
 
 import java.util.Collections;
 
@@ -22,6 +24,21 @@ public class Arista {
         vertice1.agregarArista(this);
         vertice2.agregarArista(this);
     }
+
+    public void validarConstruccionCarretera(Jugador jugador) {
+        if (!(construccion instanceof NullConstruccion)) {
+            throw new AsentamientoExistenteError("No se puede construir, Carretera ya existente");
+        }
+
+        // Debe estar conectado a una construcción propia
+        boolean conectado =
+                vertice1.tieneConstruccionPropia(jugador) || vertice2.tieneConstruccionPropia(jugador);
+
+        if (!conectado) {
+            throw new CaminoNoConectadoError("La carretera debe estar conectada a otra construcción propia.");
+        }
+    }
+
 
     public int obtenerId() {
         return this.id;

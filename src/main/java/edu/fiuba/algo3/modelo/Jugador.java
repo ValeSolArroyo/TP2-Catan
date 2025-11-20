@@ -36,16 +36,26 @@ public class Jugador {
 
     public void construirPoblado(Vertice vertice) {
         vertice.validarConstruccionPoblado();
-        Poblado poblado = new Poblado(this);
         inventario.gastarRecursosPoblado();
+        Poblado poblado = new Poblado(this);
         this.agregarConstruccion(poblado);
         vertice.asignarConstruccion(poblado);
     }
 
     public void construirCiudad(Vertice vertice) {
+        vertice.validarConstruccionCiudad(this);
         inventario.gastarRecursosCiudad();
-        vertice.construirCiudad(this);
+        vertice.mejorarPoblado(this);
     }
+
+    public void construirCarretera(Arista arista) {
+        inventario.gastarRecursosCarretera();
+        arista.validarConstruccionCarretera(this);
+        Carretera carretera = new Carretera(this);
+        arista.asignarConstruccion(carretera);
+        this.agregarConstruccion(carretera);
+    }
+
 
     public void descartarMitadDeRecursos() {
         inventario.descartarMitad();
