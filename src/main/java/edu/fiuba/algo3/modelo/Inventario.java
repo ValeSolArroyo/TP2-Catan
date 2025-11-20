@@ -77,6 +77,15 @@ public class Inventario {
         mineral -= 3;
     }
 
+    public void gastarRecursosCarretera() {
+        if (madera < 1 || ladrillo < 1) {
+            throw new RecursosInsuficientesError("Faltan recursos para construir Carretera");
+        }
+        madera--;
+        ladrillo--;
+    }
+
+
     // Logica de juego
 
     public int cantidadTotal() {

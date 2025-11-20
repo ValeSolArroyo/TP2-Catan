@@ -20,7 +20,7 @@ public class NullVertice extends Vertice {
     }
 
     @Override
-    public void construirCiudad(Jugador jugador) {
+    public void mejorarPoblado(Jugador jugador) {
         // No hace nada
     }
 

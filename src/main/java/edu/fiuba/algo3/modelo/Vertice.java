@@ -47,15 +47,7 @@ public class Vertice {
         this.construccion = new Poblado(jugador);
     }
 
-    public void construirCiudad(Jugador jugador) {
-        if (!(construccion instanceof Poblado)) {
-            throw new CiudadSinPobladoError("Solo se puede construir una ciudad sobre un poblado existente");
-        }
-
-        if (!construccion.esPropiedadDe(jugador)) {
-            throw new ConstruccionAjenaError("Solo puedes mejorar tu propio poblado a ciudad");
-        }
-
+    public void mejorarPoblado(Jugador jugador) {
         this.construccion = new Ciudad(jugador);
     }
 
@@ -101,5 +93,19 @@ public class Vertice {
 
     public void producirSegunTerreno(Terreno terreno) {
         terreno.producirPara(construccion);
+    }
+
+    public boolean tieneConstruccionPropia(Jugador jugador) {
+        return construccion.esPropiedadDe(jugador);
+    }
+
+    public void validarConstruccionCiudad(Jugador jugador) {
+        if (!(construccion instanceof Poblado)) {
+            throw new CiudadSinPobladoError("Solo se puede construir una ciudad sobre un poblado");
+        }
+
+        if (!construccion.esPropiedadDe(jugador)) {
+            throw new ConstruccionAjenaError("Solo puedes mejorar tu propio poblado");
+        }
     }
 }
