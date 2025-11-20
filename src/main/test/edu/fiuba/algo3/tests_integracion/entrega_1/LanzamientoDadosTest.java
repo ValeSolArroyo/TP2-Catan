@@ -11,11 +11,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class DadosIntegracionTest {
+public class LanzamientoDadosTest {
 
     @Test
     public void test01NoSePuedeLanzarDadosEnEstadoDeColocacionInicial() {
-        // Arrange
         Jugador jugador1 = new Jugador(1, "Juanito");
         Jugador jugador2 = new Jugador(2, "Pepe");
         Tablero tablero = new Tablero(new ArrayList<>(), new HashMap<>(), new HashMap<>(), new HashMap<>());
@@ -24,7 +23,6 @@ public class DadosIntegracionTest {
         jugadores.add(jugador2);
         Juego juego = new Juego(jugadores, tablero);
 
-        // Act & Assert
         assertThrows(IllegalStateException.class, () -> juego.lanzarDados(),
                 "No se debería poder lanzar dados durante la fase de colocación inicial");
     }
