@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.recursos;
 
 import edu.fiuba.algo3.modelo.Inventario;
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.comercio.Puerto;
 
 public class Grano implements Recurso {
     @Override
@@ -17,5 +18,10 @@ public class Grano implements Recurso {
     @Override
     public void asignarA(Jugador jugador) {
         jugador.recibir(this);
+    }
+
+    @Override
+    public int obtenerTasaEn(Puerto puerto) {
+        return puerto.tasaGrano();
     }
 }

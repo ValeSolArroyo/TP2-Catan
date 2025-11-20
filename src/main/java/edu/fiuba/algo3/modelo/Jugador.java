@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.comercio.Puerto;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
@@ -13,6 +14,7 @@ public class Jugador {
     private int puntosVictoria;
     private final Inventario inventario;
     private List<Construccion> construcciones;
+    private List<Puerto> puertos;
 
     public Jugador(int id, String nombre) {
         this.id = id;
@@ -20,6 +22,7 @@ public class Jugador {
         this.puntosVictoria = 0;
         this.inventario = new Inventario();
         this.construcciones = new ArrayList<>();
+        this.puertos = new ArrayList<>();
     }
 
     public void recibir(Recurso recurso) {
@@ -40,6 +43,7 @@ public class Jugador {
         Poblado poblado = new Poblado(this);
         this.agregarConstruccion(poblado);
         vertice.asignarConstruccion(poblado);
+        vertice.entregarPuertoA(this);
         this.sumarPuntoDeVictoria(1);
     }
 
@@ -77,6 +81,7 @@ public class Jugador {
         Poblado poblado = new Poblado(this);
         this.agregarConstruccion(poblado);
         vertice.asignarConstruccion(poblado);
+        vertice.entregarPuertoA(this);
         this.sumarPuntoDeVictoria(1);
     }
 
@@ -99,14 +104,21 @@ public class Jugador {
         inventario.gastar(recurso, cantidad);
     }
 
+    public void agregarPuerto(Puerto puerto) {
+        this.puertos.add(puerto);
+    }
+
     public int obtenerTasaDeCambioPara(Recurso recurso) {
-        int tasa = 4; // Base
-        // TODO: Cuando se implemente Puertos, recorre las construcciones:
-        // for (Construccion c : construcciones) {
-        //      if (c.esPuertoDe(recurso)) tasa = Math.min(tasa, 2);
-        //      else if (c.esPuertoGenerico()) tasa = Math.min(tasa, 3);
-        // }
-        return tasa;
+        int mejorTasa = 4; // Tasa base del banco
+
+        for (Puerto puerto : puertos) {
+            int tasaDelPuerto = recurso.obtenerTasaEn(puerto);
+
+            if (tasaDelPuerto < mejorTasa) {
+                mejorTasa = tasaDelPuerto;
+            }
+        }
+        return mejorTasa;
     }
 
     // !!!!! REVISAR !!!!!

@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
+import edu.fiuba.algo3.modelo.comercio.Banca;
+import edu.fiuba.algo3.modelo.comercio.Intercambio;
 import edu.fiuba.algo3.modelo.juegoState.EstadoPrimeraColocacion;
 import edu.fiuba.algo3.modelo.juegoState.EstadoJuego;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
