@@ -8,6 +8,8 @@ import edu.fiuba.algo3.modelo.construcciones.Ciudad;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.NullConstruccion;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
+import edu.fiuba.algo3.modelo.excepciones.CiudadSinPobladoError;
+import edu.fiuba.algo3.modelo.excepciones.ConstruccionAjenaError;
 import edu.fiuba.algo3.modelo.excepciones.ReglaDeDistanciaError;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
 
@@ -46,7 +48,14 @@ public class Vertice {
     }
 
     public void construirCiudad(Jugador jugador) {
-        // TODO: validacion
+        if (!(construccion instanceof Poblado)) {
+            throw new CiudadSinPobladoError("Solo se puede construir una ciudad sobre un poblado existente");
+        }
+
+        if (!construccion.esPropiedadDe(jugador)) {
+            throw new ConstruccionAjenaError("Solo puedes mejorar tu propio poblado a ciudad");
+        }
+
         this.construccion = new Ciudad(jugador);
     }
 
