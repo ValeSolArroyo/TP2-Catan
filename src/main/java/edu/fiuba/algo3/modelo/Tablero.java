@@ -37,7 +37,7 @@ public class Tablero {
         return hexagono;
     }
 
-    public Arista encontrarArista(int aristaId) { // <--- NUEVO MÉTODO
+    public Arista encontrarArista(int aristaId) {
         Arista arista = aristasPorId.get(aristaId);
         if (arista == null) {
             // Usar patrón Null Object despues

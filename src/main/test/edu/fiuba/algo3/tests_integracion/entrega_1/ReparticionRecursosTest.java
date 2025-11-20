@@ -1,35 +1,33 @@
 package edu.fiuba.algo3.tests_integracion.entrega_1;
 
 import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Hexagono;
 import edu.fiuba.algo3.modelo.Vertice;
-import edu.fiuba.algo3.modelo.construcciones.Poblado;
-import edu.fiuba.algo3.modelo.terrenos.Bosque;
-import edu.fiuba.algo3.modelo.terrenos.Terreno;
+import edu.fiuba.algo3.modelo.patronTablero.*;
+import edu.fiuba.algo3.modelo.Tablero;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ReparticionRecursosTest {
 
-    /*
     @Test
-    public void test01VerificarJugadorRecibeRecursoEnSegundoPoblado() {
+    public void test01VerificarJugadorRecibeRecursoCuandoSeLlamaARepartir() {
         TableroCatanFactory factory = new TableroCatanFactory();
         Tablero tablero = factory.crearTablero();
         Jugador jugador = new Jugador(1, "A");
+        Vertice vertice = tablero.encontrarVertice(10);
 
-        Vertice primerVertice = tablero.encontrarVertice(1);
-        tablero.darRecursosIniciales(jugador, primerVertice);
-        int recursosAntesDelSegundo = jugador.obtenerCantidadTotalDeRecursos();
+        jugador.construirPobladoEn(vertice);
 
-        Vertice segundoVertice = tablero.encontrarVertice(2);
-        tablero.darRecursosIniciales(jugador, segundoVertice);
-        int recursosDespuesDelSegundo = jugador.obtenerCantidadTotalDeRecursos();
+        int recursosAntes = jugador.obtenerCantidadTotalDeRecursos();
+        assertEquals(0, recursosAntes, "El jugador debe iniciar con 0 recursos.");
 
-        assertEquals(0, recursosAntesDelSegundo);
-        assertTrue(recursosDespuesDelSegundo > 0);
+
+        tablero.darRecursosIniciales(jugador, vertice);
+        int recursosDespues = jugador.obtenerCantidadTotalDeRecursos();
+
+        // Assert: Debe haber recibido al menos 1 recurso por cada hexágono adyacente
+        assertTrue(recursosDespues >= 1, "El jugador debe recibir recursos de los hexágonos adyacentes.");
     }
-    */
 
 }

@@ -30,7 +30,8 @@ public class TableroCatanFactory implements TableroFactory {
 
         Map<Integer, Hexagono> hexagonosPorId = crearHexagonosConMapa(terrenos, fichas);
         List<Hexagono> hexagonos = new ArrayList<>(hexagonosPorId.values());
-        int[] cantidadVerticesPorFila = {3, 4, 4, 5, 5, 6, 6, 5, 5, 4, 4, 3};
+        int[] cantidadVerticesPorFila = {4, 5, 6, 6, 6, 6, 6, 5, 5, 4, 4, 3};
+
         Vertice[][] vertices = new Vertice[12][];
         Map<Integer, Vertice> verticesPorId = new HashMap<>();
         int verticeId = 1;
@@ -48,37 +49,30 @@ public class TableroCatanFactory implements TableroFactory {
         Map<String, Arista> aristasUnicas = new HashMap<>();
         int aristaId = 1;
 
-        // Cantidad de hexágonos por fila de hexágonos
         int[] hexagonoPorFila = {3, 4, 5, 4, 3};
         int indice = 0;
 
-        // Para cada fila de hexágonos
         for (int fila = 0; fila < hexagonoPorFila.length; fila++) {
             int cantidadHexagonos = hexagonoPorFila[fila];
 
             for (int columna = 0; columna < cantidadHexagonos; columna++) {
                 Hexagono hexagono = hexagonos.get(indice++);
+                int filaVerticeSuperior = fila;
+                if (fila >= 2) {
+                    filaVerticeSuperior = fila + (fila < 2 ? 0 : fila - 1);
+                }
 
-                int filaVerticeSuperior = fila + (fila < 2 ? 0 : fila - 1);
                 int filaVerticeInferior = filaVerticeSuperior + 1;
                 int columnaSuperior1 = columna;
                 int columnaSuperior2 = columna + 1;
-                int columnaInferior1 = columna;
-                int columnaInferior2 = columna + 1;
-
-                if (fila == 0) { columnaInferior1 = columna; columnaInferior2 = columna + 1; }
-                if (fila == 1) { columnaInferior1 = columna; columnaInferior2 = columna + 1; }
-                if (fila == 2) { columnaInferior1 = columna; columnaInferior2 = columna + 1; }
-                if (fila == 3) { columnaInferior1 = columna; columnaInferior2 = columna + 1; }
-                if (fila == 4) { columnaInferior1 = columna; columnaInferior2 = columna + 1; }
 
                 Vertice v1 = vertices[filaVerticeSuperior][columnaSuperior1];
                 Vertice v2 = vertices[filaVerticeSuperior][columnaSuperior2];
-                Vertice v3 = vertices[filaVerticeInferior][columnaInferior2];
-                Vertice v4 = vertices[filaVerticeInferior][columnaInferior2];
-                Vertice v5 = vertices[filaVerticeInferior][columnaInferior1];
-                Vertice v6 = vertices[filaVerticeSuperior][columnaSuperior1];
 
+                Vertice v3 = vertices[filaVerticeInferior][columnaSuperior2];
+                Vertice v4 = vertices[filaVerticeInferior + 1][columnaSuperior2];
+                Vertice v5 = vertices[filaVerticeInferior + 1][columnaSuperior1];
+                Vertice v6 = vertices[filaVerticeInferior][columnaSuperior1];
                 Vertice[] verticesHexagono = {v1, v2, v3, v4, v5, v6};
 
                 for (Vertice vertice : verticesHexagono) {
@@ -100,9 +94,9 @@ public class TableroCatanFactory implements TableroFactory {
                         siguiente.agregarVecino(actual);
                     } else {
                         arista = aristasUnicas.get(claveUnica);
-                        actual.agregarVecino(siguiente);
-                        siguiente.agregarVecino(actual);
                     }
+                    actual.agregarVecino(siguiente);
+                    siguiente.agregarVecino(actual);
                     hexagono.agregarArista(arista);
                 }
             }
