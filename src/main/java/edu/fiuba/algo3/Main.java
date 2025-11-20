@@ -3,9 +3,8 @@ package edu.fiuba.algo3;
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.Tablero;
-import edu.fiuba.algo3.modelo.patronTablero.TableroCatanFactory;
-import edu.fiuba.algo3.modelo.patronTablero.TableroFactory;
-import edu.fiuba.algo3.vistas.App;
+import edu.fiuba.algo3.modelo.tableroFactory.TableroCatanFactory;
+import edu.fiuba.algo3.modelo.tableroFactory.TableroFactory;
 
 import java.util.List;
 
