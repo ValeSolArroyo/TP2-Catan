@@ -10,8 +10,8 @@ public class Grano implements Recurso {
     }
 
     @Override
-    public void restarseDe(Inventario inventario) {
-        inventario.restarGrano();
+    public void restarseDe(Inventario inventario, int cantidad) {
+        inventario.restarGrano(cantidad);
     }
 
     @Override

@@ -10,8 +10,8 @@ public class Ladrillo implements Recurso {
     }
 
     @Override
-    public void restarseDe(Inventario inventario) {
-        inventario.restarLadrillo();
+    public void restarseDe(Inventario inventario, int cantidad) {
+        inventario.restarLadrillo(cantidad);
     }
 
     @Override

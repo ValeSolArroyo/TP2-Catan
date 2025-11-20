@@ -15,7 +15,7 @@ public class NullRecurso implements Recurso {
     }
 
     @Override
-    public void restarseDe(Inventario inventario) {
+    public void restarseDe(Inventario inventario, int cantidad) {
         // No hace nada
     }
 }

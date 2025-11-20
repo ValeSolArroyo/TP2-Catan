@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo;
 
 import edu.fiuba.algo3.modelo.juegoState.EstadoPrimeraColocacion;
 import edu.fiuba.algo3.modelo.juegoState.EstadoJuego;
+import edu.fiuba.algo3.modelo.recursos.Recurso;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,6 +15,7 @@ public class Juego {
     private int indiceTurno;
     private final Dado dado;
     private EstadoJuego estadoActual;
+    private final Banca banca;
 
 
     public Juego(List<Jugador> jugadores, Tablero tablero) {
@@ -25,7 +27,7 @@ public class Juego {
         this.tablero = tablero;
         this.indiceTurno = 0;
         this.estadoActual = new EstadoPrimeraColocacion();
-
+        this.banca = new Banca();
     }
 
     public void setEstado(EstadoJuego estado) {
@@ -146,5 +148,23 @@ public class Juego {
     public void construirCarreteraInicialInterno(Jugador jugador, int aristaId) {
         Arista arista = tablero.encontrarArista(aristaId);
         jugador.construirCarreteraInicialEn(arista);
+    }
+
+    public void comerciarConBanco(Recurso entregado, Recurso recibido) {
+        // El estado valida si es el turno y momento correcto (ej. no tirar dados)
+        estadoActual.comerciarConBanco(this, entregado, recibido);
+    }
+
+    public void intercambiar(Jugador otroJugador, Recurso entregado, Recurso recibido) {
+        estadoActual.intercambiar(this, otroJugador, entregado, recibido);
+    }
+
+    public void comerciarConBancoInterno(Recurso entregado, Recurso recibido) {
+        banca.comerciar(jugadorActual(), entregado, recibido);
+    }
+
+    public void intercambiarInterno(Jugador otroJugador, Recurso entregado, Recurso recibido) {
+        Intercambio intercambio = new Intercambio(jugadorActual(), otroJugador, entregado, recibido);
+        intercambio.ejecutar();
     }
 }

@@ -95,6 +95,20 @@ public class Jugador {
         arista.asignarConstruccion(carretera);
     }
 
+    public void gastar(Recurso recurso, int cantidad) {
+        inventario.gastar(recurso, cantidad);
+    }
+
+    public int obtenerTasaDeCambioPara(Recurso recurso) {
+        int tasa = 4; // Base
+        // TODO: Cuando se implemente Puertos, recorre las construcciones:
+        // for (Construccion c : construcciones) {
+        //      if (c.esPuertoDe(recurso)) tasa = Math.min(tasa, 2);
+        //      else if (c.esPuertoGenerico()) tasa = Math.min(tasa, 3);
+        // }
+        return tasa;
+    }
+
     // !!!!! REVISAR !!!!!
     public int obtenerPuntosDeVictoria() {
         return puntosVictoria;

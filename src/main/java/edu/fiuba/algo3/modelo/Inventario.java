@@ -38,26 +38,36 @@ public class Inventario {
     // Quitar recursos (Double Dispatch Vuelta)
 
     public void quitar(Recurso recurso) {
-        recurso.restarseDe(this);
+        recurso.restarseDe(this,1);
     }
 
-    public void restarMadera() {
-        if (this.madera > 0) this.madera--;
+    public void restarMadera(int cantidad) {
+        if (this.madera < cantidad) throw new RecursosInsuficientesError("No hay suficiente madera.");
+        this.madera -= cantidad;
     }
-    public void restarLadrillo() {
-        if (this.ladrillo > 0) this.ladrillo--;
+
+    public void restarLadrillo(int cantidad) {
+        if (this.ladrillo < cantidad) throw new RecursosInsuficientesError("No hay suficiente ladrillo.");
+        this.ladrillo -= cantidad;
     }
-    public void restarLana() {
-        if (this.lana > 0) this.lana--;
+    public void restarLana(int cantidad) {
+        if (this.lana < cantidad) throw new RecursosInsuficientesError("No hay suficiente lana.");
+        this.lana -= cantidad;
     }
-    public void restarGrano() {
-        if (this.grano > 0) this.grano--;
+    public void restarGrano(int cantidad) {
+        if (this.grano < cantidad) throw new RecursosInsuficientesError("No hay suficiente grano.");
+        this.grano -= cantidad;
     }
-    public void restarMineral() {
-        if (this.mineral > 0) this.mineral--;
+    public void restarMineral(int cantidad) {
+        if (this.mineral < cantidad) throw new RecursosInsuficientesError("No hay suficiente mineral.");
+        this.mineral -= cantidad;
     }
 
     // Gastar recursos
+
+    public void gastar(Recurso recurso, int cantidad) {
+        recurso.restarseDe(this, cantidad);
+    }
 
     public void gastarRecursosPoblado() {
         if (madera < 1 || ladrillo < 1 || lana < 1 || grano < 1) {
