@@ -6,7 +6,7 @@ import edu.fiuba.algo3.modelo.excepciones.ReglaDeDistanciaError;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class VerticeIntegracionTest {
+public class ReglaDistanciaTest {
 
     @Test
     public void test01SePuedeConstruirPobladoEnUnVerticeVacio() {
