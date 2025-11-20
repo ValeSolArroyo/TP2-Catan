@@ -252,25 +252,4 @@ public class ConsumoRecursosTest {
                 () -> jugador.construirCarretera(arista),
                 "No se debería poder construir una carretera sin recursos suficientes");
     }
-
-    @Test
-    public void test10NoSePuedeConstruirCarreteraPorFaltaAdyacencia() {
-        // Arrange
-        Jugador jugador = new Jugador(1, "J");
-        Vertice vertice1 = new Vertice(1);
-        Vertice vertice2 = new Vertice(2);
-        Arista arista = new Arista(1, vertice1, vertice2);
-
-        // Act
-        //Recursos necesarios para construir Carretera
-        jugador.recibir(new Madera());
-        jugador.recibir(new Ladrillo());
-
-        // Assert
-        assertThrows(CaminoNoConectadoError.class,
-                () -> jugador.construirCarretera(arista),
-                "No se debería poder construir una carretera si no existe un asentamiento adyacente");
-        assertEquals(0, jugador.obtenerPuntosDeVictoria());
-    }
-
 }

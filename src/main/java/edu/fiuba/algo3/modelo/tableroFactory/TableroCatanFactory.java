@@ -1,3 +1,11 @@
+package edu.fiuba.algo3.modelo.tableroFactory;
+
+import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.comercio.*;
+import edu.fiuba.algo3.modelo.terrenos.*;
+
+import java.util.*;
+
 //     0   1   2
 //   3   4   5   6
 // 7   8   9   10  11
@@ -6,13 +14,6 @@
 // 19 hexágonos, 6 vértices por hexágono PERO HAY COMPARTIDOS
 // 19 hexágonos, 54 vértices, 72 aristas TOTAL
 //SUPUESTO: Se puede crear poblados en vértices adyacentes al mar → permite el comercio marítimo.
-package edu.fiuba.algo3.modelo.tableroFactory;
-
-import edu.fiuba.algo3.modelo.*;
-import edu.fiuba.algo3.modelo.comercio.*;
-import edu.fiuba.algo3.modelo.terrenos.*;
-
-import java.util.*;
 
 public class TableroCatanFactory implements TableroFactory {
 
@@ -31,7 +32,9 @@ public class TableroCatanFactory implements TableroFactory {
 
         Map<Integer, Hexagono> hexagonosPorId = crearHexagonosConMapa(terrenos, fichas);
         List<Hexagono> hexagonos = new ArrayList<>(hexagonosPorId.values());
-        int[] cantidadVerticesPorFila = {4, 5, 6, 6, 6, 6, 6, 5, 5, 4, 4, 3};
+
+        // Filas de vértices para tener 54 vértices en total
+        int[] cantidadVerticesPorFila = {3, 4, 4, 5, 5, 6, 6, 5, 5, 4, 4, 3};
 
         Vertice[][] vertices = new Vertice[12][];
         Map<Integer, Vertice> verticesPorId = new HashMap<>();
@@ -53,32 +56,46 @@ public class TableroCatanFactory implements TableroFactory {
         int[] hexagonoPorFila = {3, 4, 5, 4, 3};
         int indice = 0;
 
-        for (int fila = 0; fila < hexagonoPorFila.length; fila++) {
-            int cantidadHexagonos = hexagonoPorFila[fila];
+        for (int filaHex = 0; filaHex < hexagonoPorFila.length; filaHex++) {
+            int cantidadHexagonos = hexagonoPorFila[filaHex];
 
-            for (int columna = 0; columna < cantidadHexagonos; columna++) {
+            int filaVerticeSuperior = filaHex * 2;
+            int filaVerticeInferior = filaVerticeSuperior + 1;
+
+            int ajusteColumna = 0;
+            if (filaHex == 1) ajusteColumna = 1;
+            else if (filaHex == 2) ajusteColumna = 2;
+            else if (filaHex == 3) ajusteColumna = 1;
+
+            for (int colHex = 0; colHex < cantidadHexagonos; colHex++) {
                 Hexagono hexagono = hexagonos.get(indice++);
-                int filaVerticeSuperior = fila;
-                if (fila >= 2) {
-                    filaVerticeSuperior = fila + (fila < 2 ? 0 : fila - 1);
-                }
 
-                int filaVerticeInferior = filaVerticeSuperior + 1;
-                int columnaSuperior1 = columna;
-                int columnaSuperior2 = columna + 1;
+                int colVerticeBase = colHex * 2 + ajusteColumna;
 
-                Vertice v1 = vertices[filaVerticeSuperior][columnaSuperior1];
-                Vertice v2 = vertices[filaVerticeSuperior][columnaSuperior2];
+                int maxColSuperior = vertices[filaVerticeSuperior].length - 1;
+                int maxColInferior = vertices[filaVerticeInferior].length - 1;
+                int maxColInferiorMas1 = vertices[filaVerticeInferior + 1].length - 1;
 
-                Vertice v3 = vertices[filaVerticeInferior][columnaSuperior2];
-                Vertice v4 = vertices[filaVerticeInferior + 1][columnaSuperior2];
-                Vertice v5 = vertices[filaVerticeInferior + 1][columnaSuperior1];
-                Vertice v6 = vertices[filaVerticeInferior][columnaSuperior1];
+                int colV1 = Math.min(colVerticeBase, maxColSuperior);
+                int colV2 = Math.min(colVerticeBase + 1, maxColSuperior);
+                int colV3 = Math.min(colVerticeBase + 1, maxColInferior);
+                int colV4 = Math.min(colVerticeBase, maxColInferiorMas1);
+                int colV5 = Math.max(0, Math.min(colVerticeBase - 1, maxColInferior));
+                int colV6 = Math.min(colVerticeBase, maxColInferior);
+
+                Vertice v1 = vertices[filaVerticeSuperior][colV1];     // Arriba-izquierda
+                Vertice v2 = vertices[filaVerticeSuperior][colV2];     // Arriba-derecha
+                Vertice v3 = vertices[filaVerticeInferior][colV3];      // Derecha
+                Vertice v4 = vertices[filaVerticeInferior + 1][colV4];  // Abajo-derecha
+                Vertice v5 = vertices[filaVerticeInferior][colV5];      // Abajo-izquierda
+                Vertice v6 = vertices[filaVerticeInferior][colV6];      // Izquierda
+
                 Vertice[] verticesHexagono = {v1, v2, v3, v4, v5, v6};
 
                 for (Vertice vertice : verticesHexagono) {
                     hexagono.agregarVertice(vertice);
                 }
+
                 for (int i = 0; i < 6; i++) {
                     Vertice actual = verticesHexagono[i];
                     Vertice siguiente = verticesHexagono[(i + 1) % 6];
@@ -96,21 +113,16 @@ public class TableroCatanFactory implements TableroFactory {
                     } else {
                         arista = aristasUnicas.get(claveUnica);
                     }
-                    actual.agregarVecino(siguiente);
-                    siguiente.agregarVecino(actual);
                     hexagono.agregarArista(arista);
                 }
             }
         }
-        
+
         asignarPuertos(verticesPorId);
         return new Tablero(hexagonos, verticesPorId, hexagonosPorId, aristasPorId);
     }
 
     private void asignarPuertos(Map<Integer, Vertice> mapa) {
-        // Asignamos los puertos a los IDs correspondientes del mapa de 54 vértices.
-        // Esto hace que vertice.encontrarVertice(1) tenga realmente un Puerto 3:1.
-
         asignarPuerto(mapa, 1, 2, new PuertoTresUno());
         asignarPuerto(mapa, 4, 8, new PuertoDosUnoMadera());
         asignarPuerto(mapa, 15, 21, new PuertoDosUnoLadrillo());

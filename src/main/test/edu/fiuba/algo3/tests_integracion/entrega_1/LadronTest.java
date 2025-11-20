@@ -20,10 +20,10 @@ public class LadronTest {
     private Jugador victimaB;
     private Juego juego;
     
-    private final int VERTICE_ID_A = 10;
-    private final int VERTICE_ID_B = 20;
-    private final int HEXAGONO_DESTINO_ID = 5;
-    private final int HEXAGONO_ORIGEN_ID = 1;  
+    private final int VERTICE_ID_A = 1;
+    private final int VERTICE_ID_B = 4;
+    private final int HEXAGONO_DESTINO_ID = 1;
+    private final int HEXAGONO_ORIGEN_ID = 6;
 
     @BeforeEach
     public void setUp() {
@@ -70,9 +70,9 @@ public class LadronTest {
    @Test
         public void test02MoverLadronIdentificaCorrectamenteLasVictimasAdyacentes() {
         // Arrange
-        final int VERTICE_ID_A = 12;
-        final int VERTICE_ID_B = 7;
-        final int HEXAGONO_DESTINO_ID = 5; 
+        final int VERTICE_ID_A = 1;
+        final int VERTICE_ID_B = 4;
+        final int HEXAGONO_DESTINO_ID = 1;
     
         Vertice verticeA = tablero.encontrarVertice(VERTICE_ID_A);
         Vertice verticeB = tablero.encontrarVertice(VERTICE_ID_B);
@@ -111,9 +111,9 @@ public class LadronTest {
     public void test04MoverLadronBloqueaLaProduccionDelHexagono() {
         // Arrange
         Jugador jugador = new Jugador(99, "Pepe");
-        Vertice vertice = tablero.encontrarVertice(7); 
+        Vertice vertice = tablero.encontrarVertice(9);
         jugador.construirPobladoInicialEn(vertice); 
-        Hexagono hexagono = tablero.obtenerHexagono(11); 
+        Hexagono hexagono = tablero.obtenerHexagono(1);
         int fichaProduccion = hexagono.obtenerNumeroFicha();
     
         // mover el ladrón (cambia el estado interno a EstadoConLadron)
