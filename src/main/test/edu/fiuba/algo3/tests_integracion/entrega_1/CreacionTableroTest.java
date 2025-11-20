@@ -27,12 +27,12 @@ public class CreacionTableroTest {
         TableroCatanFactory factory = new TableroCatanFactory();
         Tablero tablero = factory.crearTablero();
 
-        // Arrange:
+        // Arrange
         Map<Object, Long> conteoTerrenos = tablero.obtenerHexagonos().stream()
                 .map(hexagono -> hexagono.obtenerTipoTerreno().getClass().getSimpleName())
                 .collect(Collectors.groupingBy(terreno -> terreno, Collectors.counting()));
 
-        // Assert:
+        // Assert
         assertEquals(4, conteoTerrenos.getOrDefault("Bosque", 0L), "Debe haber 4 Bosques (Madera).");
         assertEquals(4, conteoTerrenos.getOrDefault("Campo", 0L), "Debe haber 4 Campos (Grano).");
         assertEquals(4, conteoTerrenos.getOrDefault("Pastizal", 0L), "Debe haber 4 Pastizales (Lana).");
@@ -44,6 +44,7 @@ public class CreacionTableroTest {
 
     @Test
     public void test03VerificarFichasNumericasValidasYCompletas() {
+        // Arrange y Act
         TableroCatanFactory factory = new TableroCatanFactory();
         Tablero tablero = factory.crearTablero();
         List<Integer> numerosValidos = new ArrayList<>(List.of(
@@ -55,10 +56,9 @@ public class CreacionTableroTest {
                 .filter(num -> num != 0)
                 .collect(Collectors.toList());
 
-        // Assert 1:
+        // Assert
         assertEquals(18, fichasAsignadas.size(), "Debe haber exactamente 18 fichas numeradas.");
 
-        // Assert 2:
         assertFalse(fichasAsignadas.contains(7), "Ningún hexágono de recurso debe tener la ficha 7.");
 
 
@@ -71,17 +71,17 @@ public class CreacionTableroTest {
 
     @Test
     public void test04VerificarAsignacionAleatoriaDeTerrenosYFichas() {
+        // Arrange
         TableroCatanFactory factory = new TableroCatanFactory();
 
-        // Arrange:
         Tablero tableroA = factory.crearTablero();
         Tablero tableroB = factory.crearTablero();
 
-        // Act:
+        // Act
         List<String> formatoTableroA = obtenerFormato(tableroA);
         List<String> formatoTableroB = obtenerFormato(tableroB);
 
-        // Assert:
+        // Assert
         assertNotEquals(formatoTableroA, formatoTableroB,
                 "Dos tableros creados independientemente no deben tener la misma combinación Terreno-Ficha.");
     }

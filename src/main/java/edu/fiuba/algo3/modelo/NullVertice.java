@@ -14,9 +14,6 @@ public class NullVertice extends Vertice {
 
     @Override
     public void construirPoblado(Jugador jugador) {
-        // No hace nada (comportamiento seguro) o lanza una excepción si se quiere
-        // indicar que la operación es inválida, pero el objetivo del Null Object
-        // es evitar errores. Mantengamos el "no hace nada".
     }
 
     @Override
@@ -34,8 +31,6 @@ public class NullVertice extends Vertice {
         // No hace nada
     }
 
-    // Sobrescribe el método público que llama a los métodos privados.
-    // Esto asegura que si el código cliente lo llama, no haga nada.
     @Override
     public void validarConstruccionPoblado() {
         // No hace nada

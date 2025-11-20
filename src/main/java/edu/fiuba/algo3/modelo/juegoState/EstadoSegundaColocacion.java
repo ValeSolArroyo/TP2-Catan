@@ -11,7 +11,6 @@ public class EstadoSegundaColocacion implements EstadoJuego {
 
         Vertice vertice = juego.colocarPobladoInicialInterno(jugador, verticeId);
         juego.construirCarreteraInicialInterno(jugador, aristaId);
-        juego.darPuntoDeVictoria(jugador);
         juego.darRecursosInicialesInterno(jugador, vertice);
         if (juego.todosTerminaronColocacionesIniciales()) {
             juego.setEstado(new EstadoTirarDados());

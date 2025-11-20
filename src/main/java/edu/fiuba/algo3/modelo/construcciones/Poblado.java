@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.construcciones;
 
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.excepciones.AsentamientoExistenteError;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 
 import java.util.Set;
@@ -24,7 +25,7 @@ public class Poblado implements Construccion {
 
     @Override
     public void validarLugarLibre() {
-        throw new RuntimeException("El lugar ya está ocupado por una construcción."); //TODO: excepcion
+        throw new AsentamientoExistenteError("El lugar ya está ocupado por una construcción.");
     }
 
     @Override

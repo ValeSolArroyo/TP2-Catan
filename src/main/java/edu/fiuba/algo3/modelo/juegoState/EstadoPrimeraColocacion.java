@@ -8,7 +8,6 @@ public class EstadoPrimeraColocacion implements EstadoJuego {
     public void colocarPobladoInicial(Juego juego, Jugador jugador, int verticeId, int aristaId) {
         juego.colocarPobladoInicialInterno(jugador, verticeId);
         juego.construirCarreteraInicialInterno(jugador, aristaId);
-        juego.darPuntoDeVictoria(jugador);
         if (juego.todosColocaronPrimerPoblado()) {
             juego.setEstado(new EstadoSegundaColocacion());
         } else {

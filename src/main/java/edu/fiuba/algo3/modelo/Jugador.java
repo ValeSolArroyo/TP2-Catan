@@ -40,12 +40,14 @@ public class Jugador {
         Poblado poblado = new Poblado(this);
         this.agregarConstruccion(poblado);
         vertice.asignarConstruccion(poblado);
+        this.sumarPuntoDeVictoria(1);
     }
 
     public void construirCiudad(Vertice vertice) {
         vertice.validarConstruccionCiudad(this);
         inventario.gastarRecursosCiudad();
         vertice.mejorarPoblado(this);
+        this.sumarPuntoDeVictoria(1);
     }
 
     public void construirCarretera(Arista arista) {
@@ -70,19 +72,20 @@ public class Jugador {
         robado.asignarA(ladron); // Solo le decimos al recurso que se asigne, si es NullRecurso no hace nada
     }
 
-    public void construirPobladoEn(Vertice vertice) {
+    public void construirPobladoInicialEn(Vertice vertice) {
         vertice.validarConstruccionPoblado();
         Poblado poblado = new Poblado(this);
         this.agregarConstruccion(poblado);
         vertice.asignarConstruccion(poblado);
+        this.sumarPuntoDeVictoria(1);
     }
 
     public int obtenerCantidadTotalDeRecursos() {
         return this.inventario.cantidadTotal();
     }
 
-
-    public void sumarPuntoDeVictoria(int cantidad) {
+    // TODO: ver si nos conviene esto o solo hacer pv++; en donde lo usamos lol
+    private void sumarPuntoDeVictoria(int cantidad) {
         this.puntosVictoria += cantidad;
     }
 
@@ -90,5 +93,10 @@ public class Jugador {
         Carretera carretera = new Carretera(this);
         this.agregarConstruccion(carretera);
         arista.asignarConstruccion(carretera);
+    }
+
+    // !!!!! REVISAR !!!!!
+    public int obtenerPuntosDeVictoria() {
+        return puntosVictoria;
     }
 }
