@@ -10,8 +10,8 @@ public class Madera implements Recurso {
     }
 
     @Override
-    public void restarseDe(Inventario inventario) {
-        inventario.restarMadera();
+    public void restarseDe(Inventario inventario, int cantidad) {
+        inventario.restarMadera(cantidad);
     }
 
     @Override

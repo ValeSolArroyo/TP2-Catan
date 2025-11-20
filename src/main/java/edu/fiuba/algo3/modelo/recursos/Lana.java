@@ -10,8 +10,8 @@ public class Lana implements Recurso {
     }
 
     @Override
-    public void restarseDe(Inventario inventario) {
-        inventario.restarLana();
+    public void restarseDe(Inventario inventario, int cantidad) {
+        inventario.restarLana(cantidad);
     }
 
     @Override

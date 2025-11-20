@@ -10,8 +10,8 @@ public class Mineral implements Recurso {
     }
 
     @Override
-    public void restarseDe(Inventario inventario) {
-        inventario.restarMineral();
+    public void restarseDe(Inventario inventario, int cantidad) {
+        inventario.restarMineral(cantidad);
     }
 
     @Override
