@@ -6,7 +6,7 @@
 // 19 hexágonos, 6 vértices por hexágono PERO HAY COMPARTIDOS
 // 19 hexágonos, 54 vértices, 72 aristas TOTAL
 //SUPUESTO: Se puede crear poblados en vértices adyacentes al mar → permite el comercio marítimo.
-package edu.fiuba.algo3.modelo.patronTablero;
+package edu.fiuba.algo3.modelo.tableroFactory;
 
 import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.terrenos.*;

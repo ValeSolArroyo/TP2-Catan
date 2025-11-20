@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.patronHexagono.EstadoConLadron;
-import edu.fiuba.algo3.modelo.patronHexagono.EstadoHexagono;
-import edu.fiuba.algo3.modelo.patronHexagono.EstadoSinLadron;
+import edu.fiuba.algo3.modelo.hexagonoState.EstadoConLadron;
+import edu.fiuba.algo3.modelo.hexagonoState.EstadoHexagono;
+import edu.fiuba.algo3.modelo.hexagonoState.EstadoSinLadron;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
 import edu.fiuba.algo3.modelo.terrenos.Desierto;
 

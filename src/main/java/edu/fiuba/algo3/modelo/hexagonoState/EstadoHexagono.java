@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.patronHexagono;
+package edu.fiuba.algo3.modelo.hexagonoState;
 
 import edu.fiuba.algo3.modelo.Vertice;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;

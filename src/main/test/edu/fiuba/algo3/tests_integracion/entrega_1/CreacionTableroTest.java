@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.tests_integracion.entrega_1;
 
 import org.junit.jupiter.api.Test;
-import edu.fiuba.algo3.modelo.patronTablero.TableroCatanFactory;
+import edu.fiuba.algo3.modelo.tableroFactory.TableroCatanFactory;
 import edu.fiuba.algo3.modelo.Tablero;
 import edu.fiuba.algo3.modelo.Hexagono;
 

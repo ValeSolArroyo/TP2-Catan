@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo;
 
-import edu.fiuba.algo3.modelo.patronJuego.EstadoPrimeraColocacion;
-import edu.fiuba.algo3.modelo.patronJuego.EstadoJuego;
+import edu.fiuba.algo3.modelo.juegoState.EstadoPrimeraColocacion;
+import edu.fiuba.algo3.modelo.juegoState.EstadoJuego;
 
 import java.util.ArrayList;
 import java.util.HashSet;
