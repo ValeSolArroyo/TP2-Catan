@@ -72,7 +72,7 @@ public class Jugador {
     public void sumarPuntoDeVictoria(int cantidad) {
         this.puntosVictoria += cantidad;
     }
-    // Para la carretera inicial (sin costo)
+
     public void construirCarreteraInicialEn(Arista arista) {
         Carretera carretera = new Carretera(this);
         this.agregarConstruccion(carretera);

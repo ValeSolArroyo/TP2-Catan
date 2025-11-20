@@ -32,6 +32,14 @@ public class Hexagono {
         return this.id;
     }
 
+    public Terreno obtenerTipoTerreno(){
+        return this.terreno;
+    }
+
+    public int obtenerNumeroFicha(){
+        return this.numeroFicha;
+    }
+
     public void ponerLadron() {
         this.estadoActual = new EstadoConLadron();
     }
