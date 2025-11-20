@@ -35,8 +35,11 @@ public class Jugador {
     }
 
     public void construirPoblado(Vertice vertice) {
+        vertice.validarConstruccionPoblado();
+        Poblado poblado = new Poblado(this);
         inventario.gastarRecursosPoblado();
-        vertice.construirPoblado(this);
+        this.agregarConstruccion(poblado);
+        vertice.asignarConstruccion(poblado);
     }
 
     public void construirCiudad(Vertice vertice) {
