@@ -68,7 +68,7 @@ public class Juego {
 
     public Vertice colocarPobladoInicialInterno(Jugador jugador, int verticeId) {
         Vertice vertice = tablero.encontrarVertice(verticeId);
-        jugador.construirPobladoEn(vertice);
+        jugador.construirPobladoInicialEn(vertice);
         return vertice;
     }
 
@@ -115,7 +115,7 @@ public class Juego {
     public void construirPobladoInterno(int verticeId) {
         Vertice vertice = tablero.encontrarVertice(verticeId);
         Jugador jugador = jugadorActual();
-        jugador.construirPobladoEn(vertice);
+        jugador.construirPobladoInicialEn(vertice);
     }
 
     public void producirRecursos(int numero) {
@@ -141,9 +141,6 @@ public class Juego {
             }
         }
         return true;
-    }
-    public void darPuntoDeVictoria(Jugador jugador) {
-        jugador.sumarPuntoDeVictoria(1);
     }
 
     public void construirCarreteraInicialInterno(Jugador jugador, int aristaId) {

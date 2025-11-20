@@ -15,6 +15,7 @@ public class TerrenoLadronTest {
 
     @Test
     public void test01HexagonoNoProduceSiEstaElLadron() {
+        // Arrange y Act
         Terreno bosque = new Bosque();
         Hexagono hexagono = new Hexagono(1, bosque, 8);
 
@@ -25,17 +26,21 @@ public class TerrenoLadronTest {
 
         hexagono.producirRecursos(8);
 
+        // Assert
         assertTrue(vertice.obtenerConstruccion() instanceof NullConstruccion,
                 "El hexágono no debería producir recursos cuando el ladrón está presente");
     }
 
     @Test
     public void test02HexagonoProduceRecursoCorrectoSiElLadronNoEsta() {
+        // Arrange
         Jugador jugador = new Jugador(1, "A");
         Terreno bosque = new Bosque();
         Hexagono hexagono = new Hexagono(1, bosque, 8);
 
         Vertice vertice = new Vertice(1);
+
+        // Act
         vertice.asignarConstruccion(new Poblado(jugador));
 
         hexagono.agregarVertice(vertice);
@@ -45,6 +50,8 @@ public class TerrenoLadronTest {
         hexagono.producirRecursos(8);
 
         int recursosDespues = jugador.obtenerCantidadTotalDeRecursos();
+
+        // Assert
         assertEquals(1, recursosDespues - recursosAntes,
                 "El hexágono debería producir 1 recurso para el poblado");
     }
