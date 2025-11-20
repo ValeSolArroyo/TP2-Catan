@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class LanzamientoDadosTest {
+public class DadosTest {
 
     @Test
     public void test01LanzamientoGeneraNumeroEntre2y12() {

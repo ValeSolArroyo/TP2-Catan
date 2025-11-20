@@ -36,7 +36,6 @@ public class VerticeIntegracionTest {
 
     @Test
     public void test03SePuedeConstruirPobladoCumpliendoReglaDeDistancia() {
-        // Arrange
         Jugador jugador = new Jugador(1, "L");
         Vertice v1 = new Vertice(1);
         Vertice v2 = new Vertice(2);
