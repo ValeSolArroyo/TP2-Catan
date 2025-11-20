@@ -10,4 +10,5 @@ module edu.fiuba.algo3 {
     exports edu.fiuba.algo3.modelo.recursos;
     exports edu.fiuba.algo3.modelo.excepciones;
     exports edu.fiuba.algo3.modelo.construcciones;
+    exports edu.fiuba.algo3.modelo.comercio;
 }

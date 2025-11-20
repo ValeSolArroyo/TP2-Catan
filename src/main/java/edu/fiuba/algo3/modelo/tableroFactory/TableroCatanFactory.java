@@ -9,6 +9,7 @@
 package edu.fiuba.algo3.modelo.tableroFactory;
 
 import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.comercio.*;
 import edu.fiuba.algo3.modelo.terrenos.*;
 
 import java.util.*;
@@ -101,8 +102,29 @@ public class TableroCatanFactory implements TableroFactory {
                 }
             }
         }
-
+        
+        asignarPuertos(verticesPorId);
         return new Tablero(hexagonos, verticesPorId, hexagonosPorId, aristasPorId);
+    }
+
+    private void asignarPuertos(Map<Integer, Vertice> mapa) {
+        // Asignamos los puertos a los IDs correspondientes del mapa de 54 vértices.
+        // Esto hace que vertice.encontrarVertice(1) tenga realmente un Puerto 3:1.
+
+        asignarPuerto(mapa, 1, 2, new PuertoTresUno());
+        asignarPuerto(mapa, 4, 8, new PuertoDosUnoMadera());
+        asignarPuerto(mapa, 15, 21, new PuertoDosUnoLadrillo());
+        asignarPuerto(mapa, 26, 32, new PuertoTresUno());
+        asignarPuerto(mapa, 43, 48, new PuertoDosUnoLana());
+        asignarPuerto(mapa, 50, 53, new PuertoTresUno());
+        asignarPuerto(mapa, 39, 44, new PuertoTresUno());
+        asignarPuerto(mapa, 22, 28, new PuertoDosUnoGrano());
+        asignarPuerto(mapa, 7, 12, new PuertoDosUnoMineral());
+    }
+
+    private void asignarPuerto(Map<Integer, Vertice> mapa, int id1, int id2, Puerto puerto) {
+        if (mapa.containsKey(id1)) mapa.get(id1).asignarPuerto(puerto);
+        if (mapa.containsKey(id2)) mapa.get(id2).asignarPuerto(puerto);
     }
 
     private Map<Integer, Hexagono> crearHexagonosConMapa(List<Terreno> terrenos, List<Integer> fichas) {

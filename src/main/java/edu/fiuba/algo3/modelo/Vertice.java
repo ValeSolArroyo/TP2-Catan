@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import  java.util.List;
 import java.util.Set;
 
+import edu.fiuba.algo3.modelo.comercio.NullPuerto;
+import edu.fiuba.algo3.modelo.comercio.Puerto;
 import edu.fiuba.algo3.modelo.construcciones.Ciudad;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.NullConstruccion;
@@ -18,12 +20,14 @@ public class Vertice {
     private List<Vertice> vecinos;
     private List<Arista> aristas;
     private final int id;
+    private Puerto puerto;
 
     public Vertice(int id) {
         this.construccion = new NullConstruccion();
         this.vecinos = new ArrayList<>();
         this.aristas = new ArrayList<>();
         this.id = id;
+        this.puerto = new NullPuerto();
     }
 
     public void agregarVecino(Vertice vecino) {
@@ -31,6 +35,14 @@ public class Vertice {
     }
     public void agregarArista(Arista arista) {
         if (!aristas.contains(arista)) aristas.add(arista);
+    }
+
+    public void entregarPuertoA(Jugador jugador) {
+        jugador.agregarPuerto(this.puerto);
+    }
+
+    public void asignarPuerto(Puerto puerto) {
+        this.puerto = puerto;
     }
 
     public void construirPoblado(Jugador jugador) {
@@ -45,6 +57,7 @@ public class Vertice {
         }
 
         this.construccion = new Poblado(jugador);
+        jugador.agregarPuerto(this.puerto);
     }
 
     public void mejorarPoblado(Jugador jugador) {
