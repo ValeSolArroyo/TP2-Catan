@@ -29,6 +29,7 @@ public class Vertice {
         this.id = id;
         this.puerto = new NullPuerto();
     }
+    // COMPORTAMIENTO 
 
     public void agregarVecino(Vertice vecino) {
         if (!vecinos.contains(vecino)) vecinos.add(vecino);
@@ -47,24 +48,33 @@ public class Vertice {
 
     public void construirPoblado(Jugador jugador) {
         construccion.validarLugarLibre();
-
-        for (Vertice vecino : vecinos) {
-            try {
-                vecino.validarSiEstaLibre();
-            } catch (RuntimeException e) {
-                throw new ReglaDeDistanciaError("Hay un edificio adyacente. No se puede construir.");
-            }
-        }
-
+        this.validarDistancia();
         this.construccion = new Poblado(jugador);
-        jugador.agregarPuerto(this.puerto);
     }
 
     public void mejorarPoblado(Jugador jugador) {
         this.construccion = new Ciudad(jugador);
     }
 
-    private void validarSiEstaLibre() {
+    public void asignarConstruccion(Construccion construccion) {
+        this.construccion = construccion;
+    }
+
+    public void registrarPropietarioEn(Set<Jugador> jugadores) {
+        construccion.registrarPropietarioEn(jugadores);
+    }
+
+    public void producirSegunTerreno(Terreno terreno) {
+        terreno.producirPara(construccion);
+    }
+
+    // VALIDACIONES
+
+    public boolean tieneConstruccionPropia(Jugador jugador) {
+        return construccion.esPropiedadDe(jugador);
+    }
+
+     private void validarSiEstaLibre() {
         construccion.validarLugarLibre();
     }
 
@@ -83,35 +93,6 @@ public class Vertice {
         validarDistancia();
     }
 
-
-    public void asignarConstruccion(Construccion construccion) {
-        this.construccion = construccion;
-    }
-
-    public Construccion obtenerConstruccion() {
-        return construccion;
-    }
-
-    public int obtenerId() {
-        return id;
-    }
-
-    public void registrarPropietarioEn(Set<Jugador> jugadores) {
-        construccion.registrarPropietarioEn(jugadores);
-    }
-
-    public boolean esPropiedadDe(Jugador jugador) {
-        return this.construccion.esPropiedadDe(jugador);
-    }
-
-    public void producirSegunTerreno(Terreno terreno) {
-        terreno.producirPara(construccion);
-    }
-
-    public boolean tieneConstruccionPropia(Jugador jugador) {
-        return construccion.esPropiedadDe(jugador);
-    }
-
     public void validarConstruccionCiudad(Jugador jugador) {
         if (!(construccion instanceof Poblado)) {
             throw new CiudadSinPobladoError("Solo se puede construir una ciudad sobre un poblado");
@@ -121,4 +102,30 @@ public class Vertice {
             throw new ConstruccionAjenaError("Solo puedes mejorar tu propio poblado");
         }
     }
+
+
+    public boolean tieneCarreteraPropiaAdyacente(Jugador jugador) {
+        for (Arista aristaAdyacente : this.aristas) { 
+            if (aristaAdyacente.tieneCarreteraPropia(jugador)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public boolean esPropiedadDe(Jugador jugador) {
+        return this.construccion.esPropiedadDe(jugador);
+    }
+
+    // GETTERS NECESARIOS PARA INICIALIZACION DEL TBLERO Y TESTEOS, NO SE USAN EN LOGICAS O CONSULTAS EXTERNAS
+
+    public Construccion obtenerConstruccion() {
+        return construccion;
+    }
+
+    public int obtenerId() {
+        return id;
+    }
+
 }

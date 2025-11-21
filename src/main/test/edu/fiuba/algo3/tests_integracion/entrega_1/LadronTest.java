@@ -80,7 +80,8 @@ public class LadronTest {
         verticeB.asignarConstruccion(new Poblado(victimaB)); 
     
         // Act
-        List<Jugador> victimasElegibles = juego.moverLadron(HEXAGONO_DESTINO_ID);
+        Hexagono destino = tablero.obtenerHexagono(HEXAGONO_DESTINO_ID);
+        List<Jugador> victimasElegibles = juego.moverLadron(destino);
 
         // Assert
         assertEquals(2, victimasElegibles.size(), "Debe haber 2 víctimas elegibles.");
@@ -117,7 +118,8 @@ public class LadronTest {
         int fichaProduccion = hexagono.obtenerNumeroFicha();
     
         // mover el ladrón (cambia el estado interno a EstadoConLadron)
-        juego.moverLadron(HEXAGONO_DESTINO_ID);
+        Hexagono destino = tablero.obtenerHexagono(HEXAGONO_DESTINO_ID);
+        juego.moverLadron(destino);
 
         // Act
         tablero.producir(fichaProduccion); 

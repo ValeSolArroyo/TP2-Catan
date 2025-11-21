@@ -89,7 +89,7 @@ public class AdyacenciaCarreteraTest {
         assertEquals(2, jugador.obtenerCantidadDeConstrucciones());
     }
 
-    /*
+    
     @Test
     public void test04SePuedeConstruirCarreteraAdyacenteAOtraCarretera() {
         // Arrange
@@ -99,6 +99,11 @@ public class AdyacenciaCarreteraTest {
         Vertice v3 = new Vertice(3);
         Arista arista1 = new Arista(1, v1, v2);
         Arista arista2 = new Arista(2, v2, v3);
+
+        v1.agregarVecino(v2); 
+        v2.agregarVecino(v1);
+        v2.agregarVecino(v3); 
+        v3.agregarVecino(v2);
 
         // Recursos necesarios para poblado (1 madera, 1 ladrillo, 1 lana, 1 grano)
         jugador.recibir(new Madera());
@@ -124,5 +129,4 @@ public class AdyacenciaCarreteraTest {
         // Assert
         assertEquals(3, jugador.obtenerCantidadDeConstrucciones());
     }
-    */
 }

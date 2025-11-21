@@ -25,46 +25,21 @@ public class Jugador {
         this.puertos = new ArrayList<>();
     }
 
-    public void recibir(Recurso recurso) {
-        inventario.agregar(recurso);
+    // VALIDACIONES
+
+    public boolean yaColocoPrimeraConstruccion() {
+        return this.construcciones.size() >= 1;
     }
 
-    public void agregarConstruccion(Construccion construccion) {
-        construcciones.add(construccion);
+    public boolean yaColocoConstruccionesInicialesCompletas() {
+        return this.construcciones.size() >= 2;
     }
 
-    public int obtenerCantidadDeConstrucciones() {
-        return construcciones.size();
-    }
-
-    public void construirPoblado(Vertice vertice) {
-        vertice.validarConstruccionPoblado();
-        inventario.gastarRecursosPoblado();
-        Poblado poblado = new Poblado(this);
-        this.agregarConstruccion(poblado);
-        vertice.asignarConstruccion(poblado);
-        vertice.entregarPuertoA(this);
-        this.sumarPuntoDeVictoria(1);
-    }
-
-    public void construirCiudad(Vertice vertice) {
-        vertice.validarConstruccionCiudad(this);
-        inventario.gastarRecursosCiudad();
-        vertice.mejorarPoblado(this);
-        this.sumarPuntoDeVictoria(1);
-    }
-
-    public void construirCarretera(Arista arista) {
-        inventario.gastarRecursosCarretera();
-        arista.validarConstruccionCarretera(this);
-        Carretera carretera = new Carretera(this);
-        arista.asignarConstruccion(carretera);
-        this.agregarConstruccion(carretera);
-    }
-
-
-    public void descartarMitadDeRecursos() {
-        inventario.descartarMitad();
+    // ROBOS Y DESCARTE
+    public void descartarSiExcedeLimiteDeCartas() {
+        if (this.inventario.cantidadTotal() > 7) {
+            this.inventario.descartarMitad();
+        }
     }
 
     public void robarCarta(Jugador victima) {
@@ -76,22 +51,44 @@ public class Jugador {
         robado.asignarA(ladron); // Solo le decimos al recurso que se asigne, si es NullRecurso no hace nada
     }
 
+    // CONSTRUCCIONES
+
+    public void agregarConstruccion(Construccion construccion) {
+        construcciones.add(construccion);
+    }
+
+    public void construirPoblado(Vertice vertice) {
+        vertice.validarConstruccionPoblado();
+        inventario.gastarRecursosPoblado();
+        Poblado poblado = new Poblado(this);
+        this.agregarConstruccion(poblado);
+        vertice.asignarConstruccion(poblado);
+        vertice.entregarPuertoA(this);
+        this.sumarPuntoDeVictoria();
+    }
+
+    public void construirCiudad(Vertice vertice) {
+        vertice.validarConstruccionCiudad(this);
+        inventario.gastarRecursosCiudad();
+        vertice.mejorarPoblado(this);
+        this.sumarPuntoDeVictoria();
+    }
+
+    public void construirCarretera(Arista arista) {
+        inventario.gastarRecursosCarretera();
+        arista.validarConstruccionCarretera(this);
+        Carretera carretera = new Carretera(this);
+        arista.asignarConstruccion(carretera);
+        this.agregarConstruccion(carretera);
+    }
+
     public void construirPobladoInicialEn(Vertice vertice) {
         vertice.validarConstruccionPoblado();
         Poblado poblado = new Poblado(this);
         this.agregarConstruccion(poblado);
         vertice.asignarConstruccion(poblado);
         vertice.entregarPuertoA(this);
-        this.sumarPuntoDeVictoria(1);
-    }
-
-    public int obtenerCantidadTotalDeRecursos() {
-        return this.inventario.cantidadTotal();
-    }
-
-    // TODO: ver si nos conviene esto o solo hacer pv++; en donde lo usamos lol
-    private void sumarPuntoDeVictoria(int cantidad) {
-        this.puntosVictoria += cantidad;
+        this.sumarPuntoDeVictoria();
     }
 
     public void construirCarreteraInicialEn(Arista arista) {
@@ -99,6 +96,8 @@ public class Jugador {
         this.agregarConstruccion(carretera);
         arista.asignarConstruccion(carretera);
     }
+
+    // COMERCIO
 
     public void gastar(Recurso recurso, int cantidad) {
         inventario.gastar(recurso, cantidad);
@@ -121,8 +120,27 @@ public class Jugador {
         return mejorTasa;
     }
 
-    // !!!!! REVISAR !!!!!
+    // PUNTUACION Y RECURSOS 
+
+    private void sumarPuntoDeVictoria() {
+        this.puntosVictoria++;
+    }
+
+    public void recibir(Recurso recurso) {
+        inventario.agregar(recurso);
+    }
+
+    // GETTERS NECESARIOS PARA TESTEO
+
+    public int obtenerCantidadTotalDeRecursos() { 
+        return this.inventario.cantidadTotal(); 
+    }
+
     public int obtenerPuntosDeVictoria() {
         return puntosVictoria;
+    }
+
+    public int obtenerCantidadDeConstrucciones(){
+        return this.construcciones.size();
     }
 }

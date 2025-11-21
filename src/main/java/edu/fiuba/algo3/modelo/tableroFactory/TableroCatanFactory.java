@@ -33,21 +33,11 @@ public class TableroCatanFactory implements TableroFactory {
         Map<Integer, Hexagono> hexagonosPorId = crearHexagonosConMapa(terrenos, fichas);
         List<Hexagono> hexagonos = new ArrayList<>(hexagonosPorId.values());
 
-        // Filas de vértices para tener 54 vértices en total
         int[] cantidadVerticesPorFila = {3, 4, 4, 5, 5, 6, 6, 5, 5, 4, 4, 3};
+        Map<String, Object> initData = inicializarVertices(cantidadVerticesPorFila);
 
-        Vertice[][] vertices = new Vertice[12][];
-        Map<Integer, Vertice> verticesPorId = new HashMap<>();
-        int verticeId = 1;
-
-        for (int fila = 0; fila < 12; fila++) {
-            vertices[fila] = new Vertice[cantidadVerticesPorFila[fila]];
-            for (int columna = 0; columna < cantidadVerticesPorFila[fila]; columna++) {
-                Vertice vertice = new Vertice(verticeId++);
-                vertices[fila][columna] = vertice;
-                verticesPorId.put(vertice.obtenerId(), vertice);
-            }
-        }
+        Vertice[][] vertices = (Vertice[][]) initData.get("verticesMatriz");
+        Map<Integer, Vertice> verticesPorId = (Map<Integer, Vertice>) initData.get("verticesPorId");
 
         Map<Integer, Arista> aristasPorId = new HashMap<>();
         Map<String, Arista> aristasUnicas = new HashMap<>();
@@ -69,57 +59,98 @@ public class TableroCatanFactory implements TableroFactory {
 
             for (int colHex = 0; colHex < cantidadHexagonos; colHex++) {
                 Hexagono hexagono = hexagonos.get(indice++);
-
-                int colVerticeBase = colHex * 2 + ajusteColumna;
-
-                int maxColSuperior = vertices[filaVerticeSuperior].length - 1;
-                int maxColInferior = vertices[filaVerticeInferior].length - 1;
-                int maxColInferiorMas1 = vertices[filaVerticeInferior + 1].length - 1;
-
-                int colV1 = Math.min(colVerticeBase, maxColSuperior);
-                int colV2 = Math.min(colVerticeBase + 1, maxColSuperior);
-                int colV3 = Math.min(colVerticeBase + 1, maxColInferior);
-                int colV4 = Math.min(colVerticeBase, maxColInferiorMas1);
-                int colV5 = Math.max(0, Math.min(colVerticeBase - 1, maxColInferior));
-                int colV6 = Math.min(colVerticeBase, maxColInferior);
-
-                Vertice v1 = vertices[filaVerticeSuperior][colV1];     // Arriba-izquierda
-                Vertice v2 = vertices[filaVerticeSuperior][colV2];     // Arriba-derecha
-                Vertice v3 = vertices[filaVerticeInferior][colV3];      // Derecha
-                Vertice v4 = vertices[filaVerticeInferior + 1][colV4];  // Abajo-derecha
-                Vertice v5 = vertices[filaVerticeInferior][colV5];      // Abajo-izquierda
-                Vertice v6 = vertices[filaVerticeInferior][colV6];      // Izquierda
-
-                Vertice[] verticesHexagono = {v1, v2, v3, v4, v5, v6};
+                Vertice[] verticesHexagono = obtenerVerticesHexagono(
+                    vertices, filaVerticeSuperior, filaVerticeInferior, ajusteColumna, colHex
+                );
 
                 for (Vertice vertice : verticesHexagono) {
                     hexagono.agregarVertice(vertice);
                 }
-
-                for (int i = 0; i < 6; i++) {
-                    Vertice actual = verticesHexagono[i];
-                    Vertice siguiente = verticesHexagono[(i + 1) % 6];
-                    int idMenor = Math.min(actual.obtenerId(), siguiente.obtenerId());
-                    int idMayor = Math.max(actual.obtenerId(), siguiente.obtenerId());
-                    String claveUnica = idMenor + "-" + idMayor;
-
-                    Arista arista;
-                    if (!aristasUnicas.containsKey(claveUnica)) {
-                        arista = new Arista(aristaId++, actual, siguiente);
-                        aristasUnicas.put(claveUnica, arista);
-                        aristasPorId.put(arista.obtenerId(), arista);
-                        actual.agregarVecino(siguiente);
-                        siguiente.agregarVecino(actual);
-                    } else {
-                        arista = aristasUnicas.get(claveUnica);
-                    }
-                    hexagono.agregarArista(arista);
-                }
+                aristaId = conectarAristas(
+                    verticesHexagono, hexagono, aristasUnicas, aristasPorId, aristaId
+                );
             }
         }
 
         asignarPuertos(verticesPorId);
         return new Tablero(hexagonos, verticesPorId, hexagonosPorId, aristasPorId);
+    }
+
+    //FUNCIONES AUXILIARES
+    
+    private Map<String, Object> inicializarVertices(int[] cantidadVerticesPorFila) {
+        Vertice[][] vertices = new Vertice[12][];
+        Map<Integer, Vertice> verticesPorId = new HashMap<>();
+        int verticeId = 1;
+
+        for (int fila = 0; fila < 12; fila++) {
+            vertices[fila] = new Vertice[cantidadVerticesPorFila[fila]];
+            for (int columna = 0; columna < cantidadVerticesPorFila[fila]; columna++) {
+                Vertice vertice = new Vertice(verticeId++);
+                vertices[fila][columna] = vertice;
+                verticesPorId.put(vertice.obtenerId(), vertice);
+            }
+        }
+        
+        Map<String, Object> result = new HashMap<>();
+        result.put("verticesMatriz", vertices);
+        result.put("verticesPorId", verticesPorId);
+        return result;
+    }
+    
+    private Vertice[] obtenerVerticesHexagono(Vertice[][] vertices, 
+                                            int filaVerticeSuperior, int filaVerticeInferior, 
+                                            int ajusteColumna, int colHex) {
+                                                
+        int colVerticeBase = colHex * 2 + ajusteColumna;
+
+        int maxColSuperior = vertices[filaVerticeSuperior].length - 1;
+        int maxColInferior = vertices[filaVerticeInferior].length - 1;
+        int maxColInferiorMas1 = vertices[filaVerticeInferior + 1].length - 1;
+
+        int colV1 = Math.min(colVerticeBase, maxColSuperior);
+        int colV2 = Math.min(colVerticeBase + 1, maxColSuperior);
+        int colV3 = Math.min(colVerticeBase + 1, maxColInferior);
+        int colV4 = Math.min(colVerticeBase, maxColInferiorMas1);
+        int colV5 = Math.max(0, Math.min(colVerticeBase - 1, maxColInferior));
+        int colV6 = Math.min(colVerticeBase, maxColInferior);
+
+        Vertice v1 = vertices[filaVerticeSuperior][colV1];     // Arriba-izquierda
+        Vertice v2 = vertices[filaVerticeSuperior][colV2];     // Arriba-derecha
+        Vertice v3 = vertices[filaVerticeInferior][colV3];      // Derecha
+        Vertice v4 = vertices[filaVerticeInferior + 1][colV4];  // Abajo-derecha
+        Vertice v5 = vertices[filaVerticeInferior][colV5];      // Abajo-izquierda
+        Vertice v6 = vertices[filaVerticeInferior][colV6];      // Izquierda
+
+        return new Vertice[]{v1, v2, v3, v4, v5, v6};
+    }
+    
+    private int conectarAristas(Vertice[] verticesHexagono, Hexagono hexagono, 
+                                Map<String, Arista> aristasUnicas, Map<Integer, Arista> aristasPorId, 
+                                int aristaId) {
+                                    
+        for (int i = 0; i < 6; i++) {
+            Vertice actual = verticesHexagono[i];
+            Vertice siguiente = verticesHexagono[(i + 1) % 6];
+            int idMenor = Math.min(actual.obtenerId(), siguiente.obtenerId());
+            int idMayor = Math.max(actual.obtenerId(), siguiente.obtenerId());
+            String claveUnica = idMenor + "-" + idMayor;
+
+            Arista arista;
+            if (!aristasUnicas.containsKey(claveUnica)) {
+                arista = new Arista(aristaId++, actual, siguiente);
+                aristasUnicas.put(claveUnica, arista);
+                aristasPorId.put(arista.obtenerId(), arista);
+                actual.agregarVecino(siguiente);
+                siguiente.agregarVecino(actual);
+            } else {
+                arista = aristasUnicas.get(claveUnica);
+            }
+            actual.agregarVecino(siguiente); 
+            siguiente.agregarVecino(actual);
+            hexagono.agregarArista(arista);
+        }
+        return aristaId;
     }
 
     private void asignarPuertos(Map<Integer, Vertice> mapa) {

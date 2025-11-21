@@ -2,6 +2,8 @@ package edu.fiuba.algo3.modelo.juegoState;
 
 import edu.fiuba.algo3.modelo.Juego;
 import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.Vertice;
+import edu.fiuba.algo3.modelo.Arista;
 
 public class EstadoTirarDados implements EstadoJuego {
 
@@ -19,7 +21,7 @@ public class EstadoTirarDados implements EstadoJuego {
     }
 
     @Override
-    public void colocarPobladoInicial(Juego juego, Jugador jugador, int verticeID, int aristaID) {
+    public void colocarPobladoInicial(Juego juego, Vertice vertice, Arista arista) {
         throw new IllegalStateException("No se puede realizar la colocación inicial en la fase de acciones del turno.");
     }
 }

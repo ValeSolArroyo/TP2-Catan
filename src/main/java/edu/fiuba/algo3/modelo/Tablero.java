@@ -15,35 +15,12 @@ public class Tablero {
         this.hexagonosPorId = hexagonosPorId;
         this.aristasPorId = aristasPorId;
     }
-
+    
+    // PRODUCCION 
     public void producir(int numero) {
         for (Hexagono hexagono : hexagonos) {
                 hexagono.producirRecursos(numero);
         }
-    }
-    public Vertice encontrarVertice(int verticeId) {
-        Vertice vertice = verticesPorId.get(verticeId);
-        if (vertice == null) {
-            return new NullVertice();
-        }
-        return vertice;
-    }
-
-    public Hexagono obtenerHexagono(int hexagonoId) {
-        Hexagono hexagono = hexagonosPorId.get(hexagonoId);
-        if (hexagono == null) {
-            return new NullHexagono();
-        }
-        return hexagono;
-    }
-
-    public Arista encontrarArista(int aristaId) {
-        Arista arista = aristasPorId.get(aristaId);
-        if (arista == null) {
-            // Usar patrón Null Object despues
-            throw new IllegalArgumentException("Arista con ID " + aristaId + " no encontrada.");
-        }
-        return arista;
     }
 
     public void darRecursosIniciales(Jugador jugador, Vertice vertice) {
@@ -52,6 +29,32 @@ public class Tablero {
                 hexagono.entregarRecursoInicialA(jugador);
             }
         }
+    }
+
+    // GETTERS NECESARIOS PARA EL CONTROLADOR/USUARIO, DE OTRA MANERA DESDE EL EXTERIOR NO PUEDO COMUNICARME!
+
+    public Vertice encontrarVertice(int verticeId) {
+        Vertice vertice = verticesPorId.get(verticeId);
+        if (vertice == null) {
+            throw new IllegalArgumentException("Error fatal: ID de Vértice " + verticeId + " no existe. La UI debe garantizar la validez.");
+        }
+        return vertice;
+    }
+
+    public Hexagono obtenerHexagono(int hexagonoId) {
+        Hexagono hexagono = hexagonosPorId.get(hexagonoId);
+        if (hexagono == null) {
+            throw new IllegalArgumentException("Error fatal: ID de Hexágono " + hexagonoId + " no existe.");
+        }
+        return hexagono;
+    }
+
+    public Arista encontrarArista(int aristaId) {
+        Arista arista = aristasPorId.get(aristaId);
+        if (arista == null) {
+            throw new IllegalArgumentException("Error fatal: ID de Arista " + aristaId + " no existe.");
+        }
+        return arista;
     }
 
     public List<Hexagono> obtenerHexagonos() {
