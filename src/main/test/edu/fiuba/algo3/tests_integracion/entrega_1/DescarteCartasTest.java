@@ -18,7 +18,7 @@ public class DescarteCartasTest {
             jugador.recibir(new Madera());
         }
 
-        jugador.descartarMitadDeRecursos();
+        jugador.descartarSiExcedeLimiteDeCartas();
 
         // Assert
         assertEquals(5, jugador.obtenerCantidadTotalDeRecursos());
@@ -36,7 +36,7 @@ public class DescarteCartasTest {
 
         int recursosAntes = jugador.obtenerCantidadTotalDeRecursos();
 
-        jugador.descartarMitadDeRecursos();
+        jugador.descartarSiExcedeLimiteDeCartas();
 
         // Assert
         assertEquals(recursosAntes, jugador.obtenerCantidadTotalDeRecursos());

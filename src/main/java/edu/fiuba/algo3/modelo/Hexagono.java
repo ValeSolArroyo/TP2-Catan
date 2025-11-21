@@ -24,22 +24,17 @@ public class Hexagono {
         this.numeroFicha = numeroFicha;
         this.vertices = new ArrayList<>();
         this.id = id;
-        this.estadoActual = new EstadoSinLadron(); // Al principio es así
+        this.estadoActual = new EstadoSinLadron();
         this.aristas = new ArrayList<>();
     }
+    // VALIDACIONES
 
-    public int obtenerId(){
-        return this.id;
+    public boolean contieneVertice(Vertice vertice) {
+        return this.vertices.contains(vertice);
     }
 
-    public Terreno obtenerTipoTerreno(){
-        return this.terreno;
-    }
-
-    public int obtenerNumeroFicha(){
-        return this.numeroFicha;
-    }
-
+    // COMPORTAMIENTO 
+    
     public void ponerLadron() {
         this.estadoActual = new EstadoConLadron();
     }
@@ -72,11 +67,6 @@ public class Hexagono {
         }
     }
 
-
-    public boolean contieneVertice(Vertice vertice) {
-        return this.vertices.contains(vertice);
-    }
-
     public void entregarRecursoInicialA(Jugador jugador) {
         if (this.terreno instanceof Desierto) return;
         for (Vertice vertice : vertices) {
@@ -84,6 +74,19 @@ public class Hexagono {
                 vertice.producirSegunTerreno(this.terreno);
             }
         }
+    }
+
+    // GETTERS NECESARIOS PARA INICIALIZACION DEL TBLERO Y TESTEOS, NO SE USAN EN LOGICAS O CONSULTAS EXTERNAS
+    public int obtenerId(){
+        return this.id;
+    }
+
+    public Terreno obtenerTipoTerreno(){
+        return this.terreno;
+    }
+
+    public int obtenerNumeroFicha(){
+        return this.numeroFicha;
     }
 
 }

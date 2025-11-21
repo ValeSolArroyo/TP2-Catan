@@ -32,6 +32,8 @@ public class Juego {
         this.banca = new Banca();
     }
 
+    // ESTADO Y ACCIONES
+
     public void setEstado(EstadoJuego estado) {
         this.estadoActual = estado;
     }
@@ -44,47 +46,20 @@ public class Juego {
         estadoActual.verificarDescartesPorLadron(this);
     }
 
-    public List<Jugador> moverLadron(int hexagonoId) {
-        return estadoActual.moverLadron(this, hexagonoId);
+    public List<Jugador> moverLadron(Hexagono hexagono) {
+        return estadoActual.moverLadron(this, hexagono);
     }
 
     public void robarCartaDe(Jugador victima) {
         estadoActual.robarCartaDe(this, victima);
     }
 
-    public void construirPoblado(int verticeId) {
-        estadoActual.construirPoblado(this, verticeId);
-    }
-
-    // METODOS PARA MÁS ADELANTE.
-    /*public void construirCiudad(int verticeId) {
-        estadoActual.construirCiudad(this, verticeId);
-    }
-
-    public void construirCarretera(int aristaId) {
-        estadoActual.construirCarretera(this, aristaId);
-    }*/
-
     public void finalizarTurno() {
         estadoActual.finalizarTurno(this);
     }
 
-
-    public Vertice colocarPobladoInicialInterno(Jugador jugador, int verticeId) {
-        Vertice vertice = tablero.encontrarVertice(verticeId);
-        jugador.construirPobladoInicialEn(vertice);
-        return vertice;
-    }
-
-
-    public boolean todosColocaronPrimerPoblado() {
-        for (Jugador jugador : listaJugadores) {
-            if(jugador.obtenerCantidadDeConstrucciones() < 1) return false;
-        }
-        return true;
-    }
-
-    public void darRecursosInicialesInterno(Jugador jugador, Vertice vertice) {
+      public void darRecursosInicialesInterno(Vertice vertice) {
+        Jugador jugador = jugadorActual();
         tablero.darRecursosIniciales(jugador, vertice);
     }
 
@@ -92,22 +67,10 @@ public class Juego {
         return dado.lanzar();
     }
 
-    public void verificarDescartesPorLadronInterno() {
-        for (Jugador jugador : listaJugadores) {
-            if (jugador.obtenerCantidadTotalDeRecursos() > 7) {
-                jugador.descartarMitadDeRecursos();
-            }
-        }
-    }
-
-    public List<Jugador> moverLadronInterno(int hexagonoId) {
-        Hexagono destino = tablero.obtenerHexagono(hexagonoId);
-        destino.ponerLadron();
-
+     public List<Jugador> moverLadronInterno(Hexagono hexagono) {
+        hexagono.ponerLadron();
         Set<Jugador> listaAfectados = new HashSet<>();
-
-        destino.registrarPropietariosEn(listaAfectados);
-
+        hexagono.registrarPropietariosEn(listaAfectados);
         listaAfectados.remove(jugadorActual());
         return new ArrayList<>(listaAfectados);
     }
@@ -116,16 +79,69 @@ public class Juego {
         jugadorActual().robarCarta(victima);
     }
 
-    public void construirPobladoInterno(int verticeId) {
-        Vertice vertice = tablero.encontrarVertice(verticeId);
-        Jugador jugador = jugadorActual();
-        jugador.construirPobladoInicialEn(vertice);
-    }
-
     public void producirRecursos(int numero) {
         tablero.producir(numero);
     }
 
+    // CONSTRUCCIONES Y COLOCACIONES INICIALES
+
+    public void construirPoblado(Vertice vertice) {
+        estadoActual.construirPoblado(this, vertice);
+    }
+
+    
+    public void construirCiudad(Vertice vertice) {
+        estadoActual.construirCiudad(this, vertice);
+    }
+
+    public void construirCarretera(Arista arista) {
+        estadoActual.construirCarretera(this, arista);
+    }
+
+
+    public void colocarPobladoInicialInterno(Vertice vertice) {
+        Jugador jugador = jugadorActual();
+        jugador.construirPobladoInicialEn(vertice);
+    }
+
+
+    public void construirPobladoInterno(Vertice vertice) {
+        Jugador jugador = jugadorActual();
+        jugador.construirPobladoInicialEn(vertice);
+    }
+
+    public void construirCarreteraInicialInterno(Arista arista) {
+        Jugador jugador = jugadorActual();
+        jugador.construirCarreteraInicialEn(arista);
+    }
+
+
+    // VALIDACIONES
+
+    public boolean todosColocaronPrimerPoblado() {
+        for (Jugador jugador : listaJugadores) {
+            if (!jugador.yaColocoPrimeraConstruccion()) return false;
+        }
+        return true;
+    }
+
+    public boolean todosTerminaronColocacionesIniciales() {
+        for (Jugador jugador : listaJugadores) {
+            if (!jugador.yaColocoConstruccionesInicialesCompletas()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void verificarDescartesPorLadronInterno() {
+        for (Jugador jugador : listaJugadores) {
+            jugador.descartarSiExcedeLimiteDeCartas();
+        }
+    }
+
+
+    // TURNO 
     public Jugador jugadorActual() {
         return listaJugadores.get(indiceTurno);
     }
@@ -138,19 +154,8 @@ public class Juego {
         indiceTurno = (indiceTurno - 1 + listaJugadores.size()) % listaJugadores.size();
     }
 
-    public boolean todosTerminaronColocacionesIniciales() {
-        for (Jugador jugador : listaJugadores) {
-            if (jugador.obtenerCantidadDeConstrucciones() < 2) {
-                return false;
-            }
-        }
-        return true;
-    }
 
-    public void construirCarreteraInicialInterno(Jugador jugador, int aristaId) {
-        Arista arista = tablero.encontrarArista(aristaId);
-        jugador.construirCarreteraInicialEn(arista);
-    }
+    // COMERCIO
 
     public void comerciarConBanco(Recurso entregado, Recurso recibido) {
         // El estado valida si es el turno y momento correcto (ej. no tirar dados)

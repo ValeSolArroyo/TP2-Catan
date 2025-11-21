@@ -25,16 +25,31 @@ public class Arista {
         vertice2.agregarArista(this);
     }
 
+    // COMPORTAMIENTO 
+    public void asignarConstruccion(Construccion construccion) {
+        this.construccion = construccion;
+    }
+
+    // VALIDACIONES 
+
+    public boolean tieneCarreteraPropia(Jugador jugador) {
+        if (!(this.construccion instanceof Carretera)) {
+            return false;
+        }
+        return this.construccion.esPropiedadDe(jugador);
+    }
+
     public void validarConstruccionCarretera(Jugador jugador) {
         if (!(construccion instanceof NullConstruccion)) {
             throw new AsentamientoExistenteError("No se puede construir, Carretera ya existente");
         }
-
-        // Debe estar conectado a una construcción propia
-        boolean conectado =
-                vertice1.tieneConstruccionPropia(jugador) || vertice2.tieneConstruccionPropia(jugador);
-
-        if (!conectado) {
+        boolean conectadoAAsentamiento =
+        vertice1.tieneConstruccionPropia(jugador) || vertice2.tieneConstruccionPropia(jugador);
+    
+        boolean conectadoACarretera =
+        vertice1.tieneCarreteraPropiaAdyacente(jugador) || vertice2.tieneCarreteraPropiaAdyacente(jugador);
+    
+        if (!conectadoAAsentamiento && !conectadoACarretera) {
             throw new CaminoNoConectadoError("La carretera debe estar conectada a otra construcción propia.");
         }
     }
@@ -42,10 +57,6 @@ public class Arista {
 
     public int obtenerId() {
         return this.id;
-    }
-
-    public void asignarConstruccion(Construccion construccion) {
-        this.construccion = construccion;
     }
 
 
