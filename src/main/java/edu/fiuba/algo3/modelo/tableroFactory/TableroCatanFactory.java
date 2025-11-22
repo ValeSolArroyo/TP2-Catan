@@ -1,7 +1,10 @@
 package edu.fiuba.algo3.modelo.tableroFactory;
 
-import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.comercio.*;
+import edu.fiuba.algo3.modelo.tablero.Arista;
+import edu.fiuba.algo3.modelo.tablero.Hexagono;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.modelo.terrenos.*;
 
 import java.util.*;

@@ -1,7 +1,9 @@
 package edu.fiuba.algo3.tests_integracion.entrega_1;
 
-import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.*;
+import edu.fiuba.algo3.modelo.tablero.Hexagono;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.modelo.terrenos.Bosque;
 import edu.fiuba.algo3.modelo.terrenos.Pastizal;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;

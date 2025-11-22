@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.tablero;
 
 import java.util.ArrayList;
 import  java.util.List;
@@ -13,6 +13,7 @@ import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.excepciones.CiudadSinPobladoError;
 import edu.fiuba.algo3.modelo.excepciones.ConstruccionAjenaError;
 import edu.fiuba.algo3.modelo.excepciones.ReglaDeDistanciaError;
+import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
 
 public class Vertice {
@@ -118,7 +119,7 @@ public class Vertice {
         return this.construccion.esPropiedadDe(jugador);
     }
 
-    // GETTERS NECESARIOS PARA INICIALIZACION DEL TBLERO Y TESTEOS, NO SE USAN EN LOGICAS O CONSULTAS EXTERNAS
+    // GETTERS NECESARIOS PARA INICIALIZACION DEL TABLERO, NO SE USAN EN LOGICAS O CONSULTAS EXTERNAS
 
     public Construccion obtenerConstruccion() {
         return construccion;

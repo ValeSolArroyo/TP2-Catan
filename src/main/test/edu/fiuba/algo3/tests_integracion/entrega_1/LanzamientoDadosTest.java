@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.tests_integracion.entrega_1;
 
-import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Tablero;
-import edu.fiuba.algo3.modelo.Juego;
+import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.juego.Juego;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

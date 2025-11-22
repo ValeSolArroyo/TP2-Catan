@@ -1,8 +1,10 @@
 package edu.fiuba.algo3.tests_integracion.entrega_2;
 
-import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.excepciones.CaminoNoConectadoError;
+import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.*;
+import edu.fiuba.algo3.modelo.tablero.Arista;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
