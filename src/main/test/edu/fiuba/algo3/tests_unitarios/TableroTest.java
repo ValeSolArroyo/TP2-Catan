@@ -1,6 +1,9 @@
 package edu.fiuba.algo3.tests_unitarios;
 
-import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.tablero.Hexagono;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.modelo.terrenos.Bosque;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import org.junit.jupiter.api.Test;
@@ -13,6 +16,7 @@ public class TableroTest {
 
     @Test
     public void test01EncuentraVerticePorIdCorrectamente() {
+        // Arrange
         Vertice vertice5 = new Vertice(5);
 
         Map<Integer, Vertice> mapa = new HashMap<>();
@@ -20,11 +24,13 @@ public class TableroTest {
 
         Tablero tablero = new Tablero(new ArrayList<>(), mapa, new HashMap<>(), new HashMap<>());
 
+        // Act & Assert
         assertEquals(vertice5, tablero.encontrarVertice(5));
     }
 
     @Test
     public void test02ProducirActivaHexagonosCorrectos() {
+        // Arrange
         Jugador jugador = new Jugador(7, "X");
         Vertice vertice = new Vertice(1);
         vertice.asignarConstruccion(new Poblado(jugador));
@@ -36,8 +42,10 @@ public class TableroTest {
 
         Tablero tablero = new Tablero(hexagonos, new HashMap<>(), new HashMap<>(), new HashMap<>());
 
+        // Act
         tablero.producir(4);
 
+        // Assert
         assertEquals(1, jugador.obtenerCantidadTotalDeRecursos());
     }
 }

@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.modelo.terrenos;
 
-import edu.fiuba.algo3.modelo.Jugador;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 
 public class Desierto implements Terreno {

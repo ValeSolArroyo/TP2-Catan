@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.hexagonoState;
 
-import edu.fiuba.algo3.modelo.Vertice;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
 
 import java.util.List;

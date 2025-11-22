@@ -1,7 +1,10 @@
 package edu.fiuba.algo3.modelo.juegoState;
 
-import edu.fiuba.algo3.modelo.Juego;
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.juego.Juego;
+import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
+import edu.fiuba.algo3.modelo.tablero.Arista;
+import edu.fiuba.algo3.modelo.tablero.Hexagono;
 
 import java.util.List;
 
@@ -13,8 +16,8 @@ public class EstadoActivarLadron implements EstadoJuego {
     }
 
     @Override
-    public List<Jugador> moverLadron(Juego juego, int hexId) {
-        return juego.moverLadronInterno(hexId);
+    public List<Jugador> moverLadron(Juego juego, Hexagono hexagono) {
+        return juego.moverLadronInterno(hexagono);
     }
 
     @Override
@@ -24,7 +27,7 @@ public class EstadoActivarLadron implements EstadoJuego {
     }
 
     @Override
-    public void colocarPobladoInicial(Juego juego, Jugador jugador, int verticeID, int aristaID) {
+    public void colocarPobladoInicial(Juego juego,Vertice vertice, Arista arista) {
         throw new IllegalStateException("No se puede realizar la colocación inicial en la fase de acciones del turno.");
     }
 }
