@@ -1,10 +1,10 @@
 package edu.fiuba.algo3.modelo.juegoState;
 
-import edu.fiuba.algo3.modelo.Juego;
-import edu.fiuba.algo3.modelo.Jugador;
-import edu.fiuba.algo3.modelo.Vertice;
-import edu.fiuba.algo3.modelo.Arista;
-import edu.fiuba.algo3.modelo.Hexagono;
+import edu.fiuba.algo3.modelo.juego.Juego;
+import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
+import edu.fiuba.algo3.modelo.tablero.Arista;
+import edu.fiuba.algo3.modelo.tablero.Hexagono;
 
 import java.util.List;
 

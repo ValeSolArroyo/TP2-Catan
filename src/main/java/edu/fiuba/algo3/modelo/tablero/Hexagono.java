@@ -1,8 +1,9 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.tablero;
 
 import edu.fiuba.algo3.modelo.hexagonoState.EstadoConLadron;
 import edu.fiuba.algo3.modelo.hexagonoState.EstadoHexagono;
 import edu.fiuba.algo3.modelo.hexagonoState.EstadoSinLadron;
+import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
 import edu.fiuba.algo3.modelo.terrenos.Desierto;
 
@@ -76,7 +77,7 @@ public class Hexagono {
         }
     }
 
-    // GETTERS NECESARIOS PARA INICIALIZACION DEL TBLERO Y TESTEOS, NO SE USAN EN LOGICAS O CONSULTAS EXTERNAS
+    // GETTERS NECESARIOS PARA INICIALIZACION DEL TABLERO, NO SE USAN EN LOGICAS O CONSULTAS EXTERNAS
     public int obtenerId(){
         return this.id;
     }

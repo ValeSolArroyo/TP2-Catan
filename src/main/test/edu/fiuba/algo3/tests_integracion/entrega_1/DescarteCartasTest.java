@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.tests_integracion.entrega_1;
 
-import edu.fiuba.algo3.modelo.*;
+import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.*;
 import org.junit.jupiter.api.Test;
 

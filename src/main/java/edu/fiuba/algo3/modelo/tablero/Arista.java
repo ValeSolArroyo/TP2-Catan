@@ -1,12 +1,11 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.tablero;
 
 import edu.fiuba.algo3.modelo.construcciones.Carretera;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.NullConstruccion;
 import edu.fiuba.algo3.modelo.excepciones.AsentamientoExistenteError;
 import edu.fiuba.algo3.modelo.excepciones.CaminoNoConectadoError;
-
-import java.util.Collections;
+import edu.fiuba.algo3.modelo.jugador.Jugador;
 
 public class Arista {
 

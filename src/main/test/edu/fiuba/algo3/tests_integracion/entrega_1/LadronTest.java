@@ -1,5 +1,10 @@
 package edu.fiuba.algo3.tests_integracion.entrega_1;
 
+import edu.fiuba.algo3.modelo.juego.Juego;
+import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.tablero.Hexagono;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 import edu.fiuba.algo3.modelo.construcciones.Poblado; 
 import edu.fiuba.algo3.modelo.recursos.*;
-import edu.fiuba.algo3.modelo.*;
 import edu.fiuba.algo3.modelo.juegoState.EstadoActivarLadron;
 import edu.fiuba.algo3.modelo.tableroFactory.TableroCatanFactory;
 

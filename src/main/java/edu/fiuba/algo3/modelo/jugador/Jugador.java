@@ -1,5 +1,7 @@
-package edu.fiuba.algo3.modelo;
+package edu.fiuba.algo3.modelo.jugador;
 
+import edu.fiuba.algo3.modelo.tablero.Arista;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.modelo.comercio.Puerto;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.recursos.*;
