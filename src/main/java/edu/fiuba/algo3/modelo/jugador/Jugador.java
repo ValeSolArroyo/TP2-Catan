@@ -27,12 +27,12 @@ public class Jugador {
         this.puertos = new ArrayList<>();
     }
 
-    public boolean yaColocoPrimeraConstruccion() {
-        return this.construcciones.size() >= 1;
+    public boolean primeraColocacion() {
+        return this.construcciones.size() == 2;
     }
 
-    public boolean yaColocoConstruccionesInicialesCompletas() {
-        return this.construcciones.size() >= 2;
+    public boolean segundaColocacion() {
+        return this.construcciones.size() == 4;
     }
     
     public void descartar() {

@@ -5,7 +5,6 @@ import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.juego.Dado;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Hexagono;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 
 import java.util.List;
@@ -13,21 +12,21 @@ import java.util.List;
 
 public interface EstadoJuego {
 
-    void colocarPobladoInicial(Juego juego, Vertice vertice, Arista arista, Jugador jugador, Tablero tablero);
+    void colocarPobladoInicial(Juego juego, Vertice vertice, Arista arista);
 
     int lanzarDados(Juego juego, Dado dado);
 
-    void verificarDescartesPorLadron(Juego juego, List<Jugador> jugadores);
+    void descartePorLadron(Juego juego, List<Jugador> jugadores);
 
-    List<Jugador> moverLadron(Juego juego, Hexagono hexagono, Jugador jugador);
+    List<Jugador> moverLadron(Juego juego, Hexagono hexagono);
 
-    void robarCartaDe(Juego juego, Jugador victima, Jugador ladron);
+    void robarCartaDe(Juego juego, Jugador victima);
     
-    void construirPoblado(Juego juego, Vertice vertice, Jugador jugador);
+    void construirPoblado(Juego juego, Vertice vertice);
 
-    void construirCiudad(Juego juego, Vertice vertice, Jugador jugador);
+    void construirCiudad(Juego juego, Vertice vertice);
 
-    void construirCarretera(Juego juego, Arista arista, Jugador jugador);
+    void construirCarretera(Juego juego, Arista arista);
 
     void finalizarTurno(Juego juego);
 }

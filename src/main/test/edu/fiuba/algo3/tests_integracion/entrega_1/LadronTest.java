@@ -63,7 +63,7 @@ public class LadronTest {
         int recursosAntes = victimaA.obtenerCantidadTotalDeRecursos();
 
         // Act
-        juego.verificarDescartesPorLadron();
+        juego.descartePorLadron();
 
         // Assert
         int recursosDespues = victimaA.obtenerCantidadTotalDeRecursos();

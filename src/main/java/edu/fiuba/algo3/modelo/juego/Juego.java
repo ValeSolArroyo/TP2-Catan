@@ -35,74 +35,76 @@ public class Juego {
         this.estadoActual = estado;
     }
 
-    public void colocarPobladoInicial(Juego juego, Vertice vertice, Arista arista, Jugador jugador) {
-     estadoActual.colocarPobladoInicial(this, vertice, arista, jugador, tablero);
+    public void colocarPobladoInicial(Juego juego, Vertice vertice, Arista arista) {
+     estadoActual.colocarPobladoInicial(this, vertice, arista);
     }
 
     public int lanzarDados() {
         return estadoActual.lanzarDados(this, dado);
     }
 
-    public void verificarDescartesPorLadron() {
-        estadoActual.verificarDescartesPorLadron(this, listaJugadores);
+    public void descartePorLadron() {
+        estadoActual.descartePorLadron(this, listaJugadores);
     }
 
     public List<Jugador> moverLadron(Hexagono hexagono) {
-        return estadoActual.moverLadron(this, hexagono, listaJugadores.get(indiceTurno));
+        return estadoActual.moverLadron(this, hexagono);
     }
 
     public void robarCartaDe(Jugador victima) {
-        estadoActual.robarCartaDe(this, victima, listaJugadores.get(indiceTurno));
+        estadoActual.robarCartaDe(this, victima);
     }
 
     public void finalizarTurno() {
         estadoActual.finalizarTurno(this);
     }
 
+    public void construirPoblado(Vertice vertice, Jugador jugador) {
+        estadoActual.construirPoblado(this, vertice);
+    }
+
+    public void construirCiudad(Vertice vertice, Jugador jugador ) {
+        estadoActual.construirCiudad(this, vertice);
+    }
+
+    public void construirCarretera(Arista arista, Jugador jugador) {
+        estadoActual.construirCarretera(this, arista);
+    }
+
     public void producirRecursos(int numero) {
         tablero.producir(numero);
     }
 
-
-    public void construirPoblado(Vertice vertice, Jugador jugador) {
-        estadoActual.construirPoblado(this, vertice, jugador);
+    public void darRecursosIniciales(Jugador jugador, Vertice vertice){
+        tablero.darRecursosIniciales(jugador, vertice);
     }
-
-    
-    public void construirCiudad(Vertice vertice, Jugador jugador ) {
-        estadoActual.construirCiudad(this, vertice, jugador);
-    }
-
-    public void construirCarretera(Arista arista, Jugador jugador) {
-        estadoActual.construirCarretera(this, arista, jugador);
-    }
-
 
     public boolean todosColocaronPrimerPoblado() {
         for (Jugador jugador : listaJugadores) {
-            if (!jugador.yaColocoPrimeraConstruccion()) return false;
+            if (!jugador.primeraColocacion()) return false;
         }
         return true;
     }
 
     public boolean todosTerminaronColocacionesIniciales() {
         for (Jugador jugador : listaJugadores) {
-            if (!jugador.yaColocoConstruccionesInicialesCompletas()) {
+            if (!jugador.segundaColocacion()) {
                 return false;
             }
         }
         return true;
     }
-    
-    private Jugador jugadorActual() {
+
+    public Jugador jugadorActual() {
         return listaJugadores.get(indiceTurno);
     }
 
-    public void pasarAlSiguienteJugador() {
+    public void avanzarTurno() {
         indiceTurno = (indiceTurno + 1) % listaJugadores.size();
     }
 
-    public void pasarAlJugadorAnterior() {
+    public void retrocederTurno() {
         indiceTurno = (indiceTurno - 1 + listaJugadores.size()) % listaJugadores.size();
     }
+
 }
