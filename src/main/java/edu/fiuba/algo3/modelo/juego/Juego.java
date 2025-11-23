@@ -4,6 +4,7 @@ import edu.fiuba.algo3.modelo.comercio.Banca;
 import edu.fiuba.algo3.modelo.comercio.Intercambio;
 import edu.fiuba.algo3.modelo.juegoState.EstadoPrimeraColocacion;
 import edu.fiuba.algo3.modelo.juegoState.EstadoJuego;
+import edu.fiuba.algo3.modelo.juegoState.EstadoTirarDados;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.tablero.Arista;
@@ -37,18 +38,20 @@ public class Juego {
         this.banca = new Banca();
     }
 
-    // ESTADO Y ACCIONES
-
     public void setEstado(EstadoJuego estado) {
         this.estadoActual = estado;
     }
 
+    public void colocarPobladoInicial(Juego juego, Vertice vertice, Arista arista, Jugador jugador) {
+     estadoActual.colocarPobladoIicial(this, vertice, arista, jugador, tablero);
+    }
+
     public int lanzarDados() {
-        return estadoActual.lanzarDados(this);
+        return estadoActual.lanzarDados(this, dado);
     }
 
     public void verificarDescartesPorLadron() {
-        estadoActual.verificarDescartesPorLadron(this);
+        estadoActual.verificarDescartesPorLadron(this, listaJugadores);
     }
 
     public List<Jugador> moverLadron(Hexagono hexagono) {
@@ -63,15 +66,6 @@ public class Juego {
         estadoActual.finalizarTurno(this);
     }
 
-      public void darRecursosInicialesInterno(Vertice vertice) {
-        Jugador jugador = jugadorActual();
-        tablero.darRecursosIniciales(jugador, vertice);
-    }
-
-    public int lanzarDadosInterno() {
-        return dado.lanzar();
-    }
-
      public List<Jugador> moverLadronInterno(Hexagono hexagono) {
         hexagono.ponerLadron();
         Set<Jugador> listaAfectados = new HashSet<>();
@@ -80,15 +74,10 @@ public class Juego {
         return new ArrayList<>(listaAfectados);
     }
 
-    public void robarCartaDeInterno(Jugador victima) {
-        jugadorActual().robarCarta(victima);
-    }
-
     public void producirRecursos(int numero) {
         tablero.producir(numero);
     }
 
-    // CONSTRUCCIONES Y COLOCACIONES INICIALES
 
     public void construirPoblado(Vertice vertice) {
         estadoActual.construirPoblado(this, vertice);
@@ -103,25 +92,6 @@ public class Juego {
         estadoActual.construirCarretera(this, arista);
     }
 
-
-    public void colocarPobladoInicialInterno(Vertice vertice) {
-        Jugador jugador = jugadorActual();
-        jugador.construirPobladoInicialEn(vertice);
-    }
-
-
-    public void construirPobladoInterno(Vertice vertice) {
-        Jugador jugador = jugadorActual();
-        jugador.construirPobladoInicialEn(vertice);
-    }
-
-    public void construirCarreteraInicialInterno(Arista arista) {
-        Jugador jugador = jugadorActual();
-        jugador.construirCarreteraInicialEn(arista);
-    }
-
-
-    // VALIDACIONES
 
     public boolean todosColocaronPrimerPoblado() {
         for (Jugador jugador : listaJugadores) {
@@ -139,15 +109,8 @@ public class Juego {
         return true;
     }
 
-    public void verificarDescartesPorLadronInterno() {
-        for (Jugador jugador : listaJugadores) {
-            jugador.descartarSiExcedeLimiteDeCartas();
-        }
-    }
 
-
-    // TURNO 
-    public Jugador jugadorActual() {
+    private Jugador jugadorActual() {
         return listaJugadores.get(indiceTurno);
     }
 
@@ -157,26 +120,5 @@ public class Juego {
 
     public void pasarAlJugadorAnterior() {
         indiceTurno = (indiceTurno - 1 + listaJugadores.size()) % listaJugadores.size();
-    }
-
-
-    // COMERCIO
-
-    public void comerciarConBanco(Recurso entregado, Recurso recibido) {
-        // El estado valida si es el turno y momento correcto (ej. no tirar dados)
-        estadoActual.comerciarConBanco(this, entregado, recibido);
-    }
-
-    public void intercambiar(Jugador otroJugador, Recurso entregado, Recurso recibido) {
-        estadoActual.intercambiar(this, otroJugador, entregado, recibido);
-    }
-
-    public void comerciarConBancoInterno(Recurso entregado, Recurso recibido) {
-        banca.comerciar(jugadorActual(), entregado, recibido);
-    }
-
-    public void intercambiarInterno(Jugador otroJugador, Recurso entregado, Recurso recibido) {
-        Intercambio intercambio = new Intercambio(jugadorActual(), otroJugador, entregado, recibido);
-        intercambio.ejecutar();
     }
 }

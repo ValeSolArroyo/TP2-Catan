@@ -6,12 +6,11 @@ public class Dado {
     private int valor1;
     private int valor2;
 
-    // CONSTRUCTOR CON SEMILLA 
     public Dado() {
         this.random = new Random(System.nanoTime());
     }
 
-    public int lanzar() {
+    public int lanzarDados() {
         valor1 = random.nextInt(6) + 1;
         valor2 = random.nextInt(6) + 1;
         return valor1 + valor2;

@@ -24,12 +24,9 @@ public class Arista {
         vertice2.agregarArista(this);
     }
 
-    // COMPORTAMIENTO 
     public void asignarConstruccion(Construccion construccion) {
         this.construccion = construccion;
     }
-
-    // VALIDACIONES 
 
     public boolean tieneCarreteraPropia(Jugador jugador) {
         if (!(this.construccion instanceof Carretera)) {

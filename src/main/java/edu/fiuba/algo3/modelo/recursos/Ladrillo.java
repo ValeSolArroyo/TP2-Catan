@@ -5,23 +5,20 @@ import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.comercio.Puerto;
 
 public class Ladrillo implements Recurso {
-    @Override
-    public void agregarseA(Inventario inventario) {
-        inventario.sumarLadrillo();
-    }
-
-    @Override
-    public void restarseDe(Inventario inventario, int cantidad) {
-        inventario.restarLadrillo(cantidad);
-    }
-
+    private final String tipo = "Ladrillo";
+    
     @Override
     public void asignarA(Jugador jugador) {
-        jugador.recibir(this);
+        jugador.recibirRecurso(this);
     }
 
     @Override
-    public int obtenerTasaEn(Puerto puerto) {
-        return puerto.tasaLadrillo();
+    public void eliminarDe(Inventario inventario) {
+        inventario.eliminarRecurso(tipo);
+    }
+
+    @Override
+    public boolean brinda(String recurso) {
+        return recurso.equals(tipo);
     }
 }

@@ -17,8 +17,7 @@ public class Tablero {
         this.hexagonosPorId = hexagonosPorId;
         this.aristasPorId = aristasPorId;
     }
-    
-    // PRODUCCION 
+
     public void producir(int numero) {
         for (Hexagono hexagono : hexagonos) {
                 hexagono.producirRecursos(numero);

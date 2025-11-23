@@ -11,8 +11,10 @@ import java.util.List;
 public class EstadoActivarLadron implements EstadoJuego {
 
     @Override
-    public void verificarDescartesPorLadron(Juego juego) {
-        juego.verificarDescartesPorLadronInterno();
+    public void verificarDescartesPorLadron(Juego juego, List<Jugador> jugadores) {
+        for (Jugador jugador : jugadores){
+            jugador.descartar();
+        }
     }
 
     @Override
@@ -21,13 +23,17 @@ public class EstadoActivarLadron implements EstadoJuego {
     }
 
     @Override
-    public void robarCartaDe(Juego juego, Jugador victima) {
-        juego.robarCartaDeInterno(victima);
+    public void robarCartaDe(Juego juego, Jugador victima, Jugador ladron) {
+        this.robarCartaDeInterno(victima);
         juego.setEstado(new EstadoAccionesTurno());
     }
 
     @Override
     public void colocarPobladoInicial(Juego juego,Vertice vertice, Arista arista) {
         throw new IllegalStateException("No se puede realizar la colocación inicial en la fase de acciones del turno.");
+    }
+
+    public void robarCartaDeInterno(Jugador victima, Jugador ladron) {
+        ladron.robarCarta(victima);
     }
 }
