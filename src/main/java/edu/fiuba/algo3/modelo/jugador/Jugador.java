@@ -44,7 +44,7 @@ public class Jugador {
 
     public void serRobadoPor(Jugador ladron) {
         Recurso robado = this.inventario.quitarRecursoAlAzar();
-        robado.asignarA(ladron); // Solo le decimos al recurso que se asigne, si es NullRecurso no hace nada
+        robado.asignarA(ladron);
     }
 
     public void agregarConstruccion(Construccion construccion) {
@@ -52,15 +52,13 @@ public class Jugador {
     }
 
     public void construir(Construccion construccion, EspacioConstruible espacio) {
-        // Para construir en las primeras dos rondas
+
         if (construcciones.size() < 4) {
 
         }
 
         construccion.validarEn(espacio, this);
 
-
-        // Para construir en general
         inventario.consumirRecurso(construccion.costoConstruccion());
         espacio.validarConstruccion(construccion, this);
         espacio.asignarConstruccion(construccion);
