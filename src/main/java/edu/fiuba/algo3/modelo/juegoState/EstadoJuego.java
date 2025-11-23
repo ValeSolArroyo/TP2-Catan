@@ -19,15 +19,15 @@ public interface EstadoJuego {
 
     void verificarDescartesPorLadron(Juego juego, List<Jugador> jugadores);
 
-    List<Jugador> moverLadron(Juego juego, Hexagono hexagono);
+    List<Jugador> moverLadron(Juego juego, Hexagono hexagono, Jugador jugador);
 
     void robarCartaDe(Juego juego, Jugador victima, Jugador ladron);
     
-    void construirPoblado(Juego juego, Vertice vertice);
+    void construirPoblado(Juego juego, Vertice vertice, Jugador jugador);
 
-    void construirCiudad(Juego juego, Vertice vertice);
+    void construirCiudad(Juego juego, Vertice vertice, Jugador jugador);
 
-    void construirCarretera(Juego juego, Arista arista);
+    void construirCarretera(Juego juego, Arista arista, Jugador jugador);
 
     void finalizarTurno(Juego juego);
 }

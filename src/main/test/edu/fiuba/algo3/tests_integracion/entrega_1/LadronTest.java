@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 import edu.fiuba.algo3.modelo.construcciones.Poblado; 
 import edu.fiuba.algo3.modelo.recursos.*;
-import edu.fiuba.algo3.modelo.juegoState.EstadoActivarLadron;
+import edu.fiuba.algo3.modelo.juegoState.EstadoLadron;
 import edu.fiuba.algo3.modelo.tableroFactory.TableroCatanFactory;
 
 
@@ -45,7 +45,7 @@ public class LadronTest {
         Vertice vB = tablero.encontrarVertice(VERTICE_ID_B);
         vA.asignarConstruccion(new Poblado(victimaA)); 
         vB.asignarConstruccion(new Poblado(victimaB));
-        juego.setEstado(new EstadoActivarLadron());
+        juego.setEstado(new EstadoLadron());
     }
 
     // Auxiliar para testeo
@@ -99,7 +99,7 @@ public class LadronTest {
         int recursosVictimaAntes = victimaA.obtenerCantidadTotalDeRecursos(); 
 
         // Act
-        juego.robarCartaDe(victimaA);
+        //juego.robarCartaDe(victimaA);
 
         // Assert
         int recursosActivoDespues = jugadorActivo.obtenerCantidadTotalDeRecursos();

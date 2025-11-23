@@ -43,7 +43,7 @@ public class Juego {
     }
 
     public void colocarPobladoInicial(Juego juego, Vertice vertice, Arista arista, Jugador jugador) {
-     estadoActual.colocarPobladoIicial(this, vertice, arista, jugador, tablero);
+     estadoActual.colocarPobladoInicial(this, vertice, arista, jugador, tablero);
     }
 
     public int lanzarDados() {
@@ -55,23 +55,15 @@ public class Juego {
     }
 
     public List<Jugador> moverLadron(Hexagono hexagono) {
-        return estadoActual.moverLadron(this, hexagono);
+        return estadoActual.moverLadron(this, hexagono, listaJugadores.get(indiceTurno));
     }
 
     public void robarCartaDe(Jugador victima) {
-        estadoActual.robarCartaDe(this, victima);
+        estadoActual.robarCartaDe(this, victima, listaJugadores.get(indiceTurno));
     }
 
     public void finalizarTurno() {
         estadoActual.finalizarTurno(this);
-    }
-
-     public List<Jugador> moverLadronInterno(Hexagono hexagono) {
-        hexagono.ponerLadron();
-        Set<Jugador> listaAfectados = new HashSet<>();
-        hexagono.registrarPropietariosEn(listaAfectados);
-        listaAfectados.remove(jugadorActual());
-        return new ArrayList<>(listaAfectados);
     }
 
     public void producirRecursos(int numero) {
@@ -79,17 +71,17 @@ public class Juego {
     }
 
 
-    public void construirPoblado(Vertice vertice) {
-        estadoActual.construirPoblado(this, vertice);
+    public void construirPoblado(Vertice vertice, Jugador jugador) {
+        estadoActual.construirPoblado(this, vertice, jugador);
     }
 
     
-    public void construirCiudad(Vertice vertice) {
-        estadoActual.construirCiudad(this, vertice);
+    public void construirCiudad(Vertice vertice, Jugador jugador ) {
+        estadoActual.construirCiudad(this, vertice, jugador);
     }
 
-    public void construirCarretera(Arista arista) {
-        estadoActual.construirCarretera(this, arista);
+    public void construirCarretera(Arista arista, Jugador jugador) {
+        estadoActual.construirCarretera(this, arista, jugador);
     }
 
 
