@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo.tablero;
 
 import java.util.ArrayList;
-import  java.util.List;
+import java.util.List;
 import java.util.Set;
 
 import edu.fiuba.algo3.modelo.comercio.Puerto;
@@ -17,20 +17,23 @@ public class Vertice implements EspacioConstruible {
     private Construccion construccion;
     private List<Vertice> vecinos;
     private List<Arista> aristas;
-    private final int id;
 
-    public Vertice(int id) {
+    public Vertice() {
         this.construccion = new NullConstruccion();
         this.vecinos = new ArrayList<>();
         this.aristas = new ArrayList<>();
-        this.id = id;
     }
 
     public void agregarVecino(Vertice vecino) {
-        if (!vecinos.contains(vecino)) vecinos.add(vecino);
+        if (!vecinos.contains(vecino)) {
+            vecinos.add(vecino);
+        }
     }
+
     public void agregarArista(Arista arista) {
-        if (!aristas.contains(arista)) aristas.add(arista);
+        if (!aristas.contains(arista)) {
+            aristas.add(arista);
+        }
     }
 
     public void construirPoblado(Jugador jugador) {
@@ -47,12 +50,11 @@ public class Vertice implements EspacioConstruible {
     public void validarPoblado(Jugador jugador) {
         this.construccion.construir();
         this.validarDistancia();
-
     }
 
     @Override
     public void validarCiudad(Jugador jugador) {
-
+        // Implementación pendiente si es necesaria
     }
 
     @Override
@@ -77,20 +79,18 @@ public class Vertice implements EspacioConstruible {
         return construccion.esPropiedadDe(jugador);
     }
 
-
     private void validarDistancia() {
         for (Vertice vertice : vecinos) {
             try {
                 vertice.validarSiEstaLibre();
             } catch (Exception e) {
-                throw new ReglaDeDistanciaError("TODO: personalizar");
+                throw new ReglaDeDistanciaError("No se puede construir tan cerca de otro asentamiento");
             }
         }
     }
 
-
     public boolean tieneCarreteraPropiaAdyacente(Jugador jugador) {
-        for (Arista aristaAdyacente : this.aristas) { 
+        for (Arista aristaAdyacente : this.aristas) {
             if (aristaAdyacente.tieneCarreteraPropia(jugador)) {
                 return true;
             }
@@ -102,9 +102,9 @@ public class Vertice implements EspacioConstruible {
         return this.construccion.esPropiedadDe(jugador);
     }
 
-    public int obtenerId() {
-        return id;
+    private void validarSiEstaLibre() {
+        if (!(construccion instanceof NullConstruccion)) { // TODO: SACAR INSTANCEDOF
+            throw new ConstruccionInvalidaError("Ya hay una construcción en este vértice");
+        }
     }
-
-
 }

@@ -19,7 +19,6 @@ import java.util.*;
 //SUPUESTO: Se puede crear poblados en vértices adyacentes al mar → permite el comercio marítimo.
 
 public class TableroCatanFactory implements TableroFactory {
-
     @Override
     public Tablero crearTablero() {
         List<Terreno> terrenosAleatorios = generarTerrenosAleatorios();
@@ -63,7 +62,7 @@ public class TableroCatanFactory implements TableroFactory {
                 conectarAristas(verticesHexagono, hexagono, aristas);
             }
         }
-        return new Tablero(hexagonos, aplanarMatrizVertices(vertices), aristas);
+        return new Tablero(hexagonos);
     }
 
     private Vertice[][] inicializarVertices(int[] cantidadVerticesPorFila) {
@@ -141,7 +140,7 @@ public class TableroCatanFactory implements TableroFactory {
         int indiceFicha = 0;
 
         for (Terreno terrenoActual : terrenos) {
-            int numeroFicha = (terrenoActual instanceof Desierto) ? 0 : fichas.get(indiceFicha++);
+            int numeroFicha = (terrenoActual instanceof Desierto) ? 0 : fichas.get(indiceFicha++); // TODO: SACAR INSTANCEOF
             hexagonos.add(new Hexagono(terrenoActual, numeroFicha));
         }
         return hexagonos;
