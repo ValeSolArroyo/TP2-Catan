@@ -27,7 +27,7 @@ public class ComercioIntegracionTest {
 
         Juego juego = new Juego(List.of(jugador1, jugador2), tablero);
 
-        juego.setEstado(new EstadoAccionesTurno());
+        juego.establecerEstado(new EstadoAccionesTurno());
 
         // Act
         jugador1.recibir(new Madera());
@@ -53,7 +53,7 @@ public class ComercioIntegracionTest {
         Tablero tablero = factory.crearTablero();
 
         Juego juego = new Juego(List.of(jugador1, jugador2), tablero);
-        juego.setEstado(new EstadoAccionesTurno());
+        juego.establecerEstado(new EstadoAccionesTurno());
 
         jugador1.recibir(new Madera());
         jugador1.recibir(new Madera());
@@ -75,7 +75,7 @@ public class ComercioIntegracionTest {
         Tablero tablero = factory.crearTablero();
 
         Juego juego = new Juego(List.of(jugador1, jugador2), tablero);
-        juego.setEstado(new EstadoAccionesTurno());
+        juego.establecerEstado(new EstadoAccionesTurno());
 
         jugador1.recibir(new Madera());    
         jugador2.recibir(new Ladrillo());  
@@ -102,7 +102,7 @@ public class ComercioIntegracionTest {
         Tablero tablero = factory.crearTablero();
 
         Juego juego = new Juego(List.of(jugador1, jugador2), tablero);
-        juego.setEstado(new EstadoAccionesTurno());
+        juego.establecerEstado(new EstadoAccionesTurno());
 
         jugador1.recibir(new Madera());
 
@@ -120,7 +120,7 @@ public class ComercioIntegracionTest {
         TableroCatanFactory factory = new TableroCatanFactory();
         Tablero tablero = factory.crearTablero();
         Juego juego = new Juego(List.of(jugador1, jugador2), tablero);
-        juego.setEstado(new EstadoAccionesTurno());
+        juego.establecerEstado(new EstadoAccionesTurno());
 
         Vertice verticePuerto = tablero.encontrarVertice(1);
 
@@ -151,7 +151,7 @@ public class ComercioIntegracionTest {
         TableroCatanFactory factory = new TableroCatanFactory();
         Tablero tablero = factory.crearTablero();
         Juego juego = new Juego(List.of(jugador1, jugador2), tablero);
-        juego.setEstado(new EstadoAccionesTurno());
+        juego.establecerEstado(new EstadoAccionesTurno());
 
         Vertice verticePuerto = tablero.encontrarVertice(4);
 
@@ -181,7 +181,7 @@ public class ComercioIntegracionTest {
         TableroCatanFactory factory = new TableroCatanFactory();
         Tablero tablero = factory.crearTablero();
         Juego juego = new Juego(List.of(jugador1, jugador2), tablero);
-        juego.setEstado(new EstadoAccionesTurno());
+        juego.establecerEstado(new EstadoAccionesTurno());
 
         Vertice verticePuerto = tablero.encontrarVertice(4); // Puerto Madera
 

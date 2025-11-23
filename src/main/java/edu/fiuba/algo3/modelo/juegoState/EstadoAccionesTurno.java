@@ -3,7 +3,6 @@ package edu.fiuba.algo3.modelo.juegoState;
 import edu.fiuba.algo3.modelo.juego.Dado;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
@@ -31,7 +30,7 @@ public class EstadoAccionesTurno implements EstadoJuego {
     @Override
     public void finalizarTurno(Juego juego) {
        juego.pasarAlSiguienteJugador();
-        juego.setEstado(new EstadoTirarDados());
+        juego.establecerEstado(new EstadoTirarDados());
     }
 
     public void colocarPobladoInicial(Juego juego,Vertice vertice, Arista arista, Jugador jugador, Tablero tablero) {

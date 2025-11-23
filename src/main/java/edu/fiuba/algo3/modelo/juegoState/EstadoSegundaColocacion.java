@@ -21,7 +21,7 @@ public class EstadoSegundaColocacion implements EstadoJuego {
         tablero.darRecursosIniciales(jugador, vertice);
 
         if (juego.todosTerminaronColocacionesIniciales()) {
-            juego.setEstado(new EstadoTirarDados());
+            juego.establecerEstado(new EstadoTirarDados());
         } else {
             juego.pasarAlJugadorAnterior();
         }
