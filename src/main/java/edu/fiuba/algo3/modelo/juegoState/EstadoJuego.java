@@ -2,9 +2,10 @@ package edu.fiuba.algo3.modelo.juegoState;
 
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.recursos.Recurso;
+import edu.fiuba.algo3.modelo.juego.Dado;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Hexagono;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 
 import java.util.List;
@@ -12,47 +13,22 @@ import java.util.List;
 
 public interface EstadoJuego {
 
-    void colocarPobladoInicial(Juego juego, Vertice vertice, Arista arista);
+    void colocarPobladoInicial(Juego juego, Vertice vertice, Arista arista, Jugador jugador, Tablero tablero);
 
-    default int lanzarDados(Juego juego) {
-        throw new IllegalStateException("Acción no permitida en este estado.");
-    }
+    int lanzarDados(Juego juego, Dado dado);
 
-    default void verificarDescartesPorLadron(Juego juego) {
-        throw new IllegalStateException("Acción no permitida en este estado.");
-    }
+    void verificarDescartesPorLadron(Juego juego, List<Jugador> jugadores);
 
-    default List<Jugador> moverLadron(Juego juego, Hexagono hexagono) {
-        throw new IllegalStateException("Acción no permitida en este estado.");
-    }
+    List<Jugador> moverLadron(Juego juego, Hexagono hexagono);
 
-    default void robarCartaDe(Juego juego, Jugador victima) {
-        throw new IllegalStateException("Acción no permitida en este estado.");
-    }
+    void robarCartaDe(Juego juego, Jugador victima, Jugador ladron);
+    
+    void construirPoblado(Juego juego, Vertice vertice);
 
+    void construirCiudad(Juego juego, Vertice vertice);
 
-    default void construirPoblado(Juego juego, Vertice vertice) {
-        throw new IllegalStateException("Acción no permitida en este estado.");
-    }
+    void construirCarretera(Juego juego, Arista arista);
 
-    default void construirCiudad(Juego juego, Vertice vertice) {
-        throw new IllegalStateException("Acción no permitida en este estado.");
-    }
-
-    default void construirCarretera(Juego juego, Arista arista) {
-        throw new IllegalStateException("Acción no permitida en este estado.");
-    }
-
-    default void finalizarTurno(Juego juego) {
-        throw new IllegalStateException("Acción no permitida en este estado.");
-    }
-
-    default void comerciarConBanco(Juego juego, Recurso entregado, Recurso recibido) {
-        throw new IllegalStateException("No puedes comerciar con el banco en este momento.");
-    }
-
-    default void intercambiar(Juego juego, Jugador otroJugador, Recurso entregado, Recurso recibido) {
-        throw new IllegalStateException("No puedes realizar intercambios en este momento.");
-    }
+    void finalizarTurno(Juego juego);
 }
 

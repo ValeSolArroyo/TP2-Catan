@@ -8,7 +8,6 @@ import java.util.Set;
 public interface Construccion {
     void producir(Recurso recurso);
     void registrarPropietarioEn(Set<Jugador> jugadores);
-    // Mmmm
     void validarLugarLibre();
     boolean esPropiedadDe(Jugador jugador);
 }

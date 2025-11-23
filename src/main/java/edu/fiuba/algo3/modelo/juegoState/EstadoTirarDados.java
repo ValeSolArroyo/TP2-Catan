@@ -1,14 +1,17 @@
 package edu.fiuba.algo3.modelo.juegoState;
 
+import edu.fiuba.algo3.modelo.juego.Dado;
 import edu.fiuba.algo3.modelo.juego.Juego;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 
 public class EstadoTirarDados implements EstadoJuego {
 
     @Override
-    public int lanzarDados(Juego juego) {
-        int resultado = juego .lanzarDadosInterno();
+    public int lanzarDados(Juego juego, Dado dado) {
+        int resultado = dado.lanzarDados();
 
         if (resultado == 7) {
             juego.setEstado(new EstadoActivarLadron());
@@ -20,7 +23,7 @@ public class EstadoTirarDados implements EstadoJuego {
     }
 
     @Override
-    public void colocarPobladoInicial(Juego juego, Vertice vertice, Arista arista) {
+    public void colocarPobladoInicial(Juego juego, Vertice vertice, Arista arista, Jugador jugador, Tablero tablero) {
         throw new IllegalStateException("No se puede realizar la colocación inicial en la fase de acciones del turno.");
     }
 }

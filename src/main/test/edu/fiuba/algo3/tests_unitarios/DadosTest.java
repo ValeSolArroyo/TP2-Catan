@@ -13,7 +13,7 @@ public class DadosTest {
         Dado dado = new Dado();
 
         // Act & Assert
-        int resultado = dado.lanzar();
+        int resultado = dado.lanzarDados();
         assertTrue(resultado >= 2 && resultado <= 12,
                 "El lanzamiento debe generar un número entre 2 y 12, pero salió " + resultado);
     }

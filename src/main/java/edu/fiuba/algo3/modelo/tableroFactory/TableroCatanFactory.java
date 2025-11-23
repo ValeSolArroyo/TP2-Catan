@@ -74,12 +74,8 @@ public class TableroCatanFactory implements TableroFactory {
                 );
             }
         }
-
-        asignarPuertos(verticesPorId);
         return new Tablero(hexagonos, verticesPorId, hexagonosPorId, aristasPorId);
     }
-
-    //FUNCIONES AUXILIARES
     
     private Map<String, Object> inicializarVertices(int[] cantidadVerticesPorFila) {
         Vertice[][] vertices = new Vertice[12][];
@@ -154,23 +150,6 @@ public class TableroCatanFactory implements TableroFactory {
             hexagono.agregarArista(arista);
         }
         return aristaId;
-    }
-
-    private void asignarPuertos(Map<Integer, Vertice> mapa) {
-        asignarPuerto(mapa, 1, 2, new PuertoTresUno());
-        asignarPuerto(mapa, 4, 8, new PuertoDosUnoMadera());
-        asignarPuerto(mapa, 15, 21, new PuertoDosUnoLadrillo());
-        asignarPuerto(mapa, 26, 32, new PuertoTresUno());
-        asignarPuerto(mapa, 43, 48, new PuertoDosUnoLana());
-        asignarPuerto(mapa, 50, 53, new PuertoTresUno());
-        asignarPuerto(mapa, 39, 44, new PuertoTresUno());
-        asignarPuerto(mapa, 22, 28, new PuertoDosUnoGrano());
-        asignarPuerto(mapa, 7, 12, new PuertoDosUnoMineral());
-    }
-
-    private void asignarPuerto(Map<Integer, Vertice> mapa, int id1, int id2, Puerto puerto) {
-        if (mapa.containsKey(id1)) mapa.get(id1).asignarPuerto(puerto);
-        if (mapa.containsKey(id2)) mapa.get(id2).asignarPuerto(puerto);
     }
 
     private Map<Integer, Hexagono> crearHexagonosConMapa(List<Terreno> terrenos, List<Integer> fichas) {

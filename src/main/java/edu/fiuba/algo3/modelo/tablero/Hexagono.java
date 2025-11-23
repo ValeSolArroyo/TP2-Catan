@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.modelo.tablero;
 
-import edu.fiuba.algo3.modelo.hexagonoState.EstadoConLadron;
-import edu.fiuba.algo3.modelo.hexagonoState.EstadoHexagono;
-import edu.fiuba.algo3.modelo.hexagonoState.EstadoSinLadron;
+import edu.fiuba.algo3.modelo.hexagonoStrategy.StrategyConLadron;
+import edu.fiuba.algo3.modelo.hexagonoStrategy.StrategyHexagono;
+import edu.fiuba.algo3.modelo.hexagonoStrategy.StrategySinLadron;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
 import edu.fiuba.algo3.modelo.terrenos.Desierto;
@@ -17,7 +17,7 @@ public class Hexagono {
     private final List<Arista> aristas;
     private final int id;
     private List<Vertice> vertices;
-    private EstadoHexagono estadoActual;
+    private StrategyHexagono estrategiaActual;
 
 
     public Hexagono(int id, Terreno terreno, int numeroFicha) {
@@ -25,23 +25,20 @@ public class Hexagono {
         this.numeroFicha = numeroFicha;
         this.vertices = new ArrayList<>();
         this.id = id;
-        this.estadoActual = new EstadoSinLadron();
+        this.estrategiaActual = new StrategySinLadron();
         this.aristas = new ArrayList<>();
     }
-    // VALIDACIONES
 
     public boolean contieneVertice(Vertice vertice) {
         return this.vertices.contains(vertice);
     }
 
-    // COMPORTAMIENTO 
-    
     public void ponerLadron() {
-        this.estadoActual = new EstadoConLadron();
+        this.estrategiaActual = new StrategyConLadron();
     }
 
     public void quitarLadron() {
-        this.estadoActual = new EstadoSinLadron();
+        this.estrategiaActual = new StrategySinLadron();
     }
 
     public void agregarVertice(Vertice vertice) {
@@ -64,12 +61,11 @@ public class Hexagono {
 
     public void producirRecursos(int numero) {
         if (numero == this.numeroFicha) {
-            estadoActual.producirRecursos(vertices, terreno);
+            estrategiaActual.producirRecursos(vertices, terreno);
         }
     }
 
     public void entregarRecursoInicialA(Jugador jugador) {
-        if (this.terreno instanceof Desierto) return;
         for (Vertice vertice : vertices) {
             if (vertice.esPropiedadDe(jugador)) {
                 vertice.producirSegunTerreno(this.terreno);

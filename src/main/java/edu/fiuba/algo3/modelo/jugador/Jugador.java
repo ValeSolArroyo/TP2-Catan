@@ -27,8 +27,6 @@ public class Jugador {
         this.puertos = new ArrayList<>();
     }
 
-    // VALIDACIONES
-
     public boolean yaColocoPrimeraConstruccion() {
         return this.construcciones.size() >= 1;
     }
@@ -36,12 +34,9 @@ public class Jugador {
     public boolean yaColocoConstruccionesInicialesCompletas() {
         return this.construcciones.size() >= 2;
     }
-
-    // ROBOS Y DESCARTE
-    public void descartarSiExcedeLimiteDeCartas() {
-        if (this.inventario.cantidadTotal() > 7) {
-            this.inventario.descartarMitad();
-        }
+    
+    public void descartar() {
+        this.inventario.descartarMitadRecursos();
     }
 
     public void robarCarta(Jugador victima) {
@@ -53,19 +48,16 @@ public class Jugador {
         robado.asignarA(ladron); // Solo le decimos al recurso que se asigne, si es NullRecurso no hace nada
     }
 
-    // CONSTRUCCIONES
-
     public void agregarConstruccion(Construccion construccion) {
         construcciones.add(construccion);
     }
 
     public void construirPoblado(Vertice vertice) {
         vertice.validarConstruccionPoblado();
-        inventario.gastarRecursosPoblado();
+        inventario.consumirRecurso(new Madera());
         Poblado poblado = new Poblado(this);
         this.agregarConstruccion(poblado);
         vertice.asignarConstruccion(poblado);
-        vertice.entregarPuertoA(this);
         this.sumarPuntoDeVictoria();
     }
 
@@ -89,7 +81,6 @@ public class Jugador {
         Poblado poblado = new Poblado(this);
         this.agregarConstruccion(poblado);
         vertice.asignarConstruccion(poblado);
-        vertice.entregarPuertoA(this);
         this.sumarPuntoDeVictoria();
     }
 
@@ -99,41 +90,15 @@ public class Jugador {
         arista.asignarConstruccion(carretera);
     }
 
-    // COMERCIO
-
-    public void gastar(Recurso recurso, int cantidad) {
-        inventario.gastar(recurso, cantidad);
-    }
-
-    public void agregarPuerto(Puerto puerto) {
-        this.puertos.add(puerto);
-    }
-
-    public int obtenerTasaDeCambioPara(Recurso recurso) {
-        int mejorTasa = 4; // Tasa base del banco
-
-        for (Puerto puerto : puertos) {
-            int tasaDelPuerto = recurso.obtenerTasaEn(puerto);
-
-            if (tasaDelPuerto < mejorTasa) {
-                mejorTasa = tasaDelPuerto;
-            }
-        }
-        return mejorTasa;
-    }
-
-    // PUNTUACION Y RECURSOS 
-
     private void sumarPuntoDeVictoria() {
         this.puntosVictoria++;
     }
 
-    public void recibir(Recurso recurso) {
-        inventario.agregar(recurso);
+    public void recibirRecurso(Recurso recurso) {
+        inventario.agregarRecurso(recurso);
     }
 
-    // GETTERS NECESARIOS PARA TESTEO
-
+    // TODO: BORRAR Y PREGUNTAR PORQUE LO USAMOS EN CADA TEST. GETTERS NECESARIOS PARA TESTEO
     public int obtenerCantidadTotalDeRecursos() { 
         return this.inventario.cantidadTotal(); 
     }
