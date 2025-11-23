@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.jugador;
 
 import edu.fiuba.algo3.modelo.tablero.Arista;
+import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.modelo.comercio.Puerto;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
@@ -16,7 +17,6 @@ public class Jugador {
     private int puntosVictoria;
     private final Inventario inventario;
     private List<Construccion> construcciones;
-    private List<Puerto> puertos;
 
     public Jugador(int id, String nombre) {
         this.id = id;
@@ -24,7 +24,6 @@ public class Jugador {
         this.puntosVictoria = 0;
         this.inventario = new Inventario();
         this.construcciones = new ArrayList<>();
-        this.puertos = new ArrayList<>();
     }
 
     public boolean primeraColocacion() {
@@ -52,42 +51,22 @@ public class Jugador {
         construcciones.add(construccion);
     }
 
-    public void construirPoblado(Vertice vertice) {
-        vertice.validarConstruccionPoblado();
-        inventario.consumirRecurso(new Madera());
-        Poblado poblado = new Poblado(this);
-        this.agregarConstruccion(poblado);
-        vertice.asignarConstruccion(poblado);
-        this.sumarPuntoDeVictoria();
-    }
+    public void construir(Construccion construccion, EspacioConstruible espacio) {
+        // Para construir en las primeras dos rondas
+        if (construcciones.size() < 4) {
 
-    public void construirCiudad(Vertice vertice) {
-        vertice.validarConstruccionCiudad(this);
-        inventario.gastarRecursosCiudad();
-        vertice.mejorarPoblado(this);
-        this.sumarPuntoDeVictoria();
-    }
+        }
 
-    public void construirCarretera(Arista arista) {
-        inventario.gastarRecursosCarretera();
-        arista.validarConstruccionCarretera(this);
-        Carretera carretera = new Carretera(this);
-        arista.asignarConstruccion(carretera);
-        this.agregarConstruccion(carretera);
-    }
+        construccion.validarEn(espacio, this);
 
-    public void construirPobladoInicialEn(Vertice vertice) {
-        vertice.validarConstruccionPoblado();
-        Poblado poblado = new Poblado(this);
-        this.agregarConstruccion(poblado);
-        vertice.asignarConstruccion(poblado);
-        this.sumarPuntoDeVictoria();
-    }
 
-    public void construirCarreteraInicialEn(Arista arista) {
-        Carretera carretera = new Carretera(this);
-        this.agregarConstruccion(carretera);
-        arista.asignarConstruccion(carretera);
+        // Para construir en general
+        inventario.consumirRecurso(construccion.costoConstruccion());
+        espacio.validarConstruccion(construccion, this);
+        espacio.asignarConstruccion(construccion);
+
+        this.agregarConstruccion(construccion);
+        this.puntosVictoria += construccion.puntosVictoria();
     }
 
     private void sumarPuntoDeVictoria() {

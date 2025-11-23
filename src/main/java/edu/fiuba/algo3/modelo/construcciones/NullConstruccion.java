@@ -1,8 +1,10 @@
 package edu.fiuba.algo3.modelo.construcciones;
 
+import edu.fiuba.algo3.modelo.excepciones.LugarOcupadoError;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 
+import java.util.List;
 import java.util.Set;
 
 public class NullConstruccion implements Construccion {
@@ -18,11 +20,17 @@ public class NullConstruccion implements Construccion {
     }
 
     @Override
-    public void validarLugarLibre() {}
-
-    @Override
     public boolean esPropiedadDe(Jugador jugador) {
         return false;
+    }
+
+    @Override
+    public List<Recurso> costoConstruccion() {
+        return List.of();
+    }
+
+    @Override
+    public void construir() {
     }
 
 }

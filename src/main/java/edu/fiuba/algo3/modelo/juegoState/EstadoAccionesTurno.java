@@ -1,33 +1,19 @@
 package edu.fiuba.algo3.modelo.juegoState;
 
+import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.juego.Dado;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.tablero.Hexagono;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.tablero.Vertice;
-import edu.fiuba.algo3.modelo.tablero.Arista;
+import edu.fiuba.algo3.modelo.tablero.*;
 
 import java.util.List;
 
 public class EstadoAccionesTurno implements EstadoJuego {
 
     @Override
-    public void construirPoblado(Juego juego, Vertice vertice) {
+    public void construir(Juego juego, Construccion construccion, EspacioConstruible espacio) {
         Jugador jugador = juego.jugadorActual();
-        jugador.construirPobladoInicialEn(vertice);
-    }
-
-    @Override
-    public void construirCiudad(Juego juego, Vertice vertice){
-        Jugador jugador = juego.jugadorActual();
-        jugador.construirCiudad(vertice);
-    }
-
-    @Override
-    public void construirCarretera(Juego juego, Arista arista) {
-        Jugador jugador = juego.jugadorActual();
-        jugador.construirCarretera(arista);
+        jugador.construir(construccion, espacio);
     }
 
     @Override

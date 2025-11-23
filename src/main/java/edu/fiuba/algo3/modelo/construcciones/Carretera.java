@@ -1,9 +1,14 @@
 package edu.fiuba.algo3.modelo.construcciones;
 
+import edu.fiuba.algo3.modelo.excepciones.LugarOcupadoError;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.excepciones.AsentamientoExistenteError;
+import edu.fiuba.algo3.modelo.recursos.Ladrillo;
+import edu.fiuba.algo3.modelo.recursos.Madera;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
+import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
 
+import java.util.List;
 import java.util.Set;
 
 public class Carretera implements Construccion {
@@ -24,12 +29,22 @@ public class Carretera implements Construccion {
     }
 
     @Override
-    public void validarLugarLibre() {
-        throw new AsentamientoExistenteError("El lugar ya está ocupado por una construcción.");
+    public boolean esPropiedadDe(Jugador jugador) {
+        return this.propietario.equals(jugador);
     }
 
     @Override
-    public boolean esPropiedadDe(Jugador jugador) {
-        return this.propietario.equals(jugador);
+    public List<Recurso> costoConstruccion() {
+        return List.of(new Madera(), new Ladrillo());
+    }
+
+    @Override
+    public void validarEn(EspacioConstruible espacio, Jugador jugador) {
+        espacio.validarCarretera(jugador);
+    }
+
+    @Override
+    public void construir() {
+        throw new LugarOcupadoError("No se puede colocar");
     }
 }

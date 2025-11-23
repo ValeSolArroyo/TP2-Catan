@@ -1,12 +1,10 @@
 package edu.fiuba.algo3.modelo.juegoState;
 
+import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.juego.Dado;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.tablero.Vertice;
-import edu.fiuba.algo3.modelo.tablero.Arista;
-import edu.fiuba.algo3.modelo.tablero.Hexagono;
+import edu.fiuba.algo3.modelo.tablero.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -56,15 +54,7 @@ public class EstadoLadron implements EstadoJuego {
         throw new IllegalStateException("No se pueden tirar los dados en la fase del ladrón.");
     }
 
-    public void construirCiudad(Juego juego, Vertice vertice) {
-        throw new IllegalStateException("No se puede construir una ciudad en la fase del ladrón.");
-    }
-
-    public void construirPoblado(Juego juego, Vertice vertice) {
-        throw new IllegalStateException("No se puede construir un poblado en la fase del ladrón.");
-    }
-
-    public void construirCarretera(Juego juego, Arista arista){
-        throw new IllegalStateException("No se puede construir carretera en la fase del ladrón.");
+    public void construir(Juego juego, Construccion construccion, EspacioConstruible espacio) {
+        throw new IllegalStateException("No se puede construir en la fase del ladrón.");
     }
 }

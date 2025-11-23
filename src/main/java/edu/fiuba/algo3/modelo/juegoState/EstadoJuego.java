@@ -1,9 +1,11 @@
 package edu.fiuba.algo3.modelo.juegoState;
 
+import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.juego.Dado;
 import edu.fiuba.algo3.modelo.tablero.Arista;
+import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
 import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 
@@ -21,12 +23,8 @@ public interface EstadoJuego {
     List<Jugador> moverLadron(Juego juego, Hexagono hexagono);
 
     void robarCartaDe(Juego juego, Jugador victima);
-    
-    void construirPoblado(Juego juego, Vertice vertice);
 
-    void construirCiudad(Juego juego, Vertice vertice);
-
-    void construirCarretera(Juego juego, Arista arista);
+    void construir(Juego juego, Construccion contruccion, EspacioConstruible espacio);
 
     void finalizarTurno(Juego juego);
 }
