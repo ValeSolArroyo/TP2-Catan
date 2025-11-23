@@ -16,7 +16,7 @@ public class EstadoPrimeraColocacion implements EstadoJuego {
         this.colocarPobladoInicialInterno(vertice, jugador);
         this.construirCarreteraInicialInterno(arista, jugador);
         if (juego.todosColocaronPrimerPoblado()) {
-            juego.setEstado(new EstadoSegundaColocacion());
+            juego.establecerEstado(new EstadoSegundaColocacion());
         } else {
             juego.pasarAlSiguienteJugador();
         }

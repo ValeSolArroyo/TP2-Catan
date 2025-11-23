@@ -38,7 +38,7 @@ public class EstadoLadron implements EstadoJuego {
     @Override
     public void robarCartaDe(Juego juego, Jugador victima, Jugador ladron) {
         ladron.robarCarta(victima);
-        juego.setEstado(new EstadoAccionesTurno());
+        juego.establecerEstado(new EstadoAccionesTurno());
     }
 
     @Override

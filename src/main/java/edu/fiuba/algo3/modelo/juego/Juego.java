@@ -1,21 +1,14 @@
 package edu.fiuba.algo3.modelo.juego;
 
 import edu.fiuba.algo3.modelo.comercio.Banca;
-import edu.fiuba.algo3.modelo.comercio.Intercambio;
 import edu.fiuba.algo3.modelo.juegoState.EstadoPrimeraColocacion;
 import edu.fiuba.algo3.modelo.juegoState.EstadoJuego;
-import edu.fiuba.algo3.modelo.juegoState.EstadoTirarDados;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
-
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Juego {
     private final List<Jugador> listaJugadores;
@@ -38,7 +31,7 @@ public class Juego {
         this.banca = new Banca();
     }
 
-    public void setEstado(EstadoJuego estado) {
+    public void establecerEstado(EstadoJuego estado) {
         this.estadoActual = estado;
     }
 
@@ -100,8 +93,7 @@ public class Juego {
         }
         return true;
     }
-
-
+    
     private Jugador jugadorActual() {
         return listaJugadores.get(indiceTurno);
     }

@@ -45,7 +45,7 @@ public class LadronTest {
         Vertice vB = tablero.encontrarVertice(VERTICE_ID_B);
         vA.asignarConstruccion(new Poblado(victimaA)); 
         vB.asignarConstruccion(new Poblado(victimaB));
-        juego.setEstado(new EstadoLadron());
+        juego.establecerEstado(new EstadoLadron());
     }
 
     // Auxiliar para testeo

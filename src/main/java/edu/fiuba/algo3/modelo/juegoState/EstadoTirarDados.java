@@ -17,10 +17,10 @@ public class EstadoTirarDados implements EstadoJuego {
         int resultado = dado.lanzarDados();
 
         if (resultado == 7) {
-            juego.setEstado(new EstadoLadron());
+            juego.establecerEstado(new EstadoLadron());
         } else {
             juego.producirRecursos(resultado);
-            juego.setEstado(new EstadoAccionesTurno());
+            juego.establecerEstado(new EstadoAccionesTurno());
         }
         return resultado;
     }
