@@ -5,7 +5,6 @@ import edu.fiuba.algo3.modelo.hexagonoStrategy.StrategyHexagono;
 import edu.fiuba.algo3.modelo.hexagonoStrategy.StrategySinLadron;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
-import edu.fiuba.algo3.modelo.terrenos.Desierto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,18 +14,15 @@ public class Hexagono {
     private final Terreno terreno;
     private final int numeroFicha;
     private final List<Arista> aristas;
-    private final int id;
-    private List<Vertice> vertices;
+    private final List<Vertice> vertices;
     private StrategyHexagono estrategiaActual;
 
-
-    public Hexagono(int id, Terreno terreno, int numeroFicha) {
+    public Hexagono(Terreno terreno, int numeroFicha) {
         this.terreno = terreno;
         this.numeroFicha = numeroFicha;
         this.vertices = new ArrayList<>();
-        this.id = id;
-        this.estrategiaActual = new StrategySinLadron();
         this.aristas = new ArrayList<>();
+        this.estrategiaActual = new StrategySinLadron();
     }
 
     public boolean contieneVertice(Vertice vertice) {
@@ -72,18 +68,4 @@ public class Hexagono {
             }
         }
     }
-
-    // GETTERS NECESARIOS PARA INICIALIZACION DEL TABLERO, NO SE USAN EN LOGICAS O CONSULTAS EXTERNAS
-    public int obtenerId(){
-        return this.id;
-    }
-
-    public Terreno obtenerTipoTerreno(){
-        return this.terreno;
-    }
-
-    public int obtenerNumeroFicha(){
-        return this.numeroFicha;
-    }
-
 }

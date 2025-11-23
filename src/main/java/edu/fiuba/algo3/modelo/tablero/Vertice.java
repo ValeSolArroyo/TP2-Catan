@@ -9,13 +9,11 @@ import edu.fiuba.algo3.modelo.construcciones.Ciudad;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.NullConstruccion;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
-import edu.fiuba.algo3.modelo.excepciones.CiudadSinPobladoError;
-import edu.fiuba.algo3.modelo.excepciones.ConstruccionAjenaError;
-import edu.fiuba.algo3.modelo.excepciones.ReglaDeDistanciaError;
+import edu.fiuba.algo3.modelo.excepciones.*;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
 
-public class Vertice {
+public class Vertice implements EspacioConstruible {
     private Construccion construccion;
     private List<Vertice> vecinos;
     private List<Arista> aristas;
@@ -45,6 +43,24 @@ public class Vertice {
         this.construccion = new Ciudad(jugador);
     }
 
+    @Override
+    public void validarPoblado(Jugador jugador) {
+        this.construccion.construir();
+        this.validarDistancia();
+
+    }
+
+    @Override
+    public void validarCiudad(Jugador jugador) {
+
+    }
+
+    @Override
+    public void validarCarretera(Jugador jugador) {
+        throw new ConstruccionInvalidaError("No se puede construir una carretera en un vértice");
+    }
+
+    @Override
     public void asignarConstruccion(Construccion construccion) {
         this.construccion = construccion;
     }
@@ -61,9 +77,6 @@ public class Vertice {
         return construccion.esPropiedadDe(jugador);
     }
 
-     private void validarSiEstaLibre() {
-        construccion.validarLugarLibre();
-    }
 
     private void validarDistancia() {
         for (Vertice vertice : vecinos) {
@@ -72,21 +85,6 @@ public class Vertice {
             } catch (Exception e) {
                 throw new ReglaDeDistanciaError("TODO: personalizar");
             }
-        }
-    }
-
-    public void validarConstruccionPoblado() {
-        validarSiEstaLibre();
-        validarDistancia();
-    }
-
-    public void validarConstruccionCiudad(Jugador jugador) {
-        if (!(construccion instanceof Poblado)) {
-            throw new CiudadSinPobladoError("Solo se puede construir una ciudad sobre un poblado");
-        }
-
-        if (!construccion.esPropiedadDe(jugador)) {
-            throw new ConstruccionAjenaError("Solo puedes mejorar tu propio poblado");
         }
     }
 
@@ -100,19 +98,13 @@ public class Vertice {
         return false;
     }
 
-
     public boolean esPropiedadDe(Jugador jugador) {
         return this.construccion.esPropiedadDe(jugador);
-    }
-
-    // GETTERS NECESARIOS PARA INICIALIZACION DEL TABLERO, NO SE USAN EN LOGICAS O CONSULTAS EXTERNAS
-
-    public Construccion obtenerConstruccion() {
-        return construccion;
     }
 
     public int obtenerId() {
         return id;
     }
+
 
 }

@@ -1,12 +1,12 @@
 package edu.fiuba.algo3.modelo.juegoState;
 
+import edu.fiuba.algo3.modelo.construcciones.Carretera;
+import edu.fiuba.algo3.modelo.construcciones.Construccion;
+import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.juego.Dado;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.tablero.Hexagono;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.tablero.Vertice;
-import edu.fiuba.algo3.modelo.tablero.Arista;
+import edu.fiuba.algo3.modelo.tablero.*;
 
 import java.util.List;
 
@@ -16,16 +16,12 @@ public class EstadoSegundaColocacion implements EstadoJuego {
     public void colocarPobladoInicial(Juego juego, Vertice vertice, Arista arista) {
         Jugador jugador = juego.jugadorActual();
 
-        jugador.construirPobladoInicialEn(vertice);
-        jugador.construirCarreteraInicialEn(arista);
+        jugador.construir(new Poblado(jugador), vertice);
+        jugador.construir(new Carretera(jugador), arista);
 
         juego.darRecursosIniciales(jugador, vertice);
 
-        if (juego.todosTerminaronColocacionesIniciales()) {
-            juego.establecerEstado(new EstadoTirarDados());
-        } else {
-            juego.retrocederTurno();
-        }
+        juego.segundaColocacionRealizada();
     }
 
     public int lanzarDados(Juego juego, Dado dado){
@@ -44,16 +40,8 @@ public class EstadoSegundaColocacion implements EstadoJuego {
         throw new IllegalStateException("No se puede mover al ladrón durante colocaciones iniciales.");
     }
 
-    public void construirCiudad(Juego juego, Vertice vertice) {
-        throw new IllegalStateException("No se puede construir una ciudad en la fase de colocaciones iniciales.");
-    }
-
-    public void construirPoblado(Juego juego, Vertice vertice) {
-        throw new IllegalStateException("No se puede construir un poblado en la fase de colocaciones iniciales.");
-    }
-
-    public void construirCarretera(Juego juego, Arista arista) {
-        throw new IllegalStateException("No se puede construir una carretera en la fase de colocaciones iniciales.");
+    public void construir(Juego juego, Construccion construccion, EspacioConstruible espacio) {
+        throw new IllegalStateException("No se puede construir durante colocaciones iniciales.");
     }
 
     public void finalizarTurno(Juego juego) {

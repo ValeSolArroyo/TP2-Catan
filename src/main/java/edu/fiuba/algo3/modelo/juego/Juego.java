@@ -1,13 +1,14 @@
 package edu.fiuba.algo3.modelo.juego;
 
 import edu.fiuba.algo3.modelo.comercio.Banca;
+import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.juegoState.EstadoPrimeraColocacion;
 import edu.fiuba.algo3.modelo.juegoState.EstadoJuego;
+import edu.fiuba.algo3.modelo.juegoState.EstadoSegundaColocacion;
+import edu.fiuba.algo3.modelo.juegoState.EstadoTirarDados;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.tablero.Arista;
-import edu.fiuba.algo3.modelo.tablero.Hexagono;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.tablero.Vertice;
+import edu.fiuba.algo3.modelo.tablero.*;
+
 import java.util.List;
 
 public class Juego {
@@ -16,7 +17,6 @@ public class Juego {
     private int indiceTurno;
     private final Dado dado;
     private EstadoJuego estadoActual;
-    private final Banca banca;
 
 
     public Juego(List<Jugador> jugadores, Tablero tablero) {
@@ -28,7 +28,6 @@ public class Juego {
         this.tablero = tablero;
         this.indiceTurno = 0;
         this.estadoActual = new EstadoPrimeraColocacion();
-        this.banca = new Banca();
     }
 
     public void establecerEstado(EstadoJuego estado) {
@@ -59,16 +58,8 @@ public class Juego {
         estadoActual.finalizarTurno(this);
     }
 
-    public void construirPoblado(Vertice vertice, Jugador jugador) {
-        estadoActual.construirPoblado(this, vertice);
-    }
-
-    public void construirCiudad(Vertice vertice, Jugador jugador ) {
-        estadoActual.construirCiudad(this, vertice);
-    }
-
-    public void construirCarretera(Arista arista, Jugador jugador) {
-        estadoActual.construirCarretera(this, arista);
+    public void construir(Construccion construccion, EspacioConstruible espacio) {
+        estadoActual.construir(this, construccion, espacio);
     }
 
     public void producirRecursos(int numero) {
@@ -77,6 +68,22 @@ public class Juego {
 
     public void darRecursosIniciales(Jugador jugador, Vertice vertice){
         tablero.darRecursosIniciales(jugador, vertice);
+    }
+
+    public void primeraColocacionRealizada(){
+        if (todosColocaronPrimerPoblado()) {
+            establecerEstado(new EstadoSegundaColocacion());
+        } else {
+            avanzarTurno();
+        }
+    }
+
+    public void segundaColocacionRealizada(){
+        if (todosTerminaronColocacionesIniciales()) {
+            establecerEstado(new EstadoTirarDados());
+        } else {
+            retrocederTurno();
+        }
     }
 
     public boolean todosColocaronPrimerPoblado() {
@@ -88,12 +95,11 @@ public class Juego {
 
     public boolean todosTerminaronColocacionesIniciales() {
         for (Jugador jugador : listaJugadores) {
-            if (!jugador.segundaColocacion()) {
-                return false;
-            }
+            if (!jugador.segundaColocacion()) return false;
         }
         return true;
     }
+
 
     public Jugador jugadorActual() {
         return listaJugadores.get(indiceTurno);
