@@ -16,14 +16,15 @@ import java.util.Set;
 public class EstadoLadron implements EstadoJuego {
 
     @Override
-    public void verificarDescartesPorLadron(Juego juego, List<Jugador> jugadores) {
+    public void descartePorLadron(Juego juego, List<Jugador> jugadores) {
         for (Jugador jugador : jugadores){
             jugador.descartar();
         }
     }
 
     @Override
-    public List<Jugador> moverLadron(Juego juego, Hexagono hexagono, Jugador jugador) {
+    public List<Jugador> moverLadron(Juego juego, Hexagono hexagono) {
+        Jugador jugador = juego.jugadorActual();
         return this.moverLadronInterno(hexagono, jugador);
     }
 
@@ -36,13 +37,14 @@ public class EstadoLadron implements EstadoJuego {
     }
 
     @Override
-    public void robarCartaDe(Juego juego, Jugador victima, Jugador ladron) {
+    public void robarCartaDe(Juego juego, Jugador victima) {
+        Jugador ladron = juego.jugadorActual();
         ladron.robarCarta(victima);
         juego.establecerEstado(new EstadoAccionesTurno());
     }
 
     @Override
-    public void colocarPobladoInicial(Juego juego,Vertice vertice, Arista arista, Jugador jugador, Tablero tablero) {
+    public void colocarPobladoInicial(Juego juego,Vertice vertice, Arista arista) {
         throw new IllegalStateException("No se puede realizar la colocación inicial en la fase del ladrón.");
     }
 
@@ -54,15 +56,15 @@ public class EstadoLadron implements EstadoJuego {
         throw new IllegalStateException("No se pueden tirar los dados en la fase del ladrón.");
     }
 
-    public void construirCiudad(Juego juego, Vertice vertice, Jugador jugador) {
+    public void construirCiudad(Juego juego, Vertice vertice) {
         throw new IllegalStateException("No se puede construir una ciudad en la fase del ladrón.");
     }
 
-    public void construirPoblado(Juego juego, Vertice vertice, Jugador jugador) {
+    public void construirPoblado(Juego juego, Vertice vertice) {
         throw new IllegalStateException("No se puede construir un poblado en la fase del ladrón.");
     }
 
-    public void construirCarretera(Juego juego, Arista arista, Jugador jugador){
+    public void construirCarretera(Juego juego, Arista arista){
         throw new IllegalStateException("No se puede construir carretera en la fase del ladrón.");
     }
 }

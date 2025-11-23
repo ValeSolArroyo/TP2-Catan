@@ -13,17 +13,18 @@ import java.util.List;
 public class EstadoSegundaColocacion implements EstadoJuego {
 
     @Override
-    public void colocarPobladoInicial(Juego juego, Vertice vertice, Arista arista, Jugador jugador, Tablero tablero) {
+    public void colocarPobladoInicial(Juego juego, Vertice vertice, Arista arista) {
+        Jugador jugador = juego.jugadorActual();
 
         jugador.construirPobladoInicialEn(vertice);
         jugador.construirCarreteraInicialEn(arista);
 
-        tablero.darRecursosIniciales(jugador, vertice);
+        juego.darRecursosIniciales(jugador, vertice);
 
         if (juego.todosTerminaronColocacionesIniciales()) {
             juego.establecerEstado(new EstadoTirarDados());
         } else {
-            juego.pasarAlJugadorAnterior();
+            juego.retrocederTurno();
         }
     }
 
@@ -31,27 +32,27 @@ public class EstadoSegundaColocacion implements EstadoJuego {
         throw new IllegalStateException("No se pueden tirar los dados en la fase de colocaciones iniciales.");
     }
 
-    public void verificarDescartesPorLadron(Juego juego, List<Jugador> jugadores){
+    public void descartePorLadron(Juego juego, List<Jugador> jugadores){
         throw new IllegalStateException("No se puede verificar descarte por ladrón en colocaciones iniciales.");
     }
 
-    public void robarCartaDe(Juego juego, Jugador victima, Jugador ladron){
+    public void robarCartaDe(Juego juego, Jugador victima){
         throw new IllegalStateException("No se puede robar carta en colocaciones iniciales.");
     }
 
-    public List<Jugador> moverLadron(Juego juego, Hexagono hexagono, Jugador jugador){
+    public List<Jugador> moverLadron(Juego juego, Hexagono hexagono){
         throw new IllegalStateException("No se puede mover al ladrón durante colocaciones iniciales.");
     }
 
-    public void construirCiudad(Juego juego, Vertice vertice, Jugador jugador) {
+    public void construirCiudad(Juego juego, Vertice vertice) {
         throw new IllegalStateException("No se puede construir una ciudad en la fase de colocaciones iniciales.");
     }
 
-    public void construirPoblado(Juego juego, Vertice vertice, Jugador jugador) {
+    public void construirPoblado(Juego juego, Vertice vertice) {
         throw new IllegalStateException("No se puede construir un poblado en la fase de colocaciones iniciales.");
     }
 
-    public void construirCarretera(Juego juego, Arista arista, Jugador jugador) {
+    public void construirCarretera(Juego juego, Arista arista) {
         throw new IllegalStateException("No se puede construir una carretera en la fase de colocaciones iniciales.");
     }
 
