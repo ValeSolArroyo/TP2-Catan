@@ -42,7 +42,7 @@ public class Arista implements EspacioConstruible {
 
     @Override
     public void validarCarretera(Jugador jugador) {
-        if (!(construccion instanceof NullConstruccion)) { // SACAR INSTANCEDOF
+        if (!(construccion instanceof NullConstruccion)) { // TODO: SACAR INSTANCEDOF
             throw new AsentamientoExistenteError("Ya existe una construcción en esta arista");
         }
     }
@@ -53,7 +53,7 @@ public class Arista implements EspacioConstruible {
     }
 
     public boolean tieneCarreteraPropia(Jugador jugador) {
-        return (this.construccion instanceof Carretera) && // SACAR INSTANCEOF
+        return (this.construccion instanceof Carretera) && // TODO: SACAR INSTANCEOF
                 this.construccion.esPropiedadDe(jugador);
     }
 }
