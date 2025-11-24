@@ -1,11 +1,11 @@
 package edu.fiuba.algo3.modelo.tableroFactory;
 
-import edu.fiuba.algo3.modelo.comercio.*;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.modelo.terrenos.*;
+import edu.fiuba.algo3.modelo.terrenosVisitor.VisitanteTerreno;
 
 import java.util.*;
 
@@ -23,10 +23,10 @@ public class TableroCatanFactory implements TableroFactory {
     public Tablero crearTablero() {
         List<Terreno> terrenosAleatorios = generarTerrenosAleatorios();
         List<Integer> fichasAleatorias = generarFichasAleatorias();
-        return generarTablero(terrenosAleatorios, fichasAleatorias);
+        return construirTablero(terrenosAleatorios, fichasAleatorias);
     }
 
-    private Tablero generarTablero(List<Terreno> terrenos, List<Integer> fichas) {
+    private Tablero construirTablero(List<Terreno> terrenos, List<Integer> fichas) {
         if (terrenos.size() != 19)
             throw new IllegalArgumentException("Se necesitan exactamente 19 terrenos");
         if (fichas.size() != 18)
@@ -74,14 +74,6 @@ public class TableroCatanFactory implements TableroFactory {
             }
         }
         return vertices;
-    }
-
-    private List<Vertice> aplanarMatrizVertices(Vertice[][] vertices) {
-        List<Vertice> listaVertices = new ArrayList<>();
-        for (Vertice[] fila : vertices) {
-            Collections.addAll(listaVertices, fila);
-        }
-        return listaVertices;
     }
 
     private Vertice[] obtenerVerticesHexagono(Vertice[][] vertices,
@@ -137,10 +129,10 @@ public class TableroCatanFactory implements TableroFactory {
 
     private List<Hexagono> crearHexagonos(List<Terreno> terrenos, List<Integer> fichas) {
         List<Hexagono> hexagonos = new ArrayList<>();
-        int indiceFicha = 0;
+        VisitanteTerreno visitante = new VisitanteTerreno(fichas);
 
         for (Terreno terrenoActual : terrenos) {
-            int numeroFicha = (terrenoActual instanceof Desierto) ? 0 : fichas.get(indiceFicha++); // TODO: SACAR INSTANCEOF
+            int numeroFicha = terrenoActual.aceptar(visitante);
             hexagonos.add(new Hexagono(terrenoActual, numeroFicha));
         }
         return hexagonos;
