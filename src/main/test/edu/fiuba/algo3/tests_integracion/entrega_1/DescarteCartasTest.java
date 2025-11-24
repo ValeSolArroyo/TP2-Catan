@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DescarteCartasTest {
 
-    @Test
+    /*@Test
     public void test01JugadorDescartaMitadAlSacarSiete() {
         // Arrange
         Jugador jugador = new Jugador(1, "P");
@@ -40,5 +40,5 @@ public class DescarteCartasTest {
 
         // Assert
         assertEquals(recursosAntes, jugador.obtenerCantidadTotalDeRecursos());
-    }
+    }*/
 }

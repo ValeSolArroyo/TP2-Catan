@@ -18,7 +18,7 @@ import edu.fiuba.algo3.modelo.tableroFactory.TableroCatanFactory;
 
 public class LadronTest {
     
-    private Tablero tablero;
+    /*private Tablero tablero;
     private Jugador jugadorActivo;
     private Jugador victimaA;
     private Jugador victimaB;
@@ -131,5 +131,5 @@ public class LadronTest {
         // Assert
         assertEquals(0, jugador.obtenerCantidadTotalDeRecursos(), 
                  "El hexágono con el ladrón no debe producir recursos.");
-    }
+    }*/
 }

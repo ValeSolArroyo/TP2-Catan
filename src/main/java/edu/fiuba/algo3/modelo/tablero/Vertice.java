@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import edu.fiuba.algo3.modelo.comercio.Puerto;
-import edu.fiuba.algo3.modelo.construcciones.Ciudad;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.NullConstruccion;
-import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.excepciones.*;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
@@ -36,25 +33,24 @@ public class Vertice implements EspacioConstruible {
         }
     }
 
-    public void construirPoblado(Jugador jugador) {
-        construccion.validarLugarLibre();
-        this.validarDistancia();
-        this.construccion = new Poblado(jugador);
-    }
-
-    public void mejorarPoblado(Jugador jugador) {
-        this.construccion = new Ciudad(jugador);
-    }
-
     @Override
     public void validarPoblado(Jugador jugador) {
         this.construccion.construir();
         this.validarDistancia();
     }
 
+    // TODO: PREGUNTAR EL VIERNES SI ES MUY TERRIBLE MANEJARNOS CON EXCEPCIONES...
     @Override
     public void validarCiudad(Jugador jugador) {
-        // Implementación pendiente si es necesaria
+        try {
+            this.construccion.construir();
+        } catch (YaHayPobladoError e) {
+            if (!this.construccion.esPropiedadDe(jugador)) {
+                throw new ConstruccionInvalidaError("No se puede mejorar a ciudad un poblado ajeno.");
+            }
+        } catch (YaHayCiudadError e) {
+            throw new ConstruccionInvalidaError("No se puede mejorar donde ya hay una ciudad.");
+        }
     }
 
     @Override
@@ -75,36 +71,35 @@ public class Vertice implements EspacioConstruible {
         terreno.producirPara(construccion);
     }
 
-    public boolean tieneConstruccionPropia(Jugador jugador) {
-        return construccion.esPropiedadDe(jugador);
-    }
-
     private void validarDistancia() {
-        for (Vertice vertice : vecinos) {
-            try {
-                vertice.validarSiEstaLibre();
-            } catch (Exception e) {
-                throw new ReglaDeDistanciaError("No se puede construir tan cerca de otro asentamiento");
-            }
+        for (Vertice verticeVecino : vecinos) {
+            verticeVecino.validarReglaDistancia();
         }
     }
 
-    public boolean tieneCarreteraPropiaAdyacente(Jugador jugador) {
-        for (Arista aristaAdyacente : this.aristas) {
-            if (aristaAdyacente.tieneCarreteraPropia(jugador)) {
-                return true;
-            }
+    private void validarReglaDistancia() {
+        try {
+            this.construccion.construir();
+        } catch (YaHayCiudadError | YaHayPobladoError e) {
+            throw new ReglaDeDistanciaError("No se puede construir tan cerca de otra construcción.");
+        }
+    }
+
+    public boolean validarConstruccionesProximas(Jugador jugador) {
+        try {
+            this.construccion.construir();
+        } catch (YaHayCiudadError | YaHayPobladoError e) {
+            return construccion.esPropiedadDe(jugador);
         }
         return false;
     }
 
-    public boolean esPropiedadDe(Jugador jugador) {
-        return this.construccion.esPropiedadDe(jugador);
-    }
-
-    private void validarSiEstaLibre() {
-        if (!(construccion instanceof NullConstruccion)) { // TODO: SACAR INSTANCEDOF
-            throw new ConstruccionInvalidaError("Ya hay una construcción en este vértice");
+    public boolean validarCarreterasProximas(Jugador jugador) {
+        for (Arista arista : aristas) {
+            if (arista.validarCarreteraPropia(jugador)) {
+                return true;
+            }
         }
+        return false;
     }
 }

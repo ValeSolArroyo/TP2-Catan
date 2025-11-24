@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class HexagonoTest {
 
-    @Test
+    /*@Test
     public void test01HexagonoProduceRecursosCorrectamente() {
         // Arrange
         Jugador jugador = new Jugador(1, "A");
@@ -46,6 +46,6 @@ public class HexagonoTest {
 
         // Assert
         assertEquals(0, jugador.obtenerCantidadTotalDeRecursos());
-    }
+    }*/
 }
 

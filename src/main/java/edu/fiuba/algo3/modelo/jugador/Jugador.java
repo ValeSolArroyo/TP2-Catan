@@ -44,6 +44,9 @@ public class Jugador {
 
     public void serRobadoPor(Jugador ladron) {
         Recurso robado = this.inventario.quitarRecursoAlAzar();
+        // Todo el flujo esta bien, pero el tema es el método este. Porque como tenemos
+        // esto de que eliminarRecurso en inventario recibe un STRING, complica todo...
+        // y se vuelve a relacionar con esa cosa medio rara que hicimos en Inventario :(
         robado.asignarA(ladron);
     }
 
@@ -52,39 +55,22 @@ public class Jugador {
     }
 
     public void construir(Construccion construccion, EspacioConstruible espacio) {
-
-        if (construcciones.size() < 4) {
-
-        }
-
         construccion.validarEn(espacio, this);
-
-        inventario.consumirRecurso(construccion.costoConstruccion());
-        espacio.validarConstruccion(construccion, this);
+        if (construcciones.size() >= 4) {
+            inventario.consumirRecurso(construccion.costoConstruccion());
+        }
         espacio.asignarConstruccion(construccion);
-
         this.agregarConstruccion(construccion);
-        this.puntosVictoria += construccion.puntosVictoria();
-    }
+        // TODO: ver tema PV --> proponemos verlo al final cuando lleguemos al momento de codear
+        // el final del juego. Porque está la alternativa de que, por ejemplo, al final de cada
+        // turno lo sumemos o que al final de tooodo el juego...
 
-    private void sumarPuntoDeVictoria() {
-        this.puntosVictoria++;
+        //IDEA: hacer primero lo de las cartas de desarrollo antes de meternos con PV.
+
+        //this.puntosVictoria += construccion.puntosVictoria(); // ciudad: 2, poblado: 1, carretera y null 0
     }
 
     public void recibirRecurso(Recurso recurso) {
         inventario.agregarRecurso(recurso);
-    }
-
-    // TODO: BORRAR Y PREGUNTAR PORQUE LO USAMOS EN CADA TEST. GETTERS NECESARIOS PARA TESTEO
-    public int obtenerCantidadTotalDeRecursos() { 
-        return this.inventario.cantidadTotal(); 
-    }
-
-    public int obtenerPuntosDeVictoria() {
-        return puntosVictoria;
-    }
-
-    public int obtenerCantidadDeConstrucciones(){
-        return this.construcciones.size();
     }
 }

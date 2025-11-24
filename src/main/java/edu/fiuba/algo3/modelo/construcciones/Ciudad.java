@@ -1,8 +1,7 @@
 package edu.fiuba.algo3.modelo.construcciones;
 
-import edu.fiuba.algo3.modelo.excepciones.LugarOcupadoError;
+import edu.fiuba.algo3.modelo.excepciones.YaHayCiudadError;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.excepciones.AsentamientoExistenteError;
 import edu.fiuba.algo3.modelo.recursos.Grano;
 import edu.fiuba.algo3.modelo.recursos.Mineral;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
@@ -46,6 +45,6 @@ public class Ciudad implements Construccion {
 
     @Override
     public void construir() {
-        throw new LugarOcupadoError("No se puede colocar");
+        throw new YaHayCiudadError("No se puede colocar");
     }
 }

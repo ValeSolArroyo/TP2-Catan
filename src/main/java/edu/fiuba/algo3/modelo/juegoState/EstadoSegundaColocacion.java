@@ -19,7 +19,7 @@ public class EstadoSegundaColocacion implements EstadoJuego {
         jugador.construir(new Poblado(jugador), vertice);
         jugador.construir(new Carretera(jugador), arista);
 
-        juego.darRecursosIniciales(jugador, vertice);
+        juego.darRecursosIniciales(vertice);
 
         juego.segundaColocacionRealizada();
     }

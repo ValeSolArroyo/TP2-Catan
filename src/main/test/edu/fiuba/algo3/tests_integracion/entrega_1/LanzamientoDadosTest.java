@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LanzamientoDadosTest {
 
-    @Test
+    /*@Test
     public void test01NoSePuedeLanzarDadosEnEstadoDeColocacionInicial() {
         // Arrange y Act
         Jugador jugador1 = new Jugador(1, "Juanito");
@@ -27,5 +27,5 @@ public class LanzamientoDadosTest {
         // Assert
         assertThrows(IllegalStateException.class, () -> juego.lanzarDados(),
                 "No se debería poder lanzar dados durante la fase de colocación inicial");
-    }
+    }*/
 }

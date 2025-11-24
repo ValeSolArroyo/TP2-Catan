@@ -17,11 +17,9 @@ public class Tablero {
         }
     }
 
-    public void darRecursosIniciales(Jugador jugador, Vertice vertice) {
+    public void darRecursosIniciales(Vertice vertice) {
         for (Hexagono hexagono : hexagonos) {
-            if (hexagono.contieneVertice(vertice)) {
-                hexagono.entregarRecursoInicialA(jugador);
-            }
+            hexagono.entregarRecursoInicialA(vertice);
         }
     }
 }

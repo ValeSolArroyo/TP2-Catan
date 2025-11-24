@@ -1,11 +1,8 @@
 package edu.fiuba.algo3.modelo.tablero;
-
-import edu.fiuba.algo3.modelo.construcciones.Carretera;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.NullConstruccion;
-import edu.fiuba.algo3.modelo.excepciones.AsentamientoExistenteError;
-import edu.fiuba.algo3.modelo.excepciones.CaminoNoConectadoError;
 import edu.fiuba.algo3.modelo.excepciones.ConstruccionInvalidaError;
+import edu.fiuba.algo3.modelo.excepciones.YaHayCarreteraError;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 
 public class Arista implements EspacioConstruible {
@@ -32,7 +29,7 @@ public class Arista implements EspacioConstruible {
 
     @Override
     public void validarPoblado(Jugador jugador) {
-        throw new ConstruccionInvalidaError("No se puede construir un poblado en un vértice");
+        throw new ConstruccionInvalidaError("No se puede construir un poblado en un arista");
     }
 
     @Override
@@ -42,18 +39,26 @@ public class Arista implements EspacioConstruible {
 
     @Override
     public void validarCarretera(Jugador jugador) {
-        if (!(construccion instanceof NullConstruccion)) { // TODO: SACAR INSTANCEDOF
-            throw new AsentamientoExistenteError("Ya existe una construcción en esta arista");
+        this.construccion.construir();
+        if (!this.vertice1.validarConstruccionesProximas(jugador)
+                && !this.vertice2.validarConstruccionesProximas(jugador)) {
+            if (!this.vertice1.validarCarreterasProximas(jugador) && !this.vertice2.validarCarreterasProximas(jugador)) {
+                throw new ConstruccionInvalidaError("No se puede colocar la carretera porque no cumple con las condiciones.");
+            }
         }
+    }
+
+    public boolean validarCarreteraPropia(Jugador jugador) {
+        try {
+            this.construccion.construir();
+        } catch (YaHayCarreteraError e) {
+            return construccion.esPropiedadDe(jugador);
+        }
+        return false;
     }
 
     @Override
     public void asignarConstruccion(Construccion construccion) {
         this.construccion = construccion;
-    }
-
-    public boolean tieneCarreteraPropia(Jugador jugador) {
-        return (this.construccion instanceof Carretera) && // TODO: SACAR INSTANCEOF
-                this.construccion.esPropiedadDe(jugador);
     }
 }
