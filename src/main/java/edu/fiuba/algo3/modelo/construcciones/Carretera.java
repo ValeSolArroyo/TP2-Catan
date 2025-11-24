@@ -1,8 +1,7 @@
 package edu.fiuba.algo3.modelo.construcciones;
 
-import edu.fiuba.algo3.modelo.excepciones.LugarOcupadoError;
+import edu.fiuba.algo3.modelo.excepciones.YaHayCarreteraError;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.excepciones.AsentamientoExistenteError;
 import edu.fiuba.algo3.modelo.recursos.Ladrillo;
 import edu.fiuba.algo3.modelo.recursos.Madera;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
@@ -45,6 +44,6 @@ public class Carretera implements Construccion {
 
     @Override
     public void construir() {
-        throw new LugarOcupadoError("No se puede colocar");
+        throw new YaHayCarreteraError("No se puede colocar");
     }
 }

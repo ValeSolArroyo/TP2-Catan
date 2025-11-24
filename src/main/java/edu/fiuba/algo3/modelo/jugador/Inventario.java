@@ -16,9 +16,9 @@ import java.util.List;
     }
 
     public void consumirRecurso(List<Recurso> recursos) {
-            for (Recurso recurso: recursos) {
-                recurso.eliminarDe(this);
-            }
+        for (Recurso recurso: recursos) {
+            recurso.eliminarDe(this);
+        }
     }
 
     public void eliminarRecurso(String recurso){

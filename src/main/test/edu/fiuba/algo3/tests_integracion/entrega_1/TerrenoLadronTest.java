@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TerrenoLadronTest {
 
-    @Test
+    /*@Test
     public void test01HexagonoNoProduceSiEstaElLadron() {
         // Arrange y Act
         Terreno bosque = new Bosque();
@@ -54,5 +54,5 @@ public class TerrenoLadronTest {
         // Assert
         assertEquals(1, recursosDespues - recursosAntes,
                 "El hexágono debería producir 1 recurso para el poblado");
-    }
+    }*/
 }

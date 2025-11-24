@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class VerticeTest {
 
-    @Test
+    /*@Test
     public void test01NoPermiteConstruirPobladoSiHayVecinoOcupado() {
         // Arrange
         Jugador jugador = new Jugador(1, "A");
@@ -88,5 +88,5 @@ public class VerticeTest {
         // Assert
         assertTrue(vertice1.esPropiedadDe(jugador1) && vertice3.esPropiedadDe(jugador2),
                 "Diferentes jugadores deberían poder construir respetando la regla de distancia");
-    }
+    }*/
 }

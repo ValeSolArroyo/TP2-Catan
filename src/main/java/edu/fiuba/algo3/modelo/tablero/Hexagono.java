@@ -25,10 +25,6 @@ public class Hexagono {
         this.estrategiaActual = new StrategySinLadron();
     }
 
-    public boolean contieneVertice(Vertice vertice) {
-        return this.vertices.contains(vertice);
-    }
-
     public void ponerLadron() {
         this.estrategiaActual = new StrategyConLadron();
     }
@@ -61,11 +57,9 @@ public class Hexagono {
         }
     }
 
-    public void entregarRecursoInicialA(Jugador jugador) {
-        for (Vertice vertice : vertices) {
-            if (vertice.esPropiedadDe(jugador)) {
-                vertice.producirSegunTerreno(this.terreno);
-            }
+    public void entregarRecursoInicialA(Vertice vertice) {
+        if (vertices.contains(vertice)) {
+            vertice.producirSegunTerreno(this.terreno);
         }
     }
 }

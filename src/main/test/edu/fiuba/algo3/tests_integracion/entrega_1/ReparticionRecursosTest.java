@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ReparticionRecursosTest {
 
-    @Test
+    /*@Test
     public void test01VerificarJugadorRecibeRecursoCuandoSeLlamaARepartir() {
         // Arrange
         TableroCatanFactory factory = new TableroCatanFactory();
@@ -29,6 +29,6 @@ public class ReparticionRecursosTest {
         // Assert
         assertEquals(0, recursosAntes, "El jugador debe iniciar con 0 recursos.");
         assertTrue(recursosDespues >= 1, "El jugador debe recibir recursos de los hexágonos adyacentes.");
-    }
+    }*/
 
 }

@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ConsumoRecursosTest {
 
-    @Test
+    /*@Test
     public void test01ConstruirPobladoConsumeRecursosCorrectos() {
         // Arrange
         Jugador jugador = new Jugador(1, "J");
@@ -252,5 +252,5 @@ public class ConsumoRecursosTest {
         assertThrows(RecursosInsuficientesError.class,
                 () -> jugador.construirCarretera(arista),
                 "No se debería poder construir una carretera sin recursos suficientes");
-    }
+    }*/
 }

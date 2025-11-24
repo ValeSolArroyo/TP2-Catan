@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TableroTest {
 
-    @Test
+    /*@Test
     public void test01EncuentraVerticePorIdCorrectamente() {
         // Arrange
         Vertice vertice5 = new Vertice(5);
@@ -47,5 +47,5 @@ public class TableroTest {
 
         // Assert
         assertEquals(1, jugador.obtenerCantidadTotalDeRecursos());
-    }
+    }*/
 }

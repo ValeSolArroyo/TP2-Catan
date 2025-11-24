@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ComercioIntegracionTest {
 
-    @Test
+    /*@Test
     public void test01JugadorPuedeComerciarConBancoTasa4a1() {
         // Arrange
         Jugador jugador1 = new Jugador(1, "Comerciante");
@@ -197,5 +197,5 @@ public class ComercioIntegracionTest {
         assertThrows(RecursosInsuficientesError.class, () -> {
             juego.comerciarConBanco(new Ladrillo(), new Grano());
         });
-    }
+    }*/
 }

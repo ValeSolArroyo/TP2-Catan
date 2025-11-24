@@ -66,8 +66,8 @@ public class Juego {
         tablero.producir(numero);
     }
 
-    public void darRecursosIniciales(Jugador jugador, Vertice vertice){
-        tablero.darRecursosIniciales(jugador, vertice);
+    public void darRecursosIniciales(Vertice vertice){
+        tablero.darRecursosIniciales(vertice);
     }
 
     public void primeraColocacionRealizada(){

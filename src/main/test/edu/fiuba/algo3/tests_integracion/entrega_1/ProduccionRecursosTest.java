@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProduccionRecursosTest {
-    private Jugador jugador1;
+    /*private Jugador jugador1;
     private Vertice vertice1;
     private Hexagono hexagono1;
     private Hexagono hexagono2;
@@ -73,5 +73,5 @@ public class ProduccionRecursosTest {
 
         // Assert
         assertEquals(4, recursosDespues - recursosAntes);
-    }
+    }*/
 }

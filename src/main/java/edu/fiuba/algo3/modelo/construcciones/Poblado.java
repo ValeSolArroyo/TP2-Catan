@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.modelo.construcciones;
 
-import edu.fiuba.algo3.modelo.excepciones.LugarOcupadoError;
+import edu.fiuba.algo3.modelo.excepciones.YaHayPobladoError;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Ladrillo;
 import edu.fiuba.algo3.modelo.recursos.Lana;
@@ -46,6 +46,6 @@ public class Poblado implements Construccion {
 
     @Override
     public void construir() {
-        throw new LugarOcupadoError("No se puede colocar");
+        throw new YaHayPobladoError("No se puede colocar");
     }
 }
