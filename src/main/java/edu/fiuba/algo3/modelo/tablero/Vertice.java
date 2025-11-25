@@ -105,7 +105,7 @@ public class Vertice implements EspacioConstruible {
 
     public void validarPuerto(Jugador jugador) {
         if (!(this.construccion.tieneDePropietarioA(jugador))){
-            throw new ComercioInvalidoError("No tiene acceso al puerto 3:1");
+            throw new ComercioInvalidoError("No tiene acceso al puerto para comerciar");
         }
 
     }

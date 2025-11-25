@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.jugador;
 
 import edu.fiuba.algo3.modelo.comercio.Comercio;
+import edu.fiuba.algo3.modelo.comercio.ComercioInterno;
 import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.recursos.*;
@@ -72,9 +73,23 @@ public class Jugador {
 
     public void comerciarCartasRecurso(Comercio comercio, List<Recurso> recursosEntregados, Recurso recursoDeseado) {
 
-        comercio.validar(this, recursosEntregados);
-        comercio.ejecutar(this, recursosEntregados, recursoDeseado);
+        comercio.validar(this, recursosEntregados, List.of(recursoDeseado));
+        comercio.ejecutar(this, recursosEntregados, List.of(recursoDeseado));
 
+    }
+
+    public void anunciarOferta(List<Recurso> recursosDeseados, List<Recurso> recursosAEntregar){
+        // la idea es que se muestren los recursos que ofrece y los que pide el jugador actual
+    }
+
+
+    public void aceptarOferta(Jugador oferente, List<Recurso> recursosDeseadosPorOferente, List<Recurso> recursosAEntregarPorOferente){
+        ComercioInterno comercioInterno = new ComercioInterno(oferente);
+        this.comerciarInternamente( comercioInterno, recursosAEntregarPorOferente, recursosDeseadosPorOferente);
+    }
+
+    private void comerciarInternamente(ComercioInterno comercioInterno, List<Recurso> recursosAEntregarPorOferente, List<Recurso> recursosDeseadosPorOferente) {
+        comercioInterno.validar(this, recursosAEntregarPorOferente, recursosDeseadosPorOferente);
     }
 
 

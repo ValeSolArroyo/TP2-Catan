@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface Comercio {
 
-    void validar(Jugador jugador, List<Recurso> recursosEntregados);
+    void validar(Jugador jugador, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados);
 
-    void ejecutar(Jugador jugador, List<Recurso> recursosEntregados, Recurso recursoDeseado);
+    void ejecutar(Jugador jugador, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados);
 
 }

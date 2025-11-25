@@ -18,7 +18,7 @@ public class PuertoEspecial implements Comercio {
     }
 
     @Override
-    public void validar(Jugador jugador, List<Recurso> recursosEntregados) {
+    public void validar(Jugador jugador, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados) {
         if (recursosEntregados.size() != 2)
             throw new ComercioInvalidoError("Este puerto especial es 2:1");
 
@@ -33,9 +33,11 @@ public class PuertoEspecial implements Comercio {
     }
 
     @Override
-    public void ejecutar(Jugador jugador, List<Recurso> recursosEntregados, Recurso recursoDeseado) {
+    public void ejecutar(Jugador jugador, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados) {
         jugador.entregarRecursos(recursosEntregados);
-        jugador.recibirRecurso(recursoDeseado);
+        for (Recurso recurso: recursosDeseados){
+            jugador.recibirRecurso(recurso);
+        }
     }
 }
 
