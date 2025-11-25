@@ -4,19 +4,32 @@ import edu.fiuba.algo3.modelo.jugador.Inventario;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 
 public class Mineral implements Recurso {
-    private final String tipo = "Mineral";
-
     @Override
     public void asignarA(Jugador jugador) {
         jugador.recibirRecurso(this);
     }
 
     public void eliminarDe (Inventario inventario) {
-        inventario.eliminarRecurso("Mineral");
+        inventario.eliminarRecurso(this);
     }
 
     @Override
-    public boolean brinda(String recurso) {
-        return recurso.equals(tipo);
+    public boolean coincideCon(Recurso otro) {
+        return otro.coincideConMineral(this);
     }
+
+    @Override
+    public boolean coincideConMadera(Madera madera) { return false; }
+
+    @Override
+    public boolean coincideConLadrillo(Ladrillo ladrillo) { return false; }
+
+    @Override
+    public boolean coincideConLana(Lana lana) { return false; }
+
+    @Override
+    public boolean coincideConGrano(Grano grano) { return false; }
+
+    @Override
+    public boolean coincideConMineral(Mineral m) { return true; }
 }

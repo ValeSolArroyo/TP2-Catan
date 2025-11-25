@@ -67,15 +67,12 @@ public class Jugador {
     }
 
     public void recibirRecurso(Recurso recurso) {
-
         inventario.agregarRecurso(recurso);
     }
 
     public void comerciarCartasRecurso(Comercio comercio, List<Recurso> recursosEntregados, Recurso recursoDeseado) {
-
         comercio.validar(this, recursosEntregados, List.of(recursoDeseado));
         comercio.ejecutar(this, recursosEntregados, List.of(recursoDeseado));
-
     }
 
     public void anunciarOferta(List<Recurso> recursosDeseados, List<Recurso> recursosAEntregar){
@@ -95,7 +92,6 @@ public class Jugador {
 
     public void tieneRecursos(Recurso recurso, int cantidad) {
         inventario.validarRecursos(recurso, cantidad);
-
     }
 
     public void entregarRecursos(List<Recurso> entregados) {
