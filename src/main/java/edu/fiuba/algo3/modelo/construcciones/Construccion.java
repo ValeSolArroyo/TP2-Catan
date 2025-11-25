@@ -12,6 +12,6 @@ public interface Construccion {
     void producir(Recurso recurso);
     List<Recurso> cobrar();
     void registrarPropietarioEn(Set<Jugador> jugadores);
-    boolean esPropiedadDe(Jugador jugador);
+    boolean tieneDePropietarioA(Jugador jugador);
     void ocupar();
 }

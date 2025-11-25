@@ -45,7 +45,7 @@ public class Vertice implements EspacioConstruible {
         try {
             this.construccion.ocupar();
         } catch (YaHayPobladoError e) {
-            if (!this.construccion.esPropiedadDe(jugador)) {
+            if (!this.construccion.tieneDePropietarioA(jugador)) {
                 throw new ConstruccionInvalidaError("No se puede mejorar a ciudad un poblado ajeno.");
             }
         } catch (YaHayCiudadError e) {
@@ -89,7 +89,7 @@ public class Vertice implements EspacioConstruible {
         try {
             this.construccion.ocupar();
         } catch (YaHayCiudadError | YaHayPobladoError e) {
-            return construccion.esPropiedadDe(jugador);
+            return construccion.tieneDePropietarioA(jugador);
         }
         return false;
     }
@@ -101,5 +101,12 @@ public class Vertice implements EspacioConstruible {
             }
         }
         return false;
+    }
+
+    public void validarPuerto(Jugador jugador) {
+        if (!(this.construccion.tieneDePropietarioA(jugador))){
+            throw new ComercioInvalidoError("No tiene acceso al puerto 3:1");
+        }
+
     }
 }

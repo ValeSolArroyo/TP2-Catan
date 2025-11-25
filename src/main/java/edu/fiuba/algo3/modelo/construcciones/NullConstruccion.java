@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class NullConstruccion implements Construccion {
     @Override
-    public boolean esPropiedadDe(Jugador jugador) {
+    public boolean tieneDePropietarioA(Jugador jugador) {
         return false;
     }
 
