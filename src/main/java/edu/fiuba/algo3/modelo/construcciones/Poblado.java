@@ -35,7 +35,7 @@ public class Poblado implements Construccion {
     }
 
     @Override
-    public List<Recurso> costoConstruccion() {
+    public List<Recurso> cobrar() {
         return List.of(new Madera(), new Ladrillo(), new Lana(), new Grano());
     }
 
@@ -45,7 +45,7 @@ public class Poblado implements Construccion {
     }
 
     @Override
-    public void construir() {
+    public void ocupar() {
         throw new YaHayPobladoError("No se puede colocar");
     }
 }
