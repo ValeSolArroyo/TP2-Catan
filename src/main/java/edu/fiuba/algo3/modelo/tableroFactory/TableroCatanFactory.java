@@ -127,7 +127,7 @@ public class TableroCatanFactory implements TableroFactory {
         }
     }
 
-    private List<Hexagono> crearHexagonos(List<Terreno> terrenos, List<Integer> fichas) {
+    public List<Hexagono> crearHexagonos(List<Terreno> terrenos, List<Integer> fichas) {
         List<Hexagono> hexagonos = new ArrayList<>();
         VisitanteTerreno visitante = new VisitanteTerreno(fichas);
 
@@ -138,7 +138,7 @@ public class TableroCatanFactory implements TableroFactory {
         return hexagonos;
     }
 
-    private List<Terreno> generarTerrenosAleatorios() {
+    public List<Terreno> generarTerrenosAleatorios() {
         List<Terreno> terrenos = new ArrayList<>();
         for (int i = 0; i < 4; i++) terrenos.add(new Bosque());
         for (int i = 0; i < 3; i++) terrenos.add(new Colina());
@@ -150,7 +150,7 @@ public class TableroCatanFactory implements TableroFactory {
         return terrenos;
     }
 
-    private List<Integer> generarFichasAleatorias() {
+    public List<Integer> generarFichasAleatorias() {
         List<Integer> fichas = new ArrayList<>(List.of(
                 2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12
         ));
