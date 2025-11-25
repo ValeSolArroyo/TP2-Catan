@@ -39,7 +39,7 @@ public class Arista implements EspacioConstruible {
 
     @Override
     public void validarCarretera(Jugador jugador) {
-        this.construccion.construir();
+        this.construccion.ocupar();
         if (!this.vertice1.validarConstruccionesProximas(jugador)
                 && !this.vertice2.validarConstruccionesProximas(jugador)) {
             if (!this.vertice1.validarCarreterasProximas(jugador) && !this.vertice2.validarCarreterasProximas(jugador)) {
@@ -50,7 +50,7 @@ public class Arista implements EspacioConstruible {
 
     public boolean validarCarreteraPropia(Jugador jugador) {
         try {
-            this.construccion.construir();
+            this.construccion.ocupar();
         } catch (YaHayCarreteraError e) {
             return construccion.esPropiedadDe(jugador);
         }

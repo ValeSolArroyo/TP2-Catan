@@ -34,8 +34,8 @@ public class Ciudad implements Construccion {
     }
 
     @Override
-    public List<Recurso> costoConstruccion() {
-        return List.of(new Grano(), new Grano(), new Mineral(), new Mineral(), new Mineral() );
+    public List<Recurso> cobrar() {
+        return List.of(new Grano(), new Grano(), new Mineral(), new Mineral(), new Mineral());
     }
 
     @Override
@@ -43,8 +43,9 @@ public class Ciudad implements Construccion {
         espacio.validarCiudad(jugador);
     }
 
+
     @Override
-    public void construir() {
+    public void ocupar() {
         throw new YaHayCiudadError("No se puede colocar");
     }
 }

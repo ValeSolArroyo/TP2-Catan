@@ -57,7 +57,8 @@ public class Jugador {
     public void construir(Construccion construccion, EspacioConstruible espacio) {
         construccion.validarEn(espacio, this);
         if (construcciones.size() >= 4) {
-            inventario.consumirRecurso(construccion.costoConstruccion());
+            List<Recurso> recursosNecesarios = construccion.cobrar();
+            inventario.consumirRecurso(recursosNecesarios);
         }
         espacio.asignarConstruccion(construccion);
         this.agregarConstruccion(construccion);

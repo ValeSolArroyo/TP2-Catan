@@ -19,12 +19,12 @@ public class Carretera implements Construccion {
 
     @Override
     public void producir(Recurso recurso) {
-        // no produce nada
+        // No produce
     }
 
     @Override
     public void registrarPropietarioEn(Set<Jugador> jugadores) {
-        // No se registra
+        // No registra
     }
 
     @Override
@@ -33,17 +33,17 @@ public class Carretera implements Construccion {
     }
 
     @Override
-    public List<Recurso> costoConstruccion() {
-        return List.of(new Madera(), new Ladrillo());
-    }
-
-    @Override
     public void validarEn(EspacioConstruible espacio, Jugador jugador) {
         espacio.validarCarretera(jugador);
     }
 
     @Override
-    public void construir() {
+    public List<Recurso> cobrar() {
+        return List.of(new Madera(), new Ladrillo());
+    }
+
+    @Override
+    public void ocupar() {
         throw new YaHayCarreteraError("No se puede colocar");
     }
 }

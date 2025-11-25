@@ -35,7 +35,7 @@ public class Vertice implements EspacioConstruible {
 
     @Override
     public void validarPoblado(Jugador jugador) {
-        this.construccion.construir();
+        this.construccion.ocupar();
         this.validarDistancia();
     }
 
@@ -43,7 +43,7 @@ public class Vertice implements EspacioConstruible {
     @Override
     public void validarCiudad(Jugador jugador) {
         try {
-            this.construccion.construir();
+            this.construccion.ocupar();
         } catch (YaHayPobladoError e) {
             if (!this.construccion.esPropiedadDe(jugador)) {
                 throw new ConstruccionInvalidaError("No se puede mejorar a ciudad un poblado ajeno.");
@@ -79,7 +79,7 @@ public class Vertice implements EspacioConstruible {
 
     private void validarReglaDistancia() {
         try {
-            this.construccion.construir();
+            this.construccion.ocupar();
         } catch (YaHayCiudadError | YaHayPobladoError e) {
             throw new ReglaDeDistanciaError("No se puede construir tan cerca de otra construcción.");
         }
@@ -87,7 +87,7 @@ public class Vertice implements EspacioConstruible {
 
     public boolean validarConstruccionesProximas(Jugador jugador) {
         try {
-            this.construccion.construir();
+            this.construccion.ocupar();
         } catch (YaHayCiudadError | YaHayPobladoError e) {
             return construccion.esPropiedadDe(jugador);
         }
