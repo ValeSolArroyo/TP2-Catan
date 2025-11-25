@@ -40,5 +40,15 @@ import java.util.List;
             }
         }
     }
-}
+
+        public void validarRecursos(Recurso recurso, int cantidad) {
+            //TODO
+        }
+
+        public Recurso quitarRecursoAlAzar() {
+            Recurso robado = recursos.get(0);
+            recursos.remove(0);
+            return robado;
+        }
+    }
 

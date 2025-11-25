@@ -30,7 +30,7 @@ public class Poblado implements Construccion {
     }
 
     @Override
-    public boolean esPropiedadDe(Jugador jugador) {
+    public boolean tieneDePropietarioA(Jugador jugador) {
         return this.propietario.equals(jugador);
     }
 

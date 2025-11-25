@@ -1,13 +1,10 @@
 package edu.fiuba.algo3.modelo.jugador;
 
-import edu.fiuba.algo3.modelo.tablero.Arista;
+import edu.fiuba.algo3.modelo.comercio.Comercio;
 import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
-import edu.fiuba.algo3.modelo.tablero.Vertice;
-import edu.fiuba.algo3.modelo.comercio.Puerto;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.recursos.*;
-import edu.fiuba.algo3.modelo.construcciones.Poblado;
-import edu.fiuba.algo3.modelo.construcciones.Carretera;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
 
 import java.util.*;
 
@@ -44,9 +41,6 @@ public class Jugador {
 
     public void serRobadoPor(Jugador ladron) {
         Recurso robado = this.inventario.quitarRecursoAlAzar();
-        // Todo el flujo esta bien, pero el tema es el método este. Porque como tenemos
-        // esto de que eliminarRecurso en inventario recibe un STRING, complica todo...
-        // y se vuelve a relacionar con esa cosa medio rara que hicimos en Inventario :(
         robado.asignarA(ladron);
     }
 
@@ -72,6 +66,28 @@ public class Jugador {
     }
 
     public void recibirRecurso(Recurso recurso) {
+
         inventario.agregarRecurso(recurso);
+    }
+
+    public void comerciarCartasRecurso(Comercio comercio, List<Recurso> recursosEntregados, Recurso recursoDeseado) {
+
+        comercio.validar(this, recursosEntregados);
+        comercio.ejecutar(this, recursosEntregados, recursoDeseado);
+
+    }
+
+
+    public void tieneRecursos(Recurso recurso, int cantidad) {
+        inventario.validarRecursos(recurso, cantidad);
+
+    }
+
+    public void entregarRecursos(List<Recurso> entregados) {
+        inventario.consumirRecurso(entregados);
+    }
+
+    public void tieneConstruccionEn(Vertice puerto) {
+        puerto.validarPuerto(this);
     }
 }
