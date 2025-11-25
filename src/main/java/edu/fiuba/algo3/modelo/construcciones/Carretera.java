@@ -24,7 +24,7 @@ public class Carretera implements Construccion {
 
     @Override
     public void registrarPropietarioEn(Set<Jugador> jugadores) {
-        // No deberia registrarse
+        // No se registra
     }
 
     @Override
