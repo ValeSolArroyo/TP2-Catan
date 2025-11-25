@@ -21,14 +21,14 @@ import java.util.List;
         }
     }
 
-    public void eliminarRecurso(String recurso){
+    public void eliminarRecurso(Recurso recursoAEliminar){
         for (Recurso recursoInventario: recursos){
-            if (recursoInventario.brinda(recurso)){
+            if (recursoInventario.coincideCon(recursoAEliminar)){
                 recursos.remove(recursoInventario);
                 return;
             }
         }
-        throw new RecursosInsuficientesError("El recurso " + recurso + " no está en el inventario.");
+        throw new RecursosInsuficientesError("El recurso " + recursoAEliminar + " no está en el inventario.");
     }
     
     public void descartarMitadRecursos() {
@@ -41,14 +41,25 @@ import java.util.List;
         }
     }
 
-        public void validarRecursos(Recurso recurso, int cantidad) {
-            //TODO
+    public void validarRecursos(Recurso recursoAValidar, int cantidadNecesaria) {
+        int cantidadAcumulada = 0;
+        for (Recurso recurso : recursos) {
+            if (recurso.coincideCon(recursoAValidar)) {
+                cantidadAcumulada++;
+            }
         }
 
-        public Recurso quitarRecursoAlAzar() {
-            Recurso robado = recursos.get(0);
-            recursos.remove(0);
-            return robado;
+        if (cantidadAcumulada < cantidadNecesaria) {
+            throw new RecursosInsuficientesError("Se requieren " + cantidadNecesaria + " recursos y solo hay " + cantidadAcumulada
+            );
         }
     }
+
+    public Recurso quitarRecursoAlAzar() {
+        int indice = (int) (Math.random() * recursos.size());
+        Recurso robado = recursos.get(indice);
+        recursos.remove(indice);
+        return robado;
+    }
+}
 
