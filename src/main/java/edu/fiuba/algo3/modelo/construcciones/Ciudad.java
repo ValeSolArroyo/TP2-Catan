@@ -1,8 +1,14 @@
 package edu.fiuba.algo3.modelo.construcciones;
 
-import edu.fiuba.algo3.modelo.Jugador;
+import edu.fiuba.algo3.modelo.excepciones.YaHayCiudadError;
+import edu.fiuba.algo3.modelo.jugador.Inventario;
+import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.recursos.Grano;
+import edu.fiuba.algo3.modelo.recursos.Mineral;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
+import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
 
+import java.util.List;
 import java.util.Set;
 
 public class Ciudad implements Construccion {
@@ -24,12 +30,23 @@ public class Ciudad implements Construccion {
     }
 
     @Override
-    public void validarLugarLibre() {
-        throw new RuntimeException("El lugar ya está ocupado por una construcción."); //TODO: excepcion
+    public boolean tieneDePropietarioA(Jugador jugador) {
+        return this.propietario.equals(jugador);
     }
 
     @Override
-    public boolean esPropiedadDe(Jugador jugador) {
-        return this.propietario.equals(jugador);
+    public void cobrar(Inventario inventario) {
+        inventario.consumirRecurso(List.of(new Grano(), new Grano(), new Mineral(), new Mineral(), new Mineral()));
+    }
+
+    @Override
+    public void validarEn(EspacioConstruible espacio, Jugador jugador) {
+        espacio.validarCiudad(jugador);
+    }
+
+
+    @Override
+    public void ocupar() {
+        throw new YaHayCiudadError("No se puede colocar");
     }
 }
