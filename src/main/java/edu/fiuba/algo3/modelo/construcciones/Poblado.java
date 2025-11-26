@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.construcciones;
 
 import edu.fiuba.algo3.modelo.excepciones.YaHayPobladoError;
+import edu.fiuba.algo3.modelo.jugador.Inventario;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Ladrillo;
 import edu.fiuba.algo3.modelo.recursos.Lana;
@@ -35,8 +36,8 @@ public class Poblado implements Construccion {
     }
 
     @Override
-    public List<Recurso> cobrar() {
-        return List.of(new Madera(), new Ladrillo(), new Lana(), new Grano());
+    public void cobrar(Inventario inventario) {
+        inventario.consumirRecurso(List.of(new Madera(), new Ladrillo(), new Lana(), new Grano()));
     }
 
     @Override

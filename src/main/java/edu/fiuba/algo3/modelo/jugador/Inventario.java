@@ -16,8 +16,10 @@ import java.util.List;
     }
 
     public void consumirRecurso(List<Recurso> recursos) {
-        for (Recurso recurso: recursos) {
-            recurso.eliminarDe(this);
+        if (!recursos.isEmpty()) {
+            for (Recurso recurso : recursos) {
+                recurso.eliminarDe(this);
+            }
         }
     }
 
@@ -61,5 +63,21 @@ import java.util.List;
         recursos.remove(indice);
         return robado;
     }
-}
+
+        public void ejecturarCompra(List<Recurso> costoCarta) {
+            for (Recurso recurso: costoCarta){
+                verificarRecurso(recurso);
+            }
+            consumirRecurso(costoCarta);
+        }
+
+        private void verificarRecurso(Recurso recursoNecesitado) {
+            for (Recurso recurso: recursos){
+                if (recurso.coincideCon(recursoNecesitado)){
+                    return;
+                }
+            }
+            throw new RecursosInsuficientesError("No dispone de recursos suficientes para comprar Carta Desarrollo");
+        }
+    }
 

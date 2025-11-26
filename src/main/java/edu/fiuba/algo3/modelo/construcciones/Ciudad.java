@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.construcciones;
 
 import edu.fiuba.algo3.modelo.excepciones.YaHayCiudadError;
+import edu.fiuba.algo3.modelo.jugador.Inventario;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Grano;
 import edu.fiuba.algo3.modelo.recursos.Mineral;
@@ -34,8 +35,8 @@ public class Ciudad implements Construccion {
     }
 
     @Override
-    public List<Recurso> cobrar() {
-        return List.of(new Grano(), new Grano(), new Mineral(), new Mineral(), new Mineral());
+    public void cobrar(Inventario inventario) {
+        inventario.consumirRecurso(List.of(new Grano(), new Grano(), new Mineral(), new Mineral(), new Mineral()));
     }
 
     @Override

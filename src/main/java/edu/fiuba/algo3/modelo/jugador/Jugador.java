@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.jugador;
 
+import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.comercio.Comercio;
 import edu.fiuba.algo3.modelo.comercio.ComercioInterno;
 import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
@@ -15,6 +16,8 @@ public class Jugador {
     private int puntosVictoria;
     private final Inventario inventario;
     private List<Construccion> construcciones;
+    private List<CartaDesarrollo> cartasDesarrollo;
+
 
     public Jugador(int id, String nombre) {
         this.id = id;
@@ -52,18 +55,10 @@ public class Jugador {
     public void construir(Construccion construccion, EspacioConstruible espacio) {
         construccion.validarEn(espacio, this);
         if (construcciones.size() >= 4) {
-            List<Recurso> recursosNecesarios = construccion.cobrar();
-            inventario.consumirRecurso(recursosNecesarios);
+            construccion.cobrar(inventario);
         }
         espacio.asignarConstruccion(construccion);
         this.agregarConstruccion(construccion);
-        // TODO: ver tema PV --> proponemos verlo al final cuando lleguemos al momento de codear
-        // el final del juego. Porque está la alternativa de que, por ejemplo, al final de cada
-        // turno lo sumemos o que al final de tooodo el juego...
-
-        //IDEA: hacer primero lo de las cartas de desarrollo antes de meternos con PV.
-
-        //this.puntosVictoria += construccion.puntosVictoria(); // ciudad: 2, poblado: 1, carretera y null 0
     }
 
     public void recibirRecurso(Recurso recurso) {
@@ -100,5 +95,10 @@ public class Jugador {
 
     public void tieneConstruccionEn(Vertice puerto) {
         puerto.validarPuerto(this);
+    }
+
+    public void guardarCartaDesarrollo(CartaDesarrollo cartaDesarrollo, List<Recurso> costoCarta){
+        inventario.ejecturarCompra(costoCarta);
+        cartasDesarrollo.add(cartaDesarrollo);
     }
 }
