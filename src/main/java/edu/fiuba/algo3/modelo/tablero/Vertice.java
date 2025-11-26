@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import edu.fiuba.algo3.modelo.comercio.Comercio;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.NullConstruccion;
 import edu.fiuba.algo3.modelo.excepciones.*;
@@ -14,11 +15,13 @@ public class Vertice implements EspacioConstruible {
     private Construccion construccion;
     private List<Vertice> vecinos;
     private List<Arista> aristas;
+    private Comercio puerto;
 
     public Vertice() {
         this.construccion = new NullConstruccion();
         this.vecinos = new ArrayList<>();
         this.aristas = new ArrayList<>();
+        this.puerto = null; // TODO: cómo sacamos este null? Hacemos un NullPuerto?
     }
 
     public void agregarVecino(Vertice vecino) {
@@ -31,6 +34,10 @@ public class Vertice implements EspacioConstruible {
         if (!aristas.contains(arista)) {
             aristas.add(arista);
         }
+    }
+
+    public void asignarPuerto(Comercio puerto) {
+        this.puerto = puerto;
     }
 
     @Override

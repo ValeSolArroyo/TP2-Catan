@@ -65,8 +65,8 @@ public class Jugador {
         inventario.agregarRecurso(recurso);
     }
 
-    public void comerciarCartasRecurso(Comercio comercio, List<Recurso> recursosEntregados, Recurso recursoDeseado) {
-        comercio.validar(this, recursosEntregados, List.of(recursoDeseado));
+    public void comerciarCartasRecurso(Comercio comercio, Vertice verticePuerto, List<Recurso> recursosEntregados, Recurso recursoDeseado) {
+        comercio.validar(this, verticePuerto, recursosEntregados, List.of(recursoDeseado));
         comercio.ejecutar(this, recursosEntregados, List.of(recursoDeseado));
     }
 
@@ -81,7 +81,7 @@ public class Jugador {
     }
 
     private void comerciarInternamente(ComercioInterno comercioInterno, List<Recurso> recursosAEntregarPorOferente, List<Recurso> recursosDeseadosPorOferente) {
-        comercioInterno.validar(this, recursosAEntregarPorOferente, recursosDeseadosPorOferente);
+        comercioInterno.validar(this, new Vertice(), recursosAEntregarPorOferente, recursosDeseadosPorOferente);
     }
 
 
