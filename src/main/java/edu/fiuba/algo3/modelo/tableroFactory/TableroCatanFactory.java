@@ -1,5 +1,8 @@
 package edu.fiuba.algo3.modelo.tableroFactory;
 
+import edu.fiuba.algo3.modelo.comercio.PuertoEspecial;
+import edu.fiuba.algo3.modelo.comercio.PuertoGenerico;
+import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -19,8 +22,11 @@ import java.util.*;
 //SUPUESTO: Se puede crear poblados en vértices adyacentes al mar → permite el comercio marítimo.
 
 public class TableroCatanFactory implements TableroFactory {
+    private Set<Vertice> verticesBorde;
+
     @Override
     public Tablero crearTablero() {
+        this.verticesBorde = new HashSet<>();
         List<Terreno> terrenosAleatorios = generarTerrenosAleatorios();
         List<Integer> fichasAleatorias = generarFichasAleatorias();
         return construirTablero(terrenosAleatorios, fichasAleatorias);
@@ -62,6 +68,10 @@ public class TableroCatanFactory implements TableroFactory {
                 conectarAristas(verticesHexagono, hexagono, aristas);
             }
         }
+
+        identificarVerticesBorde(vertices, cantidadVerticesPorFila);
+        asignarPuertos();
+
         return new Tablero(hexagonos);
     }
 
@@ -74,6 +84,50 @@ public class TableroCatanFactory implements TableroFactory {
             }
         }
         return vertices;
+    }
+
+    private void identificarVerticesBorde(Vertice[][] vertices, int[] cantidadVerticesPorFila) {
+        // Filas 0, 1, 10 y 11: TODOS los vértices son de borde
+        int[] filasCompletas = {0, 1, 10, 11};
+        for (int fila : filasCompletas) {
+            for (int col = 0; col < vertices[fila].length; col++) {
+                verticesBorde.add(vertices[fila][col]);
+            }
+        }
+
+        // Filas 2-9: solo primer y último vértice son de borde
+        for (int fila = 2; fila < 10; fila++) {
+            verticesBorde.add(vertices[fila][0]);
+
+            int ultimaColumna = cantidadVerticesPorFila[fila] - 1;
+            verticesBorde.add(vertices[fila][ultimaColumna]);
+        }
+    }
+
+    private void asignarPuertos() {
+        List<Vertice> verticesDisponibles = new ArrayList<>(verticesBorde);
+        Collections.shuffle(verticesDisponibles);
+
+        // 4 puertos genéricos
+        for (int i = 0; i < 4; i++) {
+            Vertice vertice = verticesDisponibles.get(i);
+            vertice.asignarPuerto(new PuertoGenerico());
+        }
+
+        // 5 puertos especiales (uno de cada recurso)
+        List<Recurso> recursosEspeciales = List.of(
+                new Madera(),
+                new Ladrillo(),
+                new Lana(),
+                new Grano(),
+                new Mineral()
+        );
+
+        for (int i = 0; i < 5; i++) {
+            Vertice vertice = verticesDisponibles.get(4 + i);
+            Recurso recursoEspecial = recursosEspeciales.get(i);
+            vertice.asignarPuerto(new PuertoEspecial(recursoEspecial));
+        }
     }
 
     private Vertice[] obtenerVerticesHexagono(Vertice[][] vertices,

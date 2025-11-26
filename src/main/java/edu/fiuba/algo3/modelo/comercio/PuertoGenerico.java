@@ -9,20 +9,17 @@ import java.util.List;
 
 public class PuertoGenerico implements Comercio {
 
-    private final Vertice puerto;
-
-    public PuertoGenerico(Vertice puerto) {
-        this.puerto = puerto;
+    public PuertoGenerico() {
     }
 
     @Override
-    public void validar(Jugador jugador, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados) {
+    public void validar(Jugador jugador, Vertice verticePuerto, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados) {
         if (recursosEntregados.size() != 3)
             throw new ComercioInvalidoError("El puerto genérico exige 3:1");
 
-        jugador.tieneConstruccionEn(puerto);
-        Recurso tipoRecurso = recursosEntregados.get(0);
+        jugador.tieneConstruccionEn(verticePuerto);
 
+        Recurso tipoRecurso = recursosEntregados.get(0);
 
         for (Recurso recurso : recursosEntregados) {
             if (!recurso.equals(tipoRecurso))
@@ -35,7 +32,7 @@ public class PuertoGenerico implements Comercio {
     @Override
     public void ejecutar(Jugador jugador, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados) {
         jugador.entregarRecursos(recursosEntregados);
-        for (Recurso recurso: recursosDeseados){
+        for (Recurso recurso: recursosDeseados) {
             jugador.recibirRecurso(recurso);
         }
     }
