@@ -52,7 +52,7 @@ public class Arista implements EspacioConstruible {
         try {
             this.construccion.ocupar();
         } catch (YaHayCarreteraError e) {
-            return construccion.esPropiedadDe(jugador);
+            return construccion.tieneDePropietarioA(jugador);
         }
         return false;
     }
