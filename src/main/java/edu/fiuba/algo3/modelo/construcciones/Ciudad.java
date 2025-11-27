@@ -55,4 +55,9 @@ public class Ciudad implements Construccion {
     public void ocupar() {
         throw new YaHayCiudadError("No se puede colocar");
     }
+
+    @Override
+    public int puntosVictoria() {
+        return 2;
+    }
 }

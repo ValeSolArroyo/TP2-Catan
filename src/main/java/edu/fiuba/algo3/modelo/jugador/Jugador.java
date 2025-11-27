@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.jugador;
 
+import edu.fiuba.algo3.modelo.cartasBonificacion.CartaBonificacion;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.comercio.Comercio;
 import edu.fiuba.algo3.modelo.comercio.ComercioInterno;
@@ -17,6 +18,8 @@ public class Jugador {
     private final Inventario inventario;
     private List<Construccion> construcciones;
     private List<CartaDesarrollo> cartasDesarrollo;
+    private List<CartaBonificacion> cartasBonificacion;
+    private int cartasCaballeroJugadas;
 
 
     public Jugador(int id, String nombre) {
@@ -25,6 +28,9 @@ public class Jugador {
         this.puntosVictoria = 0;
         this.inventario = new Inventario();
         this.construcciones = new ArrayList<>();
+        this.cartasDesarrollo = new ArrayList<>();
+        this.cartasBonificacion = new ArrayList<>();
+        this.cartasCaballeroJugadas = 0;
     }
 
     public boolean primeraColocacion() {
@@ -101,4 +107,58 @@ public class Jugador {
         inventario.ejecturarCompra(costoCarta);
         cartasDesarrollo.add(cartaDesarrollo);
     }
+
+    public void  registrarCaballeroJugado(){
+        this.cartasCaballeroJugadas =  this.cartasCaballeroJugadas + 1;
+    }
+
+
+    public int conseguirCartasCaballeroJugadas(){
+        return cartasCaballeroJugadas;
+    }
+
+    public int conseguirRutaMasLarga(){
+        return 0; //implmentar para que consiga la ruta más larga y devuelva la cant de carreteras
+    }
+
+    public void recibirCartaBonificacion (CartaBonificacion cartaBonificacion){
+        this.cartasBonificacion.add(cartaBonificacion);
+
+    }
+
+    public void perderCartaBonificacion (CartaBonificacion cartaBonificacion){
+        this.cartasBonificacion.remove(cartaBonificacion);
+    }
+
+    private int puntosPorConstrucciones() {
+        int total = 0;
+        for (Construccion construccion : construcciones) {
+            total += construccion.puntosVictoria();
+        }
+        return total;
+    }
+
+    private int puntosPorCartasDesarrollo(){
+        int total = 0;
+        for (CartaDesarrollo carta : cartasDesarrollo) {
+            total += carta.puntosVictoria();
+        }
+        return total;
+
+    }
+
+    public void conseguirPuntosDeVictoria(){
+        int puntosConstruccion = puntosPorConstrucciones();
+        int puntosCartasPV = puntosPorCartasDesarrollo();
+        int puntosCartasBonificacion = cartasBonificacion.size() * 2;
+
+        this.puntosVictoria = puntosConstruccion + puntosCartasBonificacion; //los PV de la carta desarrollo estan ocultos
+
+        int puntosVictoriaFinales = puntosConstruccion + puntosCartasPV + puntosCartasBonificacion;
+
+
+    }
+
+
+
 }
