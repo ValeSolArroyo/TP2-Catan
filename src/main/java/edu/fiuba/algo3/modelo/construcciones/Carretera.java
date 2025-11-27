@@ -13,6 +13,10 @@ import java.util.Set;
 
 public class Carretera implements Construccion {
     private final Jugador propietario;
+    private static final List<Recurso> COSTO_CARRETERA = List.of(
+        new Madera(), new Ladrillo()
+    );
+
 
     public Carretera(Jugador propietario) {
         this.propietario = propietario;
@@ -40,7 +44,10 @@ public class Carretera implements Construccion {
 
     @Override
     public void cobrar(Inventario inventario) {
-        inventario.consumirRecurso(List.of(new Madera(), new Ladrillo()));
+        for (Recurso recursoRequerido : COSTO_CARRETERA) {
+            inventario.validarRecursos(recursoRequerido, 1);
+        }
+        inventario.consumirRecurso(COSTO_CARRETERA);
     }
 
     @Override
