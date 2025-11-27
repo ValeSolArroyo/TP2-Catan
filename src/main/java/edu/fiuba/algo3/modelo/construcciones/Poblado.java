@@ -57,4 +57,9 @@ public class Poblado implements Construccion {
     public void ocupar() {
         throw new YaHayPobladoError("No se puede colocar");
     }
+
+    @Override
+    public int puntosVictoria() {
+        return 1;
+    }
 }

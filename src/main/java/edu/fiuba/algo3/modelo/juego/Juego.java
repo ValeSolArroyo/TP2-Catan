@@ -34,6 +34,9 @@ public class Juego {
         this.indiceTurno = 0;
         this.estadoActual = new EstadoPrimeraColocacion();
         this.cartasDesarrollo = cartasDesarrollo;
+        this.granCaballeria = new GranCaballeria();
+        this.granRutaComercial = new GranRutaComercial();
+
     }
 
     public void establecerEstado(EstadoJuego estado) {
@@ -126,6 +129,14 @@ public class Juego {
 
     public void retrocederTurno() {
         indiceTurno = (indiceTurno - 1 + listaJugadores.size()) % listaJugadores.size();
+    }
+
+    public void revisarGranCaballeria(Jugador jugador) {
+        granCaballeria.evaluarCartaBonificacion(jugador);
+    }
+
+    public void revisarGranRutaComercial(Jugador jugador) {
+        granRutaComercial.evaluarCartaBonificacion(jugador);
     }
 
 }

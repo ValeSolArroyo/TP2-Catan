@@ -53,4 +53,9 @@ public class Carretera implements Construccion {
     public void ocupar() {
         throw new YaHayCarreteraError("No se puede colocar");
     }
+
+    @Override
+    public int puntosVictoria() {
+        return 0;
+    }
 }

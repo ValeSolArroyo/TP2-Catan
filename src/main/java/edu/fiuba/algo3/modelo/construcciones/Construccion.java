@@ -15,4 +15,6 @@ public interface Construccion {
     void registrarPropietarioEn(Set<Jugador> jugadores);
     boolean tieneDePropietarioA(Jugador jugador);
     void ocupar();
+    int puntosVictoria();
+
 }

@@ -17,4 +17,9 @@ public class ProgresoMonopolio implements CartaDesarrollo{
             jugador.recibirRecurso(recursoAnunciado);
         }
     }
+
+    @Override
+    public int puntosVictoria() {
+        return 0;
+    }
 }
