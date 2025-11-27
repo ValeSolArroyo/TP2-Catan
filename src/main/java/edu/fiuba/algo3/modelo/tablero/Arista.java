@@ -61,4 +61,8 @@ public class Arista implements EspacioConstruible {
     public void asignarConstruccion(Construccion construccion) {
         this.construccion = construccion;
     }
+
+    public boolean contieneConstruccionDeTipo(Construccion construccion) {
+        return this.construccion.esDeTipo(construccion);
+    }
 }
