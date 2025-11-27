@@ -60,4 +60,9 @@ public class Ciudad implements Construccion {
     public int puntosVictoria() {
         return 2;
     }
+
+    @Override
+    public boolean esDeTipo(Construccion construccion) {
+        return construccion.getClass().isInstance(this);
+    }
 }

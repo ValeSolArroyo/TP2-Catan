@@ -116,4 +116,9 @@ public class Vertice implements EspacioConstruible {
         }
 
     }
+
+    @Override
+    public boolean contieneConstruccionDeTipo(Construccion construccion) {
+        return this.construccion.esDeTipo(construccion);
+    }
 }

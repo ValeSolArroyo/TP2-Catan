@@ -43,9 +43,7 @@ public class Poblado implements Construccion {
         for (Recurso recursoRequerido : COSTO_POBLADO) {
             inventario.validarRecursos(recursoRequerido, 1);
         }
-        for (Recurso recursoAConsumir : COSTO_POBLADO) {
-            inventario.consumirRecurso(COSTO_POBLADO);
-        }
+        inventario.consumirRecurso(COSTO_POBLADO);
     }
 
     @Override
@@ -61,5 +59,10 @@ public class Poblado implements Construccion {
     @Override
     public int puntosVictoria() {
         return 1;
+    }
+
+    @Override
+    public boolean esDeTipo(Construccion construccion) {
+        return construccion.getClass().isInstance(this);
     }
 }

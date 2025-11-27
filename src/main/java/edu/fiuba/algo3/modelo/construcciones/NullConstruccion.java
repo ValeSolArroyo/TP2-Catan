@@ -40,5 +40,8 @@ public class NullConstruccion implements Construccion {
     public int puntosVictoria() {
         return 0;
     }
-
+    @Override
+    public boolean esDeTipo(Construccion construccion) {
+        return false;
+    }
 }

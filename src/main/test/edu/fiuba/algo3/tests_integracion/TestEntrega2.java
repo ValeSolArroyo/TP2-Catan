@@ -16,50 +16,60 @@ import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.tablero.*;
 
 public class TestEntrega2 {
-    private Jugador jugador1;
-    private Vertice v1, v2, vLejano;
-    private Poblado poblado1;
+    private Jugador jugador1, jugador2, jugador3;
+    private Vertice v1, v2, vLejano, vPoblado, vertice1, vertice2;
+    private Poblado poblado1, poblado2, poblado3;
+    private Arista arista;
+    private Ciudad ciudad;
     @BeforeEach
     public void setUp() {
         jugador1 = new Jugador(1, "Pepe");
+        jugador2 = new Jugador(2, "Juan");
+        jugador3 = new Jugador(3, "Luis");
         v1 = new Vertice(); 
-        v2 = new Vertice(); 
+        v2 = new Vertice();
         vLejano = new Vertice();
-        
+        vPoblado = new Vertice();
+        vertice1 = new Vertice(); 
+        vertice2 = new Vertice();
+        arista = new Arista(vertice1, vertice2);
         v1.agregarVecino(v2);
         v2.agregarVecino(v1);
-
+        vertice1.agregarVecino(vertice2); 
+        vertice2.agregarVecino(vertice1);
         poblado1 = new Poblado(jugador1);
+        poblado2 = new Poblado(jugador2);
+        poblado3 = new Poblado(jugador3);
+        ciudad = new Ciudad(jugador2);
     }
     
 
     @Test
-    // Verificar el consumo de recursos y la correcta colocación de una Carretera (adyacencia).
     public void test01VerificarConsumoRecursosYCorrectaColocacionCarreteraAdyacente() {
-        // Arrange
-        Jugador jugador = new Jugador(1, "Facu");
-        Vertice vertice1 = new Vertice();
-        Vertice vertice2 = new Vertice();
-        Arista arista = new Arista(vertice1, vertice2);
+        jugador3.recibirRecurso(new Madera());
+        jugador3.recibirRecurso(new Ladrillo());
+        jugador3.recibirRecurso(new Lana());
+        jugador3.recibirRecurso(new Grano());
+    
+        jugador3.agregarConstruccion(new Carretera(jugador3)); 
+        jugador3.agregarConstruccion(new Carretera(jugador3)); 
+        jugador3.agregarConstruccion(new Carretera(jugador3));
+        jugador3.agregarConstruccion(new Carretera(jugador3)); 
+    
+    
+        jugador3.construir(poblado3, vertice1);
 
-        jugador1.recibirRecurso(new Madera());
-        jugador1.recibirRecurso(new Ladrillo());
-        jugador1.recibirRecurso(new Lana());
-        jugador1.recibirRecurso(new Grano());
-        jugador1.construir(new Poblado(jugador1), vertice1);
+        jugador3.recibirRecurso(new Madera()); 
+        jugador3.recibirRecurso(new Ladrillo()); 
+    
+        jugador3.construir(new Carretera(jugador3), arista);
 
-        jugador.recibirRecurso(new Madera());
-        jugador.recibirRecurso(new Ladrillo());
-
-        // Act
-        jugador.construir(new Carretera(jugador), arista);
-
-        // Assert
-        assertThrows(RuntimeException.class, () -> jugador.tieneRecursos(new Madera(), 1),
+        assertThrows(RecursosInsuficientesError.class, () -> jugador3.tieneRecursos(new Madera(), 1),
             "El jugador no debería tener madera (se consumió).");
-        assertThrows(RuntimeException.class, () -> jugador.tieneRecursos(new Ladrillo(), 1),
+        assertThrows(RecursosInsuficientesError.class, () -> jugador3.tieneRecursos(new Ladrillo(), 1),
             "El jugador no debería tener ladrillo (se consumió).");
-        assertTrue(arista.validarCarreteraPropia(jugador), 
+        
+        assertTrue(arista.validarCarreteraPropia(jugador3), 
             "La arista debe tener una carretera perteneciente al jugador.");
     }
 
@@ -110,7 +120,44 @@ public class TestEntrega2 {
 
     @Test
     public void test03VerificarConsumoRecursosAlMejorarACiudadYCambioPV() {
+        
+        jugador2.agregarConstruccion(new Carretera(jugador2));
+        jugador2.agregarConstruccion(new Carretera(jugador2)); 
+        jugador2.agregarConstruccion(new Carretera(jugador2)); 
+        jugador2.agregarConstruccion(new Carretera(jugador2)); 
+        
+        
+        jugador2.recibirRecurso(new Madera());
+        jugador2.recibirRecurso(new Ladrillo());
+        jugador2.recibirRecurso(new Lana());
+        jugador2.recibirRecurso(new Grano());
+
+        jugador2.construir(poblado2, vPoblado);
+        
+        jugador2.conseguirPuntosDeVictoria();
+        assertTrue(jugador2.obtenerPuntosDeVictoria() == 1, "Debe empezar con 1 PV.");
+        
+        jugador2.recibirRecurso(new Grano());
+        jugador2.recibirRecurso(new Grano());
+        jugador2.recibirRecurso(new Mineral());
+        jugador2.recibirRecurso(new Mineral());
+        jugador2.recibirRecurso(new Mineral());
+        
+        jugador2.construir(ciudad, vPoblado);
+
+        assertThrows(RecursosInsuficientesError.class,
+                     () -> jugador2.tieneRecursos(new Grano(), 1),
+                     "El inventario no quedó vacío tras el gasto de la Ciudad.");
+                     
+        assertTrue(vPoblado.contieneConstruccionDeTipo(ciudad),
+                   "El vértice debe tener una instancia de Ciudad después de la mejora.");
+
+
+        jugador2.conseguirPuntosDeVictoria();
+        assertTrue(jugador2.obtenerPuntosDeVictoria() == 3, 
+                     "La mejora a Ciudad debe resultar en 3 PV.");
     }
+    
     
 
     @Test

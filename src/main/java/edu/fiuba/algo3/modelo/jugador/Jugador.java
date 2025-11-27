@@ -71,24 +71,24 @@ public class Jugador {
         inventario.agregarRecurso(recurso);
     }
 
-    public void comerciarCartasRecurso(Comercio comercio, List<Recurso> recursosEntregados, Recurso recursoDeseado) {
+    /*public void comerciarCartasRecurso(Comercio comercio, List<Recurso> recursosEntregados, Recurso recursoDeseado) {
         comercio.validar(this, recursosEntregados, List.of(recursoDeseado));
         comercio.ejecutar(this, recursosEntregados, List.of(recursoDeseado));
-    }
+    }*/
 
     public void anunciarOferta(List<Recurso> recursosDeseados, List<Recurso> recursosAEntregar){
         // la idea es que se muestren los recursos que ofrece y los que pide el jugador actual
     }
 
 
-    public void aceptarOferta(Jugador oferente, List<Recurso> recursosDeseadosPorOferente, List<Recurso> recursosAEntregarPorOferente){
+    /*public void aceptarOferta(Jugador oferente, List<Recurso> recursosDeseadosPorOferente, List<Recurso> recursosAEntregarPorOferente){
         ComercioInterno comercioInterno = new ComercioInterno(oferente);
         this.comerciarInternamente( comercioInterno, recursosAEntregarPorOferente, recursosDeseadosPorOferente);
-    }
+    }*/
 
-    private void comerciarInternamente(ComercioInterno comercioInterno, List<Recurso> recursosAEntregarPorOferente, List<Recurso> recursosDeseadosPorOferente) {
-        comercioInterno.validar(this, recursosAEntregarPorOferente, recursosDeseadosPorOferente);
-    }
+    /*private void comerciarInternamente(ComercioInterno comercioInterno, List<Recurso> recursosAEntregarPorOferente, List<Recurso> recursosDeseadosPorOferente) {
+        comercioInterno.validar(this,  recursosAEntregarPorOferente, recursosDeseadosPorOferente);
+    }*/
 
 
     public void tieneRecursos(Recurso recurso, int cantidad) {
@@ -160,5 +160,8 @@ public class Jugador {
     }
 
 
+    public int obtenerPuntosDeVictoria() { 
+        return this.puntosVictoria; 
+    }
 
 }
