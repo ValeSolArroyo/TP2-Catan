@@ -16,9 +16,8 @@ import java.util.Set;
 public class Poblado implements Construccion {
     private final Jugador propietario;
     private static final List<Recurso> COSTO_POBLADO = List.of(
-        new Madera(), new Ladrillo(), new Lana(), new Grano()
+            new Madera(), new Ladrillo(), new Lana(), new Grano()
     );
-
 
     public Poblado(Jugador propietario) {
         this.propietario = propietario;
@@ -49,7 +48,6 @@ public class Poblado implements Construccion {
         }
     }
 
-
     @Override
     public void validarEn(EspacioConstruible espacio, Jugador jugador) {
         espacio.validarPoblado(jugador);
@@ -58,5 +56,10 @@ public class Poblado implements Construccion {
     @Override
     public void ocupar() {
         throw new YaHayPobladoError("No se puede colocar");
+    }
+
+    @Override
+    public int puntosVictoria() {
+        return 1;
     }
 }
