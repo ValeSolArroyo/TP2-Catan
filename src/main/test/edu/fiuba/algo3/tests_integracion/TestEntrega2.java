@@ -34,7 +34,33 @@ public class TestEntrega2 {
     
 
     @Test
+    // Verificar el consumo de recursos y la correcta colocación de una Carretera (adyacencia).
     public void test01VerificarConsumoRecursosYCorrectaColocacionCarreteraAdyacente() {
+        // Arrange
+        Jugador jugador = new Jugador(1, "Facu");
+        Vertice vertice1 = new Vertice();
+        Vertice vertice2 = new Vertice();
+        Arista arista = new Arista(vertice1, vertice2);
+
+        jugador1.recibirRecurso(new Madera());
+        jugador1.recibirRecurso(new Ladrillo());
+        jugador1.recibirRecurso(new Lana());
+        jugador1.recibirRecurso(new Grano());
+        jugador1.construir(new Poblado(jugador1), vertice1);
+
+        jugador.recibirRecurso(new Madera());
+        jugador.recibirRecurso(new Ladrillo());
+
+        // Act
+        jugador.construir(new Carretera(jugador), arista);
+
+        // Assert
+        assertThrows(RuntimeException.class, () -> jugador.tieneRecursos(new Madera(), 1),
+            "El jugador no debería tener madera (se consumió).");
+        assertThrows(RuntimeException.class, () -> jugador.tieneRecursos(new Ladrillo(), 1),
+            "El jugador no debería tener ladrillo (se consumió).");
+        assertTrue(arista.validarCarreteraPropia(jugador), 
+            "La arista debe tener una carretera perteneciente al jugador.");
     }
 
     @Test
