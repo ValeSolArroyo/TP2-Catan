@@ -14,10 +14,9 @@ import java.util.Set;
 public class Ciudad implements Construccion {
     private final Jugador propietario;
     private static final List<Recurso> COSTO_CIUDAD_ELIMINACION = List.of(
-        new Grano(), new Grano(),
-        new Mineral(), new Mineral(), new Mineral()
+            new Grano(), new Grano(),
+            new Mineral(), new Mineral(), new Mineral()
     );
-
 
     public Ciudad(Jugador propietario) {
         this.propietario = propietario;
@@ -46,7 +45,6 @@ public class Ciudad implements Construccion {
         inventario.consumirRecurso(COSTO_CIUDAD_ELIMINACION);
     }
 
-
     @Override
     public void validarEn(EspacioConstruible espacio, Jugador jugador) {
         espacio.validarCiudad(jugador);
@@ -56,5 +54,10 @@ public class Ciudad implements Construccion {
     @Override
     public void ocupar() {
         throw new YaHayCiudadError("No se puede colocar");
+    }
+
+    @Override
+    public int puntosVictoria() {
+        return 2;
     }
 }

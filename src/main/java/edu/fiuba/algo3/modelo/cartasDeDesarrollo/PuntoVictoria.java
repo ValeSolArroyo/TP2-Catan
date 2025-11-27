@@ -14,4 +14,9 @@ public class PuntoVictoria implements CartaDesarrollo {
     public void aplicarEfecto(Juego juego, Jugador jugador, Jugador victima, List<Arista> carreterasAContruir, List<Recurso> recursosDeBanca, Recurso recursoAnunciado, List<Jugador> jugadores, Hexagono nuevoLugarLadron) {
         throw new CartaNoJugableError("La carta de Punto de Victoria no se puede jugar.");
     }
+
+    @Override
+    public int puntosVictoria() {
+        return 1;
+    }
 }

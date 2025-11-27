@@ -22,6 +22,12 @@ public class ProgresoConstruccion implements CartaDesarrollo{
             }
             // TODO: ver si se puede mover el propietario de construcción a vértice y arista
             jugador.construir(new Carretera(jugador), arista);
+            juego.revisarGranRutaComercial(jugador);
         }
+    }
+
+    @Override
+    public int puntosVictoria() {
+        return 0;
     }
 }

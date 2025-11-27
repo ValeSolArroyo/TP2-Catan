@@ -36,4 +36,9 @@ public class NullConstruccion implements Construccion {
     public void ocupar() {
     }
 
+    @Override
+    public int puntosVictoria() {
+        return 0;
+    }
+
 }
