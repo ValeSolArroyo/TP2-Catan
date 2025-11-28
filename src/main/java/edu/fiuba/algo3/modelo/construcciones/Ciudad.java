@@ -65,8 +65,7 @@ public class Ciudad implements Construccion {
     
     @Override
     public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {
-        espacio.reemplazarConstruccion(jugador, this);
-        jugador.agregarConstruccion(this);             
+        espacio.reemplazarConstruccion(jugador, this);            
     }
 
 }

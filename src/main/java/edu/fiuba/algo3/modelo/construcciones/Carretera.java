@@ -62,7 +62,5 @@ public class Carretera implements Construccion {
     @Override
     public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {
         espacio.asignarConstruccion(this);
-        jugador.agregarConstruccion(this);
-    
     }
 }
