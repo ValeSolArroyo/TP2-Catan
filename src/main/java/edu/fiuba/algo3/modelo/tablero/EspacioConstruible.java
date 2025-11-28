@@ -8,6 +8,5 @@ public interface EspacioConstruible {
     void validarCiudad(Jugador jugador);
     void validarCarretera(Jugador jugador);
     void asignarConstruccion(Construccion construccion);
-    public boolean contieneConstruccionDeTipo(Construccion construccion);
-
+    void reemplazarConstruccion(Jugador jugador, Construccion nuevaConstruccion);
 }

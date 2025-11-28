@@ -7,6 +7,8 @@ import edu.fiuba.algo3.modelo.recursos.Grano;
 import edu.fiuba.algo3.modelo.recursos.Mineral;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
+
 
 import java.util.List;
 import java.util.Set;
@@ -60,9 +62,11 @@ public class Ciudad implements Construccion {
     public int puntosVictoria() {
         return 2;
     }
-
+    
     @Override
-    public boolean esDeTipo(Construccion construccion) {
-        return construccion.getClass().isInstance(this);
+    public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {
+        espacio.reemplazarConstruccion(jugador, this);
+        jugador.agregarConstruccion(this);             
     }
+
 }

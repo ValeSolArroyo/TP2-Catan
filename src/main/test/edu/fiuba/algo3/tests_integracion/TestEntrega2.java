@@ -21,6 +21,7 @@ public class TestEntrega2 {
     private Poblado poblado1, poblado2, poblado3;
     private Arista arista;
     private Ciudad ciudad;
+
     @BeforeEach
     public void setUp() {
         jugador1 = new Jugador(1, "Pepe");
@@ -41,6 +42,7 @@ public class TestEntrega2 {
         poblado2 = new Poblado(jugador2);
         poblado3 = new Poblado(jugador3);
         ciudad = new Ciudad(jugador2);
+        
     }
     
 
@@ -98,7 +100,7 @@ public class TestEntrega2 {
     
         jugador1.agregarConstruccion(new Carretera(jugador1)); 
         jugador1.agregarConstruccion(new Carretera(jugador1)); 
-        jugador1.agregarConstruccion(new Carretera(jugador1));
+        jugador1.agregarConstruccion(new Carretera(jugador1)); 
         jugador1.agregarConstruccion(new Carretera(jugador1));
 
         jugador1.entregarRecursos(List.of(new Madera(), new Ladrillo(), new Lana()));
@@ -149,13 +151,9 @@ public class TestEntrega2 {
                      () -> jugador2.tieneRecursos(new Grano(), 1),
                      "El inventario no quedó vacío tras el gasto de la Ciudad.");
                      
-        assertTrue(vPoblado.contieneConstruccionDeTipo(ciudad),
-                   "El vértice debe tener una instancia de Ciudad después de la mejora.");
-
-
         jugador2.conseguirPuntosDeVictoria();
-        assertTrue(jugador2.obtenerPuntosDeVictoria() == 3, 
-                     "La mejora a Ciudad debe resultar en 3 PV.");
+        assertTrue(jugador2.obtenerPuntosDeVictoria() == 2, 
+                     "La mejora a Ciudad debe resultar en 2 PV.");
     }
     
     

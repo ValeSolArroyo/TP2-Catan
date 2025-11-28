@@ -40,8 +40,9 @@ public class NullConstruccion implements Construccion {
     public int puntosVictoria() {
         return 0;
     }
+
     @Override
-    public boolean esDeTipo(Construccion construccion) {
-        return false;
+    public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {
+        // No hace nada
     }
 }

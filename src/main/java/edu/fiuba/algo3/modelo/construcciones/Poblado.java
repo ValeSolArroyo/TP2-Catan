@@ -62,7 +62,8 @@ public class Poblado implements Construccion {
     }
 
     @Override
-    public boolean esDeTipo(Construccion construccion) {
-        return construccion.getClass().isInstance(this);
+    public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {
+        espacio.asignarConstruccion(this);
+        jugador.agregarConstruccion(this);
     }
 }

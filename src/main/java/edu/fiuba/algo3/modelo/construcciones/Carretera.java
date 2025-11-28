@@ -58,9 +58,11 @@ public class Carretera implements Construccion {
     public int puntosVictoria() {
         return 0;
     }
-    @Override
-    public boolean esDeTipo(Construccion construccion) {
-        return construccion.getClass().isInstance(this);
-    }
 
+    @Override
+    public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {
+        espacio.asignarConstruccion(this);
+        jugador.agregarConstruccion(this);
+    
+    }
 }

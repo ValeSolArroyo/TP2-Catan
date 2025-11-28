@@ -58,13 +58,16 @@ public class Jugador {
         construcciones.add(construccion);
     }
 
+    public void eliminarConstruccion(Construccion construccion) {
+        construcciones.remove(construccion);
+    }
+
     public void construir(Construccion construccion, EspacioConstruible espacio) {
         construccion.validarEn(espacio, this);
         if (construcciones.size() >= 4) {
             construccion.cobrar(inventario);
         }
-        espacio.asignarConstruccion(construccion);
-        this.agregarConstruccion(construccion);
+        construccion.aplicarCambio(this, espacio);
     }
 
     public void recibirRecurso(Recurso recurso) {

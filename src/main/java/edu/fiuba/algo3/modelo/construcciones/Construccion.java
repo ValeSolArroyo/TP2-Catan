@@ -16,5 +16,5 @@ public interface Construccion {
     boolean tieneDePropietarioA(Jugador jugador);
     void ocupar();
     int puntosVictoria();
-    boolean esDeTipo(Construccion construccion);
+    void aplicarCambio(Jugador jugador, EspacioConstruible espacio);
 }
