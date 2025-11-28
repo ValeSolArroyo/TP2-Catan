@@ -1,65 +1,41 @@
 package edu.fiuba.algo3.modelo.juegoState;
 
-import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
-import edu.fiuba.algo3.modelo.construcciones.Construccion;
-import edu.fiuba.algo3.modelo.juego.Dado;
-import edu.fiuba.algo3.modelo.juego.Juego;
-import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.recursos.Grano;
-import edu.fiuba.algo3.modelo.recursos.Lana;
-import edu.fiuba.algo3.modelo.recursos.Mineral;
-import edu.fiuba.algo3.modelo.recursos.Recurso;
-import edu.fiuba.algo3.modelo.tablero.*;
-
-import java.util.List;
-
 public class EstadoAccionesTurno implements EstadoJuego {
+    @Override
+    public boolean puedeColocarPobladoInicial() {return false;}
 
     @Override
-    public void construir(Juego juego, Construccion construccion, EspacioConstruible espacio) {
-        Jugador jugador = juego.jugadorActual();
-        jugador.construir(construccion, espacio);
-    }
-
-    @Override
-    public void finalizarTurno(Juego juego) {
-       juego.avanzarTurno();
-        juego.establecerEstado(new EstadoTirarDados());
+    public boolean puedeLanzarDados() {
+        return false;
     }
 
     @Override
-    public void jugarCartaDesarrollo(Juego juego, CartaDesarrollo cartaDesarrollo, Jugador victima, List<Arista> carreterasAConstruir, List<Recurso> recursosDeBanca, Recurso recursoAnunciado, List<Jugador> jugadores, Hexagono nuevoLugarLadron) {
-        Jugador jugador = juego.jugadorActual();
-        cartaDesarrollo.aplicarEfecto(juego, jugador, victima, carreterasAConstruir, recursosDeBanca, recursoAnunciado, jugadores, nuevoLugarLadron);
+    public boolean puedeUsarLadron() {
+        return false;
     }
 
     @Override
-    public void comprarCartaDesarrollo(Juego juego, List<CartaDesarrollo> cartasDesarrollo){
-        List<Recurso> costoCarta = List.of(new Mineral(), new Grano(), new Lana());
-        Jugador jugador = juego.jugadorActual();
-        jugador.guardarCartaDesarrollo(cartasDesarrollo.get(0), costoCarta);
-        cartasDesarrollo.remove(0); // Depende del state al final, sino q se actualice en juego!!
+    public boolean puedeConstruir() {
+        return true;
     }
 
-
-    public void colocarPobladoInicial(Juego juego,Vertice vertice, Arista arista) {
-        throw new IllegalStateException("No se puede realizar la colocación inicial en la fase del ladrón.");
+    @Override
+    public boolean puedeFinalizarTurno() {
+        return true;
     }
 
-    public int lanzarDados(Juego juego, Dado dado){
-        throw new IllegalStateException("No se pueden tirar los dados durante el desarrollo de un turno.");
+    @Override
+    public boolean puedeComprarCartaDesarrollo() {
+        return true;
     }
 
-    public void descartePorLadron(Juego juego, List<Jugador> jugadores){
-        throw new IllegalStateException("No se puede verificar descarte por ladron durante el desarrollo de un turno.");
+    @Override
+    public boolean puedeJugarCartaDesarrollo() {
+        return true;
     }
 
-    public void robarCartaDe(Juego juego, Jugador victima){
-        throw new IllegalStateException("No se puede robar carta en acciones de turno.");
+    @Override
+    public boolean puedeComerciar() {
+        return true;
     }
-
-    public List<Jugador> moverLadron(Juego juego, Hexagono hexagono){
-        throw new IllegalStateException("No se puede mover al ladron durante las accones de turno.");
-    }
-
 }
