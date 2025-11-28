@@ -1,12 +1,9 @@
 package edu.fiuba.algo3.tests_integracion;
 import edu.fiuba.algo3.modelo.construcciones.Ciudad;
-import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.excepciones.ReglaDeDistanciaError;
 import edu.fiuba.algo3.modelo.juego.Dado;
 import edu.fiuba.algo3.modelo.juego.Juego;
-import edu.fiuba.algo3.modelo.juegoState.EstadoAccionesTurno;
-import edu.fiuba.algo3.modelo.juegoState.EstadoLadron;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.tablero.*;

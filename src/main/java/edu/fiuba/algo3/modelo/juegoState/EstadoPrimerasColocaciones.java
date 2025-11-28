@@ -1,8 +1,10 @@
 package edu.fiuba.algo3.modelo.juegoState;
 
-public class EstadoAccionesTurno implements EstadoJuego {
+public class EstadoPrimerasColocaciones implements EstadoJuego{
     @Override
-    public boolean puedeColocarPobladoInicial() {return false;}
+    public boolean puedeColocarPobladoInicial() {
+        return true;
+    }
 
     @Override
     public boolean puedeLanzarDados() {
@@ -16,26 +18,26 @@ public class EstadoAccionesTurno implements EstadoJuego {
 
     @Override
     public boolean puedeConstruir() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean puedeFinalizarTurno() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean puedeComprarCartaDesarrollo() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean puedeJugarCartaDesarrollo() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean puedeComerciar() {
-        return true;
+        return false;
     }
 }

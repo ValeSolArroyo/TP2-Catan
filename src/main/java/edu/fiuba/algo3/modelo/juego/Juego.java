@@ -3,11 +3,13 @@ package edu.fiuba.algo3.modelo.juego;
 import edu.fiuba.algo3.modelo.cartasBonificacion.GranCaballeria;
 import edu.fiuba.algo3.modelo.cartasBonificacion.GranRutaComercial;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
+import edu.fiuba.algo3.modelo.cartasDeDesarrollo.PuntoVictoria;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
-import edu.fiuba.algo3.modelo.juegoState.EstadoPrimeraColocacion;
+import edu.fiuba.algo3.modelo.construcciones.NullConstruccion;
+import edu.fiuba.algo3.modelo.excepciones.AccionNoPermitidaError;
+import edu.fiuba.algo3.modelo.juegoCommand.Accion;
 import edu.fiuba.algo3.modelo.juegoState.EstadoJuego;
-import edu.fiuba.algo3.modelo.juegoState.EstadoSegundaColocacion;
-import edu.fiuba.algo3.modelo.juegoState.EstadoTirarDados;
+import edu.fiuba.algo3.modelo.juegoState.EstadoPrimerasColocaciones;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.tablero.*;
@@ -32,7 +34,7 @@ public class Juego {
         this.dado = new Dado();
         this.tablero = tablero;
         this.indiceTurno = 0;
-        this.estadoActual = new EstadoPrimeraColocacion();
+        this.estadoActual = new EstadoPrimerasColocaciones();
         this.cartasDesarrollo = cartasDesarrollo;
         this.granCaballeria = new GranCaballeria();
         this.granRutaComercial = new GranRutaComercial();
@@ -51,16 +53,14 @@ public class Juego {
         return estadoActual.lanzarDados(this, dado);
     }
 
-    public void descartePorLadron() {
-        estadoActual.descartePorLadron(this, listaJugadores);
-    }
 
-    public List<Jugador> moverLadron(Hexagono hexagono) {
-        return estadoActual.moverLadron(this, hexagono);
-    }
+    public void activarLadron(Accion accionActivarLadron, Hexagono nuevoLugarLadron, Jugador victima) {
+        if (!estadoActual.puedeUsarLadron()){
+            throw new AccionNoPermitidaError("No se puede activar al ladrón en el estado actual");
+        }
+        Jugador jugadorActual = this.jugadorActual();
+        accionActivarLadron.ejecutar(this, jugadorActual, new Vertice(), new Arista(), dado, new NullConstruccion(), new Arista(), cartasDesarrollo, new PuntoVictoria(), victima, null, null, null, listaJugadores, nuevoLugarLadron);
 
-    public void robarCartaDe(Jugador victima) {
-        estadoActual.robarCartaDe(this, victima);
     }
 
     public void finalizarTurno() {

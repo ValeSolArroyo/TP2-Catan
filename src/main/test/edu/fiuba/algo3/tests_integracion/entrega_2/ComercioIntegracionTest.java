@@ -1,19 +1,5 @@
 package edu.fiuba.algo3.tests_integracion.entrega_2;
 
-import edu.fiuba.algo3.modelo.juego.Juego;
-import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.recursos.*;
-import edu.fiuba.algo3.modelo.excepciones.RecursosInsuficientesError;
-import edu.fiuba.algo3.modelo.juegoState.EstadoAccionesTurno;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.tablero.Vertice;
-import edu.fiuba.algo3.modelo.tableroFactory.TableroCatanFactory;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 public class ComercioIntegracionTest {
 
     /*@Test

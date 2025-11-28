@@ -87,13 +87,9 @@ public class Jugador {
 
     public void aceptarOferta(Jugador oferente, List<Recurso> recursosDeseadosPorOferente, List<Recurso> recursosAEntregarPorOferente){
         ComercioInterno comercioInterno = new ComercioInterno(oferente);
-        this.comerciarInternamente(comercioInterno, recursosAEntregarPorOferente, recursosDeseadosPorOferente);
-    }
-
-    private void comerciarInternamente(ComercioInterno comercioInterno, List<Recurso> recursosAEntregarPorOferente, List<Recurso> recursosDeseadosPorOferente) {
         comercioInterno.validar(this, new Vertice(), recursosAEntregarPorOferente, recursosDeseadosPorOferente);
+        comercioInterno.ejecutar(this, recursosDeseadosPorOferente, recursosAEntregarPorOferente);
     }
-
 
     public void tieneRecursos(Recurso recurso, int cantidad) {
         inventario.validarRecursos(recurso, cantidad);
@@ -162,7 +158,6 @@ public class Jugador {
 
 
     }
-
 
     public int obtenerPuntosDeVictoria() { 
         return this.puntosVictoria; 
