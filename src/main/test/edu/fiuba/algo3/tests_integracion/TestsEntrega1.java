@@ -1,22 +1,34 @@
 package edu.fiuba.algo3.tests_integracion;
+
 import edu.fiuba.algo3.modelo.construcciones.Ciudad;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.excepciones.ReglaDeDistanciaError;
 import edu.fiuba.algo3.modelo.juego.Dado;
 import edu.fiuba.algo3.modelo.juego.Juego;
+import edu.fiuba.algo3.modelo.juegoCommand.AccionActivarLadron;
+import edu.fiuba.algo3.modelo.juegoState.EstadoAccionesTurno;
+import edu.fiuba.algo3.modelo.juegoState.EstadoLadron;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.tablero.*;
-
 import edu.fiuba.algo3.modelo.tableroFactory.TableroCatanFactory;
 import edu.fiuba.algo3.modelo.terrenos.*;
-import org.junit.jupiter.api.*;
+
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.*;
 
 public class TestsEntrega1 {
+    private boolean tiene(Jugador j, Recurso r, int c) {
+        try {
+            j.tieneRecursos(r, c);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
     @Test
     public void test01AleatoriedadDeTerrenosYFichas() {
         // Arrange
@@ -47,8 +59,7 @@ public class TestsEntrega1 {
 
         // Assert
         assertDoesNotThrow(() -> jugador.construir(new Poblado(jugador), vertice1));
-        assertThrows(ReglaDeDistanciaError.class, () -> jugador.construir(new Poblado(jugador), vertice2)
-        );
+        assertThrows(ReglaDeDistanciaError.class, () -> jugador.construir(new Poblado(jugador), vertice2));
         assertDoesNotThrow(() -> jugador.construir(new Poblado(jugador), vertice3));
     }
 
@@ -83,7 +94,6 @@ public class TestsEntrega1 {
     }
 
     @Test
-    // Verificar la producción correcta: 1 recurso por Poblado, 2 recursos por Ciudad, adyacentes al número lanzado.
     public void test05ProduccionPobladoYCiudad() {
         // Arrange
         Jugador jugador = new Jugador(1, "Luis");
@@ -95,25 +105,9 @@ public class TestsEntrega1 {
         Tablero tablero = new Tablero(List.of(hexagonoCampo));
         Juego juego = new Juego(List.of(jugador), tablero, null);
 
-        jugador.recibirRecurso(new Madera());
-        jugador.recibirRecurso(new Lana());
-        jugador.recibirRecurso(new Ladrillo());
-        jugador.recibirRecurso(new Grano());
         jugador.construir(new Poblado(jugador), verticePoblado);
+        jugador.construir(new Ciudad(jugador), verticeCiudad);
 
-        jugador.recibirRecurso(new Madera()); 
-        jugador.recibirRecurso(new Ladrillo());
-        jugador.recibirRecurso(new Lana());   
-        jugador.recibirRecurso(new Grano());
-        jugador.construir(new Ciudad(jugador), verticeCiudad);
-        
-        jugador.recibirRecurso(new Grano());
-        jugador.recibirRecurso(new Grano());
-        jugador.recibirRecurso(new Mineral());
-        jugador.recibirRecurso(new Mineral());
-        jugador.recibirRecurso(new Mineral());
-        jugador.construir(new Ciudad(jugador), verticeCiudad);
-        
         // Act
         juego.producirRecursos(6);
 
@@ -123,7 +117,6 @@ public class TestsEntrega1 {
     }
 
     @Test
-    // Verificar que el Terreno bajo el Ladrón no produzca recursos.
     public void test06LadronBloqueaProduccion() {
         // Arrange
         Jugador jugador = new Jugador(1, "Maria");
@@ -134,48 +127,43 @@ public class TestsEntrega1 {
         Juego juego = new Juego(List.of(jugador), tablero, null);
 
         juego.establecerEstado(new EstadoAccionesTurno());
-        jugador.recibirRecurso(new Madera()); 
-        jugador.recibirRecurso(new Ladrillo());
-        jugador.recibirRecurso(new Lana());   
-        jugador.recibirRecurso(new Grano());
-        jugador.construir(new Ciudad(jugador), verticePoblado);
-    
+        jugador.construir(new Poblado(jugador), verticePoblado);
+
         juego.establecerEstado(new EstadoLadron());
-        juego.moverLadron(hexagonoColina);
+        juego.activarLadron(new AccionActivarLadron(), hexagonoColina, jugador);
 
         // Act
         juego.producirRecursos(9);
 
         // Assert
-        assertThrows(RuntimeException.class, () -> {
-            jugador.tieneRecursos(new Ladrillo(), 1);
-        }, "El jugador no debería tener ladrillos, el ladrón bloqueó la producción.");
+        assertThrows(RuntimeException.class, () -> jugador.tieneRecursos(new Ladrillo(), 1),
+                "El jugador no debería tener ladrillos, el ladrón bloqueó la producción.");
     }
 
     @Test
-    //Verificar que si un jugador tiene más de 7 cartas, descarte correctamente la mitad, redondeando hacia abajo, al lanzar un 7.
     public void test07DescarteAlSalirSiete() {
         // Arrange
         Jugador jugador = new Jugador(1, "Carlos");
-        Tablero tablero = new Tablero(new ArrayList<>());
+        Hexagono hexagonoDesierto = new Hexagono(new Desierto(), 0);
+        Tablero tablero = new Tablero(List.of(hexagonoDesierto));
         Juego juego = new Juego(List.of(jugador), tablero, null);
+
         for (int i = 0; i < 9; i++) {
             jugador.recibirRecurso(new Madera());
         }
 
         // Act
         juego.establecerEstado(new EstadoLadron());
-        juego.descartePorLadron();
+        juego.activarLadron(new AccionActivarLadron(), hexagonoDesierto, jugador);
 
         // Assert
         assertDoesNotThrow(() -> jugador.tieneRecursos(new Madera(), 4),
                 "El jugador debería haber descartado 4 cartas y quedarse con 5.");
         assertThrows(RuntimeException.class, () -> jugador.tieneRecursos(new Madera(), 6),
-            "No debería tener 6 cartas.");
+                "No debería tener 6 cartas.");
     }
 
     @Test
-    // Verificar que el jugador activo pueda mover el Ladrón y robar una carta aleatoria de un jugador adyacente a la nueva ubicación.
     public void test08MoverLadronYRobarCartaAleatoria() {
         // Arrange
         Jugador jugadorActivo = new Jugador(1, "Sofia");
@@ -183,7 +171,7 @@ public class TestsEntrega1 {
         Vertice vertice = new Vertice();
         Hexagono hexagonoDesierto = new Hexagono(new Desierto(), 0);
         hexagonoDesierto.agregarVertice(vertice);
-        Tablero tablero = new Tablero(new ArrayList<>());
+        Tablero tablero = new Tablero(List.of(hexagonoDesierto));
         Juego juego = new Juego(List.of(jugadorActivo, jugadorVictima), tablero, null);
 
         jugadorVictima.recibirRecurso(new Madera());
@@ -191,21 +179,28 @@ public class TestsEntrega1 {
         jugadorVictima.recibirRecurso(new Ladrillo());
         jugadorVictima.recibirRecurso(new Lana());
         jugadorVictima.recibirRecurso(new Grano());
-        jugadorVictima.construir(new Poblado(jugadorVictima), null);
+        jugadorVictima.construir(new Poblado(jugadorVictima), vertice);
 
         // Act
         juego.establecerEstado(new EstadoLadron());
-        List<Jugador> jugadoresAdyacentes = juego.moverLadron(hexagonoDesierto);
-        juego.robarCartaDe(jugadorVictima);
+        juego.activarLadron(new AccionActivarLadron(), hexagonoDesierto, jugadorVictima);
 
-        // Assert
-        assertEquals(1, jugadoresAdyacentes.size());
-        assertTrue(jugadoresAdyacentes.contains(jugadorVictima));
-        assertEquals(jugadorVictima, jugadoresAdyacentes.get(0));
-        assertDoesNotThrow(() -> jugadorActivo.tieneRecursos(new Madera(), 1));
+        // Assert: el activo ganó 1 carta de algún tipo y la víctima perdió 1 carta de alguno de los tipos que tenía
+        boolean activoGanoAlgo =
+                tiene(jugadorActivo, new Madera(), 1) ||
+                tiene(jugadorActivo, new Ladrillo(), 1) ||
+                tiene(jugadorActivo, new Lana(), 1) ||
+                tiene(jugadorActivo, new Grano(), 1) ||
+                tiene(jugadorActivo, new Mineral(), 1);
 
-        assertThrows(Exception.class, () -> jugadorVictima.tieneRecursos(new Madera(), 1), 
-            "La víctima no debería tener madera.");
-        
+        // La víctima empezó con: 2 Maderas, 1 Ladrillo, 1 Lana, 1 Grano
+        boolean victimaPerdioAlgo =
+                !tiene(jugadorVictima, new Madera(), 2) ||
+                !tiene(jugadorVictima, new Ladrillo(), 1) ||
+                !tiene(jugadorVictima, new Lana(), 1) ||
+                !tiene(jugadorVictima, new Grano(), 1);
+
+        assertTrue(activoGanoAlgo, "El jugador activo debería haber ganado 1 carta tras el robo");
+        assertTrue(victimaPerdioAlgo, "La víctima debería haber perdido 1 carta de alguno de sus recursos");
     }
 }

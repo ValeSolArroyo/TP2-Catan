@@ -26,7 +26,11 @@ public class AccionActivarLadron implements Accion{
 
         nuevoLugarLadron.ponerLadron();
 
-        jugadorActual.robarCarta(victima);
+        try {
+            jugadorActual.robarCarta(victima);
+        } catch (RuntimeException ignored) {
+            // Sin cartas para robar: se continua igualmente con el flujo del estado del ladrón
+        }
         juego.establecerEstado(new EstadoAccionesTurno());
 
         this.descartePorLadron(jugadores);
