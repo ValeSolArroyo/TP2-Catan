@@ -76,19 +76,13 @@ public class Jugador {
     }
 
     public void comerciarCartasRecurso(Comercio comercio, Vertice verticePuerto, List<Recurso> recursosEntregados, Recurso recursoDeseado) {
-        comercio.validar(this, verticePuerto, recursosEntregados, List.of(recursoDeseado));
-        comercio.ejecutar(this, recursosEntregados, List.of(recursoDeseado));
-    }
-
-    public void anunciarOferta(List<Recurso> recursosDeseados, List<Recurso> recursosAEntregar){
-        // la idea es que se muestren los recursos que ofrece y los que pide el jugador actual
+        comercio.ejecutar(this, verticePuerto, recursosEntregados, List.of(recursoDeseado));
     }
 
 
     public void aceptarOferta(Jugador oferente, List<Recurso> recursosDeseadosPorOferente, List<Recurso> recursosAEntregarPorOferente){
         ComercioInterno comercioInterno = new ComercioInterno(oferente);
-        comercioInterno.validar(this, new Vertice(), recursosAEntregarPorOferente, recursosDeseadosPorOferente);
-        comercioInterno.ejecutar(this, recursosDeseadosPorOferente, recursosAEntregarPorOferente);
+        comercioInterno.ejecutar(this, new Vertice(), recursosDeseadosPorOferente, recursosAEntregarPorOferente);
     }
 
     public void tieneRecursos(Recurso recurso, int cantidad) {
