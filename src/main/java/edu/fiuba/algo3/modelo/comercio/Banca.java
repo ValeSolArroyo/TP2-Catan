@@ -10,7 +10,7 @@ import java.util.List;
 public class Banca implements Comercio {
 
     @Override
-    public void validar(Jugador jugador, Vertice verticePuerto, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados) {
+    public void ejecutar(Jugador jugador, Vertice verticePuerto, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados) {
         if (recursosEntregados.size() != 4) {
             throw new ComercioInvalidoError("El comercio con la banca es 4:1");
         }
@@ -23,10 +23,7 @@ public class Banca implements Comercio {
         }
 
         jugador.tieneRecursos(tipoRecurso, 4);
-    }
 
-    @Override
-    public void ejecutar(Jugador jugador, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados) {
         jugador.entregarRecursos(recursosEntregados);
         for (Recurso recurso: recursosDeseados) {
             jugador.recibirRecurso(recurso);
