@@ -62,7 +62,8 @@ public class Arista implements EspacioConstruible {
         this.construccion = construccion;
     }
 
-    public boolean contieneConstruccionDeTipo(Construccion construccion) {
-        return this.construccion.esDeTipo(construccion);
+    @Override
+    public void reemplazarConstruccion(Jugador jugador, Construccion nuevaConstruccion) {
+        // No hace nada
     }
 }
