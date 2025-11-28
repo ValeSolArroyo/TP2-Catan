@@ -39,7 +39,7 @@ public class TableroCatanFactory implements TableroFactory {
             throw new IllegalArgumentException("Se necesitan exactamente 18 fichas");
 
         List<Hexagono> hexagonos = crearHexagonos(terrenos, fichas);
-        int[] cantidadVerticesPorFila = {3, 4, 4, 5, 5, 6, 6, 5, 5, 4, 4, 3};
+        List<Integer> cantidadVerticesPorFila = List.of(3, 4, 4, 5, 5, 6, 6, 5, 5, 4, 4, 3);
         Vertice[][] vertices = inicializarVertices(cantidadVerticesPorFila);
         List<Arista> aristas = new ArrayList<>();
 
@@ -75,18 +75,19 @@ public class TableroCatanFactory implements TableroFactory {
         return new Tablero(hexagonos);
     }
 
-    private Vertice[][] inicializarVertices(int[] cantidadVerticesPorFila) {
-        Vertice[][] vertices = new Vertice[12][];
-        for (int fila = 0; fila < 12; fila++) {
-            vertices[fila] = new Vertice[cantidadVerticesPorFila[fila]];
-            for (int columna = 0; columna < cantidadVerticesPorFila[fila]; columna++) {
+    private Vertice[][] inicializarVertices(List<Integer> cantidadVerticesPorFila) {
+        Vertice[][] vertices = new Vertice[cantidadVerticesPorFila.size()][];
+        for (int fila = 0; fila < cantidadVerticesPorFila.size(); fila++) {
+            int columnas = cantidadVerticesPorFila.get(fila);
+            vertices[fila] = new Vertice[columnas];
+            for (int columna = 0; columna < columnas; columna++) {
                 vertices[fila][columna] = new Vertice();
             }
         }
         return vertices;
     }
 
-    private void identificarVerticesBorde(Vertice[][] vertices, int[] cantidadVerticesPorFila) {
+    private void identificarVerticesBorde(Vertice[][] vertices, List<Integer> cantidadVerticesPorFila) {
         // Filas 0, 1, 10 y 11: TODOS los vértices son de borde
         int[] filasCompletas = {0, 1, 10, 11};
         for (int fila : filasCompletas) {
@@ -99,7 +100,7 @@ public class TableroCatanFactory implements TableroFactory {
         for (int fila = 2; fila < 10; fila++) {
             verticesBorde.add(vertices[fila][0]);
 
-            int ultimaColumna = cantidadVerticesPorFila[fila] - 1;
+            int ultimaColumna = cantidadVerticesPorFila.get(fila) - 1;
             verticesBorde.add(vertices[fila][ultimaColumna]);
         }
     }
