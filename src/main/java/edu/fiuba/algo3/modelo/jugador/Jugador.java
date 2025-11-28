@@ -68,6 +68,7 @@ public class Jugador {
             construccion.cobrar(inventario);
         }
         construccion.aplicarCambio(this, espacio);
+        this.agregarConstruccion(construccion);
     }
 
     public void recibirRecurso(Recurso recurso) {
