@@ -116,9 +116,6 @@ public class Vertice implements EspacioConstruible {
         }
 
     }
-    public Construccion obtenerConstruccion() {
-        return this.construccion;
-    }
 
     public void reemplazarConstruccion(Jugador jugador, Construccion nuevaConstruccion) {
         Construccion antigua = this.construccion;
