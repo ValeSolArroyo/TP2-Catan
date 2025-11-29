@@ -36,6 +36,8 @@ public class ContenedorPrincipalVistas extends StackPane {
         return stage;
     }
 
+    public Node getContenido() {return contenedor.getCenter();}
+
     private VBox crearMenuGlobal() {
         Button botonMenu = new Button("Menu");
         botonMenu.getStyleClass().add("boton-menu");
@@ -57,14 +59,10 @@ public class ContenedorPrincipalVistas extends StackPane {
         botonOpciones.setPrefWidth(90);
         botonOpciones.setPrefHeight(28);
 
-        // TODO: Por ahora al apretar Volver en la vista Ayuda, vuelve directo al tablero:(
-        // Esto nos va a traer problemas porque se puede poner Ayuda en la pantalla de inicio
-        // y después Volver. Y ahí te salteás lo de elegir cant jugadores, los nombres, colores...
-        // y vas directo al juego.
         Button botonAyuda = new Button("Ayuda");
         botonAyuda.getStyleClass().add("boton-menu");
         botonAyuda.setPrefWidth(90);
-        botonAyuda.setOnAction(new BotonAyudaControlador(stage, this));
+        botonAyuda.setOnAction(new BotonAyudaControlador(this));
 
         Button botonAcerca = new Button("Acerca de");
         botonAcerca.getStyleClass().add("boton-menu");

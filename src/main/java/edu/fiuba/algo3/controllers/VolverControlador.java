@@ -4,20 +4,20 @@ import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.stage.Stage;
 
-public class VolverAlJuegoControlador implements EventHandler<ActionEvent> {
-    private Stage stage;
+public class VolverControlador implements EventHandler<ActionEvent> {
     private ContenedorPrincipalVistas contenedor;
+    private Node vistaAnterior;
 
-    public VolverAlJuegoControlador(Stage stage, ContenedorPrincipalVistas contenedor) {
-        this.stage = stage;
+    public VolverControlador(ContenedorPrincipalVistas contenedor, Node vistaAnterior) {
         this.contenedor = contenedor;
+        this.vistaAnterior = vistaAnterior;
     }
 
     @Override
     public void handle(ActionEvent event) {
-        VistaJuegoGeneral vista = new VistaJuegoGeneral(stage, contenedor);
-        contenedor.setContenido(vista);
+        contenedor.setContenido(vistaAnterior);
     }
 }
