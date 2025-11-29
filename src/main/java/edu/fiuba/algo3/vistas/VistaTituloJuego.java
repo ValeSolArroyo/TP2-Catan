@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.BotonComenzarControlador;
+import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,15 +13,7 @@ import javafx.util.Duration;
 
 public class VistaTituloJuego extends StackPane{
     public VistaTituloJuego(Stage stage, ContenedorPrincipalVistas contenedor) {
-        Image imagenTitulo = new Image(getClass().getResource("/images/backgrounds/titulo_juego.jpeg").toExternalForm());
-        BackgroundImage background = new BackgroundImage(
-                imagenTitulo,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                new BackgroundSize(100, 100, true, true, true, false)
-        );
-        this.setBackground(new Background(background));
+        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/titulo_juego.jpeg"));
 
         Button botonInicio = new Button("Comenzar");
         botonInicio.getStyleClass().add("boton-comenzar");
