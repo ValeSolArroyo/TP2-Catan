@@ -16,16 +16,14 @@ public class ComercioInterno implements Comercio {
 
     @Override
     public void ejecutar(Jugador aceptante, Vertice verticePuerto, List<Recurso> recursosAEntregar, List<Recurso> recursosDeseados) {
-        aceptante.tieneRecursos(recursosDeseados.get(0), recursosDeseados.size());
-        oferente.tieneRecursos(recursosAEntregar.get(0), recursosAEntregar.size());
 
-        aceptante.entregarRecursos(recursosDeseados);
         for (Recurso recurso: recursosDeseados) {
+            aceptante.darRecursos(recurso, 1);
             oferente.recibirRecurso(recurso);
         }
 
-        oferente.entregarRecursos(recursosAEntregar);
         for (Recurso recurso: recursosAEntregar) {
+            oferente.darRecursos(recurso, 1);
             aceptante.recibirRecurso(recurso);
         }
     }

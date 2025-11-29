@@ -10,11 +10,6 @@ public class Lana implements Recurso {
     }
 
     @Override
-    public void eliminarDe(Inventario inventario) {
-        inventario.eliminarRecurso(this);
-    }
-
-    @Override
     public boolean coincideCon(Recurso otro) {
         return otro.coincideConLana(this);
     }

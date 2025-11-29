@@ -29,9 +29,7 @@ public class PuertoEspecial implements Comercio {
             }
         }
 
-        jugador.tieneRecursos(tipoEspecial, 2);
-
-        jugador.entregarRecursos(recursosEntregados);
+        jugador.darRecursos(tipoEspecial, 2);
         for (Recurso recurso: recursosDeseados) {
             jugador.recibirRecurso(recurso);
         }

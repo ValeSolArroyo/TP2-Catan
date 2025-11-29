@@ -3,7 +3,9 @@ package edu.fiuba.algo3.modelo.jugador;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.excepciones.RecursosInsuficientesError;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
     public class Inventario {
         private List<Recurso> recursos;
@@ -15,15 +17,26 @@ import java.util.List;
         recursos.add(recurso);
     }
 
-    public void consumirRecurso(List<Recurso> recursos) {
-        if (!recursos.isEmpty()) {
-            for (Recurso recurso : recursos) {
-                recurso.eliminarDe(this);
+
+    public Recurso entregarRecurso(Recurso recursoAEntregar) {
+        for (Recurso recursoInventario: recursos){
+            if (recursoInventario.coincideCon(recursoAEntregar)){
+                recursos.remove(recursoInventario);
+                return recursoInventario;
             }
+        }
+        throw new RecursosInsuficientesError("El recurso " + recursoAEntregar + " no está en el inventario.");
+    }
+
+
+    public void pagarRecurso(Recurso recursoAConsumir, int cantidad) {
+        validarRecursos(recursoAConsumir, cantidad);
+        for (int i = 0; i < cantidad; i++) {
+            eliminarRecurso(recursoAConsumir);
         }
     }
 
-    public void eliminarRecurso(Recurso recursoAEliminar){
+    private void eliminarRecurso(Recurso recursoAEliminar){
         for (Recurso recursoInventario: recursos){
             if (recursoInventario.coincideCon(recursoAEliminar)){
                 recursos.remove(recursoInventario);
@@ -50,12 +63,12 @@ import java.util.List;
                 cantidadAcumulada++;
             }
         }
-
         if (cantidadAcumulada < cantidadNecesaria) {
             throw new RecursosInsuficientesError("Se requieren " + cantidadNecesaria + " recursos y solo hay " + cantidadAcumulada
             );
         }
     }
+
 
     public Recurso quitarRecursoAlAzar() {
         int indice = (int) (Math.random() * recursos.size());
@@ -63,21 +76,6 @@ import java.util.List;
         recursos.remove(indice);
         return robado;
     }
+}
 
-        public void ejecturarCompra(List<Recurso> costoCarta) {
-            for (Recurso recurso: costoCarta){
-                verificarRecurso(recurso);
-            }
-            consumirRecurso(costoCarta);
-        }
-
-        private void verificarRecurso(Recurso recursoNecesitado) {
-            for (Recurso recurso: recursos){
-                if (recurso.coincideCon(recursoNecesitado)){
-                    return;
-                }
-            }
-            throw new RecursosInsuficientesError("No dispone de recursos suficientes para comprar Carta Desarrollo");
-        }
-    }
 

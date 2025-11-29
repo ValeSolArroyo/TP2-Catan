@@ -62,10 +62,12 @@ public class Jugador {
         construcciones.remove(construccion);
     }
 
+
+    // ESTE LO VOY A MODIFICAR PARA QUE NO SE VALIDE, SINO QUE SE MANDE A CONSTRUIR!! 
     public void construir(Construccion construccion, EspacioConstruible espacio) {
-        construccion.validarEn(espacio, this);
+        construccion.validarEn(espacio, this); // esto no estaría acá
         if (construcciones.size() >= 4) {
-            construccion.cobrar(inventario);
+            construccion.cobrar(this);
         }
         construccion.aplicarCambio(this, espacio);
         this.agregarConstruccion(construccion);
@@ -89,18 +91,25 @@ public class Jugador {
         inventario.validarRecursos(recurso, cantidad);
     }
 
-    public void entregarRecursos(List<Recurso> entregados) {
-        inventario.consumirRecurso(entregados);
+    public Recurso entregarUnRecurso(Recurso recursoAEntregar) {
+        return inventario.entregarRecurso(recursoAEntregar);
     }
 
     public void tieneConstruccionEn(Vertice puerto) {
         puerto.validarPuerto(this);
     }
 
-    public void guardarCartaDesarrollo(CartaDesarrollo cartaDesarrollo, List<Recurso> costoCarta){
-        inventario.ejecturarCompra(costoCarta);
-        cartasDesarrollo.add(cartaDesarrollo);
+
+    public void darRecursos(Recurso recurso, int cantidad) {
+        inventario.pagarRecurso(recurso, cantidad);
     }
+
+    // TODAVIA NO MODIFIQUÉ ESTO PORQUE NO ME IMPLEMENTÉ LOS TEST DE CARTA DESARROLLO!! 
+    // LA IDEA ES QUE NO SE LE PASE LA LISTA DE COSTO SINO EL RECURSO Y LA CANTIDAD, ASI REUTILIZO CODIGO DE INVENTARIO.
+    /*public void guardarCartaDesarrollo(CartaDesarrollo cartaDesarrollo, List<Recurso> costoCarta){
+        inventario.entregarRecursos(costoCarta);
+        cartasDesarrollo.add(cartaDesarrollo);
+    }*/
 
     public void  registrarCaballeroJugado(){
         this.cartasCaballeroJugadas =  this.cartasCaballeroJugadas + 1;

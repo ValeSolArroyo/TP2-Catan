@@ -19,8 +19,8 @@ public class NullConstruccion implements Construccion {
     }
 
     @Override
-    public void cobrar(Inventario inventario) {
-        inventario.consumirRecurso(List.of());
+    public void cobrar(Jugador jugador) {
+        // No hace nada
     }
 
     @Override
