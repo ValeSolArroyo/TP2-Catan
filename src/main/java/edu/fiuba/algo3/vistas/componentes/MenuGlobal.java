@@ -31,8 +31,10 @@ public class MenuGlobal {
             boolean estabaAbierto = menuDesplegable.isVisible();
             menuDesplegable.setVisible(!estabaAbierto);
             if (!estabaAbierto) {
+                botonMenu.setText("Cerrar");
                 botonMenu.setTranslateY(-15);
             } else {
+                botonMenu.setText("Menu");
                 botonMenu.setTranslateY(50);
             }
         });
