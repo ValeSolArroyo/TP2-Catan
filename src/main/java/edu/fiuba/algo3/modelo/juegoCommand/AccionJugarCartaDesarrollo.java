@@ -14,13 +14,18 @@ import edu.fiuba.algo3.modelo.tablero.Vertice;
 import java.util.List;
 
 public class AccionJugarCartaDesarrollo implements Accion{
-    @Override
-    public void ejecutar(Juego juego, Jugador jugadorActual, Vertice vertice, Arista arista,
-                         Dado dado, Construccion construccion, EspacioConstruible espacio,
-                         List<CartaDesarrollo> cartasDesarrollo, CartaDesarrollo carta,
-                         Jugador victima, List<Arista> carreterasAContruir,
-                         List<Recurso> recursosDeBanca, Recurso recursoAnunciado,
-                         List<Jugador> jugadores, Hexagono nuevoLugarLadron) {
+    private Juego juego;
+    private CartaDesarrollo cartaDesarrollo;
 
+    public AccionJugarCartaDesarrollo(Juego juego, CartaDesarrollo cartaDesarrollo){
+        this.juego = juego;
+        this.cartaDesarrollo = cartaDesarrollo;
     }
+
+
+    @Override
+    public void ejecutar(){
+        juego.jugarCartaDesarrollo(cartaDesarrollo);
+    }
+
 }

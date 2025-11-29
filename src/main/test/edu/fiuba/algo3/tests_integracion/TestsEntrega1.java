@@ -5,7 +5,6 @@ import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.excepciones.ReglaDeDistanciaError;
 import edu.fiuba.algo3.modelo.juego.Dado;
 import edu.fiuba.algo3.modelo.juego.Juego;
-import edu.fiuba.algo3.modelo.juegoCommand.AccionActivarLadron;
 import edu.fiuba.algo3.modelo.juegoState.EstadoAccionesTurno;
 import edu.fiuba.algo3.modelo.juegoState.EstadoLadron;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
