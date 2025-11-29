@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.ConfirmarJugadoresControlador;
+import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -22,15 +23,7 @@ public class VistaSeleccionNombreYColor extends VBox {
 
     public VistaSeleccionNombreYColor(Stage stage, ContenedorPrincipalVistas contenedor, int cantidad) {
         this.setAlignment(Pos.CENTER);
-        Image fondoMar = new Image(getClass().getResource("/images/backgrounds/mar.jpeg").toExternalForm());
-        BackgroundImage background = new BackgroundImage(
-                fondoMar,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                new BackgroundSize(100, 100, true, true, true, false)
-        );
-        this.setBackground(new Background(background));
+        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/mar.jpeg"));
         this.setSpacing(20);
 
         Pane panelIngresarJugadores = new Pane();

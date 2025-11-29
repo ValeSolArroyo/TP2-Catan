@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.CantidadJugadoresControlador;
+import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,19 +14,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class VistaSeleccionCantidadJugadores extends VBox {
-    private TextField inputCantidad;
-
     public VistaSeleccionCantidadJugadores(Stage stage, ContenedorPrincipalVistas contenedor) {
         this.setAlignment(Pos.CENTER);
-        Image fondoMar = new Image(getClass().getResource("/images/backgrounds/mar.jpeg").toExternalForm());
-        BackgroundImage background = new BackgroundImage(
-                fondoMar,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                new BackgroundSize(100, 100, true, true, true, false)
-        );
-        this.setBackground(new Background(background));
+        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/mar.jpeg"));
         this.setSpacing(20);
 
         Pane panelCantidad = new Pane();
