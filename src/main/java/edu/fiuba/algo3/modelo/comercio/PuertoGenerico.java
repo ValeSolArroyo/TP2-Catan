@@ -14,16 +14,18 @@ public class PuertoGenerico implements Comercio {
 
     @Override
     public void ejecutar(Jugador jugador, Vertice verticePuerto, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados) {
-        if (recursosEntregados.size() != 3)
+        if (recursosEntregados.size() != 3) {
             throw new ComercioInvalidoError("El puerto genérico exige 3:1");
+        }
 
         jugador.tieneConstruccionEn(verticePuerto);
 
         Recurso tipoRecurso = recursosEntregados.get(0);
 
         for (Recurso recurso : recursosEntregados) {
-            if (!recurso.equals(tipoRecurso))
+            if (!recurso.equals(tipoRecurso)) {
                 throw new ComercioInvalidoError("Las 3 cartas deben ser iguales");
+            }
         }
 
         jugador.tieneRecursos(tipoRecurso, 3);
