@@ -11,32 +11,21 @@ import javafx.stage.Stage;
 public class CantidadJugadoresControlador implements EventHandler<ActionEvent> {
     private Stage stage;
     private ContenedorPrincipalVistas contenedor;
-    private VistaSeleccionCantidadJugadores vista;
+    private final int cantidadJugadores;
 
-    public CantidadJugadoresControlador(Stage stage, ContenedorPrincipalVistas contenedor, VistaSeleccionCantidadJugadores vista){
+    public CantidadJugadoresControlador(Stage stage, ContenedorPrincipalVistas contenedor, int cantidadJugadores){
         this.stage = stage;
         this.contenedor = contenedor;
-        this.vista = vista;
+        this.cantidadJugadores = cantidadJugadores;
     }
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        String texto = vista.getCantidadIngresada();
-
-        int cantidad;
-        try {
-            cantidad = Integer.parseInt(texto);
-        } catch (Exception excepcion) {
-            mostrarError("Debe ingresar un número.");
-            return;
-        }
-
-        if (cantidad < 2 || cantidad > 4) {
+        if (cantidadJugadores < 2 || cantidadJugadores > 4) {
             mostrarError("La cantidad de jugadores debe ser entre 2 y 4.");
             return;
         }
-
-        VistaSeleccionNombreYColor vistaNombresYColor = new VistaSeleccionNombreYColor(stage, contenedor, cantidad);
+        VistaSeleccionNombreYColor vistaNombresYColor = new VistaSeleccionNombreYColor(stage, contenedor, cantidadJugadores);
         contenedor.setContenido(vistaNombresYColor);
     }
 
