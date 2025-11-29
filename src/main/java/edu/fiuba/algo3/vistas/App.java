@@ -24,8 +24,7 @@ public class App extends Application {
         contenedor.setContenido(tituloJuego);
 
         Scene scene = new Scene(contenedor, ANCHO, ALTO);
-        scene.getStylesheets().add(App.class.getResource("/styles/setup_juego.css").toExternalForm());
-        scene.getStylesheets().add(App.class.getResource("/styles/partida.css").toExternalForm());
+        scene.getStylesheets().add(App.class.getResource("/styles/styles.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Catán - El juego");
         stage.setResizable(false);

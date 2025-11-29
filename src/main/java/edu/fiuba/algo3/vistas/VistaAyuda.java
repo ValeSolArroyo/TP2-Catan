@@ -2,10 +2,7 @@ package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.VolverAlJuegoControlador;
 import javafx.animation.FadeTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -26,10 +23,10 @@ public class VistaAyuda extends StackPane{
         this.setBackground(new Background(background));
 
         Button botonVolver = new Button("Volver");
-        botonVolver.getStyleClass().add("boton-ayuda");
+        botonVolver.getStyleClass().add("boton-menu");
         botonVolver.setPrefWidth(130);
 
-        StackPane.setAlignment(botonVolver, Pos.BOTTOM_RIGHT);
+        StackPane.setAlignment(botonVolver, Pos.TOP_RIGHT);
 
         botonVolver.setOnAction(new VolverAlJuegoControlador(stage, contenedor));
 

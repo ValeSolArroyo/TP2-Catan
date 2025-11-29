@@ -28,13 +28,7 @@ public class VistaTituloJuego extends StackPane{
         StackPane.setAlignment(botonInicio, Pos.BOTTOM_CENTER);
         StackPane.setMargin(botonInicio, new Insets(0, 0, 140, 5));
 
-        Button botonSalir = new Button("Salir");
-        botonSalir.getStyleClass().add("boton-salir");
-        botonSalir.setOnAction(event -> System.exit(0));
-        StackPane.setAlignment(botonSalir, Pos.BOTTOM_RIGHT);
-        StackPane.setMargin(botonSalir, new Insets(0, 20, 20, 0));
-
-        this.getChildren().addAll(botonInicio, botonSalir);
+        this.getChildren().add(botonInicio);
 
         FadeTransition transition = new FadeTransition(Duration.seconds(0.4), this);
         transition.setFromValue(0);
