@@ -15,9 +15,7 @@ import java.util.Set;
 
 public class Poblado implements Construccion {
     private final Jugador propietario;
-    private static final List<Recurso> COSTO_POBLADO = List.of(
-            new Madera(), new Ladrillo(), new Lana(), new Grano()
-    );
+    private final List<Recurso> costo = List.of(new Madera(), new Ladrillo(), new Lana(), new Grano());
 
     public Poblado(Jugador propietario) {
         this.propietario = propietario;
@@ -40,10 +38,10 @@ public class Poblado implements Construccion {
 
     @Override
     public void cobrar(Inventario inventario) {
-        for (Recurso recursoRequerido : COSTO_POBLADO) {
+        for (Recurso recursoRequerido : costo) {
             inventario.validarRecursos(recursoRequerido, 1);
         }
-        inventario.consumirRecurso(COSTO_POBLADO);
+        inventario.consumirRecurso(costo);
     }
 
     @Override
