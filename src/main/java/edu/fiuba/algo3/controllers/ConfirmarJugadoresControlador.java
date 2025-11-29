@@ -57,7 +57,7 @@ public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> 
             }
         }
 
-        // TODO: inicializar los jugadores en el modelo!
+        // TODO: inicializar los jugadores con el modelo!
 
         System.out.println(listaNombres);
         System.out.println(listaColores);

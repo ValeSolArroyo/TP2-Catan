@@ -32,39 +32,32 @@ public class VistaSeleccionCantidadJugadores extends VBox {
         panelCantidad.setPrefSize(App.ANCHO - 700, App.ALTO - 300);
         panelCantidad.setMaxSize(App.ANCHO - 700, App.ALTO - 300);
         panelCantidad.getStyleClass().add("panel-cantidad");
-        panelCantidad.setPadding(new Insets(20, 20, 20, 20));
+        panelCantidad.setPadding(new Insets(20));
 
-        Label pedidoCant = new Label("Ingrese la cantidad de jugadores");
+        Label pedidoCant = new Label("Seleccione:");
         pedidoCant.getStyleClass().add("texto-ingrese");
-        pedidoCant.setLayoutX(50);
+        pedidoCant.setLayoutX(220);
         pedidoCant.setLayoutY(50);
 
-        inputCantidad = new TextField();
-        inputCantidad.setPromptText("¡Deben ser de 2 a 4!");
-        inputCantidad.getStyleClass().add("input-cantidad");
-        inputCantidad.setLayoutX(140);
-        inputCantidad.setLayoutY(155);
-        inputCantidad.setPrefWidth(300);
-        inputCantidad.setPrefHeight(50);
+        VBox opcionesBotones = new VBox(45);
+        opcionesBotones.setAlignment(Pos.CENTER);
+        opcionesBotones.setLayoutX(150);
+        opcionesBotones.setLayoutY(120);
 
-        Button botonConfirmarCant = new Button("Confirmar");
-        botonConfirmarCant.getStyleClass().add("boton-confirmar");
-        botonConfirmarCant.setLayoutX(195);
-        botonConfirmarCant.setLayoutY(290);
-        botonConfirmarCant.setPrefWidth(200);
-        botonConfirmarCant.setPrefHeight(60);
-        botonConfirmarCant.setOnAction(new CantidadJugadoresControlador(stage, contenedor, this));
+        for (int i = 2; i <= 4; i++) {
+            Button botonCantidad = new Button("Jugar con " + i + " jugadores");
+            botonCantidad.getStyleClass().add("boton-confirmar");
+            botonCantidad.setOnAction(new CantidadJugadoresControlador(stage, contenedor, i));
 
-        panelCantidad.getChildren().addAll(pedidoCant, inputCantidad, botonConfirmarCant);
+            opcionesBotones.getChildren().add(botonCantidad);
+        }
+        panelCantidad.getChildren().addAll(pedidoCant, opcionesBotones);
+
         this.getChildren().add(panelCantidad);
 
         FadeTransition transition = new FadeTransition(Duration.seconds(0.4), this);
         transition.setFromValue(0.4);
         transition.setToValue(1);
         transition.play();
-    }
-
-    public String getCantidadIngresada() {
-        return inputCantidad.getText();
     }
 }
