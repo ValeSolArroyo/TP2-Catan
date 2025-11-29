@@ -11,6 +11,6 @@ public class Colina implements Terreno {
     }
 
     public int aceptar(Visitante visitante) {
-        return visitante.visitar(this);
+        return visitante.visitarTerrenoProductor(this);
     }
 }
