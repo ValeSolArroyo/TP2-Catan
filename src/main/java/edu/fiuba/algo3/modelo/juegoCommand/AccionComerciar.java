@@ -14,13 +14,9 @@ import edu.fiuba.algo3.modelo.tablero.Vertice;
 import java.util.List;
 
 public class AccionComerciar implements Accion{
+
     @Override
-    public void ejecutar(Juego juego, Jugador jugadorActual, Vertice vertice, Arista arista,
-                         Dado dado, Construccion construccion, EspacioConstruible espacio,
-                         List<CartaDesarrollo> cartasDesarrollo, CartaDesarrollo carta,
-                         Jugador victima, List<Arista> carreterasAContruir,
-                         List<Recurso> recursosDeBanca, Recurso recursoAnunciado,
-                         List<Jugador> jugadores, Hexagono nuevoLugarLadron) {
+    public void ejecutar() {
 
     }
 }
