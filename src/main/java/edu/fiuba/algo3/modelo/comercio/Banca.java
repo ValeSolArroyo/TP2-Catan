@@ -22,9 +22,7 @@ public class Banca implements Comercio {
                 throw new ComercioInvalidoError("Las 4 cartas deben ser iguales");
         }
 
-        jugador.tieneRecursos(tipoRecurso, 4);
-
-        jugador.entregarRecursos(recursosEntregados);
+        jugador.darRecursos(tipoRecurso, 4);
         for (Recurso recurso: recursosDeseados) {
             jugador.recibirRecurso(recurso);
         }

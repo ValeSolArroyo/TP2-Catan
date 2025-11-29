@@ -28,9 +28,7 @@ public class PuertoGenerico implements Comercio {
             }
         }
 
-        jugador.tieneRecursos(tipoRecurso, 3);
-
-        jugador.entregarRecursos(recursosEntregados);
+        jugador.darRecursos(tipoRecurso, 3);
         for (Recurso recurso: recursosDeseados) {
             jugador.recibirRecurso(recurso);
         }

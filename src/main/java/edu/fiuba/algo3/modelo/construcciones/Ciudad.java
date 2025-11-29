@@ -15,8 +15,6 @@ import java.util.Set;
 
 public class Ciudad implements Construccion {
     private final Jugador propietario;
-    private final List<Recurso> costo = List.of(new Grano(), new Grano(),
-            new Mineral(), new Mineral(), new Mineral());
 
     public Ciudad(Jugador propietario) {
         this.propietario = propietario;
@@ -39,10 +37,9 @@ public class Ciudad implements Construccion {
     }
 
     @Override
-    public void cobrar(Inventario inventario) {
-        inventario.validarRecursos(new Grano(), 2);
-        inventario.validarRecursos(new Mineral(), 3);
-        inventario.consumirRecurso(costo);
+    public void cobrar(Jugador jugador) {
+        jugador.darRecursos(new Grano(), 2);
+        jugador.darRecursos(new Mineral(), 3);
     }
 
     @Override

@@ -9,10 +9,6 @@ public class Mineral implements Recurso {
         jugador.recibirRecurso(this);
     }
 
-    public void eliminarDe (Inventario inventario) {
-        inventario.eliminarRecurso(this);
-    }
-
     @Override
     public boolean coincideCon(Recurso otro) {
         return otro.coincideConMineral(this);

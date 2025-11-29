@@ -103,7 +103,9 @@ public class TestEntrega2 {
         jugador1.agregarConstruccion(new Carretera(jugador1)); 
         jugador1.agregarConstruccion(new Carretera(jugador1));
 
-        jugador1.entregarRecursos(List.of(new Madera(), new Ladrillo(), new Lana()));
+        jugador1.entregarUnRecurso(new Madera());
+        jugador1.entregarUnRecurso(new Ladrillo());
+        jugador1.entregarUnRecurso(new Lana());
 
         assertThrows(RecursosInsuficientesError.class,
             () -> jugador1.construir(poblado1, vLejano),
