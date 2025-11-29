@@ -118,3 +118,33 @@
 .boton-menu:pressed {
     -fx-opacity: 0.6;
 }
+
+.dialog-pane {
+    -fx-font-family: "Minecraft";
+    -fx-font-size: 16px;
+    -fx-background-color: #ebf2ff;
+    -fx-text-fill: #1f358c;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-font-family: "Minecraft";
+    -fx-font-size: 18px;
+    -fx-text-fill: #13286f;
+}
+
+.dialog-pane .content.label {
+    -fx-font-family: "Minecraft";
+    -fx-font-size: 16px;
+    -fx-text-fill: #1f358c;
+}
+
+.dialog-pane .button {
+    -fx-font-family: "Minecraft";
+    -fx-font-size: 14px;
+    -fx-background-color: #bbdaff;
+    -fx-text-fill: #272d47;
+}
+
+.dialog-pane .button:pressed {
+    -fx-opacity: 0.6;
+}
