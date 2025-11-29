@@ -75,8 +75,8 @@ public class Jugador {
         inventario.agregarRecurso(recurso);
     }
 
-    public void comerciarCartasRecurso(Comercio comercio, Vertice verticePuerto, List<Recurso> recursosEntregados, Recurso recursoDeseado) {
-        comercio.ejecutar(this, verticePuerto, recursosEntregados, List.of(recursoDeseado));
+    public void comerciarCartasRecurso(Vertice verticePuerto, List<Recurso> recursosEntregados, Recurso recursoDeseado) {
+        verticePuerto.ejecutarComercio(this, recursosEntregados, List.of(recursoDeseado));
     }
 
 

@@ -17,20 +17,22 @@ public class PuertoEspecial implements Comercio {
 
     @Override
     public void ejecutar(Jugador jugador, Vertice verticePuerto, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados) {
-        if (recursosEntregados.size() != 2)
+        if (recursosEntregados.size() != 2) {
             throw new ComercioInvalidoError("Este puerto especial es 2:1");
+        }
 
         jugador.tieneConstruccionEn(verticePuerto);
 
         for (Recurso recurso : recursosEntregados) {
-            if (!recurso.equals(tipoEspecial))
+            if (!recurso.equals(tipoEspecial)) {
                 throw new ComercioInvalidoError("Este puerto solo acepta recursos del tipo: " + tipoEspecial);
+            }
         }
 
         jugador.tieneRecursos(tipoEspecial, 2);
 
         jugador.entregarRecursos(recursosEntregados);
-        for (Recurso recurso: recursosDeseados){
+        for (Recurso recurso: recursosDeseados) {
             jugador.recibirRecurso(recurso);
         }
     }

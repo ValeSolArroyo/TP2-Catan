@@ -161,7 +161,7 @@ public class TestsEntrega1 {
 
         juego.establecerEstado(new EstadoLadron());
         juego.activarLadron(new AccionActivarLadron(), hexagonoDesierto, jugadorVictima);
-        
+
         boolean activoGanoAlgo =
                 tiene(jugadorActivo, new Madera(), 1) ||
                 tiene(jugadorActivo, new Ladrillo(), 1) ||
