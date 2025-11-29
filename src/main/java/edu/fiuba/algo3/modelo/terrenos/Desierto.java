@@ -10,6 +10,6 @@ public class Desierto implements Terreno {
     }
 
     public int aceptar(Visitante visitante) {
-        return visitante.visitar(this);
+        return visitante.visitarDesierto(this);
     }
 }

@@ -3,16 +3,16 @@ package edu.fiuba.algo3.modelo.comercio;
 import edu.fiuba.algo3.modelo.excepciones.ComercioInvalidoError;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
 
 import java.util.List;
 
 public class Banca implements Comercio {
 
     @Override
-    public void validar(Jugador jugador, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados) {
-        if (recursosEntregados.size() != 4){
+    public void ejecutar(Jugador jugador, Vertice verticePuerto, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados) {
+        if (recursosEntregados.size() != 4) {
             throw new ComercioInvalidoError("El comercio con la banca es 4:1");
-
         }
 
         Recurso tipoRecurso = recursosEntregados.get(0);
@@ -23,15 +23,10 @@ public class Banca implements Comercio {
         }
 
         jugador.tieneRecursos(tipoRecurso, 4);
-    }
 
-
-    @Override
-    public void ejecutar(Jugador jugador, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados) {
         jugador.entregarRecursos(recursosEntregados);
-        for (Recurso recurso: recursosDeseados){
+        for (Recurso recurso: recursosDeseados) {
             jugador.recibirRecurso(recurso);
         }
-
     }
 }

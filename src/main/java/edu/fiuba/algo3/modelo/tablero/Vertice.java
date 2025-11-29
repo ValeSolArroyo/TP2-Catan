@@ -4,21 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import edu.fiuba.algo3.modelo.comercio.Comercio;
+import edu.fiuba.algo3.modelo.comercio.NullPuerto;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.NullConstruccion;
 import edu.fiuba.algo3.modelo.excepciones.*;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
 
 public class Vertice implements EspacioConstruible {
     private Construccion construccion;
     private List<Vertice> vecinos;
     private List<Arista> aristas;
+    private Comercio puerto;
 
     public Vertice() {
         this.construccion = new NullConstruccion();
         this.vecinos = new ArrayList<>();
         this.aristas = new ArrayList<>();
+        this.puerto = new NullPuerto();
     }
 
     public void agregarVecino(Vertice vecino) {
@@ -33,13 +38,16 @@ public class Vertice implements EspacioConstruible {
         }
     }
 
+    public void asignarPuerto(Comercio puerto) {
+        this.puerto = puerto;
+    }
+
     @Override
     public void validarPoblado(Jugador jugador) {
         this.construccion.ocupar();
         this.validarDistancia();
     }
 
-    // TODO: PREGUNTAR EL VIERNES SI ES MUY TERRIBLE MANEJARNOS CON EXCEPCIONES...
     @Override
     public void validarCiudad(Jugador jugador) {
         try {
@@ -108,5 +116,15 @@ public class Vertice implements EspacioConstruible {
             throw new ComercioInvalidoError("No tiene acceso al puerto para comerciar");
         }
 
+    }
+
+    public void reemplazarConstruccion(Jugador jugador, Construccion nuevaConstruccion) {
+        Construccion antigua = this.construccion;
+        this.construccion = nuevaConstruccion;
+        jugador.eliminarConstruccion(antigua);
+    }
+
+    public void ejecutarComercio(Jugador jugador, List<Recurso> recursosEntregados, List<Recurso> recursoDeseado) {
+        this.puerto.ejecutar(jugador, this, recursosEntregados, recursoDeseado);
     }
 }

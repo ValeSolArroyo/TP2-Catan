@@ -9,33 +9,29 @@ import java.util.List;
 
 public class PuertoGenerico implements Comercio {
 
-    private final Vertice puerto;
-
-    public PuertoGenerico(Vertice puerto) {
-        this.puerto = puerto;
+    public PuertoGenerico() {
     }
 
     @Override
-    public void validar(Jugador jugador, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados) {
-        if (recursosEntregados.size() != 3)
+    public void ejecutar(Jugador jugador, Vertice verticePuerto, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados) {
+        if (recursosEntregados.size() != 3) {
             throw new ComercioInvalidoError("El puerto genérico exige 3:1");
+        }
 
-        jugador.tieneConstruccionEn(puerto);
+        jugador.tieneConstruccionEn(verticePuerto);
+
         Recurso tipoRecurso = recursosEntregados.get(0);
 
-
         for (Recurso recurso : recursosEntregados) {
-            if (!recurso.equals(tipoRecurso))
+            if (!recurso.equals(tipoRecurso)) {
                 throw new ComercioInvalidoError("Las 3 cartas deben ser iguales");
+            }
         }
 
         jugador.tieneRecursos(tipoRecurso, 3);
-    }
 
-    @Override
-    public void ejecutar(Jugador jugador, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados) {
         jugador.entregarRecursos(recursosEntregados);
-        for (Recurso recurso: recursosDeseados){
+        for (Recurso recurso: recursosDeseados) {
             jugador.recibirRecurso(recurso);
         }
     }

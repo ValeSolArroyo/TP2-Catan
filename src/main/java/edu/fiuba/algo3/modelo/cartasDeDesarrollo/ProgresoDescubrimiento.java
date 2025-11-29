@@ -15,4 +15,9 @@ public class ProgresoDescubrimiento implements CartaDesarrollo{
             jugador.recibirRecurso(recurso);
         }
     }
+
+    @Override
+    public int puntosVictoria() {
+        return 0;
+    }
 }

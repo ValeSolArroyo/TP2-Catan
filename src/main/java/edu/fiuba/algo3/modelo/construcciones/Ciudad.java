@@ -7,12 +7,16 @@ import edu.fiuba.algo3.modelo.recursos.Grano;
 import edu.fiuba.algo3.modelo.recursos.Mineral;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
+
 
 import java.util.List;
 import java.util.Set;
 
 public class Ciudad implements Construccion {
     private final Jugador propietario;
+    private final List<Recurso> costo = List.of(new Grano(), new Grano(),
+            new Mineral(), new Mineral(), new Mineral());
 
     public Ciudad(Jugador propietario) {
         this.propietario = propietario;
@@ -36,7 +40,9 @@ public class Ciudad implements Construccion {
 
     @Override
     public void cobrar(Inventario inventario) {
-        inventario.consumirRecurso(List.of(new Grano(), new Grano(), new Mineral(), new Mineral(), new Mineral()));
+        inventario.validarRecursos(new Grano(), 2);
+        inventario.validarRecursos(new Mineral(), 3);
+        inventario.consumirRecurso(costo);
     }
 
     @Override
@@ -49,4 +55,15 @@ public class Ciudad implements Construccion {
     public void ocupar() {
         throw new YaHayCiudadError("No se puede colocar");
     }
+
+    @Override
+    public int puntosVictoria() {
+        return 2;
+    }
+    
+    @Override
+    public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {
+        espacio.reemplazarConstruccion(jugador, this);            
+    }
+
 }

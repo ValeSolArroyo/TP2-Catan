@@ -36,4 +36,13 @@ public class NullConstruccion implements Construccion {
     public void ocupar() {
     }
 
+    @Override
+    public int puntosVictoria() {
+        return 0;
+    }
+
+    @Override
+    public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {
+        // No hace nada
+    }
 }

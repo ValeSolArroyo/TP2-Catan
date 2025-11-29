@@ -13,6 +13,7 @@ import java.util.Set;
 
 public class Carretera implements Construccion {
     private final Jugador propietario;
+    private final List<Recurso> costo = List.of(new Madera(), new Ladrillo());
 
     public Carretera(Jugador propietario) {
         this.propietario = propietario;
@@ -40,11 +41,24 @@ public class Carretera implements Construccion {
 
     @Override
     public void cobrar(Inventario inventario) {
-        inventario.consumirRecurso(List.of(new Madera(), new Ladrillo()));
+        for (Recurso recursoRequerido : costo) {
+            inventario.validarRecursos(recursoRequerido, 1);
+        }
+        inventario.consumirRecurso(costo);
     }
 
     @Override
     public void ocupar() {
         throw new YaHayCarreteraError("No se puede colocar");
+    }
+
+    @Override
+    public int puntosVictoria() {
+        return 0;
+    }
+
+    @Override
+    public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {
+        espacio.asignarConstruccion(this);
     }
 }

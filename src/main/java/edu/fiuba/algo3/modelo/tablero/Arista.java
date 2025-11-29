@@ -52,7 +52,7 @@ public class Arista implements EspacioConstruible {
         try {
             this.construccion.ocupar();
         } catch (YaHayCarreteraError e) {
-            return construccion.esPropiedadDe(jugador);
+            return construccion.tieneDePropietarioA(jugador);
         }
         return false;
     }
@@ -60,5 +60,10 @@ public class Arista implements EspacioConstruible {
     @Override
     public void asignarConstruccion(Construccion construccion) {
         this.construccion = construccion;
+    }
+
+    @Override
+    public void reemplazarConstruccion(Jugador jugador, Construccion nuevaConstruccion) {
+        // No hace nada
     }
 }
