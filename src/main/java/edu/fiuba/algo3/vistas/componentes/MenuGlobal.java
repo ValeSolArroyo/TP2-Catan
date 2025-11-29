@@ -40,7 +40,7 @@ public class MenuGlobal {
         });
 
         contenidoMenu = new VBox(5, botonMenu, menuDesplegable);
-        contenidoMenu.setAlignment(javafx.geometry.Pos.BOTTOM_RIGHT);
+        contenidoMenu.setAlignment(Pos.BOTTOM_RIGHT);
     }
 
     public VBox getMenu() {

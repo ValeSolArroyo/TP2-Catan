@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.VolverControlador;
+import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -13,17 +14,7 @@ import javafx.util.Duration;
 public class VistaAyuda extends StackPane{
     public VistaAyuda(ContenedorPrincipalVistas contenedor, Node vistaAnterior) {
         this.setAlignment(Pos.CENTER);
-
-        Image imagenAyuda = new Image(getClass().getResource("/images/backgrounds/ayuda.jpg").toExternalForm());
-        BackgroundImage background = new BackgroundImage(
-                imagenAyuda,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                new BackgroundSize(100, 100, true, true, true, false)
-        );
-        this.setBackground(new Background(background));
-
+        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/ayuda.jpg"));
         Button botonVolver = new Button("Volver");
         botonVolver.getStyleClass().add("boton-menu");
         botonVolver.setPrefWidth(130);
