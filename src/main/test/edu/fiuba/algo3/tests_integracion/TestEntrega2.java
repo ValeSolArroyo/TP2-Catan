@@ -155,8 +155,6 @@ public class TestEntrega2 {
         assertTrue(jugador2.obtenerPuntosDeVictoria() == 2, 
                      "La mejora a Ciudad debe resultar en 2 PV.");
     }
-    
-    
 
     @Test
     public void test04ComercioMaritimoAplicaBienTasas() {
