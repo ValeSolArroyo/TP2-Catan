@@ -7,7 +7,7 @@ import edu.fiuba.algo3.modelo.tablero.Vertice;
 
 import java.util.List;
 
-public class PuertoEspecial implements Comercio {
+public class PuertoEspecial implements ComercioPuerto {
 
     private final Recurso tipoEspecial;
 
@@ -21,15 +21,13 @@ public class PuertoEspecial implements Comercio {
             throw new ComercioInvalidoError("Este puerto especial es 2:1");
         }
 
-        jugador.tieneConstruccionEn(verticePuerto);
-
         for (Recurso recurso : recursosEntregados) {
             if (!recurso.equals(tipoEspecial)) {
                 throw new ComercioInvalidoError("Este puerto solo acepta recursos del tipo: " + tipoEspecial);
             }
         }
 
-        jugador.darRecursos(tipoEspecial, 2);
+        jugador.entregarRecursos(recursosEntregados);
         for (Recurso recurso: recursosDeseados) {
             jugador.recibirRecurso(recurso);
         }

@@ -13,8 +13,8 @@ public class ProgresoMonopolio implements CartaDesarrollo{
     @Override
     public void aplicarEfecto(Juego juego, Jugador jugador, Jugador victima, List<Arista> carreterasAContruir, List<Recurso> recursosDeBanca, Recurso recursoAnunciado, List<Jugador> jugadores, Hexagono nuevoLugarLadron) {
         for (Jugador jugadorQueEntrega: jugadores) {
-            Recurso recursoEntregado = jugadorQueEntrega.entregarUnRecurso(recursoAnunciado);
-            jugador.recibirRecurso(recursoEntregado);
+            jugadorQueEntrega.entregarRecursos(List.of(recursoAnunciado));
+            jugador.recibirRecurso(recursoAnunciado);
         }
     }
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import edu.fiuba.algo3.modelo.comercio.Comercio;
+import edu.fiuba.algo3.modelo.comercio.ComercioPuerto;
 import edu.fiuba.algo3.modelo.comercio.NullPuerto;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.NullConstruccion;
@@ -17,7 +17,7 @@ public class Vertice implements EspacioConstruible {
     private Construccion construccion;
     private List<Vertice> vecinos;
     private List<Arista> aristas;
-    private Comercio puerto;
+    private ComercioPuerto puerto;
 
     public Vertice() {
         this.construccion = new NullConstruccion();
@@ -38,7 +38,7 @@ public class Vertice implements EspacioConstruible {
         }
     }
 
-    public void asignarPuerto(Comercio puerto) {
+    public void asignarPuerto(ComercioPuerto puerto) {
         this.puerto = puerto;
     }
 

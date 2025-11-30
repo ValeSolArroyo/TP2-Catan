@@ -6,24 +6,25 @@ import edu.fiuba.algo3.modelo.tablero.Vertice;
 
 import java.util.List;
 
-public class ComercioInterno implements Comercio {
-
+public class ComercioInterno implements ComercioJugador {
     private final Jugador oferente;
+    private List<Recurso> recursosAEntregar;
+    private List<Recurso> recursosDeseados;
 
-    public ComercioInterno(Jugador oferente) {
+    public ComercioInterno(Jugador oferente, List<Recurso> recursosAEntregar, List<Recurso> recursosDeseados) {
         this.oferente = oferente;
+        this.recursosAEntregar = recursosAEntregar;
+        this.recursosDeseados = recursosDeseados;
     }
 
-    @Override
-    public void ejecutar(Jugador aceptante, Vertice verticePuerto, List<Recurso> recursosAEntregar, List<Recurso> recursosDeseados) {
-
+    public void ejecutar(Jugador aceptante) {
+        aceptante.entregarRecursos(recursosDeseados);
         for (Recurso recurso: recursosDeseados) {
-            aceptante.darRecursos(recurso, 1);
             oferente.recibirRecurso(recurso);
         }
 
+        oferente.entregarRecursos(recursosAEntregar);
         for (Recurso recurso: recursosAEntregar) {
-            oferente.darRecursos(recurso, 1);
             aceptante.recibirRecurso(recurso);
         }
     }

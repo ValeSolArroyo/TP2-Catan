@@ -6,9 +6,8 @@ import edu.fiuba.algo3.modelo.tablero.Vertice;
 
 import java.util.List;
 
-public class NullPuerto implements Comercio {
+public class NullPuerto implements ComercioPuerto {
     @Override
     public void ejecutar(Jugador jugador, Vertice verticePuerto, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados) {
-        // TODO: agregamos exepción sí o no --> ver con interfaz...
     }
 }

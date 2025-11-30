@@ -2,7 +2,6 @@ package edu.fiuba.algo3.modelo.jugador;
 
 import edu.fiuba.algo3.modelo.cartasBonificacion.CartaBonificacion;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
-import edu.fiuba.algo3.modelo.comercio.Comercio;
 import edu.fiuba.algo3.modelo.comercio.ComercioInterno;
 import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
