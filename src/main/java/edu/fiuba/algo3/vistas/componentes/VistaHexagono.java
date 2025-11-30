@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.vistas.componentes;
 
 import edu.fiuba.algo3.modelo.tablero.Hexagono;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -9,11 +11,11 @@ import java.util.Map;
 
 public class VistaHexagono extends StackPane {
     private static final Map<String, String> rutasImagenes = Map.of(
-            "Bosque", "/images/utils/hexagono/bosque.png",
-            "Colina", "/images/utils/hexagono/colina.png",
-            "Pastizal", "/images/utils/hexagono/pasto.png",
-            "Campo", "/images/utils/hexagono/campo.png",
-            "Montaña", "/images/utils/hexagono/montaña.png"
+        "Bosque", "/images/utils/hexagono/bosque.png",
+        "Colina", "/images/utils/hexagono/colina.png",
+        "Pastizal", "/images/utils/hexagono/pasto.png",
+        "Campo", "/images/utils/hexagono/campo.png",
+        "Montaña", "/images/utils/hexagono/montaña.png"
     );
 
     public VistaHexagono(Hexagono hexagono) {
@@ -32,6 +34,21 @@ public class VistaHexagono extends StackPane {
         view.setFitWidth(90);
         view.setFitHeight(125);
 
+        this.setAlignment(Pos.CENTER);
         this.getChildren().add(view);
+
+        if (!terreno.equals("Desierto")) {
+            Label fichaNumero = new Label(String.valueOf(hexagono.getFicha()));
+            fichaNumero.getStyleClass().add("ficha-numero");
+            this.getChildren().add(fichaNumero);
+        } else {
+            // TODO: al mover el ladrón hay que ver cómo hacemos
+            Image ladronImagen = new Image(getClass().getResource("/images/utils/ladron.png").toExternalForm());
+            ImageView ladron = new ImageView(ladronImagen);
+            ladron.setFitWidth(40);
+            ladron.setPreserveRatio(true);
+
+            this.getChildren().add(ladron);
+        }
     }
 }

@@ -57,4 +57,8 @@ public class Hexagono {
     public String getTerreno() {
         return this.terreno.getTerreno();
     }
+
+    public int getFicha() {
+        return this.numeroFicha;
+    }
 }
