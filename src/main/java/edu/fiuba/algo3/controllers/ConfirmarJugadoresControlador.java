@@ -43,8 +43,8 @@ public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> 
                 mostrarError("Todos los jugadores deben tener nombre.");
                 return;
             }
-            if (nombre.length() > 15) {
-                mostrarError("Cada nombre puede máximo 15 caracteres.");
+            if (nombre.length() > 10) {
+                mostrarError("Cada nombre puede máximo 10 caracteres.");
                 return;
             }
 
