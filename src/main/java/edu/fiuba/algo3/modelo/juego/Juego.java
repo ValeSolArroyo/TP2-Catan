@@ -165,4 +165,6 @@ public class Juego {
     public List<Jugador> getJugadores() {
         return listaJugadores;
     }
+
+    public Tablero getTablero() { return tablero; }
 }

@@ -18,4 +18,9 @@ public class Desierto implements Terreno {
     public void colocarLadron(Hexagono hexagono) {
         hexagono.ponerLadron();
     }
+
+    @Override
+    public String getTerreno() {
+        return "Desierto";
+    }
 }

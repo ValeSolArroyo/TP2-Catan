@@ -5,11 +5,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-public class ContenedorDados extends HBox {
+public class VistaDados extends HBox {
     private ImageView dado1;
     private ImageView dado2;
 
-    public ContenedorDados() {
+    public VistaDados() {
         dado1 = new ImageView();
         dado2 = new ImageView();
         dado1.setFitWidth(100); dado1.setFitHeight(100);

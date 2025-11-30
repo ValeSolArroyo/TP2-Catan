@@ -16,7 +16,10 @@ public class Bosque implements Terreno {
     }
 
     @Override
-    public void colocarLadron(Hexagono hexagono) {
+    public void colocarLadron(Hexagono hexagono) {}
 
+    @Override
+    public String getTerreno() {
+        return "Bosque";
     }
 }

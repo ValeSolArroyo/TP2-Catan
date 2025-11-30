@@ -53,4 +53,8 @@ public class Hexagono {
             vertice.producirSegunTerreno(this.terreno);
         }
     }
+
+    public String getTerreno() {
+        return this.terreno.getTerreno();
+    }
 }

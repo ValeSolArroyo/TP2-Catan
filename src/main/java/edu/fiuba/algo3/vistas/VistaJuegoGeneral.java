@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas;
 
+import edu.fiuba.algo3.controllers.TableroControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.vistas.componentes.*;
@@ -13,7 +14,7 @@ public class VistaJuegoGeneral extends BorderPane {
     private Juego juego;
     public VistaJuegoGeneral(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego){
         this.juego = juego;
-        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_cartas_arriba.jpg"));
+        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo.jpg"));
 
         HBox barraJugadores = new HBox(20);
         barraJugadores.setPadding(new Insets(20, 20, 0, 20));
@@ -26,7 +27,9 @@ public class VistaJuegoGeneral extends BorderPane {
 
         this.setTop(barraJugadores);
 
-        // TODO: falta el tablero, acá habría que vincular con un controlador que hay que crear
+        TableroControlador controladorTablero = new TableroControlador(juego.getTablero());
+        Pane vistaTablero = controladorTablero.mostrarTablero();
+        this.setCenter(vistaTablero);
 
         VBox botonesDerecha = new VBox(50);
         botonesDerecha.setAlignment(Pos.CENTER_RIGHT);
@@ -38,14 +41,14 @@ public class VistaJuegoGeneral extends BorderPane {
 
         botonesDerecha.getChildren().addAll(botonComerciar, botonConstruir, botonComprarCartas);
 
-        ContenedorDados contenedorDados = new ContenedorDados();
+        VistaDados contenedorDados = new VistaDados();
         botonesDerecha.getChildren().add(contenedorDados);
         this.setRight(botonesDerecha);
 
         BotonJuego botonJugarCarta =  new BotonJuego("Jugar carta");
         HBox contenedorArribaIzquierda = new HBox(botonJugarCarta);
         //TODO: ver si cambiamos el padding una vez agregamos botones ladron..
-        contenedorArribaIzquierda.setPadding(new Insets(80, 0, 0, 110));
+        contenedorArribaIzquierda.setPadding(new Insets(30, 0, 0, 110));
         contenedorArribaIzquierda.setAlignment(Pos.CENTER_LEFT);
 
         this.setLeft(contenedorArribaIzquierda);
