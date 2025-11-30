@@ -37,7 +37,6 @@ public class Juego {
         this.cartasDesarrollo = cartasDesarrollo;
         this.granCaballeria = new GranCaballeria();
         this.granRutaComercial = new GranRutaComercial();
-
     }
 
     public void construir(Construccion construccion, EspacioConstruible espacio) {
