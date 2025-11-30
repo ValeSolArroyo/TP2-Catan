@@ -2,6 +2,7 @@ package edu.fiuba.algo3.modelo.terrenos;
 
 import edu.fiuba.algo3.modelo.recursos.Grano;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
+import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import edu.fiuba.algo3.modelo.terrenosVisitor.Visitante;
 
 public class Campo implements Terreno {
@@ -12,5 +13,10 @@ public class Campo implements Terreno {
 
     public int aceptar(Visitante visitante) {
         return visitante.visitarTerrenoProductor(this);
+    }
+
+    @Override
+    public void colocarLadron(Hexagono hexagono) {
+
     }
 }

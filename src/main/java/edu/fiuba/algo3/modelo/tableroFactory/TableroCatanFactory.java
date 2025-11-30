@@ -188,8 +188,11 @@ public class TableroCatanFactory implements TableroFactory {
 
         for (Terreno terrenoActual : terrenos) {
             int numeroFicha = terrenoActual.aceptar(visitante);
-            hexagonos.add(new Hexagono(terrenoActual, numeroFicha));
+            Hexagono hexagono = (new Hexagono(terrenoActual, numeroFicha));
+            terrenoActual.colocarLadron(hexagono);
+            hexagonos.add(hexagono);
         }
+
         return hexagonos;
     }
 
