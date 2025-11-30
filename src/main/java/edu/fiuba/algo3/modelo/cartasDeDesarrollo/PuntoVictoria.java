@@ -10,13 +10,14 @@ import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import java.util.List;
 
 public class PuntoVictoria implements CartaDesarrollo {
-    @Override
-    public void aplicarEfecto(Juego juego, Jugador jugador, Jugador victima, List<Arista> carreterasAContruir, List<Recurso> recursosDeBanca, Recurso recursoAnunciado, List<Jugador> jugadores, Hexagono nuevoLugarLadron) {
-        throw new CartaNoJugableError("La carta de Punto de Victoria no se puede jugar.");
+    private Jugador jugador;
+
+    public PuntoVictoria(Jugador jugador){
+        this.jugador = jugador;
     }
 
     @Override
-    public int puntosVictoria() {
-        return 1;
+    public void ejecutar() {
+        jugador.sumarPVPorCartaDesarollo();
     }
 }

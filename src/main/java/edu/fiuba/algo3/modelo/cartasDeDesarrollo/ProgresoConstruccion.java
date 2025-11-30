@@ -11,23 +11,28 @@ import edu.fiuba.algo3.modelo.tablero.Hexagono;
 
 import java.util.List;
 
-public class ProgresoConstruccion implements CartaDesarrollo{
+public class ProgresoConstruccion implements CartaDesarrollo {
+
+    private List<Arista> carreterasAConstruir;
+    private Jugador jugador;
+    private Juego juego;
+
+    public ProgresoConstruccion(List<Arista> carreterasAConstruir, Jugador jugador, Juego juego) {
+        this.carreterasAConstruir = carreterasAConstruir;
+        this.jugador = jugador;
+        this.juego = juego;
+    }
 
     @Override
-    public void aplicarEfecto(Juego juego, Jugador jugador, Jugador victima, List<Arista> carreterasAContruir, List<Recurso> recursosDeBanca, Recurso recursoAnunciado, List<Jugador> jugadores, Hexagono nuevoLugarLadron) {
-        for (Arista arista: carreterasAContruir) {
+    public void ejecutar() {
+        for (Arista arista: this.carreterasAConstruir) {
             List<Recurso> recursosNecesarios = List.of(new Madera(), new Ladrillo());
             for (Recurso recurso : recursosNecesarios) {
                 jugador.recibirRecurso(recurso);
             }
-            // TODO: ver si se puede mover el propietario de construcción a vértice y arista
+
             jugador.construir(new Carretera(jugador), arista);
             juego.revisarGranRutaComercial(jugador);
         }
-    }
-
-    @Override
-    public int puntosVictoria() {
-        return 0;
     }
 }

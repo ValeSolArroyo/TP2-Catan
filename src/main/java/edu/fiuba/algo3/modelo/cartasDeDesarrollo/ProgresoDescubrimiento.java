@@ -9,15 +9,19 @@ import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import java.util.List;
 
 public class ProgresoDescubrimiento implements CartaDesarrollo{
-    @Override
-    public void aplicarEfecto(Juego juego, Jugador jugador, Jugador victima, List<Arista> carreterasAContruir, List<Recurso> recursosDeBanca, Recurso recursoAnunciado, List<Jugador> jugadores, Hexagono nuevoLugarLadron) {
-        for (Recurso recurso: recursosDeBanca) {
-            jugador.recibirRecurso(recurso);
-        }
+
+    private Jugador jugador;
+    private List<Recurso> recursosDeBanca;
+
+    public ProgresoDescubrimiento(Jugador jugador, List<Recurso> recursosDeBanca) {
+        this.jugador = jugador;
+        this.recursosDeBanca = recursosDeBanca;
     }
 
     @Override
-    public int puntosVictoria() {
-        return 0;
+    public void ejecutar() {
+        for (Recurso recurso: recursosDeBanca) {
+            jugador.recibirRecurso(recurso);
+        }
     }
 }

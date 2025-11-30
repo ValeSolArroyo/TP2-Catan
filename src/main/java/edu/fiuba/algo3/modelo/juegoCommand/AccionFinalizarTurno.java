@@ -11,6 +11,7 @@ public class AccionFinalizarTurno implements Accion{
 
     @Override
     public void ejecutar(){
+        juego.evaluarPVJugadorActual();
         juego.avanzarTurno();
     }
 }
