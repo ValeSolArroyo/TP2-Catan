@@ -9,5 +9,6 @@ import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import java.util.List;
 
 public interface CartaDesarrollo {
-    void ejecutar();
+    void ejecutar(Juego juego, Jugador victima, Jugador jugador, Hexagono nuevoLugar,
+                  List<Arista> carreterasAConstruir, List<Recurso> recursosDeBanca, Recurso recursoDeseado);
 }

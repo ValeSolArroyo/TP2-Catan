@@ -10,20 +10,8 @@ import java.util.List;
 
 public class Caballero implements CartaDesarrollo {
 
-    private Juego juego;
-    private Jugador victima;
-    private Jugador jugador;
-    private Hexagono nuevoLugar;
-
-    public Caballero(Juego juego, Jugador victima, Jugador jugador, Hexagono nuevoLugar) {
-        this.juego = juego;
-        this.victima = victima;
-        this.jugador = jugador;
-        this.nuevoLugar = nuevoLugar;
-    }
-
     @Override
-    public void ejecutar() {
+    public void ejecutar(Juego juego, Jugador victima, Jugador jugador, Hexagono nuevoLugar, List<Arista> carreterasAConstruir, List<Recurso> recursosDeBanca, Recurso recursoDeseado) {
         juego.moverLadron(nuevoLugar);
         juego.robarCartaDe(victima);
         jugador.registrarCaballeroJugado();

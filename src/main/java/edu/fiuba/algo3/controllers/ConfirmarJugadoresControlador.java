@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.controllers;
 
 
+import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import javafx.event.ActionEvent;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import edu.fiuba.algo3.modelo.jugador.Jugador;
 
 public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> {
     private Stage stage;
@@ -57,12 +60,16 @@ public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> 
             }
         }
 
-        // TODO: inicializar los jugadores con el modelo!
+        List<Jugador> jugadores = new ArrayList<>();
+        for (int i = 0; i < listaNombres.size(); i++) {
+            Jugador jugador = new Jugador(i, listaNombres.get(i), listaColores.get(i));
+            jugadores.add(jugador);
+        }
 
-        System.out.println(listaNombres);
-        System.out.println(listaColores);
+        IniciarJuegoControlador iniciar = new IniciarJuegoControlador();
+        Juego juego = iniciar.crearNuevaPartida(jugadores);
 
-        VistaJuegoGeneral vistaJuego = new VistaJuegoGeneral(stage, contenedor);
+        VistaJuegoGeneral vistaJuego = new VistaJuegoGeneral(stage, contenedor, juego);
         contenedor.setContenido(vistaJuego);
     }
 

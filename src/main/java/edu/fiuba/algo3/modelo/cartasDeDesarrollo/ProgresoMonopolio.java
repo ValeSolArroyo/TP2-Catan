@@ -12,13 +12,8 @@ public class ProgresoMonopolio implements CartaDesarrollo {
     private Juego juego;
     private Recurso recursoDeseado;
 
-    public ProgresoMonopolio(Juego juego, Recurso recursoDeseado) {
-        this.juego = juego;
-        this.recursoDeseado = recursoDeseado;
-    }
-
     @Override
-    public void ejecutar() {
+    public void ejecutar(Juego juego, Jugador victima, Jugador jugador, Hexagono nuevoLugar, List<Arista> carreterasAConstruir, List<Recurso> recursosDeBanca, Recurso recursoDeseado) {
         juego.entregarAJugador(recursoDeseado);
     }
 }

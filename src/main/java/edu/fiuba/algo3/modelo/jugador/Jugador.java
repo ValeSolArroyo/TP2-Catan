@@ -137,6 +137,10 @@ public class Jugador {
         return puntosConstruccion + puntosCartasBonificacion + puntosVictoriaCartaDesarrollo;
     }
 
+    public String getNombre() { return this.nombre; }
+
+    public int getPuntosVictoria() { return this.puntosVictoria; }
+
     public void sumarPVPorCartaDesarollo() {
         this.puntosVictoriaCartaDesarrollo++;
     }

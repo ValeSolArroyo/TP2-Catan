@@ -65,5 +65,15 @@ public class Inventario {
         recursos.remove(indice);
         return robado;
     }
+    
+    public void getRecursosInventario() {
+        List<Recurso> recursosAContar = new ArrayList<>(new Madera(), new Lana(), new Mineral(), new Ladrillo(), new Grano());
+        
+        for (int i = 0; i < recursosAContar.size(); i++) {
+            int contadorPorRecurso = 0;
+            for (recursos recu)
+        }
+    
+    }
 }
 
