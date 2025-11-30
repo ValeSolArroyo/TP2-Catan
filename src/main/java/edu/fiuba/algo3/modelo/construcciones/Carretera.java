@@ -7,26 +7,19 @@ import edu.fiuba.algo3.modelo.recursos.Ladrillo;
 import edu.fiuba.algo3.modelo.recursos.Madera;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
-
 import java.util.List;
-import java.util.Set;
+
 
 public class Carretera implements Construccion {
     private final Jugador propietario;
+    private final List<Recurso> costo = List.of(new Madera(), new Ladrillo());
 
     public Carretera(Jugador propietario) {
         this.propietario = propietario;
     }
 
     @Override
-    public void producir(Recurso recurso) {
-        // No produce
-    }
-
-    @Override
-    public void registrarPropietarioEn(Set<Jugador> jugadores) {
-        // No registra
-    }
+    public void producir(Recurso recurso) {}
 
     @Override
     public boolean tieneDePropietarioA(Jugador jugador) {
@@ -39,9 +32,8 @@ public class Carretera implements Construccion {
     }
 
     @Override
-    public void cobrar(Jugador jugador) {
-        jugador.darRecursos(new Madera(), 1);
-        jugador.darRecursos(new Ladrillo(), 1);
+    public void cobrar(Inventario inventario) {
+        inventario.consumirRecurso(costo);
     }
 
     @Override

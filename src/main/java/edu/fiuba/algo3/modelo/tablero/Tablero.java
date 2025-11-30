@@ -1,7 +1,5 @@
 package edu.fiuba.algo3.modelo.tablero;
 
-import edu.fiuba.algo3.modelo.jugador.Jugador;
-
 import java.util.List;
 
 public class Tablero {

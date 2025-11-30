@@ -2,7 +2,6 @@ package edu.fiuba.algo3.modelo.tablero;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import edu.fiuba.algo3.modelo.comercio.ComercioPuerto;
 import edu.fiuba.algo3.modelo.comercio.NullPuerto;
@@ -71,10 +70,6 @@ public class Vertice implements EspacioConstruible {
         this.construccion = construccion;
     }
 
-    public void registrarPropietarioEn(Set<Jugador> jugadores) {
-        construccion.registrarPropietarioEn(jugadores);
-    }
-
     public void producirSegunTerreno(Terreno terreno) {
         terreno.producirPara(construccion);
     }
@@ -109,13 +104,6 @@ public class Vertice implements EspacioConstruible {
             }
         }
         return false;
-    }
-
-    public void validarPuerto(Jugador jugador) {
-        if (!(this.construccion.tieneDePropietarioA(jugador))){
-            throw new ComercioInvalidoError("No tiene acceso al puerto para comerciar");
-        }
-
     }
 
     public void reemplazarConstruccion(Jugador jugador, Construccion nuevaConstruccion) {

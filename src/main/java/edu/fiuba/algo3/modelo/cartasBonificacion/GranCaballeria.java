@@ -12,22 +12,19 @@ public class GranCaballeria implements CartaBonificacion {
         this.yaOtorgada = false;
     }
 
-
     @Override
     public void evaluarCartaBonificacion(Jugador jugador) {
         int cantidad=  jugador.conseguirCartasCaballeroJugadas();
-        if ( (mayorEjercito == 3) && (cantidad == 3) && (!yaOtorgada)){
+        if ((mayorEjercito == 3) && (cantidad == 3) && (!yaOtorgada)) {
             this.dueño = jugador;
             this.yaOtorgada = true;
             jugador.recibirCartaBonificacion(this);
 
-        }else if (cantidad >this.mayorEjercito){
+        } else if (cantidad >this.mayorEjercito) {
             this.mayorEjercito = cantidad;
             dueño.perderCartaBonificacion(this);
             jugador.recibirCartaBonificacion(this);
             this.dueño = jugador;
-
         }
-
     }
 }

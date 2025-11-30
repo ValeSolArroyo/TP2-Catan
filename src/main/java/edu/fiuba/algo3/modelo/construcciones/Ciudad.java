@@ -7,14 +7,12 @@ import edu.fiuba.algo3.modelo.recursos.Grano;
 import edu.fiuba.algo3.modelo.recursos.Mineral;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
-import edu.fiuba.algo3.modelo.tablero.Vertice;
-
-
 import java.util.List;
-import java.util.Set;
 
 public class Ciudad implements Construccion {
     private final Jugador propietario;
+    private final List<Recurso> costo = List.of(new Grano(), new Grano(),
+            new Mineral(), new Mineral(), new Mineral());
 
     public Ciudad(Jugador propietario) {
         this.propietario = propietario;
@@ -23,12 +21,7 @@ public class Ciudad implements Construccion {
     @Override
     public void producir(Recurso recurso) {
         recurso.asignarA(propietario);
-        recurso.asignarA(propietario); // produce doble
-    }
-
-    @Override
-    public void registrarPropietarioEn(Set<Jugador> jugadores) {
-        jugadores.add(propietario);
+        recurso.asignarA(propietario);
     }
 
     @Override
@@ -37,9 +30,8 @@ public class Ciudad implements Construccion {
     }
 
     @Override
-    public void cobrar(Jugador jugador) {
-        jugador.darRecursos(new Grano(), 2);
-        jugador.darRecursos(new Mineral(), 3);
+    public void cobrar(Inventario inventario) {
+        inventario.consumirRecurso(costo);
     }
 
     @Override
@@ -57,10 +49,9 @@ public class Ciudad implements Construccion {
     public int puntosVictoria() {
         return 2;
     }
-    
+
     @Override
     public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {
-        espacio.reemplazarConstruccion(jugador, this);            
+        espacio.reemplazarConstruccion(jugador, this);
     }
-
 }

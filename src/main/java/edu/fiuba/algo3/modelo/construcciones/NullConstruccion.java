@@ -4,9 +4,7 @@ import edu.fiuba.algo3.modelo.jugador.Inventario;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
-
 import java.util.List;
-import java.util.Set;
 
 public class NullConstruccion implements Construccion {
     @Override
@@ -19,22 +17,15 @@ public class NullConstruccion implements Construccion {
     }
 
     @Override
-    public void cobrar(Jugador jugador) {
-        // No hace nada
+    public void cobrar(Inventario inventario) {
+        inventario.consumirRecurso(List.of());
     }
 
     @Override
-    public void producir(Recurso recurso){
-
-    }
-
-    public void registrarPropietarioEn(Set<Jugador> jugadores) {
-
-    }
+    public void producir(Recurso recurso){}
 
     @Override
-    public void ocupar() {
-    }
+    public void ocupar() {}
 
     @Override
     public int puntosVictoria() {
@@ -42,7 +33,5 @@ public class NullConstruccion implements Construccion {
     }
 
     @Override
-    public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {
-        // No hace nada
-    }
+    public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {}
 }

@@ -63,7 +63,5 @@ public class Arista implements EspacioConstruible {
     }
 
     @Override
-    public void reemplazarConstruccion(Jugador jugador, Construccion nuevaConstruccion) {
-        // No hace nada
-    }
+    public void reemplazarConstruccion(Jugador jugador, Construccion nuevaConstruccion) {}
 }

@@ -3,12 +3,9 @@ package edu.fiuba.algo3.modelo.tablero;
 import edu.fiuba.algo3.modelo.hexagonoStrategy.StrategyConLadron;
 import edu.fiuba.algo3.modelo.hexagonoStrategy.StrategyHexagono;
 import edu.fiuba.algo3.modelo.hexagonoStrategy.StrategySinLadron;
-import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class Hexagono {
     private final Terreno terreno;
@@ -42,12 +39,6 @@ public class Hexagono {
     public void agregarArista(Arista arista) {
         if (!aristas.contains(arista) && aristas.size() < 6) {
             aristas.add(arista);
-        }
-    }
-
-    public void registrarPropietariosEn(Set<Jugador> jugadores) {
-        for (Vertice vertice : vertices) {
-            vertice.registrarPropietarioEn(jugadores);
         }
     }
 
