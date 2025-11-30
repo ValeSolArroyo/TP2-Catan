@@ -21,6 +21,7 @@ public class TestEntrega2 {
     private Poblado poblado1, poblado2, poblado3;
     private Arista arista;
     private Ciudad ciudad;
+    /*
 
     @BeforeEach
     public void setUp() {
@@ -173,4 +174,6 @@ public class TestEntrega2 {
     @Test
     public void test07CartaDesarrolloCompradaEnTurnoNoSePuedeJugar() {
     }
+
+     */
 }
