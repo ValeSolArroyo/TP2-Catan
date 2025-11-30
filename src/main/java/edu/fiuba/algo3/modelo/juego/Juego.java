@@ -3,9 +3,11 @@ package edu.fiuba.algo3.modelo.juego;
 import edu.fiuba.algo3.modelo.cartasBonificacion.GranCaballeria;
 import edu.fiuba.algo3.modelo.cartasBonificacion.GranRutaComercial;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
+import edu.fiuba.algo3.modelo.comercio.ComercioJugador;
 import edu.fiuba.algo3.modelo.construcciones.Carretera;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
+import edu.fiuba.algo3.modelo.juegoCommand.Accion;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Grano;
 import edu.fiuba.algo3.modelo.recursos.Mineral;
@@ -63,10 +65,6 @@ public class Juego {
         // TODO
     }
 
-    public void jugarCartaDesarrollo(CartaDesarrollo cartaDesarrollo){
-        // TODO
-    }
-
     public void colocarPrimerPoblado(Vertice vertice, Arista arista) {
         Jugador jugador = this.jugadorActual();
 
@@ -107,6 +105,20 @@ public class Juego {
         }
     }
 
+    public void ejecutarAccion(Accion accion){
+        accion.ejecutar();
+    }
+
+    public void ejecutarCartaDesarrollo(CartaDesarrollo carta) {
+        carta.ejecutar();
+    }
+
+    // Comercio con banca e interno
+    public void ejecutarComercioJugador(ComercioJugador comercioJugador) {
+        Jugador jugador = jugadorActual();
+        comercioJugador.ejecutar(jugador);
+    }
+
     public void producirRecursos(int numero) {
         tablero.producir(numero);
     }
@@ -133,5 +145,18 @@ public class Juego {
 
     public void revisarGranRutaComercial(Jugador jugador) {
         granRutaComercial.evaluarCartaBonificacion(jugador);
+    }
+
+    public void entregarAJugador(Recurso recursoDeseado) {
+        Jugador jugador = jugadorActual();
+        for (Jugador jugadorQueEntrega: listaJugadores) {
+            jugadorQueEntrega.entregarRecursos(List.of(recursoDeseado));
+            jugador.recibirRecurso(recursoDeseado);
+        }
+    }
+
+    public void evaluarPVJugadorActual() {
+        Jugador jugador = jugadorActual();
+        jugador.evaluarSiEsGanador();
     }
 }

@@ -19,5 +19,4 @@ public class AccionConstruir implements Accion{
     public void ejecutar(){
         juego.construir(construccion, espacio);
     }
-
 }

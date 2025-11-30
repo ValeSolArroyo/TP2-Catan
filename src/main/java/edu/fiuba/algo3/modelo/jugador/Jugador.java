@@ -3,6 +3,7 @@ package edu.fiuba.algo3.modelo.jugador;
 import edu.fiuba.algo3.modelo.cartasBonificacion.CartaBonificacion;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.comercio.ComercioInterno;
+import edu.fiuba.algo3.modelo.juegoCommand.Accion;
 import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.recursos.*;
@@ -13,7 +14,9 @@ import java.util.*;
 public class Jugador {
     private final int id;
     private final String nombre;
+    private final String color;
     private int puntosVictoria;
+    private int puntosVictoriaCartaDesarrollo;
     private final Inventario inventario;
     private List<Construccion> construcciones;
     private List<CartaDesarrollo> cartasDesarrollo;
@@ -21,10 +24,12 @@ public class Jugador {
     private int cartasCaballeroJugadas;
 
 
-    public Jugador(int id, String nombre) {
+    public Jugador(int id, String nombre, String color) {
         this.id = id;
         this.nombre = nombre;
+        this.color = color;
         this.puntosVictoria = 0;
+        this.puntosVictoriaCartaDesarrollo = 0;
         this.inventario = new Inventario();
         this.construcciones = new ArrayList<>();
         this.cartasDesarrollo = new ArrayList<>();
@@ -88,7 +93,6 @@ public class Jugador {
         this.cartasCaballeroJugadas =  this.cartasCaballeroJugadas + 1;
     }
 
-
     public int conseguirCartasCaballeroJugadas(){
         return cartasCaballeroJugadas;
     }
@@ -114,29 +118,26 @@ public class Jugador {
         return total;
     }
 
-    private int puntosPorCartasDesarrollo(){
-        int total = 0;
-        for (CartaDesarrollo carta : cartasDesarrollo) {
-            total += carta.puntosVictoria();
+    public void evaluarSiEsGanador() {
+        int puntos = conseguirPuntosDeVictoria();
+        if (puntos >= 10) {
+            // TODO: ver con la interfaz
+            System.out.println("Ganaste!! " + this.nombre + " " + this.color);
         }
-        return total;
-
     }
-
-    public void conseguirPuntosDeVictoria(){
+    
+    public int conseguirPuntosDeVictoria(){
         int puntosConstruccion = puntosPorConstrucciones();
-        int puntosCartasPV = puntosPorCartasDesarrollo();
         int puntosCartasBonificacion = cartasBonificacion.size() * 2;
 
-        this.puntosVictoria = puntosConstruccion + puntosCartasBonificacion; //los PV de la carta desarrollo estan ocultos
+        // Por pantalla
+        this.puntosVictoria = puntosConstruccion + puntosCartasBonificacion;
 
-        int puntosVictoriaFinales = puntosConstruccion + puntosCartasPV + puntosCartasBonificacion;
-
-
+        // Los reales (PV Bonificacion, ocultos). Para evaluar ganador, llamamos a conseguirPuntos
+        return puntosConstruccion + puntosCartasBonificacion + puntosVictoriaCartaDesarrollo;
     }
 
-    public int obtenerPuntosDeVictoria() {
-        return this.puntosVictoria;
+    public void sumarPVPorCartaDesarollo() {
+        this.puntosVictoriaCartaDesarrollo++;
     }
-
 }

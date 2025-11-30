@@ -8,18 +8,17 @@ import edu.fiuba.algo3.modelo.tablero.Hexagono;
 
 import java.util.List;
 
-public class ProgresoMonopolio implements CartaDesarrollo{
+public class ProgresoMonopolio implements CartaDesarrollo {
+    private Juego juego;
+    private Recurso recursoDeseado;
 
-    @Override
-    public void aplicarEfecto(Juego juego, Jugador jugador, Jugador victima, List<Arista> carreterasAContruir, List<Recurso> recursosDeBanca, Recurso recursoAnunciado, List<Jugador> jugadores, Hexagono nuevoLugarLadron) {
-        for (Jugador jugadorQueEntrega: jugadores) {
-            jugadorQueEntrega.entregarRecursos(List.of(recursoAnunciado));
-            jugador.recibirRecurso(recursoAnunciado);
-        }
+    public ProgresoMonopolio(Juego juego, Recurso recursoDeseado) {
+        this.juego = juego;
+        this.recursoDeseado = recursoDeseado;
     }
 
     @Override
-    public int puntosVictoria() {
-        return 0;
+    public void ejecutar() {
+        juego.entregarAJugador(recursoDeseado);
     }
 }

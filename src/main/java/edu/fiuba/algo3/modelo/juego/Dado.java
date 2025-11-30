@@ -11,9 +11,17 @@ public class Dado {
     }
 
     public int lanzarDados() {
-        valor1 = random.nextInt(6) + 1;
-        valor2 = random.nextInt(6) + 1;
+        this.valor1 = random.nextInt(6) + 1;
+        this.valor2 = random.nextInt(6) + 1;
         return valor1 + valor2;
+    }
+
+    public int obtenerDado1() {
+        return valor1;
+    }
+
+    public int obtenerDado2() {
+        return valor2;
     }
 }
 
