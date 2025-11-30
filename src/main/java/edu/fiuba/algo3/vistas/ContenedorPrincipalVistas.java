@@ -1,12 +1,9 @@
 package edu.fiuba.algo3.vistas;
 
-import edu.fiuba.algo3.controllers.BotonAyudaControlador;
 import edu.fiuba.algo3.vistas.componentes.MenuGlobal;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 

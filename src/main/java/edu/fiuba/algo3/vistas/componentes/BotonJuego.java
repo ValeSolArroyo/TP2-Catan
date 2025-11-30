@@ -6,7 +6,7 @@ public class BotonJuego extends Button{
     public BotonJuego(String texto) {
         super(texto);
         this.getStyleClass().add("botones-derecha");
-        this.setPrefWidth(200);
+        this.setPrefWidth(210);
         this.setPrefHeight(70);
     }
 }

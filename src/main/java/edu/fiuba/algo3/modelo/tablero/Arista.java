@@ -10,7 +10,7 @@ public class Arista implements EspacioConstruible {
     private final Vertice vertice1;
     private final Vertice vertice2;
     private Construccion construccion;
-    private Jugador propietario =
+    private Jugador propietario;
 
     public Arista(Vertice vertice1, Vertice vertice2) {
         this.vertice1 = vertice1;

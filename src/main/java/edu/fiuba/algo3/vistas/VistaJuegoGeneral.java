@@ -3,15 +3,12 @@ package edu.fiuba.algo3.vistas;
 import edu.fiuba.algo3.vistas.componentes.BotonJuego;
 import edu.fiuba.algo3.vistas.componentes.ContenedorDados;
 import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
-import javafx.animation.FadeTransition;
+import edu.fiuba.algo3.vistas.componentes.Transicion;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class VistaJuegoGeneral extends BorderPane {
     public VistaJuegoGeneral(Stage stage, ContenedorPrincipalVistas contenedor){
@@ -33,21 +30,24 @@ public class VistaJuegoGeneral extends BorderPane {
         botonesDerecha.getChildren().add(contenedorDados);
         this.setRight(botonesDerecha);
 
-        // TODO: agregar botones de Jugar Carta y si sale ladrón que aparezcan los botones correspondientes
+        BotonJuego botonJugarCarta =  new BotonJuego("Jugar carta");
+        HBox contenedorArribaIzquierda = new HBox(botonJugarCarta);
+        //TODO: ver si cambiamos el padding una vez agregamos botones ladron..
+        contenedorArribaIzquierda.setPadding(new Insets(80, 0, 0, 110));
+        contenedorArribaIzquierda.setAlignment(Pos.CENTER_LEFT);
+
+        this.setLeft(contenedorArribaIzquierda);
+
         Button botonFinTurno = new Button("Finalizar turno");
         botonFinTurno.getStyleClass().add("boton-fin-turno");
         botonFinTurno.setPrefWidth(230);
         botonFinTurno.setPrefHeight(45);
+        HBox contenedorAbajoIzquierda = new HBox(botonFinTurno);
+        contenedorAbajoIzquierda.setPadding(new Insets(0, 0, 20,95 ));
+        StackPane.setAlignment(botonFinTurno, Pos.BOTTOM_LEFT);
 
-        StackPane contenedorFinTurno = new StackPane(botonFinTurno);
-        contenedorFinTurno.setPadding(new Insets(20));
-        StackPane.setAlignment(botonFinTurno, Pos.BOTTOM_CENTER);
+        this.setBottom(contenedorAbajoIzquierda);
 
-        this.setBottom(contenedorFinTurno);
-
-        FadeTransition transition = new FadeTransition(Duration.seconds(0.4), this);
-        transition.setFromValue(0.4);
-        transition.setToValue(1);
-        transition.play();
+        Transicion.fade(this);
     }
 }
