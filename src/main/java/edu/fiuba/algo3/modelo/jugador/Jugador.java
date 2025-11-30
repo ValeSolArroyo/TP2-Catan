@@ -144,4 +144,8 @@ public class Jugador {
     public void sumarPVPorCartaDesarollo() {
         this.puntosVictoriaCartaDesarrollo++;
     }
+
+    public Map<String, Integer> getRecursosInventario(){
+        return this.inventario.getRecursos();
+    }
 }

@@ -108,8 +108,11 @@ public class Juego {
         accion.ejecutar();
     }
 
-    public void ejecutarCartaDesarrollo(CartaDesarrollo carta) {
-        carta.ejecutar();
+    public void ejecutarCartaDesarrollo(CartaDesarrollo carta, Jugador victima, Hexagono nuevoLugar,
+                                        List<Arista> carreterasAConstruir, List<Recurso> recursosDeBanca,
+                                        Recurso recursoDeseado) {
+        Jugador jugador = jugadorActual();
+        carta.ejecutar(this, victima, jugador, nuevoLugar, carreterasAConstruir, recursosDeBanca, recursoDeseado);
     }
 
     // Comercio con banca e interno
@@ -157,5 +160,9 @@ public class Juego {
     public void evaluarPVJugadorActual() {
         Jugador jugador = jugadorActual();
         jugador.evaluarSiEsGanador();
+    }
+
+    public List<Jugador> getJugadores() {
+        return listaJugadores;
     }
 }

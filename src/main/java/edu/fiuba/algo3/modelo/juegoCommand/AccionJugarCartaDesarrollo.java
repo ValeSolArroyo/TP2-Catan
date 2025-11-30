@@ -15,7 +15,7 @@ public class AccionJugarCartaDesarrollo implements Accion{
 
     @Override
     public void ejecutar(){
-        juego.ejecutarCartaDesarrollo(cartaDesarrollo);
+        //juego.ejecutarCartaDesarrollo(cartaDesarrollo);
     }
 
 }

@@ -13,10 +13,15 @@ public class IniciarJuegoControlador {
     public Juego crearNuevaPartida(List<Jugador> jugadores) {
         TableroCatanFactory tableroJuego = new TableroCatanFactory();
         Tablero tablero = tableroJuego.crearTablero();
+        ControladorTablero controladorTablero = new ControladorTablero(tablero);
+        controladorTablero.mostrarTablero();
+
         List<CartaDesarrollo> cartasDesarrollo = FabricaCartas.crearMazo();
 
         return new Juego(jugadores, tablero, cartasDesarrollo);
     }
+
+
 }
 
 

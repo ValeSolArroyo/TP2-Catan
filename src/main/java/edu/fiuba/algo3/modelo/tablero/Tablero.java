@@ -27,6 +27,10 @@ public class Tablero {
         nuevoLugar.ponerLadron();
         this.hexagonoOcupadoLadron = nuevoLugar;
     }
+
+    public List<Hexagono> getHexagonos() {
+        return this.hexagonos;
+    }
 }
 
 

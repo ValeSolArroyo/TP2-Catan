@@ -3,7 +3,9 @@ package edu.fiuba.algo3.modelo.jugador;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.excepciones.RecursosInsuficientesError;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Inventario {
     private List<Recurso> recursos;
@@ -66,14 +68,20 @@ public class Inventario {
         return robado;
     }
     
-    public void getRecursosInventario() {
-        List<Recurso> recursosAContar = new ArrayList<>(new Madera(), new Lana(), new Mineral(), new Ladrillo(), new Grano());
-        
-        for (int i = 0; i < recursosAContar.size(); i++) {
-            int contadorPorRecurso = 0;
-            for (recursos recu)
+    public Map<String, Integer> getRecursos() {
+        List<Recurso> recursosAContar = List.of(new Madera(), new Lana(), new Mineral(), new Ladrillo(), new Grano());
+        Map<String, Integer> recursosAMostrar = new HashMap<>();
+
+        for (Recurso tipoRecurso : recursosAContar) {
+            String claveRecurso = tipoRecurso.getNombreRecurso();
+            recursosAMostrar.put(claveRecurso, 0);
+            for (Recurso recurso : recursos) {
+                if (recurso.coincideCon(tipoRecurso)) {
+                    recursosAMostrar.put(claveRecurso, recursosAMostrar.get(claveRecurso) + 1);
+                }
+            }
         }
-    
+        return recursosAMostrar;
     }
 }
 
