@@ -40,6 +40,7 @@ public class VistaSeleccionNombreYColor extends VBox {
         listaJugadores.setLayoutX(37);
         listaJugadores.setLayoutY(130);
 
+        // TODO: esto seguro se puede hacer componente asi queda mas lindo
         for (int i = 1; i <= cantidad; i++) {
             HBox fila = new HBox(15);
 

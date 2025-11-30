@@ -6,6 +6,6 @@ import edu.fiuba.algo3.modelo.tablero.Vertice;
 
 import java.util.List;
 
-public interface Comercio {
+public interface ComercioPuerto {
     void ejecutar(Jugador jugador, Vertice verticePuerto, List<Recurso> recursosEntregados, List<Recurso> recursosDeseados);
 }

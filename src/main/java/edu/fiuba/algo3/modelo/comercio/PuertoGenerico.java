@@ -7,7 +7,7 @@ import edu.fiuba.algo3.modelo.tablero.Vertice;
 
 import java.util.List;
 
-public class PuertoGenerico implements Comercio {
+public class PuertoGenerico implements ComercioPuerto {
 
     public PuertoGenerico() {
     }
@@ -18,8 +18,6 @@ public class PuertoGenerico implements Comercio {
             throw new ComercioInvalidoError("El puerto genérico exige 3:1");
         }
 
-        jugador.tieneConstruccionEn(verticePuerto);
-
         Recurso tipoRecurso = recursosEntregados.get(0);
 
         for (Recurso recurso : recursosEntregados) {
@@ -28,7 +26,7 @@ public class PuertoGenerico implements Comercio {
             }
         }
 
-        jugador.darRecursos(tipoRecurso, 3);
+        jugador.entregarRecursos(recursosEntregados);
         for (Recurso recurso: recursosDeseados) {
             jugador.recibirRecurso(recurso);
         }

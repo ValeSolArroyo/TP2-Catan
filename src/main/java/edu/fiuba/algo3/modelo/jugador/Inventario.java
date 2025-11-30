@@ -3,9 +3,7 @@ package edu.fiuba.algo3.modelo.jugador;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.excepciones.RecursosInsuficientesError;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
     public class Inventario {
         private List<Recurso> recursos;
