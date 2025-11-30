@@ -11,4 +11,6 @@ public interface Recurso {
     boolean coincideConGrano(Grano grano);
     boolean coincideConLana(Lana lana);
     boolean coincideConMineral(Mineral mineral);
+
+    String getNombreRecurso();
 }

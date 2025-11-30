@@ -1,10 +1,8 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.modelo.juego.Juego;
-import edu.fiuba.algo3.vistas.componentes.BotonJuego;
-import edu.fiuba.algo3.vistas.componentes.ContenedorDados;
-import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
-import edu.fiuba.algo3.vistas.componentes.Transicion;
+import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.vistas.componentes.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -16,6 +14,17 @@ public class VistaJuegoGeneral extends BorderPane {
     public VistaJuegoGeneral(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego){
         this.juego = juego;
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_cartas_arriba.jpg"));
+
+        HBox barraJugadores = new HBox(20);
+        barraJugadores.setPadding(new Insets(20, 20, 0, 20));
+        barraJugadores.setAlignment(Pos.CENTER);
+
+        for (Jugador jugador : juego.getJugadores()) {
+            InfoJugador info = new InfoJugador(jugador);
+            barraJugadores.getChildren().add(info);
+        }
+
+        this.setTop(barraJugadores);
 
         // TODO: falta el tablero, acá habría que vincular con un controlador que hay que crear
 

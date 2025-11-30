@@ -27,4 +27,9 @@ public class Mineral implements Recurso {
 
     @Override
     public boolean coincideConMineral(Mineral m) { return true; }
+
+    @Override
+    public String getNombreRecurso() {
+        return "Mineral";
+    }
 }

@@ -3,9 +3,11 @@ package edu.fiuba.algo3.vistas.componentes;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
-public class InfoJugador extends HBox {
+import java.util.Map;
+
+public class InfoJugador extends VBox {
     private Jugador jugador;
     private Label nombreLabel;
     private Label puntosLabel;
@@ -16,21 +18,29 @@ public class InfoJugador extends HBox {
 
         this.setSpacing(5);
         this.setPadding(new Insets(10));
-        this.setStyle("-fx-background-color: rgba(0,0,0,0.4); -fx-background-radius: 10;");
 
         nombreLabel = new Label(jugador.getNombre());
         puntosLabel = new Label("PV: " + jugador.getPuntosVictoria());
-        recursosLabel = new Label("Recursos: " + jugador.getInventario().cantidadTotal());
+        recursosLabel = new Label(formatearRecursos());
 
-        nombreLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: white;");
-        puntosLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: white;");
-        recursosLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: white;");
+        nombreLabel.getStyleClass().add("nombre-jugador");
+        puntosLabel.getStyleClass().add("pv-jugador");
+        recursosLabel.getStyleClass().add("recursos-jugador");
 
         this.getChildren().addAll(nombreLabel, puntosLabel, recursosLabel);
     }
 
+    private String formatearRecursos() {
+        Map<String, Integer> recursos = jugador.getRecursosInventario();
+
+        return recursos.entrySet().stream()
+                .map(entry -> entry.getKey() + ": " + entry.getValue())
+                .reduce((a, b) -> a + " | " + b)
+                .orElse("");
+    }
+
     public void actualizar() {
         puntosLabel.setText("PV: " + jugador.conseguirPuntosDeVictoria());
-        recursosLabel.setText("Recursos: " + jugador.getInventario().cantidadTotal());
+        recursosLabel.setText(formatearRecursos());
     }
 }

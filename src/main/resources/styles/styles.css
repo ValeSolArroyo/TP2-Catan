@@ -148,3 +148,21 @@
 .dialog-pane .button:pressed {
     -fx-opacity: 0.6;
 }
+
+.nombre-jugador {
+    -fx-font-size: 20px;
+    -fx-text-fill: #1c146a;
+    -fx-font-family: "Minecraft";
+}
+
+.pv-jugador {
+    -fx-font-size: 16px;
+    -fx-text-fill: #1c146a;
+    -fx-font-family: "Minecraft";
+}
+
+.recursos-jugador {
+    -fx-font-size: 14px;
+    -fx-text-fill: #1c146a;
+    -fx-font-family: "Minecraft";
+}
