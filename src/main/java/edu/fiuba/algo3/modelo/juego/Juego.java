@@ -53,9 +53,11 @@ public class Juego {
     }
 
     public void comprarCartaDesarrollo(){
-        List<Recurso> costoCarta = List.of(new Mineral(), new Grano(), new Lana());
         Jugador jugador = this.jugadorActual();
-        jugador.guardarCartaDesarrollo(this.cartasDesarrollo.get(0), costoCarta);
+        jugador.darRecursos(new Mineral(), 1);
+        jugador.darRecursos(new Grano(), 1);
+        jugador.darRecursos(new Lana(), 1);
+        jugador.guardarCartaDesarrollo(this.cartasDesarrollo.get(0));
         cartasDesarrollo.remove(0);
     }
 
