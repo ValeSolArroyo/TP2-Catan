@@ -2,16 +2,13 @@ package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.CantidadJugadoresControlador;
 import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
-import javafx.animation.FadeTransition;
+import edu.fiuba.algo3.vistas.componentes.Transicion;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class VistaSeleccionCantidadJugadores extends VBox {
     public VistaSeleccionCantidadJugadores(Stage stage, ContenedorPrincipalVistas contenedor) {
@@ -46,9 +43,6 @@ public class VistaSeleccionCantidadJugadores extends VBox {
 
         this.getChildren().add(panelCantidad);
 
-        FadeTransition transition = new FadeTransition(Duration.seconds(0.4), this);
-        transition.setFromValue(0.4);
-        transition.setToValue(1);
-        transition.play();
+        Transicion.fade(this);
     }
 }

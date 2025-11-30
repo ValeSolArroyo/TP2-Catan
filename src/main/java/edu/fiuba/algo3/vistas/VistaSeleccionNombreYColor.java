@@ -1,17 +1,17 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.ConfirmarJugadoresControlador;
+import edu.fiuba.algo3.controllers.VolverControlador;
+import edu.fiuba.algo3.vistas.componentes.EntradaJugador;
 import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
-import javafx.animation.FadeTransition;
+import edu.fiuba.algo3.vistas.componentes.Transicion;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,38 +32,19 @@ public class VistaSeleccionNombreYColor extends VBox {
         panelIngresarJugadores.getStyleClass().add("panel-cantidad");
 
         Label pedidoDatos = new Label("Ingrese los nombres y colores:");
+        pedidoDatos.getStyleClass().add("texto-ingrese");
         pedidoDatos.setLayoutX(65);
         pedidoDatos.setLayoutY(50);
-        pedidoDatos.getStyleClass().add("texto-ingrese");
 
         VBox listaJugadores = new VBox(20);
         listaJugadores.setLayoutX(37);
         listaJugadores.setLayoutY(130);
 
-        // TODO: esto seguro se puede hacer componente asi queda mas lindo
         for (int i = 1; i <= cantidad; i++) {
-            HBox fila = new HBox(15);
-
-            Label textoJugador = new Label("Jugador " + i + ":");
-            textoJugador.getStyleClass().add("texto-jugador");
-
-            TextField nombreJugador = new TextField();
-            nombreJugador.setPromptText("Nombre del jugador " + i);
-            nombreJugador.getStyleClass().add("input-nombre-jugador");
-            nombreJugador.setPrefWidth(220);
-
-            ComboBox<String> selectorColor = new ComboBox<>();
-            selectorColor.getItems().addAll(opcionesColores);
-            selectorColor.getStyleClass().add("selector-color");
-            selectorColor.getSelectionModel().select(opcionesColores[i - 1]);
-            selectorColor.setPrefWidth(128);
-            selectorColor.setPrefHeight(40);
-
-            nombres.add(nombreJugador);
-            colores.add(selectorColor);
-
-            fila.getChildren().addAll(textoJugador, nombreJugador, selectorColor);
-            listaJugadores.getChildren().add(fila);
+            EntradaJugador entrada = new EntradaJugador(i, opcionesColores);
+            nombres.add(entrada.getNombre());
+            colores.add(entrada.getColor());
+            listaJugadores.getChildren().add(entrada);
         }
 
         Button botonContinuar = new Button("Continuar");
@@ -80,14 +61,11 @@ public class VistaSeleccionNombreYColor extends VBox {
         botonVolver.setPrefWidth(85);
         botonVolver.setPrefHeight(40);
         botonVolver.getStyleClass().add("boton-volver-atras");
-        botonVolver.setOnAction(e -> contenedor.setContenido(new VistaSeleccionCantidadJugadores(stage, contenedor)));
+        botonVolver.setOnAction(new VolverControlador(contenedor, new VistaSeleccionCantidadJugadores(stage, contenedor)));
 
         panelIngresarJugadores.getChildren().addAll(pedidoDatos, listaJugadores, botonContinuar, botonVolver);
         this.getChildren().add(panelIngresarJugadores);
 
-        FadeTransition transition = new FadeTransition(Duration.seconds(0.4), panelIngresarJugadores);
-        transition.setFromValue(0);
-        transition.setToValue(1);
-        transition.play();
+        Transicion.fade(this);
     }
 }
