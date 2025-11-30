@@ -16,21 +16,17 @@ public class GranRutaComercial implements CartaBonificacion{
     @Override
     public void evaluarCartaBonificacion(Jugador jugador) {
         int cantidad=  jugador.conseguirRutaMasLarga();
-        if ( (mayorRutaComercial == 5) && (cantidad >= 5)  && (!yaOtorgada) ){
+        if ((mayorRutaComercial == 5) && (cantidad >= 5)  && (!yaOtorgada)){
             this.dueño = jugador;
             this.yaOtorgada = true;
             jugador.recibirCartaBonificacion(this);
 
-        }else if (cantidad >this.mayorRutaComercial){
+        } else if (cantidad >this.mayorRutaComercial) {
             this.mayorRutaComercial = cantidad;
             dueño.perderCartaBonificacion(this);
             jugador.recibirCartaBonificacion(this);
             this.dueño = jugador;
         }
-
     }
-
-
-
 }
 

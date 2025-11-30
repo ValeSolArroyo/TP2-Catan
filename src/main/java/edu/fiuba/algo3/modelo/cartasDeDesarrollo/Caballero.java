@@ -29,8 +29,6 @@ public class Caballero implements CartaDesarrollo {
         //eso juego decide si el jugador que ACABA de jugar la carta pasa a ser el nuevo dueño o si el
         // anterir sigue siendo el dueño.
 
-
-
         jugador.registrarCaballeroJugado();
         juego.revisarGranCaballeria(jugador);
     }

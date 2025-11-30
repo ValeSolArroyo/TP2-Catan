@@ -22,6 +22,5 @@ public class Banca implements ComercioJugador {
         }
         jugador.entregarRecursos(listaAEntregar);
         jugador.recibirRecurso(recursoDeseado);
-
     }
 }

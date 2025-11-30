@@ -53,11 +53,9 @@ public class Juego {
     }
 
     public void comprarCartaDesarrollo(){
+        List<Recurso> costoCarta = List.of(new Mineral(), new Grano(), new Lana());
         Jugador jugador = this.jugadorActual();
-        jugador.darRecursos(new Mineral(), 1);
-        jugador.darRecursos(new Grano(), 1);
-        jugador.darRecursos(new Lana(), 1);
-        jugador.guardarCartaDesarrollo(this.cartasDesarrollo.get(0));
+        jugador.guardarCartaDesarrollo(this.cartasDesarrollo.get(0), costoCarta);
         cartasDesarrollo.remove(0);
     }
 
@@ -108,7 +106,6 @@ public class Juego {
             jugador.descartar();
         }
     }
-
 
     public void producirRecursos(int numero) {
         tablero.producir(numero);

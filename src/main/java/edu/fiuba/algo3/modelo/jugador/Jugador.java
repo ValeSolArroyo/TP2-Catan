@@ -32,14 +32,6 @@ public class Jugador {
         this.cartasCaballeroJugadas = 0;
     }
 
-    public boolean primeraColocacion() {
-        return this.construcciones.size() == 2;
-    }
-
-    public boolean segundaColocacion() {
-        return this.construcciones.size() == 4;
-    }
-    
     public void descartar() {
         this.inventario.descartarMitadRecursos();
     }
@@ -61,12 +53,10 @@ public class Jugador {
         construcciones.remove(construccion);
     }
 
-
-    // ESTE LO VOY A MODIFICAR PARA QUE NO SE VALIDE, SINO QUE SE MANDE A CONSTRUIR!! 
     public void construir(Construccion construccion, EspacioConstruible espacio) {
-        construccion.validarEn(espacio, this); // esto no estaría acá
+        construccion.validarEn(espacio, this);
         if (construcciones.size() >= 4) {
-            construccion.cobrar(this);
+            construccion.cobrar(inventario);
         }
         construccion.aplicarCambio(this, espacio);
         this.agregarConstruccion(construccion);
@@ -76,35 +66,21 @@ public class Jugador {
         inventario.agregarRecurso(recurso);
     }
 
-    public void comerciarCartasRecurso(Vertice verticePuerto, List<Recurso> recursosEntregados, Recurso recursoDeseado) {
+    public void comerciarConPuerto(Vertice verticePuerto, List<Recurso> recursosEntregados, Recurso recursoDeseado) {
         verticePuerto.ejecutarComercio(this, recursosEntregados, List.of(recursoDeseado));
     }
 
-
-    public void aceptarOferta(Jugador oferente, List<Recurso> recursosDeseadosPorOferente, List<Recurso> recursosAEntregarPorOferente){
-        ComercioInterno comercioInterno = new ComercioInterno(oferente);
-        comercioInterno.ejecutar(this, new Vertice(), recursosDeseadosPorOferente, recursosAEntregarPorOferente);
+    public void aceptarOferta(Jugador oferente, List<Recurso> recursosDeseadosPorOferente, List<Recurso> recursosAEntregarPorOferente) {
+        ComercioInterno comercioInterno = new ComercioInterno(oferente, recursosDeseadosPorOferente, recursosAEntregarPorOferente);
+        comercioInterno.ejecutar(this);
     }
 
-    public void tieneRecursos(Recurso recurso, int cantidad) {
-        inventario.validarRecursos(recurso, cantidad);
+    public void entregarRecursos(List<Recurso> entregados) {
+        inventario.consumirRecurso(entregados);
     }
 
-    public Recurso entregarUnRecurso(Recurso recursoAEntregar) {
-        return inventario.entregarRecurso(recursoAEntregar);
-    }
-
-    public void tieneConstruccionEn(Vertice puerto) {
-        puerto.validarPuerto(this);
-    }
-
-
-    public void darRecursos(Recurso recurso, int cantidad) {
-        inventario.pagarRecurso(recurso, cantidad);
-    }
-
-    
-    public void guardarCartaDesarrollo(CartaDesarrollo cartaDesarrollo){
+    public void guardarCartaDesarrollo(CartaDesarrollo cartaDesarrollo, List<Recurso> costoCarta){
+        inventario.consumirRecurso(costoCarta);
         cartasDesarrollo.add(cartaDesarrollo);
     }
 
@@ -159,8 +135,8 @@ public class Jugador {
 
     }
 
-    public int obtenerPuntosDeVictoria() { 
-        return this.puntosVictoria; 
+    public int obtenerPuntosDeVictoria() {
+        return this.puntosVictoria;
     }
 
 }
