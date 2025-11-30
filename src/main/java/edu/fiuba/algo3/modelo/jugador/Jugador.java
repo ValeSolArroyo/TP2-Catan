@@ -104,12 +104,10 @@ public class Jugador {
         inventario.pagarRecurso(recurso, cantidad);
     }
 
-    // TODAVIA NO MODIFIQUÉ ESTO PORQUE NO ME IMPLEMENTÉ LOS TEST DE CARTA DESARROLLO!! 
-    // LA IDEA ES QUE NO SE LE PASE LA LISTA DE COSTO SINO EL RECURSO Y LA CANTIDAD, ASI REUTILIZO CODIGO DE INVENTARIO.
-    /*public void guardarCartaDesarrollo(CartaDesarrollo cartaDesarrollo, List<Recurso> costoCarta){
-        inventario.entregarRecursos(costoCarta);
+    
+    public void guardarCartaDesarrollo(CartaDesarrollo cartaDesarrollo){
         cartasDesarrollo.add(cartaDesarrollo);
-    }*/
+    }
 
     public void  registrarCaballeroJugado(){
         this.cartasCaballeroJugadas =  this.cartasCaballeroJugadas + 1;
