@@ -8,4 +8,5 @@ public interface Terreno {
     void producirPara(Construccion construccion);
     int aceptar(Visitante visitante);
     void colocarLadron(Hexagono hexagono);
+    String getTerreno();
 }

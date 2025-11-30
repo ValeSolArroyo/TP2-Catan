@@ -17,6 +17,10 @@ public class Campo implements Terreno {
 
     @Override
     public void colocarLadron(Hexagono hexagono) {
+    }
 
+    @Override
+    public String getTerreno() {
+        return "Campo";
     }
 }
