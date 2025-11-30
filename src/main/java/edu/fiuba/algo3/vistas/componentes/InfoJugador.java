@@ -3,6 +3,7 @@ package edu.fiuba.algo3.vistas.componentes;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.Map;
@@ -16,27 +17,44 @@ public class InfoJugador extends VBox {
     public InfoJugador(Jugador jugador) {
         this.jugador = jugador;
 
-        this.setSpacing(5);
-        this.setPadding(new Insets(10));
+        this.setPadding(new Insets(0, 20, 10, 20));
+        this.getStyleClass().add("info-jugador");
 
         nombreLabel = new Label(jugador.getNombre());
         puntosLabel = new Label("PV: " + jugador.getPuntosVictoria());
+        Label recursosTituloLabel = new Label("Recursos:");
         recursosLabel = new Label(formatearRecursos());
 
         nombreLabel.getStyleClass().add("nombre-jugador");
         puntosLabel.getStyleClass().add("pv-jugador");
+        recursosTituloLabel.getStyleClass().add("titulo-recursos-jugador");
         recursosLabel.getStyleClass().add("recursos-jugador");
 
-        this.getChildren().addAll(nombreLabel, puntosLabel, recursosLabel);
+        HBox filaNombreYPV = new HBox();
+        filaNombreYPV.setSpacing(60);
+        filaNombreYPV.getChildren().addAll(nombreLabel, puntosLabel);
+
+        this.getChildren().addAll(filaNombreYPV, recursosTituloLabel, recursosLabel);
     }
 
     private String formatearRecursos() {
         Map<String, Integer> recursos = jugador.getRecursosInventario();
+        String resultado = "";
+        int contador = 0;
 
-        return recursos.entrySet().stream()
-                .map(entry -> entry.getKey() + ": " + entry.getValue())
-                .reduce((a, b) -> a + " | " + b)
-                .orElse("");
+        for (String nombre : recursos.keySet()) {
+            int cantidad = recursos.get(nombre);
+            resultado += nombre + ": " + cantidad;
+            contador++;
+
+            if (contador % 3 == 0) {
+                resultado += "\n";
+            } else if (contador < recursos.size()) {
+                resultado += ", ";
+            }
+        }
+
+        return resultado;
     }
 
     public void actualizar() {

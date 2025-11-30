@@ -17,11 +17,11 @@ public class VistaJuegoGeneral extends BorderPane {
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo.jpg"));
 
         HBox barraJugadores = new HBox(20);
-        barraJugadores.setPadding(new Insets(20, 20, 0, 20));
         barraJugadores.setAlignment(Pos.CENTER);
 
         for (Jugador jugador : juego.getJugadores()) {
             InfoJugador info = new InfoJugador(jugador);
+            HBox.setMargin(info, new Insets(0, 10, 0, 10));
             barraJugadores.getChildren().add(info);
         }
 
