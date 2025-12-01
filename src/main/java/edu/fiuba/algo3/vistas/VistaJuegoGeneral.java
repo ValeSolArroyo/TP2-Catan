@@ -43,8 +43,8 @@ public class VistaJuegoGeneral extends BorderPane {
         botonesDerecha.getChildren().addAll(botonComerciar, botonConstruir, botonComprarCartas);
 
         // TODO: terminar con los dados
-        VistaDados contenedorDados = new VistaDados();
-        botonesDerecha.getChildren().add(contenedorDados);
+        //VistaDados contenedorDados = new VistaDados();
+        //botonesDerecha.getChildren().add(contenedorDados);
         this.setRight(botonesDerecha);
 
         BotonJuego botonJugarCarta =  new BotonJuego("Jugar carta");
