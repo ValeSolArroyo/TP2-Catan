@@ -14,15 +14,15 @@ public class VerticeTest {
     @Test
     public void test01VerticePermiteMultiplesVecinos() {
         // Arrange
-        Vertice v1 = new Vertice();
-        Vertice v2 = new Vertice();
-        Vertice v3 = new Vertice();
-        Vertice v4 = new Vertice();
+        Vertice vertice1 = new Vertice();
+        Vertice vertice2 = new Vertice();
+        Vertice vertice3 = new Vertice();
+        Vertice vertice4 = new Vertice();
 
         // Act y Assert
-        assertDoesNotThrow(() -> v1.agregarVecino(v2));
-        assertDoesNotThrow(() -> v1.agregarVecino(v3));
-        assertDoesNotThrow(() -> v1.agregarVecino(v4));
+        assertDoesNotThrow(() -> vertice1.agregarVecino(vertice2));
+        assertDoesNotThrow(() -> vertice1.agregarVecino(vertice3));
+        assertDoesNotThrow(() -> vertice1.agregarVecino(vertice4));
     }
 
     @Test
