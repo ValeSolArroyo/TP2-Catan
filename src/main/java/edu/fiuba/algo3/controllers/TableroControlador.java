@@ -33,7 +33,10 @@ public class TableroControlador {
             HBox fila = new HBox(-5);
             fila.setAlignment(Pos.CENTER);
             for (int i = 0; i < cantHexagonosPorFila; i++) {
-                VistaHexagono vista = new VistaHexagono(hexagonos.get(indiceHexagonos++));
+                Hexagono hexagono = hexagonos.get(indiceHexagonos++);
+
+                VistaHexagono vista = new VistaHexagono(hexagono.getTerreno(), hexagono.getFicha());
+
                 fila.getChildren().add(vista);
             }
 

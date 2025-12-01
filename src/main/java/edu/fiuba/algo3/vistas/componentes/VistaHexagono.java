@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.vistas.componentes;
 
-import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -18,8 +17,7 @@ public class VistaHexagono extends StackPane {
         "Montaña", "/images/utils/hexagono/montaña.png"
     );
 
-    public VistaHexagono(Hexagono hexagono) {
-        String terreno = hexagono.getTerreno();
+    public VistaHexagono(String terreno, int ficha) {
         String ruta;
 
         if (rutasImagenes.containsKey(terreno)) {
@@ -38,7 +36,7 @@ public class VistaHexagono extends StackPane {
         this.getChildren().add(view);
 
         if (!terreno.equals("Desierto")) {
-            Label fichaNumero = new Label(String.valueOf(hexagono.getFicha()));
+            Label fichaNumero = new Label(String.valueOf(ficha));
             fichaNumero.getStyleClass().add("ficha-numero");
             this.getChildren().add(fichaNumero);
         } else {
