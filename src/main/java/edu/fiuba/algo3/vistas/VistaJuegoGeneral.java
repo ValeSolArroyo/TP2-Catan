@@ -3,6 +3,7 @@ package edu.fiuba.algo3.vistas;
 import edu.fiuba.algo3.controllers.TableroControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.vistas.componentes.*;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonGenerico;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
@@ -28,8 +29,10 @@ public class VistaJuegoGeneral extends BorderPane {
 
         this.setTop(barraJugadores);
 
-        TableroControlador controladorTablero = new TableroControlador(juego.getTablero());
-        Pane vistaTablero = controladorTablero.mostrarTablero();
+        Tablero tablero = juego.getTablero();
+        VistaTablero vistaTablero = new VistaTablero(tablero);
+        TableroControlador controlador = new TableroControlador(tablero, vistaTablero);
+
         this.setCenter(vistaTablero);
 
         VBox botonesDerecha = new VBox(50);
