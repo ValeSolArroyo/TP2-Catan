@@ -121,32 +121,54 @@
 
 .dialog-pane {
     -fx-font-family: "Minecraft";
+}
+
+.dialog-pane .button:pressed {
+    -fx-opacity: 0.6;
+}
+
+.dialog-pane.acerca-de {
     -fx-font-size: 16px;
     -fx-background-color: #ebf2ff;
     -fx-text-fill: #1f358c;
 }
 
-.dialog-pane .header-panel .label {
-    -fx-font-family: "Minecraft";
+.dialog-pane.acerca-de .header-panel .label {
     -fx-font-size: 18px;
     -fx-text-fill: #13286f;
 }
 
-.dialog-pane .content.label {
-    -fx-font-family: "Minecraft";
+.dialog-pane.acerca-de .content.label {
     -fx-font-size: 16px;
     -fx-text-fill: #1f358c;
 }
 
-.dialog-pane .button {
-    -fx-font-family: "Minecraft";
+.dialog-pane.acerca-de .button {
     -fx-font-size: 14px;
     -fx-background-color: #bbdaff;
     -fx-text-fill: #272d47;
 }
 
-.dialog-pane .button:pressed {
-    -fx-opacity: 0.6;
+.dialog-pane.error {
+    -fx-font-size: 16px;
+    -fx-background-color: #ffebeb;
+    -fx-text-fill: #8c1f1f;
+}
+
+.dialog-pane.error .header-panel .label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #4f0a0a;
+}
+
+.dialog-pane.error .content.label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #8c1f1f;
+}
+
+.dialog-pane.error .button {
+    -fx-font-size: 14px;
+    -fx-background-color: #ffbbbb;
+    -fx-text-fill: #472727;
 }
 
 .ficha-numero {

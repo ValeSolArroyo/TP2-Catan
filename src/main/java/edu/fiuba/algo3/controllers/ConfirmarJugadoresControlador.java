@@ -4,6 +4,7 @@ package edu.fiuba.algo3.controllers;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
+import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -40,11 +41,11 @@ public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> 
             String nombre = nombres.get(i).getText().trim();
             String color = colores.get(i).getValue();
             if (nombre.isEmpty()) {
-                mostrarError("Todos los jugadores deben tener nombre.");
+                PopUpError.mostrar("Todos los jugadores deben tener nombre.");
                 return;
             }
             if (nombre.length() > 10) {
-                mostrarError("Cada nombre puede máximo 10 caracteres.");
+                PopUpError.mostrar("Máximo 10 caracteres por nombre.");
                 return;
             }
 
@@ -55,7 +56,7 @@ public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> 
         Set<String> chequeoRepetidos = new HashSet<>();
         for (String color : listaColores) {
             if (!chequeoRepetidos.add(color)) {
-                mostrarError("Todos los jugadores deben elegir colores distintos.");
+                PopUpError.mostrar("Todos los jugadores deben elegir colores distintos.");
                 return;
             }
         }
@@ -71,12 +72,5 @@ public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> 
 
         VistaJuegoGeneral vistaJuego = new VistaJuegoGeneral(stage, contenedor, juego);
         contenedor.setContenido(vistaJuego);
-    }
-
-    private void mostrarError(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setHeaderText("Error!!");
-        alert.setContentText(mensaje);
-        alert.showAndWait();
     }
 }

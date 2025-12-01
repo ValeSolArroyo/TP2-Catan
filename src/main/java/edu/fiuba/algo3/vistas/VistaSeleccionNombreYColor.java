@@ -5,6 +5,7 @@ import edu.fiuba.algo3.controllers.VolverControlador;
 import edu.fiuba.algo3.vistas.componentes.EntradaJugador;
 import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
 import edu.fiuba.algo3.vistas.componentes.Transicion;
+import edu.fiuba.algo3.vistas.componentes.botones.BotonGenerico;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -47,20 +48,14 @@ public class VistaSeleccionNombreYColor extends VBox {
             listaJugadores.getChildren().add(entrada);
         }
 
-        Button botonContinuar = new Button("Continuar");
+        BotonGenerico botonContinuar = new BotonGenerico("Continuar", "boton-confirmar", 200, 60);
         botonContinuar.setLayoutX(200);
         botonContinuar.setLayoutY(390);
-        botonContinuar.setPrefWidth(200);
-        botonContinuar.setPrefHeight(60);
-        botonContinuar.getStyleClass().add("boton-confirmar");
         botonContinuar.setOnAction(new ConfirmarJugadoresControlador(stage, contenedor, nombres, colores));
 
-        Button botonVolver = new Button("Volver");
+        BotonGenerico botonVolver = new BotonGenerico("Volver", "boton-volver-atras", 85, 40);
         botonVolver.setLayoutX(487);
         botonVolver.setLayoutY(7);
-        botonVolver.setPrefWidth(85);
-        botonVolver.setPrefHeight(40);
-        botonVolver.getStyleClass().add("boton-volver-atras");
         botonVolver.setOnAction(new VolverControlador(contenedor, new VistaSeleccionCantidadJugadores(stage, contenedor)));
 
         panelIngresarJugadores.getChildren().addAll(pedidoDatos, listaJugadores, botonContinuar, botonVolver);

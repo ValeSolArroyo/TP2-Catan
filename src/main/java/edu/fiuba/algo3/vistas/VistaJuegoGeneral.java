@@ -4,6 +4,8 @@ import edu.fiuba.algo3.controllers.TableroControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.vistas.componentes.*;
+import edu.fiuba.algo3.vistas.componentes.botones.BotonGenerico;
+import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -53,10 +55,7 @@ public class VistaJuegoGeneral extends BorderPane {
 
         this.setLeft(contenedorArribaIzquierda);
 
-        Button botonFinTurno = new Button("Finalizar turno");
-        botonFinTurno.getStyleClass().add("boton-fin-turno");
-        botonFinTurno.setPrefWidth(230);
-        botonFinTurno.setPrefHeight(45);
+        BotonGenerico botonFinTurno = new BotonGenerico("Finalizar turno", "boton-fin-turno", 230, 45);
         HBox contenedorAbajoIzquierda = new HBox(botonFinTurno);
         contenedorAbajoIzquierda.setPadding(new Insets(0, 0, 20,95 ));
         StackPane.setAlignment(botonFinTurno, Pos.BOTTOM_LEFT);
