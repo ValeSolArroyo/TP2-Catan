@@ -7,8 +7,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.Map;
+import edu.fiuba.algo3.modelo.observer.Observador;
 
-public class InfoJugador extends VBox {
+public class InfoJugador extends VBox implements Observador {
     private Jugador jugador;
     private Label nombreLabel;
     private Label puntosLabel;
@@ -16,6 +17,7 @@ public class InfoJugador extends VBox {
 
     public InfoJugador(Jugador jugador) {
         this.jugador = jugador;
+        jugador.agregarObservador(this);
 
         this.setPadding(new Insets(0, 20, 10, 20));
         this.getStyleClass().add("info-jugador");
@@ -35,6 +37,8 @@ public class InfoJugador extends VBox {
         filaNombreYPV.getChildren().addAll(nombreLabel, puntosLabel);
 
         this.getChildren().addAll(filaNombreYPV, recursosTituloLabel, recursosLabel);
+
+        actualizar();
     }
 
     private String formatearRecursos() {

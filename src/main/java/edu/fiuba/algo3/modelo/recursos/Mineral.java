@@ -4,11 +4,6 @@ import edu.fiuba.algo3.modelo.jugador.Jugador;
 
 public class Mineral implements Recurso {
     @Override
-    public void asignarA(Jugador jugador) {
-        jugador.recibirRecurso(this);
-    }
-
-    @Override
     public boolean coincideCon(Recurso otro) {
         return otro.coincideConMineral(this);
     }

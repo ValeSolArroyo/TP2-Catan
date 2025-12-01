@@ -1,7 +1,8 @@
 package edu.fiuba.algo3.modelo.juego;
 import java.util.Random;
+import edu.fiuba.algo3.modelo.observer.Observable;
 
-public class Dado {
+public class Dado extends Observable {
     private final Random random;
     private int valor1;
     private int valor2;
@@ -13,6 +14,7 @@ public class Dado {
     public int lanzarDados() {
         this.valor1 = random.nextInt(6) + 1;
         this.valor2 = random.nextInt(6) + 1;
+        notificarObservadores();
         return valor1 + valor2;
     }
 

@@ -21,7 +21,7 @@ public class PuertoGenerico implements ComercioPuerto {
         Recurso tipoRecurso = recursosEntregados.get(0);
 
         for (Recurso recurso : recursosEntregados) {
-            if (!recurso.equals(tipoRecurso)) {
+            if (!recurso.coincideCon(tipoRecurso)) {
                 throw new ComercioInvalidoError("Las 3 cartas deben ser iguales");
             }
         }

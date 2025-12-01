@@ -9,12 +9,17 @@ import java.util.Map;
 
 public class Inventario {
     private List<Recurso> recursos;
-    public Inventario() {
+    private final Jugador jugador;
+
+    public Inventario(Jugador jugador) {
+        this.jugador = jugador;
         this.recursos = new ArrayList<>();
+
     }
 
     public void agregarRecurso(Recurso recurso) {
         recursos.add(recurso);
+        jugador.notificarObservadores();
     }
 
     public void consumirRecurso(List<Recurso> listaRecursos) {
@@ -25,9 +30,10 @@ public class Inventario {
             }
             this.recursos = listaCopiaSeguridad;
         }
+        jugador.notificarObservadores();
     }
 
-    public void eliminarRecurso(Recurso recursoAEliminar, List<Recurso> listaCopiaSeguridad){
+    private void eliminarRecurso(Recurso recursoAEliminar, List<Recurso> listaCopiaSeguridad){
         for (Recurso recursoInventario: listaCopiaSeguridad){
             if (recursoInventario.coincideCon(recursoAEliminar)){
                 listaCopiaSeguridad.remove(recursoInventario);
@@ -45,26 +51,14 @@ public class Inventario {
                 recursos.remove(0);
             }
         }
-    }
-
-    public void validarRecursos(Recurso recursoAValidar, int cantidadNecesaria) {
-        int cantidadAcumulada = 0;
-        for (Recurso recurso : recursos) {
-            if (recurso.coincideCon(recursoAValidar)) {
-                cantidadAcumulada++;
-            }
-        }
-
-        if (cantidadAcumulada < cantidadNecesaria) {
-            throw new RecursosInsuficientesError("Se requieren " + cantidadNecesaria + " recursos y solo hay " + cantidadAcumulada
-            );
-        }
+        jugador.notificarObservadores();
     }
 
     public Recurso quitarRecursoAlAzar() {
         int indice = (int) (Math.random() * recursos.size());
         Recurso robado = recursos.get(indice);
         recursos.remove(indice);
+        jugador.notificarObservadores();
         return robado;
     }
     
