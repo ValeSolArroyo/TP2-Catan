@@ -25,7 +25,7 @@ public class HexagonoTest {
         Hexagono hexagono = new Hexagono(new Campo(), 5);
         hexagono.agregarVertice(vertice);
 
-        // Act & Assert
+        // Act y Assert
         assertDoesNotThrow(() -> {
             hexagono.entregarRecursoInicialA(vertice);
         });

@@ -19,15 +19,10 @@ public class VerticeTest {
         Vertice v3 = new Vertice();
         Vertice v4 = new Vertice();
 
-        // Act
-        v1.agregarVecino(v2);
-        v1.agregarVecino(v3);
-        v1.agregarVecino(v4);
-
-        // Assert
-        assertDoesNotThrow(() -> {
-            v1.agregarVecino(v2);
-        });
+        // Act y Assert
+        assertDoesNotThrow(() -> v1.agregarVecino(v2));
+        assertDoesNotThrow(() -> v1.agregarVecino(v3));
+        assertDoesNotThrow(() -> v1.agregarVecino(v4));
     }
 
     @Test
@@ -37,10 +32,7 @@ public class VerticeTest {
         Vertice vertice = new Vertice();
         Poblado poblado = new Poblado(jugador);
 
-        // Act
-        vertice.asignarConstruccion(poblado);
-
-        // Assert
+        // Act y Assert
         assertDoesNotThrow(() -> {
             vertice.asignarConstruccion(poblado);
         });
@@ -53,10 +45,7 @@ public class VerticeTest {
         Vertice vertice = new Vertice();
         Ciudad ciudad = new Ciudad(jugador);
 
-        // Act
-        vertice.asignarConstruccion(ciudad);
-
-        // Assert
+        // Act y Assert
         assertDoesNotThrow(() -> {
             vertice.asignarConstruccion(ciudad);
         });
