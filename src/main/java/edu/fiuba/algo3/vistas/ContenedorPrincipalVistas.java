@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas;
 
+import edu.fiuba.algo3.controllers.MenuGlobalControlador;
 import edu.fiuba.algo3.vistas.componentes.MenuGlobal;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,14 +13,17 @@ public class ContenedorPrincipalVistas extends StackPane {
     private Stage stage;
     private BorderPane contenedor;
     private VBox menuGlobal;
+    private final MenuGlobalControlador menuGlobalControlador;
 
     public ContenedorPrincipalVistas(Stage stage) {
         this.stage = stage;
 
+        this.menuGlobalControlador = new MenuGlobalControlador(stage);
+
         contenedor = new BorderPane();
         this.getChildren().add(contenedor);
 
-        menuGlobal = new MenuGlobal(this).getMenu();
+        menuGlobal = new MenuGlobal(this, menuGlobalControlador).getMenu();
         StackPane.setAlignment(menuGlobal, Pos.BOTTOM_RIGHT);
         StackPane.setMargin(menuGlobal, new Insets(20));
 
