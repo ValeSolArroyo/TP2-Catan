@@ -2,6 +2,8 @@ package edu.fiuba.algo3.vistas.componentes;
 
 import edu.fiuba.algo3.controllers.BotonAyudaControlador;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
+import edu.fiuba.algo3.vistas.componentes.botones.BotonMenu;
+import edu.fiuba.algo3.vistas.componentes.popups.PopUpAcercaDe;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
