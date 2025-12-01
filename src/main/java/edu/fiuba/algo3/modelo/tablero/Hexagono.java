@@ -61,4 +61,12 @@ public class Hexagono {
     public int getFicha() {
         return this.numeroFicha;
     }
+
+    public List<Vertice> getVertices() {
+        return this.vertices;
+    }
+
+    public List<Arista> getAristas() {
+        return this.aristas;
+    }
 }

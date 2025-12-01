@@ -16,6 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TableroTest {
+
     @Test
     public void test01GenerarTerrenosAleatoriasDevuelve19Terrenos() {
         // Arrange
@@ -45,13 +46,13 @@ public class TableroTest {
         // Arrange
         Jugador jugador = new Jugador(1, "Carlos", "verde");
         Vertice vertice = new Vertice();
-        vertice.asignarConstruccion(new Poblado(jugador));
+        Poblado poblado = new Poblado(jugador);
+        vertice.construirPoblado(jugador, poblado);
 
         Hexagono hexagono = new Hexagono(new Bosque(), 4);
         hexagono.agregarVertice(vertice);
 
-        List<Hexagono> hexagonos = List.of(hexagono);
-        Tablero tablero = new Tablero(hexagonos);
+        Tablero tablero = new Tablero(List.of(hexagono));
 
         // Act
         tablero.producir(4);
@@ -60,9 +61,7 @@ public class TableroTest {
         jugador.recibirRecurso(madera);
 
         // Assert
-        assertDoesNotThrow(() -> {
-            jugador.entregarRecursos(List.of(madera));
-        });
+        assertDoesNotThrow(() -> jugador.entregarRecursos(List.of(madera)));
     }
 
     @Test
@@ -70,13 +69,13 @@ public class TableroTest {
         // Arrange
         Jugador jugador = new Jugador(2, "Maria", "azul");
         Vertice vertice = new Vertice();
-        vertice.asignarConstruccion(new Poblado(jugador));
+        Poblado poblado = new Poblado(jugador);
+        vertice.construirPoblado(jugador, poblado);
 
         Hexagono hexagono = new Hexagono(new Colina(), 5);
         hexagono.agregarVertice(vertice);
 
-        List<Hexagono> hexagonos = List.of(hexagono);
-        Tablero tablero = new Tablero(hexagonos);
+        Tablero tablero = new Tablero(List.of(hexagono));
 
         // Act
         tablero.producir(4);
@@ -84,9 +83,7 @@ public class TableroTest {
         Madera madera = new Madera();
 
         // Assert
-        assertThrows(RecursosInsuficientesError.class, () -> {
-            jugador.entregarRecursos(List.of(madera));
-        });
+        assertThrows(RecursosInsuficientesError.class, () -> jugador.entregarRecursos(List.of(madera)));
     }
 
     @Test
@@ -94,14 +91,13 @@ public class TableroTest {
         // Arrange
         Jugador jugador = new Jugador(3, "Juan", "rojo");
         Vertice vertice = new Vertice();
-        vertice.asignarConstruccion(new Poblado(jugador));
+        vertice.construirPoblado(jugador, new Poblado(jugador));
 
         Hexagono hexagono = new Hexagono(new Pastizal(), 6);
         hexagono.agregarVertice(vertice);
         hexagono.ponerLadron();
 
-        List<Hexagono> hexagonos = List.of(hexagono);
-        Tablero tablero = new Tablero(hexagonos);
+        Tablero tablero = new Tablero(List.of(hexagono));
 
         // Act
         tablero.producir(6);
@@ -109,9 +105,7 @@ public class TableroTest {
         Madera madera = new Madera();
 
         // Assert
-        assertThrows(RecursosInsuficientesError.class, () -> {
-            jugador.entregarRecursos(List.of(madera));
-        });
+        assertThrows(RecursosInsuficientesError.class, () -> jugador.entregarRecursos(List.of(madera)));
     }
 
     @Test
@@ -119,14 +113,13 @@ public class TableroTest {
         // Arrange
         Jugador jugador = new Jugador(4, "Pedro", "amarillo");
         Vertice vertice = new Vertice();
-        vertice.asignarConstruccion(new Poblado(jugador));
+        vertice.construirPoblado(jugador, new Poblado(jugador));
 
         Hexagono hexagono = new Hexagono(new Campo(), 8);
         hexagono.agregarVertice(vertice);
         hexagono.quitarLadron();
 
-        List<Hexagono> hexagonos = List.of(hexagono);
-        Tablero tablero = new Tablero(hexagonos);
+        Tablero tablero = new Tablero(List.of(hexagono));
 
         // Act
         tablero.producir(8);
@@ -135,9 +128,7 @@ public class TableroTest {
         jugador.recibirRecurso(madera);
 
         // Assert
-        assertDoesNotThrow(() -> {
-            jugador.entregarRecursos(List.of(madera));
-        });
+        assertDoesNotThrow(() -> jugador.entregarRecursos(List.of(madera)));
     }
 
     @Test
@@ -146,17 +137,16 @@ public class TableroTest {
         Jugador jugador = new Jugador(6, "Luis", "naranja");
 
         Vertice vertice1 = new Vertice();
-        vertice1.asignarConstruccion(new Poblado(jugador));
+        vertice1.construirPoblado(jugador, new Poblado(jugador));
         Hexagono hexagono1 = new Hexagono(new Bosque(), 6);
         hexagono1.agregarVertice(vertice1);
 
         Vertice vertice2 = new Vertice();
-        vertice2.asignarConstruccion(new Poblado(jugador));
+        vertice2.construirPoblado(jugador, new Poblado(jugador));
         Hexagono hexagono2 = new Hexagono(new Colina(), 6);
         hexagono2.agregarVertice(vertice2);
 
-        List<Hexagono> hexagonos = List.of(hexagono1, hexagono2);
-        Tablero tablero = new Tablero(hexagonos);
+        Tablero tablero = new Tablero(List.of(hexagono1, hexagono2));
 
         // Act
         tablero.producir(6);
@@ -167,23 +157,20 @@ public class TableroTest {
         jugador.recibirRecurso(madera2);
 
         // Assert
-        assertDoesNotThrow(() -> {
-            jugador.entregarRecursos(List.of(madera1, madera2));
-        });
+        assertDoesNotThrow(() -> jugador.entregarRecursos(List.of(madera1, madera2)));
     }
 
     @Test
-    public void test08DarRecursosInicalesAVertice() {
+    public void test08DarRecursosInicialesAVertice() {
         // Arrange
         Jugador jugador = new Jugador(7, "Sofia", "verde_oscuro");
         Vertice vertice = new Vertice();
-        vertice.asignarConstruccion(new Poblado(jugador));
+        vertice.construirPoblado(jugador, new Poblado(jugador));
 
         Hexagono hexagono = new Hexagono(new Campo(), 5);
         hexagono.agregarVertice(vertice);
 
-        List<Hexagono> hexagonos = List.of(hexagono);
-        Tablero tablero = new Tablero(hexagonos);
+        Tablero tablero = new Tablero(List.of(hexagono));
 
         // Act
         tablero.darRecursosIniciales(vertice);
@@ -192,9 +179,7 @@ public class TableroTest {
         jugador.recibirRecurso(madera);
 
         // Assert
-        assertDoesNotThrow(() -> {
-            jugador.entregarRecursos(List.of(madera));
-        });
+        assertDoesNotThrow(() -> jugador.entregarRecursos(List.of(madera)));
     }
 
     @Test
@@ -202,13 +187,12 @@ public class TableroTest {
         // Arrange
         Jugador jugador = new Jugador(8, "Diego", "marron");
         Vertice vertice = new Vertice();
-        vertice.asignarConstruccion(new Poblado(jugador));
+        vertice.construirPoblado(jugador, new Poblado(jugador));
 
         Hexagono hexagono = new Hexagono(new Desierto(), 7);
         hexagono.agregarVertice(vertice);
 
-        List<Hexagono> hexagonos = List.of(hexagono);
-        Tablero tablero = new Tablero(hexagonos);
+        Tablero tablero = new Tablero(List.of(hexagono));
 
         // Act
         tablero.producir(7);
@@ -216,8 +200,6 @@ public class TableroTest {
         Madera madera = new Madera();
 
         // Assert
-        assertThrows(RecursosInsuficientesError.class, () -> {
-            jugador.entregarRecursos(List.of(madera));
-        });
+        assertThrows(RecursosInsuficientesError.class, () -> jugador.entregarRecursos(List.of(madera)));
     }
 }

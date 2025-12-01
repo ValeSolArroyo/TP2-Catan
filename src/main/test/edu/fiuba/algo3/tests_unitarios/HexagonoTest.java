@@ -15,20 +15,20 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HexagonoTest {
+
     @Test
     public void test01EntregarRecursoInicialAVerticeEnHexagono() {
         // Arrange
         Jugador jugador = new Jugador(4, "Pedro", "amarillo");
         Vertice vertice = new Vertice();
-        vertice.asignarConstruccion(new Poblado(jugador));
+        Poblado poblado = new Poblado(jugador);
+        vertice.construirPoblado(jugador, poblado);
 
         Hexagono hexagono = new Hexagono(new Campo(), 5);
         hexagono.agregarVertice(vertice);
 
         // Act y Assert
-        assertDoesNotThrow(() -> {
-            hexagono.entregarRecursoInicialA(vertice);
-        });
+        assertDoesNotThrow(() -> hexagono.entregarRecursoInicialA(vertice));
     }
 
     @Test
@@ -36,7 +36,7 @@ public class HexagonoTest {
         // Arrange
         Jugador jugador = new Jugador(3, "Juan", "rojo");
         Vertice vertice = new Vertice();
-        vertice.asignarConstruccion(new Poblado(jugador));
+        vertice.construirPoblado(jugador, new Poblado(jugador));
 
         Hexagono hexagono = new Hexagono(new Bosque(), 6);
         hexagono.agregarVertice(vertice);
@@ -46,9 +46,7 @@ public class HexagonoTest {
         Madera madera = new Madera();
 
         // Assert
-        assertDoesNotThrow(() -> {
-            jugador.entregarRecursos(List.of(madera));
-        });
+        assertDoesNotThrow(() -> jugador.entregarRecursos(List.of(madera)));
     }
 
     @Test
@@ -56,7 +54,7 @@ public class HexagonoTest {
         // Arrange
         Jugador jugador = new Jugador(4, "Pedro", "amarillo");
         Vertice vertice = new Vertice();
-        vertice.asignarConstruccion(new Poblado(jugador));
+        vertice.construirPoblado(jugador, new Poblado(jugador));
 
         Hexagono hexagono = new Hexagono(new Bosque(), 6);
         hexagono.agregarVertice(vertice);
@@ -67,9 +65,7 @@ public class HexagonoTest {
         Madera madera = new Madera();
 
         // Assert
-        assertThrows(RecursosInsuficientesError.class, () -> {
-            jugador.entregarRecursos(List.of(madera));
-        });
+        assertThrows(RecursosInsuficientesError.class, () -> jugador.entregarRecursos(List.of(madera)));
     }
 
     @Test
@@ -77,7 +73,7 @@ public class HexagonoTest {
         // Arrange
         Jugador jugador = new Jugador(5, "Ana", "blanco");
         Vertice vertice = new Vertice();
-        vertice.asignarConstruccion(new Poblado(jugador));
+        vertice.construirPoblado(jugador, new Poblado(jugador));
 
         Hexagono hexagono = new Hexagono(new Bosque(), 8);
         hexagono.agregarVertice(vertice);
@@ -89,8 +85,6 @@ public class HexagonoTest {
         Madera madera = new Madera();
 
         // Assert
-        assertDoesNotThrow(() -> {
-            jugador.entregarRecursos(List.of(madera));
-        });
+        assertDoesNotThrow(() -> jugador.entregarRecursos(List.of(madera)));
     }
 }
