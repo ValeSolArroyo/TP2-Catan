@@ -24,7 +24,7 @@ public class TableroControlador {
 
         VBox tableroVista = new VBox(-38);
         tableroVista.setAlignment(Pos.CENTER);
-        tableroVista.setPadding(new Insets(25, 80, 0, 5));
+        tableroVista.setPadding(new Insets(25, 85, 0, 5));
 
         int indiceHexagonos = 0;
         for (int filaHexagonos = 0; filaHexagonos < hexagonosPorFila.length; filaHexagonos++) {
