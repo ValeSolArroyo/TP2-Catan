@@ -56,7 +56,7 @@ public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> 
         Set<String> chequeoRepetidos = new HashSet<>();
         for (String color : listaColores) {
             if (!chequeoRepetidos.add(color)) {
-                PopUpError.mostrar("Todos los jugadores deben elegir colores distintos.");
+                PopUpError.mostrar("Deben elegirse colores distintos.");
                 return;
             }
         }
