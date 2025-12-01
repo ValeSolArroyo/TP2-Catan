@@ -28,6 +28,7 @@ public class App extends Application {
         stage.setScene(scene);
         stage.setTitle("Catán - El juego");
         stage.setResizable(false);
+
         stage.show();
     }
 
