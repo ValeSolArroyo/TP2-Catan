@@ -4,11 +4,9 @@ package edu.fiuba.algo3.controllers;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
-import edu.fiuba.algo3.vistas.VistaColocacionesIniciales;
 import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -71,8 +69,7 @@ public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> 
         IniciarJuegoControlador iniciar = new IniciarJuegoControlador();
         Juego juego = iniciar.crearNuevaPartida(jugadores);
 
-        //VistaJuegoGeneral vistaJuego = new VistaJuegoGeneral(stage, contenedor, juego);
-        VistaColocacionesIniciales vistaJuego = new VistaColocacionesIniciales(stage, contenedor, juego);
+        VistaJuegoGeneral vistaJuego = new VistaJuegoGeneral(stage, contenedor, juego);
         contenedor.setContenido(vistaJuego);
     }
 }
