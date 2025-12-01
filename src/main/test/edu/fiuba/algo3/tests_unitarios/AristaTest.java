@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.tests_unitarios;
 
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
+import edu.fiuba.algo3.modelo.construcciones.Carretera;
+import edu.fiuba.algo3.modelo.construcciones.Ciudad;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
@@ -19,7 +21,6 @@ public class AristaTest {
         Arista arista = new Arista(vertice1, vertice2);
 
         // Act y Assert
-        assertTrue(arista.conectaVertices(vertice1, vertice2));
         assertTrue(arista.conectaVertices(vertice1, vertice2));
     }
 
@@ -55,10 +56,11 @@ public class AristaTest {
         Vertice vertice1 = new Vertice();
         Vertice vertice2 = new Vertice();
         Arista arista = new Arista(vertice1, vertice2);
+        Poblado poblado = new Poblado(jugador);
 
         // Act y Assert
         assertThrows(ConstruccionInvalidaError.class, () -> {
-            arista.validarPoblado(jugador);
+            arista.construirPoblado(jugador, poblado);
         });
     }
 
@@ -69,26 +71,28 @@ public class AristaTest {
         Vertice vertice1 = new Vertice();
         Vertice vertice2 = new Vertice();
         Arista arista = new Arista(vertice1, vertice2);
+        Ciudad ciudad = new Ciudad(jugador);
 
         // Act y Assert
         assertThrows(ConstruccionInvalidaError.class, () -> {
-            arista.validarCiudad(jugador);
+            arista.construirCiudad(jugador, ciudad);
         });
     }
 
     @Test
-    public void test06CarreteraSePuedeConstruirEnArista() {
+    public void test06CarreteraSePuedeConstruirEnAristaConPobladoDelMismoJugador() {
         // Arrange
         Jugador jugador = new Jugador(3, "Juan", "rojo");
         Vertice vertice1 = new Vertice();
         Vertice vertice2 = new Vertice();
         Poblado poblado = new Poblado(jugador);
-        vertice1.asignarConstruccion(poblado);
+        vertice1.construirPoblado(jugador, poblado);
         Arista arista = new Arista(vertice1, vertice2);
+        Carretera carretera = new Carretera(jugador);
 
         // Act y Assert
         assertDoesNotThrow(() -> {
-            arista.validarCarretera(jugador);
+            arista.construirCarretera(jugador, carretera);
         });
     }
 }

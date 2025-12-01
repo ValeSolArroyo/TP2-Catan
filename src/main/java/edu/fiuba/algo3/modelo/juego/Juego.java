@@ -60,8 +60,9 @@ public class Juego {
         cartasDesarrollo.remove(0);
     }
 
-    public void comerciar() {
-        // TODO
+    public void ejecutarComercioPuerto(Vertice verticePuerto, List<Recurso> recursosAEntregar, Recurso recursoDeseado) {
+        Jugador jugador = this.jugadorActual();
+        jugador.comerciarConPuerto(verticePuerto, recursosAEntregar, recursoDeseado);
     }
 
     public void colocarPrimerPoblado(Vertice vertice, Arista arista) {

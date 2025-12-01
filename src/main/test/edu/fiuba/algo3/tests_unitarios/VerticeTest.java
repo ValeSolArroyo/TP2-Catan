@@ -3,6 +3,7 @@ package edu.fiuba.algo3.tests_unitarios;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.construcciones.Ciudad;
+import edu.fiuba.algo3.modelo.construcciones.Carretera;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.excepciones.ConstruccionInvalidaError;
 import org.junit.jupiter.api.Test;
@@ -26,29 +27,26 @@ public class VerticeTest {
     }
 
     @Test
-    public void test02PobladoSePuedeAsignarAVertice() {
+    public void test02PobladoSePuedeConstruirEnVertice() {
         // Arrange
         Jugador jugador = new Jugador(1, "Carlos", "verde");
         Vertice vertice = new Vertice();
         Poblado poblado = new Poblado(jugador);
 
         // Act y Assert
-        assertDoesNotThrow(() -> {
-            vertice.asignarConstruccion(poblado);
-        });
+        assertDoesNotThrow(() -> vertice.construirPoblado(jugador, poblado));
     }
 
     @Test
-    public void test03CiudadSePuedeAsignarAVertice() {
+    public void test03CiudadSePuedeConstruirEnVertice() {
         // Arrange
         Jugador jugador = new Jugador(2, "Maria", "azul");
         Vertice vertice = new Vertice();
         Ciudad ciudad = new Ciudad(jugador);
+        vertice.construirPoblado(jugador, new Poblado(jugador));
 
         // Act y Assert
-        assertDoesNotThrow(() -> {
-            vertice.asignarConstruccion(ciudad);
-        });
+        assertDoesNotThrow(() -> vertice.construirCiudad(jugador, ciudad));
     }
 
     @Test
@@ -56,11 +54,13 @@ public class VerticeTest {
         // Arrange
         Jugador jugador = new Jugador(3, "Juan", "rojo");
         Vertice vertice = new Vertice();
+        Carretera carretera = new Carretera(jugador);
 
         // Act y Assert
-        assertThrows(ConstruccionInvalidaError.class, () -> {
-            vertice.validarCarretera(jugador);
-        });
+        assertThrows(ConstruccionInvalidaError.class, () ->
+                vertice.construirCarretera(jugador, carretera)
+        );
     }
+
 }
 
