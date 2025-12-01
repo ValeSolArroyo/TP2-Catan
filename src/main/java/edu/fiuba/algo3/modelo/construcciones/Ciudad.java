@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.construcciones;
 
+import edu.fiuba.algo3.modelo.excepciones.ConstruccionInvalidaError;
 import edu.fiuba.algo3.modelo.excepciones.YaHayCiudadError;
 import edu.fiuba.algo3.modelo.jugador.Inventario;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
@@ -20,25 +21,23 @@ public class Ciudad implements Construccion {
 
     @Override
     public void producir(Recurso recurso) {
-        recurso.asignarA(propietario);
-        recurso.asignarA(propietario);
+        propietario.recibirRecurso(recurso);
+        propietario.recibirRecurso(recurso);
     }
 
     @Override
-    public boolean tieneDePropietarioA(Jugador jugador) {
-        return this.propietario.equals(jugador);
+    public void tieneDePropietarioA(Jugador jugador) {
+
+        if (!(this.propietario.equals(jugador))){
+            throw new ConstruccionInvalidaError("No se puede mejorar a ciudad un poblado ajeno.");
+        }
+
     }
 
     @Override
     public void cobrar(Inventario inventario) {
         inventario.consumirRecurso(costo);
     }
-
-    @Override
-    public void validarEn(EspacioConstruible espacio, Jugador jugador) {
-        espacio.validarCiudad(jugador);
-    }
-
 
     @Override
     public void ocupar() {
@@ -52,6 +51,6 @@ public class Ciudad implements Construccion {
 
     @Override
     public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {
-        espacio.reemplazarConstruccion(jugador, this);
+        espacio.construirCiudad(jugador, this);
     }
 }

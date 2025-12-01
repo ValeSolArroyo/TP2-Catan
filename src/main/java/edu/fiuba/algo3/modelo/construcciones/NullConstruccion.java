@@ -7,13 +7,9 @@ import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
 import java.util.List;
 
 public class NullConstruccion implements Construccion {
-    @Override
-    public void validarEn(EspacioConstruible espacio, Jugador jugador) {
-    }
 
     @Override
-    public boolean tieneDePropietarioA(Jugador jugador) {
-        return false;
+    public void tieneDePropietarioA(Jugador jugador) {
     }
 
     @Override

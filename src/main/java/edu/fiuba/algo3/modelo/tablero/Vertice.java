@@ -42,42 +42,37 @@ public class Vertice implements EspacioConstruible {
     }
 
     @Override
-    public void validarPoblado(Jugador jugador) {
+    public void construirPoblado(Jugador jugador, Construccion construccion) {
         this.construccion.ocupar();
-        this.validarDistancia();
+        for (Vertice verticeVecino : vecinos) {
+            verticeVecino.validarReglaDistancia();
+        }
+        // habria que validar que sea adyacente a por lo menos una de las aristas
+        this.construccion = construccion;
     }
 
     @Override
-    public void validarCiudad(Jugador jugador) {
+    public void construirCiudad(Jugador jugador, Construccion nuevaConstruccion) {
         try {
             this.construccion.ocupar();
         } catch (YaHayPobladoError e) {
-            if (!this.construccion.tieneDePropietarioA(jugador)) {
-                throw new ConstruccionInvalidaError("No se puede mejorar a ciudad un poblado ajeno.");
-            }
+           this.construccion.tieneDePropietarioA(jugador);
         } catch (YaHayCiudadError e) {
             throw new ConstruccionInvalidaError("No se puede mejorar donde ya hay una ciudad.");
         }
+        Construccion antigua = this.construccion;
+        this.construccion = nuevaConstruccion;
+        jugador.eliminarConstruccion(antigua);
+
     }
 
     @Override
-    public void validarCarretera(Jugador jugador) {
+    public void construirCarretera(Jugador jugador, Construccion construccion) {
         throw new ConstruccionInvalidaError("No se puede construir una carretera en un vértice");
-    }
-
-    @Override
-    public void asignarConstruccion(Construccion construccion) {
-        this.construccion = construccion;
     }
 
     public void producirSegunTerreno(Terreno terreno) {
         terreno.producirPara(construccion);
-    }
-
-    private void validarDistancia() {
-        for (Vertice verticeVecino : vecinos) {
-            verticeVecino.validarReglaDistancia();
-        }
     }
 
     private void validarReglaDistancia() {
@@ -92,9 +87,13 @@ public class Vertice implements EspacioConstruible {
         try {
             this.construccion.ocupar();
         } catch (YaHayCiudadError | YaHayPobladoError e) {
-            return construccion.tieneDePropietarioA(jugador);
+            try {
+                this.construccion.tieneDePropietarioA(jugador);
+            }catch (ConstruccionInvalidaError error){
+                return false;
+            }
         }
-        return false;
+        return true;
     }
 
     public boolean validarCarreterasProximas(Jugador jugador) {
@@ -104,13 +103,6 @@ public class Vertice implements EspacioConstruible {
             }
         }
         return false;
-    }
-
-    @Override
-    public void reemplazarConstruccion(Jugador jugador, Construccion nuevaConstruccion) {
-        Construccion antigua = this.construccion;
-        this.construccion = nuevaConstruccion;
-        jugador.eliminarConstruccion(antigua);
     }
 
     public void ejecutarComercio(Jugador jugador, List<Recurso> recursosEntregados, List<Recurso> recursoDeseado) {

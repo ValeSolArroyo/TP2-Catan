@@ -22,7 +22,7 @@ public class PuertoEspecial implements ComercioPuerto {
         }
 
         for (Recurso recurso : recursosEntregados) {
-            if (!recurso.equals(tipoEspecial)) {
+            if (!recurso.coincideCon(tipoEspecial)) {
                 throw new ComercioInvalidoError("Este puerto solo acepta recursos del tipo: " + tipoEspecial);
             }
         }

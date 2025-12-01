@@ -3,15 +3,15 @@ package edu.fiuba.algo3.modelo.jugador;
 import edu.fiuba.algo3.modelo.cartasBonificacion.CartaBonificacion;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.comercio.ComercioInterno;
-import edu.fiuba.algo3.modelo.juegoCommand.Accion;
 import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
+import edu.fiuba.algo3.modelo.observer.Observable;
 
 import java.util.*;
 
-public class Jugador {
+public class Jugador extends Observable {
     private final int id;
     private final String nombre;
     private final String color;
@@ -30,7 +30,7 @@ public class Jugador {
         this.color = color;
         this.puntosVictoria = 0;
         this.puntosVictoriaCartaDesarrollo = 0;
-        this.inventario = new Inventario();
+        this.inventario = new Inventario(this);
         this.construcciones = new ArrayList<>();
         this.cartasDesarrollo = new ArrayList<>();
         this.cartasBonificacion = new ArrayList<>();
@@ -43,11 +43,12 @@ public class Jugador {
 
     public void robarCarta(Jugador victima) {
         victima.serRobadoPor(this);
+        notificarObservadores();
     }
 
-    public void serRobadoPor(Jugador ladron) {
+    private void serRobadoPor(Jugador ladron) {
         Recurso robado = this.inventario.quitarRecursoAlAzar();
-        robado.asignarA(ladron);
+        ladron.recibirRecurso(robado);
     }
 
     public void agregarConstruccion(Construccion construccion) {
@@ -59,7 +60,6 @@ public class Jugador {
     }
 
     public void construir(Construccion construccion, EspacioConstruible espacio) {
-        construccion.validarEn(espacio, this);
         if (construcciones.size() >= 4) {
             construccion.cobrar(inventario);
         }
@@ -87,13 +87,14 @@ public class Jugador {
     public void guardarCartaDesarrollo(CartaDesarrollo cartaDesarrollo, List<Recurso> costoCarta){
         inventario.consumirRecurso(costoCarta);
         cartasDesarrollo.add(cartaDesarrollo);
+        notificarObservadores();
     }
 
-    public void  registrarCaballeroJugado(){
+    public void registrarCaballeroJugado(){
         this.cartasCaballeroJugadas =  this.cartasCaballeroJugadas + 1;
     }
 
-    public int conseguirCartasCaballeroJugadas(){
+    public int conseguirCartasCaballeroJugadas() {
         return cartasCaballeroJugadas;
     }
 
@@ -103,11 +104,12 @@ public class Jugador {
 
     public void recibirCartaBonificacion (CartaBonificacion cartaBonificacion){
         this.cartasBonificacion.add(cartaBonificacion);
-
+        notificarObservadores();
     }
 
     public void perderCartaBonificacion (CartaBonificacion cartaBonificacion){
         this.cartasBonificacion.remove(cartaBonificacion);
+        notificarObservadores();
     }
 
     private int puntosPorConstrucciones() {
@@ -121,8 +123,7 @@ public class Jugador {
     public void evaluarSiEsGanador() {
         int puntos = conseguirPuntosDeVictoria();
         if (puntos >= 10) {
-            // TODO: ver con la interfaz
-            System.out.println("Ganaste!! " + this.nombre + " " + this.color);
+            notificarObservadores();
         }
     }
     

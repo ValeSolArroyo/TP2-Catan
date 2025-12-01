@@ -14,7 +14,7 @@ public class GranCaballeria implements CartaBonificacion {
 
     @Override
     public void evaluarCartaBonificacion(Jugador jugador) {
-        int cantidad=  jugador.conseguirCartasCaballeroJugadas();
+        int cantidad = jugador.conseguirCartasCaballeroJugadas();
         if ((mayorEjercito == 3) && (cantidad == 3) && (!yaOtorgada)) {
             this.dueño = jugador;
             this.yaOtorgada = true;

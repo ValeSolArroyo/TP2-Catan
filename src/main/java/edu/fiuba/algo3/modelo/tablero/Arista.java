@@ -28,18 +28,16 @@ public class Arista implements EspacioConstruible {
                 (this.vertice1 == v2 && this.vertice2 == v1);
     }
 
-    @Override
-    public void validarPoblado(Jugador jugador) {
+    
+    public void construirPoblado(Jugador jugador, Construccion construccion) {
         throw new ConstruccionInvalidaError("No se puede construir un poblado en un arista");
     }
 
-    @Override
-    public void validarCiudad(Jugador jugador) {
+    public void construirCiudad(Jugador jugador, Construccion construccion) {
         throw new ConstruccionInvalidaError("No se puede construir una ciudad en un vértice");
     }
 
-    @Override
-    public void validarCarretera(Jugador jugador) {
+    public void construirCarretera(Jugador jugador, Construccion construccion) {
         this.construccion.ocupar();
         if (!this.vertice1.validarConstruccionesProximas(jugador)
                 && !this.vertice2.validarConstruccionesProximas(jugador)) {
@@ -47,22 +45,21 @@ public class Arista implements EspacioConstruible {
                 throw new ConstruccionInvalidaError("No se puede colocar la carretera porque no cumple con las condiciones.");
             }
         }
+        this.construccion = construccion;
+
     }
 
     public boolean validarCarreteraPropia(Jugador jugador) {
         try {
             this.construccion.ocupar();
         } catch (YaHayCarreteraError e) {
-            return construccion.tieneDePropietarioA(jugador);
+            try {
+                construccion.tieneDePropietarioA(jugador);
+            }catch (ConstruccionInvalidaError error){
+                return false;
+
+            }
         }
-        return false;
+        return true;
     }
-
-    @Override
-    public void asignarConstruccion(Construccion construccion) {
-        this.construccion = construccion;
-    }
-
-    @Override
-    public void reemplazarConstruccion(Jugador jugador, Construccion nuevaConstruccion) {}
 }

@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.construcciones;
 
+import edu.fiuba.algo3.modelo.excepciones.ConstruccionInvalidaError;
 import edu.fiuba.algo3.modelo.excepciones.YaHayCarreteraError;
 import edu.fiuba.algo3.modelo.jugador.Inventario;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
@@ -22,13 +23,11 @@ public class Carretera implements Construccion {
     public void producir(Recurso recurso) {}
 
     @Override
-    public boolean tieneDePropietarioA(Jugador jugador) {
-        return this.propietario.equals(jugador);
-    }
+    public void tieneDePropietarioA(Jugador jugador) {
+        if (!(this.propietario.equals(jugador))){
+            throw new ConstruccionInvalidaError("No se puede mejorar a ciudad un poblado ajeno.");
+        }
 
-    @Override
-    public void validarEn(EspacioConstruible espacio, Jugador jugador) {
-        espacio.validarCarretera(jugador);
     }
 
     @Override
@@ -48,6 +47,7 @@ public class Carretera implements Construccion {
 
     @Override
     public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {
+        espacio.construirCarretera(jugador, this);
         espacio.asignarConstruccion(this);
     }
 }
