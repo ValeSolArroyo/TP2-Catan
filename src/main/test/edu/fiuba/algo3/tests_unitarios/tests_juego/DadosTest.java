@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.tests_unitarios;
+package edu.fiuba.algo3.tests_unitarios.tests_juego;
 
 import edu.fiuba.algo3.modelo.juego.Dado;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ public class DadosTest {
         // Arrange
         Dado dado = new Dado();
 
-        // Act y Assert
+        // Act & Assert
         int resultado = dado.lanzarDados();
         assertTrue(resultado >= 2 && resultado <= 12,
                 "El lanzamiento debe generar un número entre 2 y 12, pero salió " + resultado);

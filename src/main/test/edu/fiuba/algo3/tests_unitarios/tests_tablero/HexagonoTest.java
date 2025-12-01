@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.tests_unitarios;
+package edu.fiuba.algo3.tests_unitarios.tests_tablero;
 
 import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
@@ -27,7 +27,7 @@ public class HexagonoTest {
         Hexagono hexagono = new Hexagono(new Campo(), 5);
         hexagono.agregarVertice(vertice);
 
-        // Act y Assert
+        // Act & Assert
         assertDoesNotThrow(() -> hexagono.entregarRecursoInicialA(vertice));
     }
 
