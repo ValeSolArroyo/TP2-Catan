@@ -140,6 +140,10 @@ public class Jugador extends Observable {
 
     public String getNombre() { return this.nombre; }
 
+    public String getColor() {
+        return this.color;
+    }
+
     public int getPuntosVictoria() { return this.puntosVictoria; }
 
     public void sumarPVPorCartaDesarollo() {
