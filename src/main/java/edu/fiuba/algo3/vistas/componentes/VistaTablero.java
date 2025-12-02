@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.vistas.componentes;
 
 import edu.fiuba.algo3.controllers.HexagonoControlador;
+import edu.fiuba.algo3.controllers.TableroControlador;
 import edu.fiuba.algo3.controllers.fasesJuego.AccionesTableroControlador;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Hexagono;
@@ -18,11 +19,11 @@ import java.util.List;
 public class VistaTablero extends VBox {
     private List<HexagonoControlador> controladores = new ArrayList<>();
     private List<VistaHexagono> vistasHexagonos = new ArrayList<>();
-    private AccionesTableroControlador controlador;
+    private AccionesTableroControlador controladorAcciones;
+    private TableroControlador controladorTablero;
 
-    public VistaTablero(Tablero tablero, AccionesTableroControlador controlador) {
+    public VistaTablero(Tablero tablero) {
         super(-38);
-        this.controlador = controlador;
 
         this.setAlignment(Pos.CENTER);
         this.setPadding(new Insets(25, 85, 0, 5));
@@ -65,14 +66,16 @@ public class VistaTablero extends VBox {
                 Button boton = vista.getBotonesVertices().get(i);
                 Vertice vertice = hexagono.getVertices().get(i);
 
-                boton.setOnAction(e -> controlador.obtenerVertice(vertice));
+                boton.setOnAction(e -> { controladorAcciones.obtenerVertice(vertice);
+                    controladorTablero.desactivarVertices();});
             }
 
             for (int i = 0; i < vista.getBotonesAristas().size(); i++) {
                 Button boton = vista.getBotonesAristas().get(i);
                 Arista arista = hexagono.getAristas().get(i);
 
-                boton.setOnAction(e -> controlador.obtenerArista(arista));
+                boton.setOnAction(e -> { controladorAcciones.obtenerArista(arista);
+                    controladorTablero.desactivarAristas(); });
             }
         }
     }
@@ -89,14 +92,41 @@ public class VistaTablero extends VBox {
         }
     }
 
-    public void ocultarTodo() {
+    public void ocultarVertices() {
         for (HexagonoControlador controlador : controladores) {
             controlador.ocultarVertices();
+        }
+    }
+
+    public void ocultarAristas() {
+        for (HexagonoControlador controlador : controladores) {
             controlador.ocultarAristas();
         }
     }
 
+    public void setControlador(TableroControlador controlador) {
+        this.controladorTablero = controlador;
+    }
+
     public void setControlador(AccionesTableroControlador controlador) {
-        this.controlador = controlador;
+        this.controladorAcciones = controlador;
+    }
+
+    public void dibujarPoblado(Vertice vertice, String color) {
+        for (VistaHexagono vista : vistasHexagonos) {
+            if (vista.contieneVertice(vertice)) {
+                vista.dibujarPobladoEn(vertice, color);
+                return;
+            }
+        }
+    }
+
+    public void dibujarCarretera(Arista arista, String color) {
+        for (VistaHexagono vista : vistasHexagonos) {
+            if (vista.contieneArista(arista)) {
+                vista.dibujarCarreteraEn(arista, color);
+                return;
+            }
+        }
     }
 }

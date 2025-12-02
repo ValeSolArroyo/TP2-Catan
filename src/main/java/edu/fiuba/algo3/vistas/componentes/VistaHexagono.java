@@ -1,12 +1,17 @@
 package edu.fiuba.algo3.vistas.componentes;
 
+import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Hexagono;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +23,14 @@ public class VistaHexagono extends StackPane {
             "Pastizal", "/images/utils/hexagono/pasto.png",
             "Campo", "/images/utils/hexagono/campo.png",
             "Montaña", "/images/utils/hexagono/montaña.png"
+    );
+    private static final Map<String, Color> colores = Map.of(
+            "Amarillo", Color.YELLOW,
+            "Verde", Color.GREEN,
+            "Azul", Color.BLUE,
+            "Rosa", Color.PINK,
+            "Rojo", Color.RED,
+            "Naranja", Color.ORANGE
     );
     private static final double ANCHO = 90;
     private static final double ALTO  = 125;
@@ -91,10 +104,6 @@ public class VistaHexagono extends StackPane {
             boton.setTranslateX(x);
             boton.setTranslateY(y);
 
-            boton.setOnAction(e -> {
-                //TODO
-            });
-
             botonesVertices.add(boton);
             this.getChildren().add(boton);
         }
@@ -120,10 +129,6 @@ public class VistaHexagono extends StackPane {
             boton.setTranslateY(y);
 
             boton.setRotate(rotaciones[i]);
-
-            boton.setOnAction(e -> {
-                //TODO
-            });
 
             botonesAristas.add(boton);
             this.getChildren().add(boton);
@@ -170,4 +175,44 @@ public class VistaHexagono extends StackPane {
         });
     }
 
+    public boolean contieneVertice(Vertice vertice) {
+        return hexagono.getVertices().contains(vertice);
+    }
+
+    public boolean contieneArista(Arista arista) {
+        return hexagono.getAristas().contains(arista);
+    }
+
+    public void dibujarPobladoEn(Vertice vertice, String color) {
+        Color colorDibujo = colores.get(color);
+        int idx = hexagono.getVertices().indexOf(vertice);
+        Button boton = botonesVertices.get(idx);
+
+        Circle circulo = new Circle(10);
+        circulo.setFill(colorDibujo);
+        circulo.setStroke(Color.BLACK);
+
+        circulo.setTranslateX(boton.getTranslateX());
+        circulo.setTranslateY(boton.getTranslateY());
+
+        this.getChildren().add(circulo);
+        circulo.toFront();
+    }
+
+    public void dibujarCarreteraEn(Arista arista, String color) {
+        Color colorDibujo = colores.get(color);
+        int idx = hexagono.getAristas().indexOf(arista);
+        Button boton = botonesAristas.get(idx);
+
+        Rectangle carretera = new Rectangle(6, 30);
+        carretera.setFill(colorDibujo);
+        carretera.setStroke(Color.BLACK);
+
+        carretera.setTranslateX(boton.getTranslateX());
+        carretera.setTranslateY(boton.getTranslateY());
+
+        carretera.setRotate(boton.getRotate());
+
+        this.getChildren().add(carretera);
+    }
 }
