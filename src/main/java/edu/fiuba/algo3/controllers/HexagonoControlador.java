@@ -13,25 +13,6 @@ public class HexagonoControlador {
     public HexagonoControlador(Hexagono hexagonoModelo, VistaHexagono vista) {
         this.vista = vista;
         this.hexagonoModelo = hexagonoModelo;
-        conectarBotonesAEventos();
-    }
-
-    private void conectarBotonesAEventos() {
-        for (int i = 0; i < vista.getBotonesVertices().size(); i++) {
-            Button boton = vista.getBotonesVertices().get(i);
-            Vertice vertice = hexagonoModelo.getVertices().get(i);
-
-            boton.setOnAction(e -> System.out.println("Click en vértice del modelo: " + vertice));
-            //sería la logica del modelo je (construir) pero queria chequear q se vincule ok
-        }
-
-        for (int i = 0; i < vista.getBotonesAristas().size(); i++) {
-            Button boton = vista.getBotonesAristas().get(i);
-            Arista arista = hexagonoModelo.getAristas().get(i);
-
-            boton.setOnAction(e -> System.out.println("Click en arista del modelo: " + arista));
-            //sería la logica del modelo je (construir)pero queria chequear q se vincule ok
-        }
     }
 
     public void mostrarVertices() {
@@ -42,8 +23,11 @@ public class HexagonoControlador {
         vista.mostrarAristas();
     }
 
-    public void ocultarTodo() {
+    public void ocultarVertices() {
         vista.ocultarVertices();
+    }
+
+    public void ocultarAristas() {
         vista.ocultarAristas();
     }
 }

@@ -2,6 +2,7 @@ package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.CambioTurnoControlador;
 import edu.fiuba.algo3.controllers.TableroControlador;
+import edu.fiuba.algo3.controllers.fasesJuego.PrimeraColocacionControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -37,9 +38,10 @@ public class VistaColocacionesIniciales extends BorderPane  {
 
         this.setTop(barraJugadores);
 
+        PrimeraColocacionControlador controladorPrimeraColocacion = new PrimeraColocacionControlador(stage, contenedor, juego);
         Tablero tablero = juego.getTablero();
-        VistaTablero vistaTablero = new VistaTablero(tablero);
-        TableroControlador controlador = new TableroControlador(tablero, vistaTablero);
+        VistaTablero vistaTablero = new VistaTablero(tablero, controladorPrimeraColocacion);
+        TableroControlador controladorTablero = new TableroControlador(tablero, vistaTablero);
 
         HBox contenedorCentro = new HBox(vistaTablero);
         contenedorCentro.setPadding(new Insets(0, 0, 10, 425));
@@ -59,23 +61,24 @@ public class VistaColocacionesIniciales extends BorderPane  {
         CambioTurnoControlador cambioTurno = new CambioTurnoControlador(stage, contenedor, juego);
         VistaTurnoActual vistaTurno = new VistaTurnoActual(cambioTurno);
 
-        BotonGenerico botonFinTurno = new BotonGenerico("Finalizar turno", "boton-fin-turno", 230, 45);
+        BotonGenerico botonFinColocaciones = new BotonGenerico("Finalizar colocaciones", "boton-fin-turno", 230, 45);
 
         HBox contenedorAbajo = new HBox(20);
         contenedorAbajo.setAlignment(Pos.CENTER_LEFT);
         contenedorAbajo.setPadding(new Insets(0, 0, 20, 95));
-        contenedorAbajo.getChildren().addAll(botonFinTurno, vistaTurno);
+        contenedorAbajo.getChildren().addAll(botonFinColocaciones, vistaTurno);
 
         HBox.setMargin(vistaTurno, new Insets(0, 0, 0, 200));
 
         this.setBottom(contenedorAbajo);
 
-        botonPoblado.setOnAction(e -> controlador.activarVertices());
-        botonCarretera.setOnAction(e -> controlador.activarAristas());
+        botonPoblado.setOnAction(e -> controladorTablero.activarVertices()
+        );
+        botonCarretera.setOnAction(e -> controladorTablero.activarAristas());
 
-        botonFinTurno.setOnAction(e -> {
-            controlador.desactivarTodo();
-            cambioTurno.activarAccionFinTurno();
+        botonFinColocaciones.setOnAction(e -> {
+            controladorTablero.desactivarTodo();
+            //controlador.activarAccionFinTurno();
         });
 
         Transicion.fade(this);

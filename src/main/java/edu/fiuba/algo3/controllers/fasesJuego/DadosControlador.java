@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.controllers;
+package edu.fiuba.algo3.controllers.fasesJuego;
 
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;

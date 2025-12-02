@@ -80,7 +80,7 @@ public class VistaHexagono extends StackPane {
         for (int i = 0; i < hexagono.getVertices().size(); i++) {
             Button boton = new Button();
 
-            boton.setPrefSize(10, 10);
+            boton.setPrefSize(12, 12);
             boton.getStyleClass().add("boton-vertice");
 
             StackPane.setAlignment(boton, Pos.CENTER);
@@ -136,6 +136,10 @@ public class VistaHexagono extends StackPane {
 
     public List<Button> getBotonesAristas() {
         return botonesAristas;
+    }
+
+    public Hexagono getHexagono() {
+        return hexagono;
     }
 
     public void ocultarVertices() {
