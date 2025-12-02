@@ -24,7 +24,6 @@ public class VistaTablero extends VBox {
     }
 
     private void construirTablero(Tablero tablero) {
-
         List<Hexagono> hexagonos = tablero.getHexagonos();
         int[] hexagonosPorFila = {3, 4, 5, 4, 3};
 
@@ -38,9 +37,9 @@ public class VistaTablero extends VBox {
             fila.setAlignment(Pos.CENTER);
 
             for (int i = 0; i < cantHexagonosPorFila; i++) {
-
-                VistaHexagono vista = new VistaHexagono(hexagonos.get(indiceHexagonos++));
-                HexagonoControlador controladorHexagono = new HexagonoControlador(vista);
+                Hexagono hexagono = hexagonos.get(indiceHexagonos++);
+                VistaHexagono vista = new VistaHexagono(hexagono);
+                HexagonoControlador controladorHexagono = new HexagonoControlador(hexagono, vista);
                 controladores.add(controladorHexagono);
 
                 fila.getChildren().add(vista);

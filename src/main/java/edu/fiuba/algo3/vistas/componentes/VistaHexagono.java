@@ -23,10 +23,12 @@ public class VistaHexagono extends StackPane {
     private static final double ALTO  = 125;
     private List<Button> botonesVertices;
     private List<Button> botonesAristas;
+    private Hexagono hexagono;
 
     public VistaHexagono(Hexagono hexagono) {
         botonesVertices = new java.util.ArrayList<>();
         botonesAristas = new java.util.ArrayList<>();
+        this.hexagono = hexagono;
 
         String terreno = hexagono.getTerreno();
         int ficha = hexagono.getFicha();
@@ -75,7 +77,7 @@ public class VistaHexagono extends StackPane {
         double[][] vertices = {{0.0, -0.90}, {0.90, -0.45}, {0.90, 0.45},
             {0.0, 0.90}, {-0.90, 0.45}, {-0.90, -0.45}};
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < hexagono.getVertices().size(); i++) {
             Button boton = new Button();
 
             boton.setPrefSize(10, 10);
@@ -104,7 +106,7 @@ public class VistaHexagono extends StackPane {
 
         double[] rotaciones = {135, 0, -135, 135, 0, -135};
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < hexagono.getAristas().size(); i++) {
             Button boton = new Button();
             boton.setPrefWidth(2);
             boton.getStyleClass().add("boton-arista");
@@ -126,6 +128,14 @@ public class VistaHexagono extends StackPane {
             botonesAristas.add(boton);
             this.getChildren().add(boton);
         }
+    }
+
+    public List<Button> getBotonesVertices() {
+        return botonesVertices;
+    }
+
+    public List<Button> getBotonesAristas() {
+        return botonesAristas;
     }
 
     public void ocultarVertices() {
