@@ -20,7 +20,11 @@ public class TableroControlador {
         vista.mostrarAristas();
     }
 
-    public void desactivarTodo() {
-        vista.ocultarTodo();
+    public void desactivarVertices() {
+        vista.ocultarVertices();
+    }
+
+    public void desactivarAristas() {
+        vista.ocultarAristas();
     }
 }
