@@ -209,3 +209,23 @@
     -fx-text-fill: #1c146a;
     -fx-font-family: "Minecraft";
 }
+
+.boton-vertice {
+    -fx-background-color: white;
+    -fx-background-radius: 10px
+}
+
+.boton-arista {
+    -fx-background-color: white;
+    -fx-background-radius: 5px;
+}
+
+.boton-vertice:hover,
+.boton-arista:hover {
+    -fx-cursor: hand;
+}
+
+.boton-vertice:pressed,
+.boton-arista:pressed {
+    -fx-opacity: 0.6;
+}
