@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.tests_unitarios;
+package edu.fiuba.algo3.tests_unitarios.tests_tablero;
 
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.construcciones.Carretera;
@@ -20,7 +20,7 @@ public class AristaTest {
         Vertice vertice2 = new Vertice();
         Arista arista = new Arista(vertice1, vertice2);
 
-        // Act y Assert
+        // Act & Assert
         assertTrue(arista.conectaVertices(vertice1, vertice2));
     }
 
@@ -32,7 +32,7 @@ public class AristaTest {
         Vertice vertice3 = new Vertice();
         Arista arista = new Arista(vertice1, vertice2);
 
-        // Act y Assert
+        // Act & Assert
         assertFalse(arista.conectaVertices(vertice1, vertice3));
         assertFalse(arista.conectaVertices(vertice2, vertice3));
     }
@@ -44,7 +44,7 @@ public class AristaTest {
         Vertice vertice2 = new Vertice();
         Arista arista = new Arista(vertice1, vertice2);
 
-        // Act y Assert
+        // Act & Assert
         assertTrue(arista.conectaVertices(vertice1, vertice2));
         assertTrue(arista.conectaVertices(vertice2, vertice1));
     }
@@ -58,7 +58,7 @@ public class AristaTest {
         Arista arista = new Arista(vertice1, vertice2);
         Poblado poblado = new Poblado(jugador);
 
-        // Act y Assert
+        // Act & Assert
         assertThrows(ConstruccionInvalidaError.class, () -> {
             arista.construirPoblado(jugador, poblado);
         });
@@ -73,7 +73,7 @@ public class AristaTest {
         Arista arista = new Arista(vertice1, vertice2);
         Ciudad ciudad = new Ciudad(jugador);
 
-        // Act y Assert
+        // Act & Assert
         assertThrows(ConstruccionInvalidaError.class, () -> {
             arista.construirCiudad(jugador, ciudad);
         });
@@ -90,7 +90,7 @@ public class AristaTest {
         Arista arista = new Arista(vertice1, vertice2);
         Carretera carretera = new Carretera(jugador);
 
-        // Act y Assert
+        // Act & Assert
         assertDoesNotThrow(() -> {
             arista.construirCarretera(jugador, carretera);
         });

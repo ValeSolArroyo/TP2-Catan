@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.tests_unitarios;
+package edu.fiuba.algo3.tests_unitarios.tests_comercio;
 
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.modelo.comercio.PuertoGenerico;
@@ -59,7 +59,7 @@ public class ComercioPuertoTest {
         jugador.recibirRecurso(madera1);
         jugador.recibirRecurso(madera2);
 
-        // Act y Assert
+        // Act & Assert
         assertThrows(ComercioInvalidoError.class, () -> {
             jugador.comerciarConPuerto(vertice, List.of(madera1, madera2), ladrilloDeseado);
         });
@@ -82,7 +82,7 @@ public class ComercioPuertoTest {
         jugador.recibirRecurso(ladrillo);
         jugador.recibirRecurso(lana);
 
-        // Act y Assert
+        // Act & Assert
         assertThrows(ComercioInvalidoError.class, () -> {
             jugador.comerciarConPuerto(vertice, List.of(madera, ladrillo, lana), granoDeseado);
         });
@@ -127,7 +127,7 @@ public class ComercioPuertoTest {
 
         jugador.recibirRecurso(madera);
 
-        // Act y Assert
+        // Act & Assert
         assertThrows(ComercioInvalidoError.class, () -> {
             jugador.comerciarConPuerto(vertice, List.of(madera), mineralDeseado);
         });
@@ -149,7 +149,7 @@ public class ComercioPuertoTest {
         jugador.recibirRecurso(madera);
         jugador.recibirRecurso(ladrillo);
 
-        // Act y Assert
+        // Act & Assert
         assertThrows(ComercioInvalidoError.class, () -> {
             jugador.comerciarConPuerto(vertice, List.of(madera, ladrillo), granoDeseado);
         });
@@ -171,7 +171,7 @@ public class ComercioPuertoTest {
         jugador.recibirRecurso(ladrillo1);
         jugador.recibirRecurso(ladrillo2);
 
-        // Act y Assert
+        // Act & Assert
         assertThrows(ComercioInvalidoError.class, () -> {
             jugador.comerciarConPuerto(vertice, List.of(ladrillo1, ladrillo2), granoDeseado);
         });
