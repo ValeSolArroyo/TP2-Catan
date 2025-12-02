@@ -1,8 +1,10 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.CambioTurnoControlador;
-import edu.fiuba.algo3.controllers.DadosControlador;
+import edu.fiuba.algo3.controllers.fasesJuego.DadosControlador;
+import edu.fiuba.algo3.controllers.fasesJuego.PrimeraColocacionControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.vistas.componentes.*;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonGenerico;
 import javafx.geometry.Insets;
@@ -33,7 +35,10 @@ public class VistaLanzarDados extends BorderPane {
         }
         this.setTop(barraJugadores);
 
-        VistaTablero vistaTablero = new VistaTablero(juego.getTablero());
+        Tablero tablero = juego.getTablero();
+        // todo: sacar
+        PrimeraColocacionControlador primeraColocacionControlador = new PrimeraColocacionControlador(stage, contenedor, juego);
+        VistaTablero vistaTablero = new VistaTablero(tablero, primeraColocacionControlador);
         this.setCenter(vistaTablero);
 
         CambioTurnoControlador cambioTurno = new CambioTurnoControlador(stage, contenedor, juego);

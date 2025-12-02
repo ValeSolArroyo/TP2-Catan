@@ -2,6 +2,7 @@ package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.CambioTurnoControlador;
 import edu.fiuba.algo3.controllers.TableroControlador;
+import edu.fiuba.algo3.controllers.fasesJuego.PrimeraColocacionControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -31,8 +32,9 @@ public class VistaJuegoGeneral extends BorderPane {
         this.setTop(barraJugadores);
 
         Tablero tablero = juego.getTablero();
-        // todo: no se por que si no lo pongo asi no me lo toma
-        VistaTablero vistaTablero = new VistaTablero(tablero);
+        // TODO: sacar
+        PrimeraColocacionControlador primeraColocacionControlador = new PrimeraColocacionControlador(stage, contenedor, juego);
+        VistaTablero vistaTablero = new VistaTablero(tablero, primeraColocacionControlador);
         TableroControlador controlador = new TableroControlador(tablero, vistaTablero);
 
         this.setCenter(vistaTablero);
