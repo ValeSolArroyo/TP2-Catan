@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas;
 
+import edu.fiuba.algo3.controllers.CambioTurnoControlador;
 import edu.fiuba.algo3.controllers.TableroControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
@@ -46,9 +47,6 @@ public class VistaJuegoGeneral extends BorderPane {
 
         botonesDerecha.getChildren().addAll(botonComerciar, botonConstruir, botonComprarCartas);
 
-        // TODO: terminar con los dados
-        //VistaDados contenedorDados = new VistaDados();
-        //botonesDerecha.getChildren().add(contenedorDados);
         this.setRight(botonesDerecha);
 
         BotonJuego botonJugarCarta =  new BotonJuego("Jugar carta");
@@ -59,12 +57,23 @@ public class VistaJuegoGeneral extends BorderPane {
 
         this.setLeft(contenedorArribaIzquierda);
 
-        BotonGenerico botonFinTurno = new BotonGenerico("Finalizar turno", "boton-fin-turno", 230, 45);
-        HBox contenedorAbajoIzquierda = new HBox(botonFinTurno);
-        contenedorAbajoIzquierda.setPadding(new Insets(0, 0, 20,95 ));
-        StackPane.setAlignment(botonFinTurno, Pos.BOTTOM_LEFT);
+        CambioTurnoControlador cambioTurno = new CambioTurnoControlador(stage, contenedor, juego);
+        VistaTurnoActual vistaTurno = new VistaTurnoActual(cambioTurno);
 
-        this.setBottom(contenedorAbajoIzquierda);
+        BotonGenerico botonFinTurno = new BotonGenerico("Finalizar turno", "boton-fin-turno", 230, 45);
+
+        HBox contenedorAbajo = new HBox(20);
+        contenedorAbajo.setAlignment(Pos.CENTER_LEFT);
+        contenedorAbajo.setPadding(new Insets(0, 0, 20, 95));
+        contenedorAbajo.getChildren().addAll(botonFinTurno, vistaTurno);
+
+        HBox.setMargin(vistaTurno, new Insets(0, 0, 0, 200));
+
+        this.setBottom(contenedorAbajo);
+
+        botonFinTurno.setOnAction(e -> {
+            cambioTurno.activarAccionFinTurno();
+        });
 
         Transicion.fade(this);
     }

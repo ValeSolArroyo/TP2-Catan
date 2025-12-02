@@ -89,14 +89,13 @@ public class Juego {
         }
     }
 
-    public int lanzarDados() {
+    public void lanzarDados() {
         int resultado = dado.lanzarDados();
         if (resultado != 7) {
             this.producirRecursos(resultado);
         } else {
             this.descartePorLadron();
         }
-        return resultado;
     }
 
     public void descartePorLadron() {
@@ -168,4 +167,8 @@ public class Juego {
     }
 
     public Tablero getTablero() { return tablero; }
+
+    public Dado getDado() {
+        return this.dado;
+    }
 }
