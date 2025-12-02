@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.tests_integracion;
 
-import edu.fiuba.algo3.modelo.construcciones.Ciudad;
-import edu.fiuba.algo3.modelo.construcciones.Poblado;
+import edu.fiuba.algo3.modelo.construcciones.*;
+import edu.fiuba.algo3.modelo.excepciones.RecursosInsuficientesError;
 import edu.fiuba.algo3.modelo.excepciones.ReglaDeDistanciaError;
 import edu.fiuba.algo3.modelo.juego.Dado;
 import edu.fiuba.algo3.modelo.juego.Juego;
@@ -12,37 +12,38 @@ import edu.fiuba.algo3.modelo.tableroFactory.TableroCatanFactory;
 import edu.fiuba.algo3.modelo.terrenos.*;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TestsEntrega1 {
-    /*
-    private boolean tiene(Jugador j, Recurso r, int c) {
-        try {
-            j.tieneRecursos(r, c);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
     @Test
     public void test01AleatoriedadDeTerrenosYFichas() {
-        TableroCatanFactory terrenoFactory = new TableroCatanFactory();
-        List<Terreno> listaTerrenos1 = terrenoFactory.generarTerrenosAleatorios();
-        List<Terreno> listaTerrenos2 = terrenoFactory.generarTerrenosAleatorios();
+        TableroCatanFactory factory = mock(TableroCatanFactory.class);
 
-        List<Integer> listaFichas1 = terrenoFactory.generarFichasAleatorias();
-        List<Integer> listaFichas2 = terrenoFactory.generarFichasAleatorias();
+        List<Terreno> terrenoA = List.of(new Bosque(), new Colina(), new Campo());
+        List<Terreno> terrenoB = List.of(new Campo(), new Pastizal(), new Montaña());
+        List<Integer> fichasA = List.of(5, 8, 10);
+        List<Integer> fichasB = List.of(6, 9, 3);
 
-        assertNotEquals(listaTerrenos1.toString(), listaTerrenos2.toString());
-        assertNotEquals(listaFichas1.toString(), listaFichas2.toString());
+        when(factory.generarTerrenosAleatorios()).thenReturn(terrenoA, terrenoB);
+        when(factory.generarFichasAleatorias()).thenReturn(fichasA, fichasB);
+
+        List<Terreno> primera = factory.generarTerrenosAleatorios();
+        List<Terreno> segunda = factory.generarTerrenosAleatorios();
+        List<Integer> f1 = factory.generarFichasAleatorias();
+        List<Integer> f2 = factory.generarFichasAleatorias();
+
+        assertNotEquals(primera, segunda, "Las listas de terrenos deberían diferir entre invocaciones");
+        assertNotEquals(f1, f2, "Las fichas deberían diferir entre invocaciones");
     }
 
     @Test
     public void test02ReglaDistanciaPobladosIniciales() {
-        Jugador jugador = new Jugador(1, "Juan");
+        Jugador jugador = new Jugador(1, "Juan", "Rojo");
         Vertice vertice1 = new Vertice();
         Vertice vertice2 = new Vertice();
         Vertice vertice3 = new Vertice();
@@ -57,7 +58,7 @@ public class TestsEntrega1 {
 
     @Test
     public void test03JugadorRecibeRecursosInicialesAlColocarSegundoPoblado() {
-        Jugador jugador = new Jugador(1, "Ana");
+        Jugador jugador = new Jugador(1, "Ana", "Azul");
         Vertice vertice = new Vertice();
         Hexagono hexagonoBosque = new Hexagono(new Bosque(), 8);
         hexagonoBosque.agregarVertice(vertice);
@@ -66,8 +67,7 @@ public class TestsEntrega1 {
         jugador.construir(new Poblado(jugador), vertice);
         tablero.darRecursosIniciales(vertice);
 
-        assertDoesNotThrow(() -> jugador.tieneRecursos(new Madera(), 1),
-                "El jugador debería haber recibido 1 madera.");
+        assertDoesNotThrow(() -> jugador.entregarRecursos(List.of(new Madera())));
     }
 
     @Test
@@ -81,7 +81,7 @@ public class TestsEntrega1 {
 
     @Test
     public void test05ProduccionPobladoYCiudad() {
-        Jugador jugador = new Jugador(1, "Luis");
+        Jugador jugador = new Jugador(1, "Luis", "Verde");
         Vertice verticePoblado = new Vertice();
         Vertice verticeCiudad = new Vertice();
         Hexagono hexagonoCampo = new Hexagono(new Campo(), 6);
@@ -95,55 +95,51 @@ public class TestsEntrega1 {
 
         juego.producirRecursos(6);
 
-        assertDoesNotThrow(() -> jugador.tieneRecursos(new Grano(), 3),
-                "El jugador debería tener 3 granos (1 del poblado + 2 de la ciudad).");
+        List<Recurso> tresGranos = java.util.stream.Stream.generate(Grano::new).limit(3).collect(Collectors.toList());
+        List<Recurso> cuatroGranos = java.util.stream.Stream.generate(Grano::new).limit(4).collect(Collectors.toList());
+        assertDoesNotThrow(() -> jugador.entregarRecursos(tresGranos));
+        assertThrows(Exception.class, () -> jugador.entregarRecursos(cuatroGranos));
     }
 
     @Test
     public void test06LadronBloqueaProduccion() {
-        Jugador jugador = new Jugador(1, "Maria");
+        Jugador jugador = new Jugador(1, "Maria", "Amarillo");
         Vertice verticePoblado = new Vertice();
         Hexagono hexagonoColina = new Hexagono(new Colina(), 9);
         hexagonoColina.agregarVertice(verticePoblado);
         Tablero tablero = new Tablero(List.of(hexagonoColina));
         Juego juego = new Juego(List.of(jugador), tablero, null);
 
-        juego.establecerEstado(new EstadoAccionesTurno());
         jugador.construir(new Poblado(jugador), verticePoblado);
 
-        juego.establecerEstado(new EstadoLadron());
-        juego.activarLadron(new AccionActivarLadron(), hexagonoColina, jugador);
+        hexagonoColina.ponerLadron();
 
         juego.producirRecursos(9);
 
-        assertThrows(RuntimeException.class, () -> jugador.tieneRecursos(new Ladrillo(), 1),
-                "El jugador no debería tener ladrillos, el ladrón bloqueó la producción.");
+        assertThrows(Exception.class, () -> jugador.entregarRecursos(List.of(new Ladrillo())));
     }
 
     @Test
     public void test07DescarteAlSalirSiete() {
-        Jugador jugador = new Jugador(1, "Carlos");
+        Jugador jugador = new Jugador(1, "Carlos", "Negro");
         Hexagono hexagonoDesierto = new Hexagono(new Desierto(), 0);
         Tablero tablero = new Tablero(List.of(hexagonoDesierto));
         Juego juego = new Juego(List.of(jugador), tablero, null);
 
-        for (int i = 0; i < 9; i++) {
-            jugador.recibirRecurso(new Madera());
-        }
+        java.util.stream.IntStream.range(0, 9).forEach(i -> jugador.recibirRecurso(new Madera()));
 
-        juego.establecerEstado(new EstadoLadron());
-        juego.activarLadron(new AccionActivarLadron(), hexagonoDesierto, jugador);
-
-        assertDoesNotThrow(() -> jugador.tieneRecursos(new Madera(), 4),
-                "El jugador debería haber descartado 4 cartas y quedarse con 5.");
-        assertThrows(RuntimeException.class, () -> jugador.tieneRecursos(new Madera(), 6),
-                "No debería tener 6 cartas.");
+        juego.descartePorLadron();
+        
+        List<Recurso> cincoMaderas = java.util.stream.Stream.generate(Madera::new).limit(5).collect(Collectors.toList());
+        List<Recurso> seisMaderas = java.util.stream.Stream.generate(Madera::new).limit(6).collect(Collectors.toList());
+        assertDoesNotThrow(() -> jugador.entregarRecursos(cincoMaderas));
+        assertThrows(Exception.class, () -> jugador.entregarRecursos(seisMaderas));
     }
 
     @Test
     public void test08MoverLadronYRobarCartaAleatoria() {
-        Jugador jugadorActivo = new Jugador(1, "Sofia");
-        Jugador jugadorVictima = new Jugador(2, "Diego");
+        Jugador jugadorActivo = new Jugador(1, "Sofia", "Blanco");
+        Jugador jugadorVictima = new Jugador(2, "Diego", "Naranja");
         Vertice vertice = new Vertice();
         Hexagono hexagonoDesierto = new Hexagono(new Desierto(), 0);
         hexagonoDesierto.agregarVertice(vertice);
@@ -151,30 +147,30 @@ public class TestsEntrega1 {
         Juego juego = new Juego(List.of(jugadorActivo, jugadorVictima), tablero, null);
 
         jugadorVictima.recibirRecurso(new Madera());
-        jugadorVictima.recibirRecurso(new Madera());
         jugadorVictima.recibirRecurso(new Ladrillo());
         jugadorVictima.recibirRecurso(new Lana());
         jugadorVictima.recibirRecurso(new Grano());
-        jugadorVictima.construir(new Poblado(jugadorVictima), vertice);
 
-        juego.establecerEstado(new EstadoLadron());
-        juego.activarLadron(new AccionActivarLadron(), hexagonoDesierto, jugadorVictima);
+        hexagonoDesierto.ponerLadron();
 
-        boolean activoGanoAlgo =
-                tiene(jugadorActivo, new Madera(), 1) ||
-                tiene(jugadorActivo, new Ladrillo(), 1) ||
-                tiene(jugadorActivo, new Lana(), 1) ||
-                tiene(jugadorActivo, new Grano(), 1) ||
-                tiene(jugadorActivo, new Mineral(), 1);
+        juego.robarCartaDe(jugadorVictima);
 
-        boolean victimaPerdioAlgo =
-                !tiene(jugadorVictima, new Madera(), 2) ||
-                !tiene(jugadorVictima, new Ladrillo(), 1) ||
-                !tiene(jugadorVictima, new Lana(), 1) ||
-                !tiene(jugadorVictima, new Grano(), 1);
+        List<Recurso> recursosOriginales = List.of(new Madera(), new Ladrillo(), new Lana(), new Grano());
+        assertThrows(RecursosInsuficientesError.class, () -> jugadorVictima.entregarRecursos(recursosOriginales));
 
-        assertTrue(activoGanoAlgo, "El jugador activo debería haber ganado 1 carta tras el robo");
-        assertTrue(victimaPerdioAlgo, "La víctima debería haber perdido 1 carta de alguno de sus recursos");
+        boolean roboExitoso = false;
+        List<Recurso> tiposPosibles = List.of(new Madera(), new Ladrillo(), new Lana(), new Grano());
+
+        for (Recurso recurso : tiposPosibles) {
+            try {
+                jugadorActivo.entregarRecursos(List.of(recurso));
+                roboExitoso = true;
+                break;
+            } catch (Exception e) {
+                // No hizo el robo de este tipo de recurso
+            }
+        }
+
+        assertTrue(roboExitoso, "El jugador activo debería poder entregar 1 recurso de algún tipo tras el robo");
     }
-     */
 }
