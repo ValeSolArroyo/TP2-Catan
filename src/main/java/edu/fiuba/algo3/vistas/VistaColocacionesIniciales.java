@@ -13,9 +13,18 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class VistaColocacionesIniciales extends BorderPane  {
-    public VistaColocacionesIniciales(Juego juego) {
+    private Juego juego;
+    private Stage stage;
+    private ContenedorPrincipalVistas contenedor;
+
+    public VistaColocacionesIniciales(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego) {
+        this.stage = stage;
+        this.contenedor = contenedor;
+        this.juego = juego;
+
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_sin_cartas.jpg"));
         HBox barraJugadores = new HBox(20);
         barraJugadores.setAlignment(Pos.CENTER);
@@ -47,7 +56,7 @@ public class VistaColocacionesIniciales extends BorderPane  {
         botonesDerecha.getChildren().addAll(botonPoblado, botonCarretera);
         this.setRight(botonesDerecha);
 
-        CambioTurnoControlador cambioTurno = new CambioTurnoControlador(juego);
+        CambioTurnoControlador cambioTurno = new CambioTurnoControlador(stage, contenedor, juego);
         VistaTurnoActual vistaTurno = new VistaTurnoActual(cambioTurno);
 
         BotonGenerico botonFinTurno = new BotonGenerico("Finalizar turno", "boton-fin-turno", 230, 45);
