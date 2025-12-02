@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.tests_unitarios;
+package edu.fiuba.algo3.tests_unitarios.tests_tablero;
 
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
@@ -20,7 +20,7 @@ public class VerticeTest {
         Vertice vertice3 = new Vertice();
         Vertice vertice4 = new Vertice();
 
-        // Act y Assert
+        // Act & Assert
         assertDoesNotThrow(() -> vertice1.agregarVecino(vertice2));
         assertDoesNotThrow(() -> vertice1.agregarVecino(vertice3));
         assertDoesNotThrow(() -> vertice1.agregarVecino(vertice4));
@@ -33,7 +33,7 @@ public class VerticeTest {
         Vertice vertice = new Vertice();
         Poblado poblado = new Poblado(jugador);
 
-        // Act y Assert
+        // Act & Assert
         assertDoesNotThrow(() -> vertice.construirPoblado(jugador, poblado));
     }
 
@@ -45,7 +45,7 @@ public class VerticeTest {
         Ciudad ciudad = new Ciudad(jugador);
         vertice.construirPoblado(jugador, new Poblado(jugador));
 
-        // Act y Assert
+        // Act & Assert
         assertDoesNotThrow(() -> vertice.construirCiudad(jugador, ciudad));
     }
 
@@ -56,11 +56,10 @@ public class VerticeTest {
         Vertice vertice = new Vertice();
         Carretera carretera = new Carretera(jugador);
 
-        // Act y Assert
+        // Act & Assert
         assertThrows(ConstruccionInvalidaError.class, () ->
                 vertice.construirCarretera(jugador, carretera)
         );
     }
-
 }
 
