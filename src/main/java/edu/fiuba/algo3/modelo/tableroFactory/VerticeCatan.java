@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 
+// Configuracion específica para esta versión de Catan
+
 public class VerticeCatan {
 
     private final List<Vertice> todosLosVertices;

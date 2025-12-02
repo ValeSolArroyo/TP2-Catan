@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TestsEntrega1 {
+public class TestEntrega1 {
     @Test
     public void test01AleatoriedadDeTerrenosYFichas() {
         TableroCatanFactory factory = mock(TableroCatanFactory.class);
