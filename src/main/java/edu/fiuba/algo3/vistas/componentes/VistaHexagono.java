@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas.componentes;
 
+import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -7,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
+import java.util.List;
 import java.util.Map;
 
 public class VistaHexagono extends StackPane {
@@ -19,8 +21,25 @@ public class VistaHexagono extends StackPane {
     );
     private static final double ANCHO = 90;
     private static final double ALTO  = 125;
+    private List<Button> botonesVertices;
+    private List<Button> botonesAristas;
 
-    public VistaHexagono(String terreno, int ficha) {
+    public VistaHexagono(Hexagono hexagono) {
+        botonesVertices = new java.util.ArrayList<>();
+        botonesAristas = new java.util.ArrayList<>();
+
+        String terreno = hexagono.getTerreno();
+        int ficha = hexagono.getFicha();
+        mostrarImagen(terreno, ficha);
+
+        crearBotonesVertices();
+        crearBotonesAristas();
+
+        ocultarVertices();
+        ocultarAristas();
+    }
+
+    private void mostrarImagen(String terreno, int ficha) {
         String ruta;
 
         if (rutasImagenes.containsKey(terreno)) {
@@ -51,26 +70,16 @@ public class VistaHexagono extends StackPane {
 
             this.getChildren().add(ladron);
         }
-
-        crearBotonesVertices();
-        crearBotonesAristas();
     }
-
     private void crearBotonesVertices() {
-        double[][] vertices = {
-            {0.0, -0.90},
-            {0.90, -0.45},
-            {0.90, 0.45},
-            {0.0, 0.90},
-            {-0.90, 0.45},
-            {-0.90, -0.45}
-        };
+        double[][] vertices = {{0.0, -0.90}, {0.90, -0.45}, {0.90, 0.45},
+            {0.0, 0.90}, {-0.90, 0.45}, {-0.90, -0.45}};
 
         for (int i = 0; i < 6; i++) {
             Button boton = new Button();
 
             boton.setPrefSize(10, 10);
-            boton.setStyle("-fx-background-color: white; -fx-background-radius: 10px");
+            boton.getStyleClass().add("boton-vertice");
 
             StackPane.setAlignment(boton, Pos.CENTER);
 
@@ -84,49 +93,67 @@ public class VistaHexagono extends StackPane {
                 //TODO
             });
 
+            botonesVertices.add(boton);
             this.getChildren().add(boton);
         }
     }
 
     private void crearBotonesAristas() {
-        double[][] aristas = {
-            {0.55, -0.70},
-            {0.90, 0.00},
-            {0.55, 0.70},
-            {-0.55, 0.70},
-            {-0.90, 0.00},
-            {-0.55, -0.70}
-        };
+        double[][] aristas = {{0.55, -0.70}, {0.90, 0.00}, {0.55, 0.70},
+            {-0.55, 0.70}, {-0.90, 0.00}, {-0.55, -0.70}};
 
-        double[] rotaciones = {
-            135,
-            0,
-            -135,
-            135,
-            0,
-            -135
-        };
+        double[] rotaciones = {135, 0, -135, 135, 0, -135};
 
         for (int i = 0; i < 6; i++) {
-            Button arista = new Button();
-            arista.setPrefWidth(2);
-            arista.setStyle("-fx-background-color: white; -fx-background-radius: 5px;");
+            Button boton = new Button();
+            boton.setPrefWidth(2);
+            boton.getStyleClass().add("boton-arista");
 
-            StackPane.setAlignment(arista, Pos.CENTER);
+            StackPane.setAlignment(boton, Pos.CENTER);
 
             double x = aristas[i][0] * ANCHO / 2;
             double y = aristas[i][1] * ALTO / 2;
 
-            arista.setTranslateX(x);
-            arista.setTranslateY(y);
+            boton.setTranslateX(x);
+            boton.setTranslateY(y);
 
-            arista.setRotate(rotaciones[i]);
+            boton.setRotate(rotaciones[i]);
 
-            arista.setOnAction(e -> {
+            boton.setOnAction(e -> {
                 //TODO
             });
 
-            this.getChildren().add(arista);
+            botonesAristas.add(boton);
+            this.getChildren().add(boton);
         }
     }
+
+    public void ocultarVertices() {
+        botonesVertices.forEach(boton -> {
+            boton.setOpacity(0);
+            boton.setDisable(true);
+        });
+    }
+
+    public void ocultarAristas() {
+        botonesAristas.forEach(boton -> {
+            boton.setOpacity(0);
+            boton.setDisable(true);
+        });
+    }
+
+    public void mostrarVertices() {
+        botonesVertices.forEach(boton -> {
+            boton.setOpacity(1);
+            boton.setDisable(false);
+        });
+    }
+
+    public void mostrarAristas() {
+        botonesAristas.forEach(boton -> {
+            boton.setOpacity(1);
+            boton.setDisable(false);
+        });
+    }
+
 }
