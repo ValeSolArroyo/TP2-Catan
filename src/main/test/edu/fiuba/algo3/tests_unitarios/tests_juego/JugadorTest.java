@@ -1,4 +1,4 @@
-package main.test.edu.fiuba.algo3.tests_unitarios.tests_juego;
+package edu.fiuba.algo3.tests_unitarios.tests_juego;
 
 import edu.fiuba.algo3.modelo.construcciones.Carretera;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
