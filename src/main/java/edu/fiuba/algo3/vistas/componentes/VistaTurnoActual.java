@@ -19,14 +19,13 @@ public class VistaTurnoActual extends HBox implements Observador {
 
         fondo = new Rectangle(200, 40);
         fondo.setFill(Color.LIGHTBLUE);
-        fondo.setStroke(Color.BLACK);
         fondo.setStrokeWidth(4);
         fondo.setArcWidth(10);
         fondo.setArcHeight(10);
 
         texto = new Label("");
         texto.setPadding(new Insets(5));
-        texto.setStyle("-fx-font-weight: bold; -fx-font-size: 18px; -fx-font-family: 'Minecraft';");
+        texto.getStyleClass().add("info-turno");
 
         this.setAlignment(Pos.CENTER);
         this.getChildren().addAll(fondo, texto);

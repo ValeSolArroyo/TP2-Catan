@@ -5,7 +5,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -55,8 +54,7 @@ public class VistaVertices extends StackPane {
             for (Vertice vertice : fila) {
                 Button boton = new Button();
                 boton.setPrefSize(20, 20);
-
-                boton.setStyle("-fx-background-color: white; -fx-background-radius: 15;");
+                boton.getStyleClass().add("boton-colocacion-vertice");
 
                 boton.setOnAction(e -> {
                             System.out.println("Boton " + vertice.getId());

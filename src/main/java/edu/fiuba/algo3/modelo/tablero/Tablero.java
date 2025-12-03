@@ -48,12 +48,15 @@ public class Tablero {
         return vertices;
     }
 
-    public List<Arista> getAristas() {
-        Set<Arista> aristas = new HashSet<>();
+    public Map<Integer, Arista> getAristas() {
+        Map<Integer, Arista> aristas = new HashMap<>();
+
         for (Hexagono hexagono : hexagonos) {
-            aristas.addAll(hexagono.getAristas());
+            for (Arista arista : hexagono.getAristas()) {
+                aristas.put(arista.getId(), arista);
+            }
         }
-        return new ArrayList<>(aristas);
+        return aristas;
     }
 }
 
