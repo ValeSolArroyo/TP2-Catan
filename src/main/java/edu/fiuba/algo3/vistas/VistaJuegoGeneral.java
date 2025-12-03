@@ -31,7 +31,6 @@ public class VistaJuegoGeneral extends BorderPane {
         this.setTop(barraJugadores);
 
         Tablero tablero = juego.getTablero();
-        // TODO: sacar
         VistaTablero vistaTablero = new VistaTablero(tablero);
         TableroControlador controlador = new TableroControlador(tablero, vistaTablero);
 
