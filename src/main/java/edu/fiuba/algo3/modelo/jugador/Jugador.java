@@ -8,13 +8,15 @@ import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.modelo.observer.Observable;
+import javafx.scene.paint.Color;
 
 import java.util.*;
+import java.util.List;
 
 public class Jugador extends Observable {
     private final int id;
     private final String nombre;
-    private final String color;
+    private final Color color;
     private int puntosVictoria;
     private int puntosVictoriaCartaDesarrollo;
     private final Inventario inventario;
@@ -24,7 +26,7 @@ public class Jugador extends Observable {
     private int cartasCaballeroJugadas;
 
 
-    public Jugador(int id, String nombre, String color) {
+    public Jugador(int id, String nombre, Color color) {
         this.id = id;
         this.nombre = nombre;
         this.color = color;
@@ -140,7 +142,7 @@ public class Jugador extends Observable {
 
     public String getNombre() { return this.nombre; }
 
-    public String getColor() {
+    public Color getColor() {
         return this.color;
     }
 

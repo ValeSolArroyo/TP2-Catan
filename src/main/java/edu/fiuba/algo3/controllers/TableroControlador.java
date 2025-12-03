@@ -11,20 +11,4 @@ public class TableroControlador {
         this.tablero = tablero;
         this.vista = vista;
     }
-
-    public void activarVertices() {
-        vista.mostrarVertices();
-    }
-
-    public void activarAristas() {
-        vista.mostrarAristas();
-    }
-
-    public void desactivarVertices() {
-        vista.ocultarVertices();
-    }
-
-    public void desactivarAristas() {
-        vista.ocultarAristas();
-    }
 }

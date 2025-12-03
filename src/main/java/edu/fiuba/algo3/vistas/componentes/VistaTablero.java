@@ -1,132 +1,87 @@
 package edu.fiuba.algo3.vistas.componentes;
 
-import edu.fiuba.algo3.controllers.HexagonoControlador;
-import edu.fiuba.algo3.controllers.TableroControlador;
-import edu.fiuba.algo3.controllers.fasesJuego.AccionesTableroControlador;
-import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.tablero.Vertice;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VistaTablero extends VBox {
-    private List<HexagonoControlador> controladores = new ArrayList<>();
+public class VistaTablero extends StackPane {
+    private VBox capaHexagonos;
+    private VBox capaVertices;
+    private VBox capaAristas;
+
+
     private List<VistaHexagono> vistasHexagonos = new ArrayList<>();
-    private AccionesTableroControlador controladorAcciones;
-    private TableroControlador controladorTablero;
 
     public VistaTablero(Tablero tablero) {
-        super(-38);
+        capaHexagonos = new VBox(-38);
+        capaHexagonos.setAlignment(Pos.CENTER);
+        capaHexagonos.setPadding(new Insets(25, 85, 0, 5));
 
-        this.setAlignment(Pos.CENTER);
-        this.setPadding(new Insets(25, 85, 0, 5));
+        construirHexagonos(tablero);
 
-        construirTablero(tablero);
-        conectarBotonesAEventos();
+        capaVertices = new VBox();
+        capaVertices.setTranslateX(-40);
+        capaVertices.setTranslateY(28);
+        construirVertices();
+
+        this.getChildren().addAll(capaHexagonos, capaVertices, capaAristas);
     }
 
-    private void construirTablero(Tablero tablero) {
+    private void construirHexagonos(Tablero tablero) {
         List<Hexagono> hexagonos = tablero.getHexagonos();
         int[] hexagonosPorFila = {3, 4, 5, 4, 3};
-
         int indiceHexagonos = 0;
 
         for (int filaHexagonos = 0; filaHexagonos < hexagonosPorFila.length; filaHexagonos++) {
-
             int cantHexagonosPorFila = hexagonosPorFila[filaHexagonos];
-
             HBox fila = new HBox(-5);
             fila.setAlignment(Pos.CENTER);
 
             for (int i = 0; i < cantHexagonosPorFila; i++) {
                 Hexagono hexagono = hexagonos.get(indiceHexagonos++);
                 VistaHexagono vista = new VistaHexagono(hexagono);
-                HexagonoControlador controladorHexagono = new HexagonoControlador(hexagono, vista);
                 vistasHexagonos.add(vista);
-                controladores.add(controladorHexagono);
-
                 fila.getChildren().add(vista);
             }
 
-            this.getChildren().add(fila);
+            capaHexagonos.getChildren().add(fila);
         }
     }
 
-    private void conectarBotonesAEventos() {
-        for (VistaHexagono vista : vistasHexagonos) {
-            Hexagono hexagono = vista.getHexagono();
-            for (int i = 0; i < vista.getBotonesVertices().size(); i++) {
-                Button boton = vista.getBotonesVertices().get(i);
-                Vertice vertice = hexagono.getVertices().get(i);
+    private void construirVertices() {
+        int[] verticesPorFila = {3, 4, 4, 5, 5, 6, 6, 5, 5, 4, 4, 3};
+        for (int cantVertices : verticesPorFila) {
+            HBox filaVertices = new HBox();
+            filaVertices.setAlignment(Pos.CENTER);
 
-                boton.setOnAction(e -> { controladorAcciones.obtenerVertice(vertice);
-                    controladorTablero.desactivarVertices();});
+            filaVertices.setSpacing(70);
+            filaVertices.setPadding(new Insets(7, 0, 8, 0));
+
+            for (int i = 0; i < cantVertices; i++) {
+                Button botonVertice = crearBotonVertice();
+                filaVertices.getChildren().add(botonVertice);
             }
 
-            for (int i = 0; i < vista.getBotonesAristas().size(); i++) {
-                Button boton = vista.getBotonesAristas().get(i);
-                Arista arista = hexagono.getAristas().get(i);
-
-                boton.setOnAction(e -> { controladorAcciones.obtenerArista(arista);
-                    controladorTablero.desactivarAristas(); });
-            }
+            capaVertices.getChildren().add(filaVertices);
         }
     }
 
-    public void mostrarVertices() {
-        for (HexagonoControlador controlador : controladores) {
-            controlador.mostrarVertices();
-        }
-    }
+    private Button crearBotonVertice() {
+        Button boton = new Button();
+        boton.setPrefSize(14, 14);
+        boton.setStyle("-fx-background-radius: 10; -fx-background-color: white;");
 
-    public void mostrarAristas() {
-        for (HexagonoControlador controlador : controladores) {
-            controlador.mostrarAristas();
-        }
-    }
+        // cuando tengamos el controlador!!!
+        // boton.setOnAction(e -> controladorSeleccionarVertice(...));
 
-    public void ocultarVertices() {
-        for (HexagonoControlador controlador : controladores) {
-            controlador.ocultarVertices();
-        }
-    }
-
-    public void ocultarAristas() {
-        for (HexagonoControlador controlador : controladores) {
-            controlador.ocultarAristas();
-        }
-    }
-
-    public void setControlador(TableroControlador controlador) {
-        this.controladorTablero = controlador;
-    }
-
-    public void setControlador(AccionesTableroControlador controlador) {
-        this.controladorAcciones = controlador;
-    }
-
-    public void dibujarPoblado(Vertice vertice, String color) {
-        for (VistaHexagono vista : vistasHexagonos) {
-            if (vista.contieneVertice(vertice)) {
-                vista.dibujarPobladoEn(vertice, color);
-                return;
-            }
-        }
-    }
-
-    public void dibujarCarretera(Arista arista, String color) {
-        for (VistaHexagono vista : vistasHexagonos) {
-            if (vista.contieneArista(arista)) {
-                vista.dibujarCarreteraEn(arista, color);
-                return;
-            }
-        }
+        return boton;
     }
 }

@@ -9,20 +9,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.util.Map;
-
 public class VistaTurnoActual extends HBox implements Observador {
     private final Label texto;
     private final Rectangle fondo;
     private CambioTurnoControlador controlador;
-    private static final Map<String, Color> colores = Map.of(
-            "Amarillo", Color.YELLOW,
-            "Verde", Color.GREEN,
-            "Azul", Color.BLUE,
-            "Rosa", Color.PINK,
-            "Rojo", Color.RED,
-            "Naranja", Color.ORANGE
-    );
 
     public VistaTurnoActual(CambioTurnoControlador controlador) {
         this.controlador = controlador;
@@ -50,8 +40,7 @@ public class VistaTurnoActual extends HBox implements Observador {
     @Override
     public void actualizar() {
         texto.setText("Turno de " + controlador.getNombreJugadorActual());
-        String colorString = controlador.getColorJugadorActual();
-        Color colorJugador = colores.get(colorString);
+        Color colorJugador = controlador.getColorJugadorActual();
         fondo.setStroke(colorJugador);
     }
 }

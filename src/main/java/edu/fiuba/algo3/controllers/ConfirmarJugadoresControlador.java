@@ -11,12 +11,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 
@@ -25,6 +23,9 @@ public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> 
     private ContenedorPrincipalVistas contenedor;
     private List<TextField> nombres;
     private List<ComboBox<String>> colores;
+    private static final Map<String, Color> opcionesColores = Map.of("Amarillo", Color.YELLOW,
+            "Verde", Color.GREEN, "Azul", Color.BLUE, "Rosa", Color.PINK,
+            "Rojo", Color.RED, "Naranja", Color.ORANGE);
 
     public ConfirmarJugadoresControlador(Stage stage, ContenedorPrincipalVistas contenedor, List<TextField> nombres, List<ComboBox<String>> colores) {
         this.stage = stage;
@@ -64,7 +65,9 @@ public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> 
 
         List<Jugador> jugadores = new ArrayList<>();
         for (int i = 0; i < listaNombres.size(); i++) {
-            Jugador jugador = new Jugador(i, listaNombres.get(i), listaColores.get(i));
+            String nombre = listaNombres.get(i);
+            Color color = opcionesColores.get(listaColores.get(i));
+            Jugador jugador = new Jugador(i, nombre, color);
             jugadores.add(jugador);
         }
 
