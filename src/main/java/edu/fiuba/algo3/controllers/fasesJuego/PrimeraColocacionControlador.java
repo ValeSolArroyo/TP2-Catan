@@ -13,7 +13,6 @@ public class PrimeraColocacionControlador implements FaseJuegoControlador, Accio
     private Juego juego;
     private Stage stage;
     private ContenedorPrincipalVistas contenedor;
-    private VistaTablero vistaTablero;
 
     private Vertice vertice;
     private Arista arista;
@@ -22,7 +21,6 @@ public class PrimeraColocacionControlador implements FaseJuegoControlador, Accio
         this.juego = juego;
         this.stage = stage;
         this.contenedor = contenedor;
-        this.vistaTablero = vistaTablero;
 
     }
 
@@ -32,8 +30,6 @@ public class PrimeraColocacionControlador implements FaseJuegoControlador, Accio
         AccionPrimeraColocacion primeraColocacion = new AccionPrimeraColocacion(this.juego, this.vertice, this.arista);
         juego.ejecutarAccion(primeraColocacion);
 
-        vistaTablero.dibujarPoblado(vertice, jugador.getColor());
-        vistaTablero.dibujarCarretera(arista, jugador.getColor());
     }
 
     @Override

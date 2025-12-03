@@ -42,10 +42,6 @@ public class VistaColocacionesIniciales extends BorderPane  {
 
         Tablero tablero = juego.getTablero();
         VistaTablero vistaTablero = new VistaTablero(tablero);
-        TableroControlador controladorTablero = new TableroControlador(tablero, vistaTablero);
-        PrimeraColocacionControlador controladorPrimeraColocacion = new PrimeraColocacionControlador(stage, contenedor, juego, vistaTablero);
-        vistaTablero.setControlador(controladorTablero);
-        vistaTablero.setControlador(controladorPrimeraColocacion);
 
         HBox contenedorCentro = new HBox(vistaTablero);
         contenedorCentro.setPadding(new Insets(0, 0, 10, 425));
@@ -80,24 +76,6 @@ public class VistaColocacionesIniciales extends BorderPane  {
         HBox.setMargin(vistaTurno, new Insets(0, 0, 0, 200));
 
         this.setBottom(contenedorAbajo);
-
-        botonPoblado.setOnAction(e -> {
-            controladorTablero.activarVertices();
-            botonPoblado.setDisable(true);
-            botonCarretera.setDisable(false);
-        } );
-
-        botonCarretera.setOnAction(e -> {
-            controladorTablero.activarAristas();
-            botonCarretera.setDisable(true);
-            botonFinColocacion.setDisable(false);
-        });
-
-        botonFinColocacion.setOnAction(e -> {
-            controladorTablero.desactivarAristas();
-            botonFinColocacion.setDisable(true);
-            controladorPrimeraColocacion.ejecutarAccion();
-        });
 
         Transicion.fade(this);
     }
