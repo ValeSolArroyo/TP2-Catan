@@ -2,6 +2,7 @@ package edu.fiuba.algo3.vistas.componentes;
 
 import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,7 +10,7 @@ import javafx.scene.layout.StackPane;
 
 import java.util.Map;
 
-public class VistaHexagono extends StackPane {
+public class ImagenHexagono extends StackPane {
     private static final Map<String, String> rutasImagenes = Map.of(
             "Bosque", "/images/utils/hexagono/bosque.png",
             "Colina", "/images/utils/hexagono/colina.png",
@@ -20,13 +21,15 @@ public class VistaHexagono extends StackPane {
     private static final double ANCHO = 90;
     private static final double ALTO  = 125;
     private Hexagono hexagono;
+    private Button boton;
 
-    public VistaHexagono(Hexagono hexagono) {
+    public ImagenHexagono(Hexagono hexagono) {
         this.hexagono = hexagono;
 
         String terreno = hexagono.getTerreno();
         int ficha = hexagono.getFicha();
         mostrarImagen(terreno, ficha);
+        agregarBoton();
     }
 
     private void mostrarImagen(String terreno, int ficha) {
@@ -38,8 +41,8 @@ public class VistaHexagono extends StackPane {
             ruta = "/images/utils/hexagono/desierto.png";
         }
 
-        Image img = new Image(getClass().getResource(ruta).toExternalForm());
-        ImageView view = new ImageView(img);
+        Image imgagen = new Image(getClass().getResource(ruta).toExternalForm());
+        ImageView view = new ImageView(imgagen);
 
         view.setFitWidth(90);
         view.setFitHeight(125);
@@ -60,5 +63,16 @@ public class VistaHexagono extends StackPane {
 
             this.getChildren().add(ladron);
         }
+    }
+
+    public void agregarBoton() {
+       boton = new Button();
+       boton.setStyle("-fx-background-color: white;");
+       boton.setPrefSize(65, 65);
+       this.getChildren().addAll(boton);
+    }
+
+    public Button getBoton() {
+        return boton;
     }
 }
