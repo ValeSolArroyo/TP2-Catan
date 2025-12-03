@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -19,14 +20,13 @@ public class VistaVertices extends StackPane {
     public VistaVertices(Map<Integer, Vertice> vertices) {
         this.vertices = vertices;
 
-        capaVertices = new VBox(-38);
-        capaVertices.setAlignment(Pos.CENTER);
-        capaVertices.setPadding(new Insets(25, 85, 0, 5));
+        capaVertices = new VBox();
+        capaVertices.setTranslateX(-40);
+        capaVertices.setTranslateY(25);
+        this.getChildren().add(capaVertices);
 
         inicializarVerticesPorFila();
         construirBotonesVertices();
-
-        this.getChildren().add(capaVertices);
     }
 
     private void inicializarVerticesPorFila() {
@@ -50,8 +50,8 @@ public class VistaVertices extends StackPane {
         for (List<Vertice> fila : verticesPorFila) {
             HBox filaVertices = new HBox();
             filaVertices.setAlignment(Pos.CENTER);
-            filaVertices.setSpacing(70);
-            filaVertices.setPadding(new Insets(7, 0, 8, 0));
+            filaVertices.setSpacing(65);
+            filaVertices.setPadding(new Insets(8, 0, 8, 0));
             for (Vertice vertice : fila) {
                 Button boton = new Button();
                 boton.setPrefSize(20, 20);
