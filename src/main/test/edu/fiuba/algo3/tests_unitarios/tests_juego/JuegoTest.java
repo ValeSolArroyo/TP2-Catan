@@ -1,7 +1,7 @@
-package main.test.edu.fiuba.algo3.tests_unitarios.tests_juego;
+package edu.fiuba.algo3.tests_unitarios.tests_juego;
 
 import edu.fiuba.algo3.modelo.comercio.Banca;
-import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
+import edu.fiuba.algo3.modelo.cartasDeDesarrollo.*;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.*;
@@ -57,5 +57,40 @@ public class JuegoTest {
         // Act & Assert
         juego.avanzarTurno();
         assertDoesNotThrow(() -> juego.ejecutarComercioJugador(comercioConBanca));
+    }
+
+    @Test
+    public void test03AvanzarTurnoVuelveAlPrimerJugadorDespuesDeUnaRondaCompleta() {
+        // Arrange
+        jugador1.recibirRecurso(new Madera());
+        jugador1.recibirRecurso(new Madera());
+        jugador1.recibirRecurso(new Madera());
+        jugador1.recibirRecurso(new Madera());
+
+        Juego juego = new Juego(List.of(jugador1, jugador2), tablero, cartas);
+        Banca comercioConBanca = new Banca(new Madera(), new Ladrillo());
+
+        // Act
+        juego.avanzarTurno(); 
+        juego.avanzarTurno();
+
+        // Assert
+        assertDoesNotThrow(() -> juego.ejecutarComercioJugador(comercioConBanca));
+    }
+
+    @Test
+    public void test04JugadorPuedeComprarCartaDeDesarrolloSiTieneRecursos() {
+        // Arrange
+        Juego juego = new Juego(List.of(jugador1, jugador2), tablero, cartas);
+
+        cartas.add(new PuntoVictoria());
+
+        jugador1.recibirRecurso(new Grano());
+        jugador1.recibirRecurso(new Lana());
+        jugador1.recibirRecurso(new Mineral());
+
+        // Act & Assert
+        assertDoesNotThrow(() -> juego.comprarCartaDesarrollo());
+        assertThrows(Exception.class, juego::comprarCartaDesarrollo);
     }
 }
