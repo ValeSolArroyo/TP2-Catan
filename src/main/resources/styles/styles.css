@@ -229,3 +229,20 @@
 .boton-arista:pressed {
     -fx-opacity: 0.6;
 }
+
+.info-turno {
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-text-fill: #272d47;
+    -fx-font-family: 'Minecraft';
+}
+
+.boton-colocacion-vertice {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+}
+
+.boton-colocacion-arista {
+    -fx-background-color: white;
+    -fx-background-radius: 4;
+}
