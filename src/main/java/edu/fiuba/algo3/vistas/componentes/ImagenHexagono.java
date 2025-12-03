@@ -67,7 +67,7 @@ public class ImagenHexagono extends StackPane {
 
     public void agregarBoton() {
        boton = new Button();
-       boton.setStyle("-fx-background-color: white;");
+       boton.setStyle("-fx-background-color: transparent;");
        boton.setPrefSize(65, 65);
        this.getChildren().addAll(boton);
     }

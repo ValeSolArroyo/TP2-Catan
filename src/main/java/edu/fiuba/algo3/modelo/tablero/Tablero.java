@@ -1,9 +1,6 @@
 package edu.fiuba.algo3.modelo.tablero;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Tablero {
     private final List<Hexagono> hexagonos;
@@ -37,12 +34,18 @@ public class Tablero {
         return this.hexagonos;
     }
 
-    public List<Vertice> getVertices() {
-        Set<Vertice> vertices = new HashSet<>();
+    public Map<Integer, Vertice> getVertices() {
+        Map<Integer, Vertice> vertices = new HashMap<>();
+
         for (Hexagono hexagono : hexagonos) {
-            vertices.addAll(hexagono.getVertices());
+            for (Vertice vertice : hexagono.getVertices()) {
+                if (vertices.containsKey(vertice.getId())) {
+                    continue;
+                }
+                vertices.put(vertice.getId(), vertice);
+            }
         }
-        return new ArrayList<>(vertices);
+        return vertices;
     }
 
     public List<Arista> getAristas() {
