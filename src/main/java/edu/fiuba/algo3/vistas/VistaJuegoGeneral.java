@@ -32,7 +32,6 @@ public class VistaJuegoGeneral extends BorderPane {
 
         Tablero tablero = juego.getTablero();
         VistaTablero vistaTablero = new VistaTablero(tablero);
-        TableroControlador controlador = new TableroControlador(tablero, vistaTablero);
 
         this.setCenter(vistaTablero);
 

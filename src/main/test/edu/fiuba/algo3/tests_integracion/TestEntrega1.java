@@ -10,6 +10,7 @@ import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.tablero.*;
 import edu.fiuba.algo3.modelo.tableroFactory.TableroCatanFactory;
 import edu.fiuba.algo3.modelo.terrenos.*;
+import javafx.scene.paint.Color;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -43,7 +44,7 @@ public class TestEntrega1 {
 
     @Test
     public void test02ReglaDistanciaPobladosIniciales() {
-        Jugador jugador = new Jugador(1, "Juan", "Rojo");
+        Jugador jugador = new Jugador(1, "Juan", Color.YELLOW);
         Vertice vertice1 = new Vertice();
         Vertice vertice2 = new Vertice();
         Vertice vertice3 = new Vertice();
@@ -58,7 +59,7 @@ public class TestEntrega1 {
 
     @Test
     public void test03JugadorRecibeRecursosInicialesAlColocarSegundoPoblado() {
-        Jugador jugador = new Jugador(1, "Ana", "Azul");
+        Jugador jugador = new Jugador(1, "Ana", Color.BLUE);
         Vertice vertice = new Vertice();
         Hexagono hexagonoBosque = new Hexagono(new Bosque(), 8);
         hexagonoBosque.agregarVertice(vertice);
@@ -81,7 +82,7 @@ public class TestEntrega1 {
 
     @Test
     public void test05ProduccionPobladoYCiudad() {
-        Jugador jugador = new Jugador(1, "Luis", "Verde");
+        Jugador jugador = new Jugador(1, "Luis", Color.GREEN);
         Vertice verticePoblado = new Vertice();
         Vertice verticeCiudad = new Vertice();
         Hexagono hexagonoCampo = new Hexagono(new Campo(), 6);
@@ -103,7 +104,7 @@ public class TestEntrega1 {
 
     @Test
     public void test06LadronBloqueaProduccion() {
-        Jugador jugador = new Jugador(1, "Maria", "Amarillo");
+        Jugador jugador = new Jugador(1, "Maria", Color.YELLOW);
         Vertice verticePoblado = new Vertice();
         Hexagono hexagonoColina = new Hexagono(new Colina(), 9);
         hexagonoColina.agregarVertice(verticePoblado);
@@ -121,7 +122,7 @@ public class TestEntrega1 {
 
     @Test
     public void test07DescarteAlSalirSiete() {
-        Jugador jugador = new Jugador(1, "Carlos", "Negro");
+        Jugador jugador = new Jugador(1, "Carlos", Color.BLUE);
         Hexagono hexagonoDesierto = new Hexagono(new Desierto(), 0);
         Tablero tablero = new Tablero(List.of(hexagonoDesierto));
         Juego juego = new Juego(List.of(jugador), tablero, null);
@@ -138,8 +139,8 @@ public class TestEntrega1 {
 
     @Test
     public void test08MoverLadronYRobarCartaAleatoria() {
-        Jugador jugadorActivo = new Jugador(1, "Sofia", "Blanco");
-        Jugador jugadorVictima = new Jugador(2, "Diego", "Naranja");
+        Jugador jugadorActivo = new Jugador(1, "Sofia", Color.BLUE);
+        Jugador jugadorVictima = new Jugador(2, "Diego", Color.ORANGE);
         Vertice vertice = new Vertice();
         Hexagono hexagonoDesierto = new Hexagono(new Desierto(), 0);
         hexagonoDesierto.agregarVertice(vertice);

@@ -35,7 +35,7 @@ public class TableroCatanFactory implements TableroFactory {
 
         VerticeCatan verticeCatan = new VerticeCatan(todosLosVertices);
         verticeCatan.asignarVertices(hexagonos);
-        conectarAristas(hexagonos);
+        List<Arista> aristas = conectarAristas(hexagonos);
 
         verticesBorde = verticeCatan.identificarVerticesBorde();
         asignarPuertos();
@@ -47,6 +47,7 @@ public class TableroCatanFactory implements TableroFactory {
         List<Vertice> vertices = new ArrayList<>();
         for (int i = 0; i < 54; i++) {
             Vertice vertice = new Vertice();
+            vertice.setId(i);
             vertices.add(vertice);
         }
         return vertices;
@@ -54,7 +55,7 @@ public class TableroCatanFactory implements TableroFactory {
 
     private List<Arista> conectarAristas(List<Hexagono> hexagonos) {
         List<Arista> aristas = new ArrayList<>();
-
+        int contador = 0;
         for (Hexagono hexagono : hexagonos) {
             List<Vertice> verticesHexagono = new ArrayList<>(hexagono.getVertices());
 
@@ -73,6 +74,8 @@ public class TableroCatanFactory implements TableroFactory {
 
                 if (!aristaExistente) {
                     Arista arista = new Arista(actual, siguiente);
+                    arista.setId(contador);
+                    contador++;
                     aristas.add(arista);
                     actual.agregarVecino(siguiente);
                     siguiente.agregarVecino(actual);

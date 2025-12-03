@@ -6,7 +6,7 @@ import edu.fiuba.algo3.modelo.excepciones.YaHayCarreteraError;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 
 public class Arista implements EspacioConstruible {
-
+    private int id;
     private final Vertice vertice1;
     private final Vertice vertice2;
     private Construccion construccion;
@@ -61,5 +61,21 @@ public class Arista implements EspacioConstruible {
             }
         }
         return true;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Vertice getVertice1() {
+        return this.vertice1;
+    }
+
+    public Vertice getVertice2() {
+        return this.vertice2;
+    }
+
+    public int getId() {
+        return this.id;
     }
 }

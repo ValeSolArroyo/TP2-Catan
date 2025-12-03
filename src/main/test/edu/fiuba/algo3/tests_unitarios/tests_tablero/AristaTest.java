@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.excepciones.ConstruccionInvalidaError;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,7 +53,7 @@ public class AristaTest {
     @Test
     public void test04PobladoNoSePuedeConstruirEnArista() {
         // Arrange
-        Jugador jugador = new Jugador(1, "Carlos", "verde");
+        Jugador jugador = new Jugador(1, "Carlos", Color.BLUE);
         Vertice vertice1 = new Vertice();
         Vertice vertice2 = new Vertice();
         Arista arista = new Arista(vertice1, vertice2);
@@ -67,7 +68,7 @@ public class AristaTest {
     @Test
     public void test05CiudadNoSePuedeConstruirEnArista() {
         // Arrange
-        Jugador jugador = new Jugador(2, "Maria", "azul");
+        Jugador jugador = new Jugador(2, "Maria", Color.BLUE);
         Vertice vertice1 = new Vertice();
         Vertice vertice2 = new Vertice();
         Arista arista = new Arista(vertice1, vertice2);
@@ -82,7 +83,7 @@ public class AristaTest {
     @Test
     public void test06CarreteraSePuedeConstruirEnAristaConPobladoDelMismoJugador() {
         // Arrange
-        Jugador jugador = new Jugador(3, "Juan", "rojo");
+        Jugador jugador = new Jugador(3, "Juan", Color.RED);
         Vertice vertice1 = new Vertice();
         Vertice vertice2 = new Vertice();
         Poblado poblado = new Poblado(jugador);

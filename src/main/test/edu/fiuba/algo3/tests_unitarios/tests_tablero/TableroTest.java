@@ -9,6 +9,7 @@ import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.tableroFactory.TableroCatanFactory;
 import edu.fiuba.algo3.modelo.recursos.Madera;
 import edu.fiuba.algo3.modelo.excepciones.RecursosInsuficientesError;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class TableroTest {
     @Test
     public void test03ProducirActivaHexagonoConFichaValida() {
         // Arrange
-        Jugador jugador = new Jugador(1, "Carlos", "verde");
+        Jugador jugador = new Jugador(1, "Carlos", Color.BLUE);
         Vertice vertice = new Vertice();
         Poblado poblado = new Poblado(jugador);
         vertice.construirPoblado(jugador, poblado);
@@ -67,7 +68,7 @@ public class TableroTest {
     @Test
     public void test04ProducirNoActivaHexagonoConFichaInvalida() {
         // Arrange
-        Jugador jugador = new Jugador(2, "Maria", "azul");
+        Jugador jugador = new Jugador(2, "Maria", Color.BLUE);
         Vertice vertice = new Vertice();
         Poblado poblado = new Poblado(jugador);
         vertice.construirPoblado(jugador, poblado);
@@ -89,7 +90,7 @@ public class TableroTest {
     @Test
     public void test05HexagonoConLadronNoProduceRecursos() {
         // Arrange
-        Jugador jugador = new Jugador(3, "Juan", "rojo");
+        Jugador jugador = new Jugador(3, "Juan", Color.BLUE);
         Vertice vertice = new Vertice();
         vertice.construirPoblado(jugador, new Poblado(jugador));
 
@@ -111,7 +112,7 @@ public class TableroTest {
     @Test
     public void test06HexagonoSinLadronProduceRecursos() {
         // Arrange
-        Jugador jugador = new Jugador(4, "Pedro", "amarillo");
+        Jugador jugador = new Jugador(4, "Pedro", Color.BLUE);
         Vertice vertice = new Vertice();
         vertice.construirPoblado(jugador, new Poblado(jugador));
 
@@ -134,7 +135,7 @@ public class TableroTest {
     @Test
     public void test07MultiplesHexagonosProducenRecursos() {
         // Arrange
-        Jugador jugador = new Jugador(6, "Luis", "naranja");
+        Jugador jugador = new Jugador(6, "Luis", Color.BLUE);
 
         Vertice vertice1 = new Vertice();
         vertice1.construirPoblado(jugador, new Poblado(jugador));
@@ -163,7 +164,7 @@ public class TableroTest {
     @Test
     public void test08DarRecursosInicialesAVertice() {
         // Arrange
-        Jugador jugador = new Jugador(7, "Sofia", "verde_oscuro");
+        Jugador jugador = new Jugador(7, "Sofia", Color.BLUE);
         Vertice vertice = new Vertice();
         vertice.construirPoblado(jugador, new Poblado(jugador));
 
@@ -185,7 +186,7 @@ public class TableroTest {
     @Test
     public void test09DesiertoNoProduceRecursosAunConFichaValida() {
         // Arrange
-        Jugador jugador = new Jugador(8, "Diego", "marron");
+        Jugador jugador = new Jugador(8, "Diego", Color.BLUE);
         Vertice vertice = new Vertice();
         vertice.construirPoblado(jugador, new Poblado(jugador));
 

@@ -6,6 +6,7 @@ import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,8 +23,8 @@ public class JuegoTest {
 
     @BeforeEach
     public void setUp() {
-        jugador1 = new Jugador(1, "Ana", "Rojo");
-        jugador2 = new Jugador(2, "Juan", "Azul");
+        jugador1 = new Jugador(1, "Ana", Color.RED);
+        jugador2 = new Jugador(2, "Juan", Color.BLUE);
         tablero = new Tablero(new ArrayList<>());
         cartas = new ArrayList<>();
     }

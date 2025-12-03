@@ -9,6 +9,7 @@ import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Madera;
 import edu.fiuba.algo3.modelo.excepciones.RecursosInsuficientesError;
 import org.junit.jupiter.api.Test;
+import javafx.scene.paint.Color;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class HexagonoTest {
     @Test
     public void test01EntregarRecursoInicialAVerticeEnHexagono() {
         // Arrange
-        Jugador jugador = new Jugador(4, "Pedro", "amarillo");
+        Jugador jugador = new Jugador(4, "Pedro", Color.BLUE);
         Vertice vertice = new Vertice();
         Poblado poblado = new Poblado(jugador);
         vertice.construirPoblado(jugador, poblado);
@@ -34,7 +35,7 @@ public class HexagonoTest {
     @Test
     public void test02ProducirSinLadronNoBloqueaProduccion() {
         // Arrange
-        Jugador jugador = new Jugador(3, "Juan", "rojo");
+        Jugador jugador = new Jugador(3, "Juan", Color.BLUE);
         Vertice vertice = new Vertice();
         vertice.construirPoblado(jugador, new Poblado(jugador));
 
@@ -52,7 +53,7 @@ public class HexagonoTest {
     @Test
     public void test03ProducirConLadronBloquearProduccion() {
         // Arrange
-        Jugador jugador = new Jugador(4, "Pedro", "amarillo");
+        Jugador jugador = new Jugador(4, "Pedro", Color.BLUE);
         Vertice vertice = new Vertice();
         vertice.construirPoblado(jugador, new Poblado(jugador));
 
@@ -71,7 +72,7 @@ public class HexagonoTest {
     @Test
     public void test04QuitarLadronReactivaProduccion() {
         // Arrange
-        Jugador jugador = new Jugador(5, "Ana", "blanco");
+        Jugador jugador = new Jugador(5, "Ana", Color.BLUE);
         Vertice vertice = new Vertice();
         vertice.construirPoblado(jugador, new Poblado(jugador));
 

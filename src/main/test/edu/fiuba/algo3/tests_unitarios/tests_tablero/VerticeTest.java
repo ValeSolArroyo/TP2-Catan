@@ -6,6 +6,7 @@ import edu.fiuba.algo3.modelo.construcciones.Ciudad;
 import edu.fiuba.algo3.modelo.construcciones.Carretera;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.excepciones.ConstruccionInvalidaError;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,7 +30,7 @@ public class VerticeTest {
     @Test
     public void test02PobladoSePuedeConstruirEnVertice() {
         // Arrange
-        Jugador jugador = new Jugador(1, "Carlos", "verde");
+        Jugador jugador = new Jugador(1, "Carlos", Color.BLUE);
         Vertice vertice = new Vertice();
         Poblado poblado = new Poblado(jugador);
 
@@ -40,7 +41,7 @@ public class VerticeTest {
     @Test
     public void test03CiudadSePuedeConstruirEnVertice() {
         // Arrange
-        Jugador jugador = new Jugador(2, "Maria", "azul");
+        Jugador jugador = new Jugador(2, "Maria", Color.BLUE);
         Vertice vertice = new Vertice();
         Ciudad ciudad = new Ciudad(jugador);
         vertice.construirPoblado(jugador, new Poblado(jugador));
@@ -52,7 +53,7 @@ public class VerticeTest {
     @Test
     public void test04CarreteraNoSePuedeConstruirEnVertice() {
         // Arrange
-        Jugador jugador = new Jugador(3, "Juan", "rojo");
+        Jugador jugador = new Jugador(3, "Juan", Color.BLUE);
         Vertice vertice = new Vertice();
         Carretera carretera = new Carretera(jugador);
 
