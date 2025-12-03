@@ -13,6 +13,7 @@ import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
 
 public class Vertice implements EspacioConstruible {
+    private int id;
     private Construccion construccion;
     private List<Vertice> vecinos;
     private List<Arista> aristas;
@@ -107,5 +108,13 @@ public class Vertice implements EspacioConstruible {
 
     public void ejecutarComercio(Jugador jugador, List<Recurso> recursosEntregados, List<Recurso> recursoDeseado) {
         this.puerto.ejecutar(jugador, this, recursosEntregados, recursoDeseado);
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public int getId() {
+        return this.id;
     }
 }

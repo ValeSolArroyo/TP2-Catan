@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.comercio.ComercioInterno;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.excepciones.RecursosInsuficientesError;
+import javafx.scene.paint.Color;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ public class ComercioJugadorTest {
     @Test
     public void test01ComercioConLaBancaEntrega4RecursosYRecibe1() {
         // Arrange
-        Jugador jugador = new Jugador(1, "Carlos", "verde");
+        Jugador jugador = new Jugador(1, "Carlos", Color.GREEN);
         Recurso madera = new Madera();
         Recurso grano = new Grano();
 
@@ -34,7 +35,7 @@ public class ComercioJugadorTest {
     @Test
     public void test02ComercioConLaBancaFallaSiNoTiene4Recursos() {
         // Arrange
-        Jugador jugador = new Jugador(2, "Maria", "azul");
+        Jugador jugador = new Jugador(2, "Maria", Color.BLUE);
         Recurso lana = new Lana();
         Recurso ladrillo = new Ladrillo();
 
@@ -51,8 +52,8 @@ public class ComercioJugadorTest {
     @Test
     public void test03ComercioEntreJugadoresIntercambiaCorrectamente() {
         // Arrange
-        Jugador oferente = new Jugador(3, "Juan", "rojo");
-        Jugador aceptante = new Jugador(4, "Ana", "amarillo");
+        Jugador oferente = new Jugador(3, "Juan", Color.RED);
+        Jugador aceptante = new Jugador(4, "Ana", Color.YELLOW);
 
         Recurso madera = new Madera();
         Recurso grano = new Grano();
@@ -70,8 +71,8 @@ public class ComercioJugadorTest {
     @Test
     public void test04ComercioEntreJugadoresFallaSiAceptanteNoTieneLoPedido() {
         // Arrange
-        Jugador oferente = new Jugador(5, "Pedro", "blanco");
-        Jugador aceptante = new Jugador(6, "Sofia", "violeta");
+        Jugador oferente = new Jugador(5, "Pedro", Color.BLUE);
+        Jugador aceptante = new Jugador(6, "Sofia", Color.PINK);
 
         Recurso grano = new Grano();
         Recurso madera = new Madera();
@@ -88,8 +89,8 @@ public class ComercioJugadorTest {
     @Test
     public void test05ComercioEntreJugadoresFallaSiOferenteNoTieneLoQueOfrece() {
         // Arrange
-        Jugador oferente = new Jugador(7, "Luis", "naranja");
-        Jugador aceptante = new Jugador(8, "Elena", "gris");
+        Jugador oferente = new Jugador(7, "Luis", Color.YELLOW);
+        Jugador aceptante = new Jugador(8, "Elena", Color.BLUE);
 
         Recurso lana = new Lana();
         Recurso mineral = new Mineral();

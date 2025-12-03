@@ -10,6 +10,7 @@ import edu.fiuba.algo3.modelo.recursos.Grano;
 import edu.fiuba.algo3.modelo.recursos.Mineral;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.excepciones.ComercioInvalidoError;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class ComercioPuertoTest {
     @Test
     public void test01ComerciarConPuertoGenerico3x1() {
         // Arrange
-        Jugador jugador = new Jugador(1, "Carlos", "verde");
+        Jugador jugador = new Jugador(1, "Carlos", Color.BLUE);
         Vertice vertice = new Vertice();
         PuertoGenerico puertoGenerico = new PuertoGenerico();
         vertice.asignarPuerto(puertoGenerico);
@@ -47,7 +48,7 @@ public class ComercioPuertoTest {
     @Test
     public void test02ComerciarConPuertoGenericoFallaCon2Recursos() {
         // Arrange
-        Jugador jugador = new Jugador(2, "Maria", "azul");
+        Jugador jugador = new Jugador(2, "Maria", Color.BLUE);
         Vertice vertice = new Vertice();
         PuertoGenerico puertoGenerico = new PuertoGenerico();
         vertice.asignarPuerto(puertoGenerico);
@@ -68,7 +69,7 @@ public class ComercioPuertoTest {
     @Test
     public void test03ComerciarConPuertoGenericoFallaConRecursosDiferentes() {
         // Arrange
-        Jugador jugador = new Jugador(3, "Juan", "rojo");
+        Jugador jugador = new Jugador(3, "Juan", Color.BLUE);
         Vertice vertice = new Vertice();
         PuertoGenerico puertoGenerico = new PuertoGenerico();
         vertice.asignarPuerto(puertoGenerico);
@@ -91,7 +92,7 @@ public class ComercioPuertoTest {
     @Test
     public void test04ComerciarConPuertoEspecialMadera2x1() {
         // Arrange
-        Jugador jugador = new Jugador(4, "Pedro", "amarillo");
+        Jugador jugador = new Jugador(4, "Pedro", Color.BLUE);
         Vertice vertice = new Vertice();
         Madera maderaEspecial = new Madera();
         PuertoEspecial puertoMadera = new PuertoEspecial(maderaEspecial);
@@ -116,7 +117,7 @@ public class ComercioPuertoTest {
     @Test
     public void test05ComerciarConPuertoEspecialFallaCon1Recurso() {
         // Arrange
-        Jugador jugador = new Jugador(6, "Roberto", "gris");
+        Jugador jugador = new Jugador(6, "Roberto", Color.BLUE);
         Vertice vertice = new Vertice();
         Madera maderaEspecial = new Madera();
         PuertoEspecial puertoMadera = new PuertoEspecial(maderaEspecial);
@@ -136,7 +137,7 @@ public class ComercioPuertoTest {
     @Test
     public void test06ComerciarConPuertoEspecialFallaConRecursosDiferentes() {
         // Arrange
-        Jugador jugador = new Jugador(3, "Juan", "rojo");
+        Jugador jugador = new Jugador(3, "Juan", Color.BLUE);
         Vertice vertice = new Vertice();
         Madera maderaEspecial = new Madera();
         PuertoEspecial puertoEspecial = new PuertoEspecial(maderaEspecial);
@@ -158,7 +159,7 @@ public class ComercioPuertoTest {
     @Test
     public void test07ComerciarConPuertoEspecialFallaConRecursoIncorrecto() {
         // Arrange
-        Jugador jugador = new Jugador(5, "Ana", "blanco");
+        Jugador jugador = new Jugador(5, "Ana", Color.BLUE);
         Vertice vertice = new Vertice();
         Madera maderaEspecial = new Madera();
         PuertoEspecial puertoMadera = new PuertoEspecial(maderaEspecial);

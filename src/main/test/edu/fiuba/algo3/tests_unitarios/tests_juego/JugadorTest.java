@@ -6,6 +6,7 @@ import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.excepciones.RecursosInsuficientesError;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
+import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -16,14 +17,14 @@ public class JugadorTest {
 
     @Test
     public void test01InventarioIniciaVacio() {
-        Jugador jugador = new Jugador(1, "Pepe", "Rojo");
+        Jugador jugador = new Jugador(1, "Pepe", Color.BLUE);
 
         assertThrows(RecursosInsuficientesError.class, () -> jugador.entregarRecursos(List.of(new Madera())));
     }
 
     @Test
     public void test02AgregarYQuitarRecursosFuncionaCorrectamente() {
-        Jugador jugador = new Jugador(1, "Pepe", "Rojo");
+        Jugador jugador = new Jugador(1, "Pepe", Color.BLUE);
 
         jugador.recibirRecurso(new Madera());
 
@@ -33,7 +34,7 @@ public class JugadorTest {
 
     @Test
     public void test03EntregarRecursosLanzaExcepcionSiNoHaySuficiente() {
-        Jugador jugador = new Jugador(1, "Pepe", "Rojo");
+        Jugador jugador = new Jugador(1, "Pepe", Color.BLUE);
         jugador.recibirRecurso(new Madera());
 
         assertThrows(RecursosInsuficientesError.class, () -> jugador.entregarRecursos(List.of(new Madera(), new Madera())));
@@ -41,7 +42,7 @@ public class JugadorTest {
 
     @Test
     public void test04DescartarRecursosFuncionaCorrectamente() {
-        Jugador jugador = new Jugador(1, "Pepe", "Rojo");
+        Jugador jugador = new Jugador(1, "Pepe", Color.BLUE);
         for (int i = 0; i < 9; i++) jugador.recibirRecurso(new Lana());
 
         jugador.descartar();
@@ -51,7 +52,7 @@ public class JugadorTest {
 
     @Test
     public void test05ConstruirPobladoConsumeLosRecursosCorrectos() {
-        Jugador jugador = new Jugador(1, "Constructor", "Verde"); // (Sin color si tu constructor no lo pide)
+        Jugador jugador = new Jugador(1, "Constructor", Color.GREEN);
         List<Recurso> costoPoblado = List.of(new Madera(), new Ladrillo(), new Lana(), new Grano());
 
         costoPoblado.forEach(jugador::recibirRecurso);

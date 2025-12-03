@@ -16,6 +16,7 @@ import edu.fiuba.algo3.modelo.comercio.*;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.tablero.*;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.*;
+import javafx.scene.paint.Color;
 
 public class TestEntrega2 {
     private Jugador jugador1, jugador2, jugador3;
@@ -26,9 +27,9 @@ public class TestEntrega2 {
 
     @BeforeEach
     public void setUp() {
-        jugador1 = new Jugador(1, "Pepe", "Rojo");
-        jugador2 = new Jugador(2, "Juan", "Azul");
-        jugador3 = new Jugador(3, "Luis", "Verde");
+        jugador1 = new Jugador(1, "Pepe", Color.RED);
+        jugador2 = new Jugador(2, "Juan", Color.BLUE);
+        jugador3 = new Jugador(3, "Luis", Color.GREEN);
         v1 = new Vertice(); 
         v2 = new Vertice();
         vLejano = new Vertice();
@@ -72,7 +73,7 @@ public class TestEntrega2 {
         jugador1.recibirRecurso(new Lana());
         jugador1.recibirRecurso(new Grano());
 
-        Jugador enemigo = new Jugador(9, "Enemigo", "Negro");
+        Jugador enemigo = new Jugador(9, "Enemigo", Color.PINK);
         enemigo.construir(new Poblado(enemigo), v2);
 
         assertThrows(ReglaDeDistanciaError.class,
