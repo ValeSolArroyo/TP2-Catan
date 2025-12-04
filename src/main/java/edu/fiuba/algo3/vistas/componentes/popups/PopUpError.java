@@ -10,6 +10,8 @@ public class PopUpError {
 
         alert.getDialogPane().getStylesheets().add(PopUpAcercaDe.class.getResource("/styles/styles.css").toExternalForm());
         alert.getDialogPane().getStyleClass().add("error");
+        alert.getDialogPane().setMinHeight(200);
+        alert.getDialogPane().setMinWidth(400);
         alert.showAndWait();
     }
 }
