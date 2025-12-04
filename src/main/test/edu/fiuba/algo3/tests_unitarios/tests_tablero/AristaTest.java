@@ -87,7 +87,7 @@ public class AristaTest {
         Vertice vertice1 = new Vertice();
         Vertice vertice2 = new Vertice();
         Poblado poblado = new Poblado(jugador);
-        vertice1.construirPoblado(jugador, poblado);
+        vertice1.construirPobladoPrimerasColocaciones(jugador, poblado);
         Arista arista = new Arista(vertice1, vertice2);
         Carretera carretera = new Carretera(jugador);
 

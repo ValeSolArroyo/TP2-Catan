@@ -35,7 +35,7 @@ public class VerticeTest {
         Poblado poblado = new Poblado(jugador);
 
         // Act & Assert
-        assertDoesNotThrow(() -> vertice.construirPoblado(jugador, poblado));
+        assertDoesNotThrow(() -> vertice.construirPobladoPrimerasColocaciones(jugador, (Poblado) poblado));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class VerticeTest {
         Jugador jugador = new Jugador(2, "Maria", Color.BLUE);
         Vertice vertice = new Vertice();
         Ciudad ciudad = new Ciudad(jugador);
-        vertice.construirPoblado(jugador, new Poblado(jugador));
+        vertice.construirPobladoPrimerasColocaciones(jugador, new Poblado(jugador));
 
         // Act & Assert
         assertDoesNotThrow(() -> vertice.construirCiudad(jugador, ciudad));

@@ -73,6 +73,7 @@ public class Vertice implements EspacioConstruible {
             Construccion antigua = this.construccion;
             this.construccion = nuevaConstruccion;
             jugador.eliminarConstruccion(antigua);
+            return;
         } catch (YaHayCiudadError e) {
             throw new ConstruccionInvalidaError("No se puede mejorar donde ya hay una ciudad.");
         }

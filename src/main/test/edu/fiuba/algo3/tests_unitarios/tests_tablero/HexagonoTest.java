@@ -23,7 +23,7 @@ public class HexagonoTest {
         Jugador jugador = new Jugador(4, "Pedro", Color.BLUE);
         Vertice vertice = new Vertice();
         Poblado poblado = new Poblado(jugador);
-        vertice.construirPoblado(jugador, poblado);
+        vertice.construirPobladoPrimerasColocaciones(jugador, poblado);
 
         Hexagono hexagono = new Hexagono(new Campo(), 5);
         hexagono.agregarVertice(vertice);
@@ -37,7 +37,7 @@ public class HexagonoTest {
         // Arrange
         Jugador jugador = new Jugador(3, "Juan", Color.BLUE);
         Vertice vertice = new Vertice();
-        vertice.construirPoblado(jugador, new Poblado(jugador));
+        vertice.construirPobladoPrimerasColocaciones(jugador, new Poblado(jugador));
 
         Hexagono hexagono = new Hexagono(new Bosque(), 6);
         hexagono.agregarVertice(vertice);
@@ -55,7 +55,7 @@ public class HexagonoTest {
         // Arrange
         Jugador jugador = new Jugador(4, "Pedro", Color.BLUE);
         Vertice vertice = new Vertice();
-        vertice.construirPoblado(jugador, new Poblado(jugador));
+        vertice.construirPobladoPrimerasColocaciones(jugador, new Poblado(jugador));
 
         Hexagono hexagono = new Hexagono(new Bosque(), 6);
         hexagono.agregarVertice(vertice);
@@ -74,7 +74,7 @@ public class HexagonoTest {
         // Arrange
         Jugador jugador = new Jugador(5, "Ana", Color.BLUE);
         Vertice vertice = new Vertice();
-        vertice.construirPoblado(jugador, new Poblado(jugador));
+        vertice.construirPobladoPrimerasColocaciones(jugador, new Poblado(jugador));
 
         Hexagono hexagono = new Hexagono(new Bosque(), 8);
         hexagono.agregarVertice(vertice);
