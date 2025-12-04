@@ -71,7 +71,7 @@ public class Juego {
         jugador.construirPrimerosPoblados(new Poblado(jugador), vertice);
         jugador.construir(new Carretera(jugador), arista);
 
-        if (indiceTurno < listaJugadores.size() - 1) {
+        if (this.indiceTurno < listaJugadores.size() - 1) {
             this.avanzarTurno();
         }
     }
@@ -84,7 +84,7 @@ public class Juego {
 
         this.darRecursosIniciales(vertice);
 
-        if (indiceTurno > 0) {
+        if (this.indiceTurno > 0) {
             this.retrocederTurno();
         }
     }
@@ -130,15 +130,15 @@ public class Juego {
     }
 
     public Jugador jugadorActual() {
-        return listaJugadores.get(indiceTurno);
+        return listaJugadores.get(this.indiceTurno);
     }
 
     public void avanzarTurno() {
-        indiceTurno = (indiceTurno + 1) % listaJugadores.size();
+        this.indiceTurno++;
     }
 
     public void retrocederTurno() {
-        indiceTurno = (indiceTurno - 1 + listaJugadores.size()) % listaJugadores.size();
+        this.indiceTurno--;
     }
 
     public void revisarGranCaballeria(Jugador jugador) {

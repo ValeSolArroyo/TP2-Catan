@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.vistas.componentes;
 
-import edu.fiuba.algo3.controllers.ControladorColocaciones;
-import edu.fiuba.algo3.controllers.fasesJuego.AccionesTableroControlador;
+import edu.fiuba.algo3.controllers.fasesJuego.ControladorColocaciones;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -87,7 +86,6 @@ public class VistaAristas extends StackPane {
                 }
 
                 boton.setOnAction(e -> { tableroControlador.obtenerArista(arista);
-                    System.out.println("Me clické!! arista");
                 });
 
                 botonesAristas.put(arista, boton);
@@ -101,7 +99,6 @@ public class VistaAristas extends StackPane {
     public void setControlador(ControladorColocaciones controlador) {
         this.tableroControlador = controlador;
         construirBotonesAristas();
-        System.out.println("YO tmb me seteé!!!!");
     }
 
     public void mostrarSolo(List<Arista> aristasValidas) {
