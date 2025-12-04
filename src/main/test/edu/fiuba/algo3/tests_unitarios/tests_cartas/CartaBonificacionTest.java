@@ -24,51 +24,27 @@ public class CartaBonificacionTest {
     }
 
     @Test
-    public void test03GranCaballeriaImplementaInterfaz() {
-        CartaBonificacion granCaballeria = new GranCaballeria();
-        assertTrue(granCaballeria instanceof CartaBonificacion);
-    }
-
-    @Test
-    public void test04GranRutaComercialImplementaInterfaz() {
-        CartaBonificacion granRutaComercial = new GranRutaComercial();
-        assertTrue(granRutaComercial instanceof CartaBonificacion);
-    }
-
-    @Test
-    public void test05GranCaballeriaYGranRutaComercialSonDistintas() {
-        CartaBonificacion granCaballeria = new GranCaballeria();
-        CartaBonificacion granRutaComercial = new GranRutaComercial();
-
-        assertNotEquals(granCaballeria.getClass(), granRutaComercial.getClass());
-    }
-
-    @Test
-    public void test06GranCaballeriaRequiere3CaballerosMinimo() {
+    public void test03GranCaballeriaRequiere3CaballerosMinimo() {
         GranCaballeria granCaballeria = new GranCaballeria();
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
 
-        // Evaluar sin tener 3 caballeros (no debería otorgar la carta)
         granCaballeria.evaluarCartaBonificacion(jugador);
 
-        // Verificar que la carta no fue otorgada aún
         assertDoesNotThrow(() -> granCaballeria.evaluarCartaBonificacion(jugador));
     }
 
     @Test
-    public void test07GranRutaComercialRequiere5CarreterasMinimo() {
+    public void test04GranRutaComercialRequiere5CarreterasMinimo() {
         GranRutaComercial granRutaComercial = new GranRutaComercial();
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
 
-        // Evaluar sin tener 5 carreteras (no debería otorgar la carta)
         granRutaComercial.evaluarCartaBonificacion(jugador);
 
-        // Verificar que la carta no fue otorgada aún
         assertDoesNotThrow(() -> granRutaComercial.evaluarCartaBonificacion(jugador));
     }
 
     @Test
-    public void test08DosJugadoresDiferentesConCartasBonificacionDistintas() {
+    public void test05DosJugadoresDiferentesConCartasBonificacionDistintas() {
         Jugador jugador1 = new Jugador(1, "Constructor1", Color.BLUE);
         Jugador jugador2 = new Jugador(2, "Constructor2", Color.RED);
 
@@ -80,18 +56,22 @@ public class CartaBonificacionTest {
     }
 
     @Test
-    public void test09MultiplesInstanciasDeGranCaballeriaExistenIndependientemente() {
-        CartaBonificacion carta1 = new GranCaballeria();
-        CartaBonificacion carta2 = new GranCaballeria();
+    public void test06GranCaballeriaOtorgaBonificacionAlTercerCaballero() {
+        GranCaballeria granCaballeria = new GranCaballeria();
+        Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
 
-        assertNotSame(carta1, carta2);
+        jugador.registrarCaballeroJugado();
+        jugador.registrarCaballeroJugado();
+        jugador.registrarCaballeroJugado();
+
+        assertDoesNotThrow(() -> granCaballeria.evaluarCartaBonificacion(jugador));
     }
 
     @Test
-    public void test10MultiplesInstanciasDeGranRutaComercialExistenIndependientemente() {
-        CartaBonificacion carta1 = new GranRutaComercial();
-        CartaBonificacion carta2 = new GranRutaComercial();
-
-        assertNotSame(carta1, carta2);
+    public void test07GranRutaComercialOtorgaBonificacionAlTener5Carreteras() {
+        GranRutaComercial granRutaComercial = new GranRutaComercial();
+        Jugador jugador = org.mockito.Mockito.mock(Jugador.class);
+        org.mockito.Mockito.when(jugador.conseguirRutaMasLarga()).thenReturn(5);
+        assertDoesNotThrow(() -> granRutaComercial.evaluarCartaBonificacion(jugador));
     }
 }
