@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.CambioTurnoControlador;
-import edu.fiuba.algo3.controllers.TableroControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -15,8 +14,12 @@ import javafx.stage.Stage;
 
 public class VistaJuegoGeneral extends BorderPane {
     private Juego juego;
-    public VistaJuegoGeneral(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego){
+    private VistaTablero vistaTablero;
+
+    public VistaJuegoGeneral(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero){
         this.juego = juego;
+        this.vistaTablero = vistaTablero;
+
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo.jpg"));
 
         HBox barraJugadores = new HBox(20);
@@ -32,12 +35,9 @@ public class VistaJuegoGeneral extends BorderPane {
 
         HBox tableroContenedor = new HBox(20);
         tableroContenedor.setAlignment(Pos.CENTER);
-        Tablero tablero = juego.getTablero();
-        VistaTablero vistaTablero = new VistaTablero(tablero);
-        tableroContenedor.getChildren().add(vistaTablero);
-        HBox.setMargin(vistaTablero, new Insets(0, 0, 7, 3));
+        tableroContenedor.getChildren().add(this.vistaTablero);
+        HBox.setMargin(this.vistaTablero, new Insets(0, 0, 7, 3));
         this.setCenter(tableroContenedor);
-
 
         VBox botonesDerecha = new VBox(50);
         botonesDerecha.setAlignment(Pos.CENTER_RIGHT);
@@ -60,6 +60,7 @@ public class VistaJuegoGeneral extends BorderPane {
         this.setLeft(contenedorArribaIzquierda);
 
         CambioTurnoControlador cambioTurno = new CambioTurnoControlador(stage, contenedor, juego);
+        cambioTurno.agregarTablero(this.vistaTablero);
         VistaTurnoActual vistaTurno = new VistaTurnoActual(cambioTurno);
 
         BotonGenerico botonFinTurno = new BotonGenerico("Finalizar turno", "boton-fin-turno", 230, 45);

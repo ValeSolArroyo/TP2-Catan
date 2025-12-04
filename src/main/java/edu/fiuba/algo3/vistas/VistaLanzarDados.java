@@ -17,11 +17,13 @@ public class VistaLanzarDados extends BorderPane {
     private Juego juego;
     private Stage stage;
     private ContenedorPrincipalVistas contenedor;
+    private VistaTablero vistaTablero;
 
-    public VistaLanzarDados(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego) {
+    public VistaLanzarDados(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero) {
         this.juego = juego;
         this.stage = stage;
         this.contenedor = contenedor;
+        this.vistaTablero = vistaTablero;
 
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_sin_cartas.jpg"));
 
@@ -36,10 +38,8 @@ public class VistaLanzarDados extends BorderPane {
 
         HBox tableroContenedor = new HBox(20);
         tableroContenedor.setAlignment(Pos.CENTER);
-        Tablero tablero = juego.getTablero();
-        VistaTablero vistaTablero = new VistaTablero(tablero);
-        tableroContenedor.getChildren().add(vistaTablero);
-        HBox.setMargin(vistaTablero, new Insets(7, 0, 0, 325));
+        tableroContenedor.getChildren().add(this.vistaTablero);
+        HBox.setMargin(this.vistaTablero, new Insets(7, 0, 0, 325));
         this.setCenter(tableroContenedor);
 
         CambioTurnoControlador cambioTurno = new CambioTurnoControlador(stage, contenedor, juego);
@@ -60,7 +60,7 @@ public class VistaLanzarDados extends BorderPane {
         derecha.getChildren().addAll(vistaDados, botonLanzarDados);
         this.setRight(derecha);
 
-        DadosControlador dadosControlador = new DadosControlador(stage, juego, contenedor);
+        DadosControlador dadosControlador = new DadosControlador(stage, juego, contenedor, this.vistaTablero);
 
         botonLanzarDados.setOnAction(e -> {
             dadosControlador.lanzarDados();

@@ -46,6 +46,7 @@ public class VistaColocacionesIniciales extends BorderPane  {
 
         Tablero tablero = juego.getTablero();
         VistaTablero vistaTablero = new VistaTablero(tablero);
+        cambioTurno.agregarTablero(vistaTablero);
 
         this.vistaTurno = new VistaTurnoActual(cambioTurno);
 
@@ -63,7 +64,7 @@ public class VistaColocacionesIniciales extends BorderPane  {
         botonesDerecha.setAlignment(Pos.CENTER_RIGHT);
         botonesDerecha.setPadding(new Insets(100, 20, 100, 0));
 
-        this.botonPoblado = new BotonJuego("Colocar poblado");
+        this.botonPoblado = new BotonJuego("Colocar Poblado");
         this.botonCarretera = new BotonGenerico("Colocar Carretera", "botones-derecha", 230, 70);
 
         botonPoblado.setDisable(false);
