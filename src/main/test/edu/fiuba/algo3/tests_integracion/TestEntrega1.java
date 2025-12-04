@@ -117,7 +117,7 @@ public class TestEntrega1 {
 
         juego.producirRecursos(9);
 
-        assertThrows(Exception.class, () -> jugador.entregarRecursos(List.of(new Ladrillo())));
+        assertThrows(RecursosInsuficientesError.class, () -> jugador.entregarRecursos(List.of(new Ladrillo())));
     }
 
     @Test
@@ -134,7 +134,7 @@ public class TestEntrega1 {
         List<Recurso> cincoMaderas = java.util.stream.Stream.generate(Madera::new).limit(5).collect(Collectors.toList());
         List<Recurso> seisMaderas = java.util.stream.Stream.generate(Madera::new).limit(6).collect(Collectors.toList());
         assertDoesNotThrow(() -> jugador.entregarRecursos(cincoMaderas));
-        assertThrows(Exception.class, () -> jugador.entregarRecursos(seisMaderas));
+        assertThrows(RecursosInsuficientesError.class, () -> jugador.entregarRecursos(seisMaderas));
     }
 
     @Test
