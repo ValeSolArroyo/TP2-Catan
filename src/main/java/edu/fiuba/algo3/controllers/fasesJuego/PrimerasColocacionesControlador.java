@@ -2,6 +2,7 @@ package edu.fiuba.algo3.controllers.fasesJuego;
 
 import edu.fiuba.algo3.controllers.CambioTurnoControlador;
 import edu.fiuba.algo3.modelo.excepciones.ReglaDeDistanciaError;
+import edu.fiuba.algo3.modelo.excepciones.YaHayPobladoError;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.juegoCommand.Accion;
 import edu.fiuba.algo3.modelo.juegoCommand.AccionPrimeraColocacion;
@@ -67,16 +68,14 @@ public class PrimerasColocacionesControlador implements  AccionesTableroControla
 
         if (!esSegundaColocacion) {
             accion = new AccionPrimeraColocacion(juego, vertice, arista);
-            System.out.println("1era colocación");
         } else {
             accion = new AccionSegundaColocacion(juego, vertice, arista);
-            System.out.println("2da colocación");
         }
 
         try {
             juego.ejecutarAccion(accion);
 
-        } catch (ReglaDeDistanciaError e) {
+        } catch (ReglaDeDistanciaError | YaHayPobladoError e) {
             PopUpError.mostrar(e.getMessage());
             resetearTurno();
             return;
@@ -90,13 +89,13 @@ public class PrimerasColocacionesControlador implements  AccionesTableroControla
 
         if (!esSegundaColocacion && turnoActual == ultimoIndice) {
             this.esSegundaColocacion = true;
-            System.out.println("Fin de la 1ra colocación. Iniciando 2da colocación (inverso)");
         } else {
             if (esSegundaColocacion && turnoActual == 0) {
                 vistaColocaciones.activarFinalizar(false);
                 vistaColocaciones.activarPoblado(false);
                 vistaColocaciones.activarCarretera(false);
                 System.out.println("Fin de la 2da colocación. Pasamos a tirar dados");
+                juego.avanzarTurno();
                 cambioTurno.activarAccionFinTurno();
             }
         }

@@ -74,10 +74,6 @@ public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> 
         IniciarJuegoControlador iniciar = new IniciarJuegoControlador();
         Juego juego = iniciar.crearNuevaPartida(jugadores);
 
-        // !!!! ESTO ES TEMPORAL, ERA PARA PROBAR LA VISTA DEL DADO. HABRIA QUE
-        // DESCOMENTAR LA LINEA COMENTADA Y COMENTAR LA DEL DADO SI SE QUIEREN VER
-        // LA VISTA DE COLOCACIONES INICIALES !!!!
-        //VistaLanzarDados vistaJuego = new VistaLanzarDados(stage, contenedor, juego);
         CambioTurnoControlador cambioTurno = new CambioTurnoControlador(stage, contenedor, juego);
 
         VistaColocacionesIniciales vistaJuego = new VistaColocacionesIniciales(stage, contenedor,juego, cambioTurno);

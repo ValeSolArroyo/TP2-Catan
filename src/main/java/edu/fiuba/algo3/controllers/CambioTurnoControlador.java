@@ -6,6 +6,7 @@ import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.observer.Observable;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaLanzarDados;
+import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -16,6 +17,7 @@ public class CambioTurnoControlador extends Observable {
     private ContenedorPrincipalVistas contenedor;
     private String nombreJugadorActual;
     private Color colorJugadorActual;
+    private VistaTablero vistaTablero;
 
     public CambioTurnoControlador(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego) {
         this.juego = juego;
@@ -32,7 +34,7 @@ public class CambioTurnoControlador extends Observable {
 
         this.notificarObservadores();
 
-        VistaLanzarDados vistaLanzarDados = new VistaLanzarDados(stage, contenedor, juego);
+        VistaLanzarDados vistaLanzarDados = new VistaLanzarDados(stage, contenedor, juego, vistaTablero);
         contenedor.setContenido(vistaLanzarDados);
     }
 
@@ -48,5 +50,9 @@ public class CambioTurnoControlador extends Observable {
 
     public Color getColorJugadorActual() {
         return colorJugadorActual;
+    }
+
+    public void agregarTablero(VistaTablero vistaTablero) {
+        this.vistaTablero = vistaTablero;
     }
 }
