@@ -36,7 +36,7 @@ public class CambioTurnoControlador extends Observable {
         contenedor.setContenido(vistaLanzarDados);
     }
 
-    private void actualizarDatosJugadorActual() {
+    public void actualizarDatosJugadorActual() {
         Jugador jugadorActual = juego.jugadorActual();
         this.nombreJugadorActual = jugadorActual.getNombre();
         this.colorJugadorActual = jugadorActual.getColor();

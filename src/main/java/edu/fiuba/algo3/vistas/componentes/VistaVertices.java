@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas.componentes;
 
+import edu.fiuba.algo3.controllers.ControladorColocaciones;
 import edu.fiuba.algo3.controllers.fasesJuego.AccionesTableroControlador;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 import javafx.geometry.Insets;
@@ -16,7 +17,7 @@ public class VistaVertices extends StackPane {
     private Map<Integer, Vertice> vertices;
     private List<List<Vertice>> verticesPorFila;
     private VBox capaVertices;
-    private AccionesTableroControlador tableroControlador;
+    private ControladorColocaciones tableroControlador;
 
     public VistaVertices(Map<Integer, Vertice> vertices) {
         this.vertices = vertices;
@@ -68,9 +69,23 @@ public class VistaVertices extends StackPane {
         }
     }
 
-    public void setControlador(AccionesTableroControlador controlador) {
+    public void setControlador(ControladorColocaciones controlador) {
         this.tableroControlador = controlador;
         construirBotonesVertices();
         System.out.println("ME setéeee");
+    }
+
+    public Button botonDe(Vertice vertice) {
+        for (List<Vertice> fila : verticesPorFila) {
+            for (Vertice verticeFila : fila) {
+                if (verticeFila == vertice) {
+                    int index = fila.indexOf(verticeFila);
+                    HBox filaBox = (HBox) capaVertices.getChildren().get(verticesPorFila.indexOf(fila));
+                    return (Button) filaBox.getChildren().get(index);
+                }
+            }
+        }
+        return new Button();
+
     }
 }

@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 
 public class AccionSegundaColocacion implements Accion{
+
     private Juego juego;
     private Vertice vertice;
     private Arista arista;
@@ -16,8 +17,8 @@ public class AccionSegundaColocacion implements Accion{
     }
 
     @Override
-    public void ejecutar(){
-        juego.colocarSegundoPoblado(vertice, arista );
+    public void ejecutar() {
+        juego.colocarSegundoPoblado(vertice, arista);
+
     }
 }
-

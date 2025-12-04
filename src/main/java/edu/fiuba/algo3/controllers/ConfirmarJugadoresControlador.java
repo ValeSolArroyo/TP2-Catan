@@ -78,7 +78,9 @@ public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> 
         // DESCOMENTAR LA LINEA COMENTADA Y COMENTAR LA DEL DADO SI SE QUIEREN VER
         // LA VISTA DE COLOCACIONES INICIALES !!!!
         //VistaLanzarDados vistaJuego = new VistaLanzarDados(stage, contenedor, juego);
-        VistaColocacionesIniciales vistaJuego = new VistaColocacionesIniciales(stage, contenedor,juego);
+        CambioTurnoControlador cambioTurno = new CambioTurnoControlador(stage, contenedor, juego);
+
+        VistaColocacionesIniciales vistaJuego = new VistaColocacionesIniciales(stage, contenedor,juego, cambioTurno);
         contenedor.setContenido(vistaJuego);
     }
 }
