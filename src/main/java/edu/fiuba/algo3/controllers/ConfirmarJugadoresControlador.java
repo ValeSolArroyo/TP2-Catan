@@ -24,7 +24,7 @@ public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> 
     private List<TextField> nombres;
     private List<ComboBox<String>> colores;
     private static final Map<String, Color> opcionesColores = Map.of("Amarillo", Color.YELLOW,
-            "Verde", Color.GREEN, "Azul", Color.BLUE, "Rosa", Color.PINK,
+            "Magenta", Color.MAGENTA, "Azul", Color.BLUE, "Rosa", Color.PINK,
             "Rojo", Color.RED, "Naranja", Color.ORANGE);
 
     public ConfirmarJugadoresControlador(Stage stage, ContenedorPrincipalVistas contenedor, List<TextField> nombres, List<ComboBox<String>> colores) {

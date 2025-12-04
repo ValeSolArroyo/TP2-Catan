@@ -5,7 +5,7 @@ import edu.fiuba.algo3.controllers.fasesJuego.DadosControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.vistas.componentes.*;
-import edu.fiuba.algo3.vistas.componentes.botones.BotonGenerico;
+import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
@@ -34,10 +34,13 @@ public class VistaLanzarDados extends BorderPane {
         }
         this.setTop(barraJugadores);
 
+        HBox tableroContenedor = new HBox(20);
+        tableroContenedor.setAlignment(Pos.CENTER);
         Tablero tablero = juego.getTablero();
-        // todo: sacar
         VistaTablero vistaTablero = new VistaTablero(tablero);
-        this.setCenter(vistaTablero);
+        tableroContenedor.getChildren().add(vistaTablero);
+        HBox.setMargin(vistaTablero, new Insets(7, 0, 0, 325));
+        this.setCenter(tableroContenedor);
 
         CambioTurnoControlador cambioTurno = new CambioTurnoControlador(stage, contenedor, juego);
         VistaTurnoActual vistaTurno = new VistaTurnoActual(cambioTurno);
@@ -49,10 +52,10 @@ public class VistaLanzarDados extends BorderPane {
 
         VBox derecha = new VBox(30);
         derecha.setAlignment(Pos.TOP_CENTER);
-        derecha.setPadding(new Insets(100, 20, 0, 0));
+        derecha.setPadding(new Insets(150, 20, 0, 0));
 
         VistaDados vistaDados = new VistaDados(juego.getDado());
-        BotonGenerico botonLanzarDados = new BotonGenerico("Lanzar dados", "boton-lanzar", 150, 45);
+        BotonJuego botonLanzarDados = new BotonJuego("Lanzar dados");
 
         derecha.getChildren().addAll(vistaDados, botonLanzarDados);
         this.setRight(derecha);

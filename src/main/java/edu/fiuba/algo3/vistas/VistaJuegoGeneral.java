@@ -30,10 +30,14 @@ public class VistaJuegoGeneral extends BorderPane {
 
         this.setTop(barraJugadores);
 
+        HBox tableroContenedor = new HBox(20);
+        tableroContenedor.setAlignment(Pos.CENTER);
         Tablero tablero = juego.getTablero();
         VistaTablero vistaTablero = new VistaTablero(tablero);
+        tableroContenedor.getChildren().add(vistaTablero);
+        HBox.setMargin(vistaTablero, new Insets(0, 0, 7, 3));
+        this.setCenter(tableroContenedor);
 
-        this.setCenter(vistaTablero);
 
         VBox botonesDerecha = new VBox(50);
         botonesDerecha.setAlignment(Pos.CENTER_RIGHT);

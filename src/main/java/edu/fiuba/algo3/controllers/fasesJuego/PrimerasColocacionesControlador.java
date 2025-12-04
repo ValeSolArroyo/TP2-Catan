@@ -85,8 +85,8 @@ public class PrimerasColocacionesControlador implements  AccionesTableroControla
                 vistaColocaciones.activarFinalizar(false);
                 vistaColocaciones.activarPoblado(false);
                 vistaColocaciones.activarCarretera(false);
-                System.out.println("Fin de las colocaciones iniciales. Hay que pasar a  fase juego principal!");
-                return;
+                System.out.println("Fin de la 2da colocación. Pasamos a tirar dados");
+                cambioTurno.activarAccionFinTurno();
             }
         }
         vistaColocaciones.activarFinalizar(false);

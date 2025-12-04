@@ -21,7 +21,7 @@ public class VistaColocacionesIniciales extends BorderPane  {
     private Stage stage;
     private ContenedorPrincipalVistas contenedor;
     private BotonJuego botonPoblado;
-    private BotonJuego botonCarretera;
+    private BotonGenerico botonCarretera;
     private BotonGenerico botonFinalizar;
     private PrimerasColocacionesControlador controlador;
     private CambioTurnoControlador cambioTurno;
@@ -64,7 +64,7 @@ public class VistaColocacionesIniciales extends BorderPane  {
         botonesDerecha.setPadding(new Insets(100, 20, 100, 0));
 
         this.botonPoblado = new BotonJuego("Colocar poblado");
-        this.botonCarretera = new BotonJuego("Colocar Carretera");
+        this.botonCarretera = new BotonGenerico("Colocar Carretera", "botones-derecha", 230, 70);
 
         botonPoblado.setDisable(false);
         botonCarretera.setDisable(true);
@@ -72,7 +72,7 @@ public class VistaColocacionesIniciales extends BorderPane  {
         botonesDerecha.getChildren().addAll(botonPoblado, botonCarretera);
         this.setRight(botonesDerecha);
 
-        this.botonFinalizar = new BotonGenerico("Finalizar colocaciones", "boton-fin-turno", 230, 45);
+        this.botonFinalizar = new BotonGenerico("Finalizar colocaciones", "boton-fin-turno", 270, 45);
         botonFinalizar.setDisable(true);
         HBox contenedorAbajo = new HBox(20);
         contenedorAbajo.setAlignment(Pos.CENTER_LEFT);
