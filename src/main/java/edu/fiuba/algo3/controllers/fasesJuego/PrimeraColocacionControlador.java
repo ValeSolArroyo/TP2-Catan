@@ -1,11 +1,13 @@
 package edu.fiuba.algo3.controllers.fasesJuego;
 
+import edu.fiuba.algo3.modelo.excepciones.ConstruccionInvalidaError;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.juegoCommand.AccionPrimeraColocacion;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
+import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
 
 
 public class PrimeraColocacionControlador implements FaseJuegoControlador, AccionesTableroControlador {
@@ -24,9 +26,14 @@ public class PrimeraColocacionControlador implements FaseJuegoControlador, Accio
     public void ejecutarAccion() {
         Jugador jugador = juego.jugadorActual();
         AccionPrimeraColocacion primeraColocacion = new AccionPrimeraColocacion(this.juego, this.vertice, this.arista);
-        juego.ejecutarAccion(primeraColocacion);
-        System.out.println("Me ejecuté (primera colocacion)");
-        // TODO: construir! pasando el color del jugador
+        try {
+            juego.ejecutarAccion(primeraColocacion);
+            System.out.println("Me ejecuté (primera colocacion)");
+            // TODO: construir! pasando el color del jugador
+        } catch (ConstruccionInvalidaError e) {
+            PopUpError.mostrar(e.getMessage());
+
+        }
     }
 
     @Override
