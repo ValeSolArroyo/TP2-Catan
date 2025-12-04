@@ -7,5 +7,4 @@ public interface EspacioConstruible {
     void construirPoblado(Jugador jugador, Construccion construccion);
     void construirCiudad(Jugador jugador, Construccion construccion);
     void construirCarretera(Jugador jugador, Construccion construccion);
-
 }

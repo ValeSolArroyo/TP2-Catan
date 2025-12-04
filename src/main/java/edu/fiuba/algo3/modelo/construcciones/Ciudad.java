@@ -41,7 +41,7 @@ public class Ciudad implements Construccion {
 
     @Override
     public void ocupar() {
-        throw new YaHayCiudadError("No se puede colocar");
+        throw new YaHayCiudadError("No se puede colocar porque ya hay una ciudad");
     }
 
     @Override

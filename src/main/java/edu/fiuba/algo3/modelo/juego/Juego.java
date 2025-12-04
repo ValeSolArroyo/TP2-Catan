@@ -68,7 +68,7 @@ public class Juego {
     public void colocarPrimerPoblado(Vertice vertice, Arista arista) {
         Jugador jugador = this.jugadorActual();
 
-        jugador.construir(new Poblado(jugador), vertice);
+        jugador.construirPrimerosPoblados(new Poblado(jugador), vertice);
         jugador.construir(new Carretera(jugador), arista);
 
         if (indiceTurno < listaJugadores.size() - 1) {
@@ -79,7 +79,7 @@ public class Juego {
     public void colocarSegundoPoblado(Vertice vertice, Arista arista) {
         Jugador jugador = this.jugadorActual();
 
-        jugador.construir(new Poblado(jugador), vertice);
+        jugador.construirPrimerosPoblados(new Poblado(jugador), vertice);
         jugador.construir(new Carretera(jugador), arista);
 
         this.darRecursosIniciales(vertice);

@@ -25,9 +25,8 @@ public class Carretera implements Construccion {
     @Override
     public void tieneDePropietarioA(Jugador jugador) {
         if (!(this.propietario.equals(jugador))){
-            throw new ConstruccionInvalidaError("No se puede mejorar a ciudad un poblado ajeno.");
+            throw new ConstruccionInvalidaError("No podés construir en construcción ajena.");
         }
-
     }
 
     @Override
@@ -37,7 +36,7 @@ public class Carretera implements Construccion {
 
     @Override
     public void ocupar() {
-        throw new YaHayCarreteraError("No se puede colocar");
+        throw new YaHayCarreteraError("No se puede colocar porque ya hay una carretera");
     }
 
     @Override
