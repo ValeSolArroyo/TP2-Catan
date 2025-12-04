@@ -48,12 +48,23 @@ public class SegundaColocacionControlador implements ControladorColocaciones {
 
     @Override
     public void terminarColocacion() {
-        int ultimoIndice = juego.getJugadores().size() -1;
         int turnoActual = juego.getIndiceTurno();
         Jugador jugador = juego.jugadorActual();
         Color color = jugador.getColor();
         AccionSegundaColocacion colocacion = new AccionSegundaColocacion(juego, vertice, arista);
         juego.ejecutarAccion(colocacion);
+
+        if (turnoActual == 0) {
+            // Vista dado
+        } else {
+            vistaTablero.dibujarPobladoEn(vertice, color);
+            vistaTablero.dibujarCarreteraEn(arista, color);
+            cambioTurno.actualizarDatosJugadorActual();
+            cambioTurno.notificarObservadores();
+
+            vistaColocaciones.activarFinalizar(false);
+            vistaColocaciones.activarPoblado(true);
+        }
     }
 
     @Override

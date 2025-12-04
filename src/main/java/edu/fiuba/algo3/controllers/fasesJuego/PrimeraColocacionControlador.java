@@ -55,21 +55,17 @@ public class PrimeraColocacionControlador implements ControladorColocaciones {
         AccionPrimeraColocacion colocacion = new AccionPrimeraColocacion(juego, vertice, arista);
         juego.ejecutarAccion(colocacion);
 
-        if (turnoActual < ultimoIndice) {
-            vistaTablero.dibujarPobladoEn(vertice, color);
-            vistaTablero.dibujarCarreteraEn(arista, color);
-            cambioTurno.actualizarDatosJugadorActual();
-            cambioTurno.notificarObservadores();
+        vistaTablero.dibujarPobladoEn(vertice, color);
+        vistaTablero.dibujarCarreteraEn(arista, color);
+        cambioTurno.actualizarDatosJugadorActual();
+        cambioTurno.notificarObservadores();
 
-            vistaColocaciones.activarFinalizar(false);
-            vistaColocaciones.activarPoblado(true);
-        } else {
+        if (turnoActual == ultimoIndice) {
             SegundaColocacionControlador controlador = new SegundaColocacionControlador(juego, vistaTablero, vistaColocaciones, cambioTurno);
             System.out.println("Me seteé (segundo controlador");
-            vistaTablero.dibujarPobladoEn(vertice, color);
-            vistaTablero.dibujarCarreteraEn(arista, color);
-            cambioTurno.actualizarDatosJugadorActual();
-            cambioTurno.notificarObservadores();
+        } else {
+            vistaColocaciones.activarFinalizar(false);
+            vistaColocaciones.activarPoblado(true);
         }
     }
 
