@@ -134,11 +134,11 @@ public class Juego {
     }
 
     public void avanzarTurno() {
-        this.indiceTurno++;
+        this.indiceTurno = (this.indiceTurno + 1) % listaJugadores.size();
     }
 
     public void retrocederTurno() {
-        this.indiceTurno--;
+        this.indiceTurno = (this.indiceTurno - 1 + listaJugadores.size()) % listaJugadores.size();
     }
 
     public void revisarGranCaballeria(Jugador jugador) {

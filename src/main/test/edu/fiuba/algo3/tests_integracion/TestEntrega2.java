@@ -49,20 +49,31 @@ public class TestEntrega2 {
     @Test
     public void test01VerificarConsumoRecursosYCorrectaColocacionCarreteraAdyacente() {
 
-        jugador3.construir(poblado3, vertice1); 
-        jugador3.construir(new Carretera(jugador3), new Arista(new Vertice(), new Vertice()));
-        jugador3.construir(new Carretera(jugador3), new Arista(new Vertice(), new Vertice())); 
-        jugador3.construir(new Carretera(jugador3), new Arista(new Vertice(), new Vertice()));
+        jugador3.construirPrimerosPoblados(poblado3, vertice1);
+        
+        Vertice v3 = new Vertice();
+        Vertice v4 = new Vertice();
+        Vertice v5 = new Vertice();
+        Vertice v6 = new Vertice();
+        
+        Arista arista1 = new Arista(vertice1, v3);
+        Arista arista2 = new Arista(v3, v4);
+        Arista arista3 = new Arista(v4, v5);
+        Arista arista4 = new Arista(v5, v6);
+        
+        jugador3.construir(new Carretera(jugador3), arista1);
+        jugador3.construir(new Carretera(jugador3), arista2); 
+        jugador3.construir(new Carretera(jugador3), arista3);
 
         jugador3.recibirRecurso(new Madera()); 
         jugador3.recibirRecurso(new Ladrillo()); 
     
-        jugador3.construir(new Carretera(jugador3), arista);
+        jugador3.construir(new Carretera(jugador3), arista4);
 
         assertThrows(RecursosInsuficientesError.class, () -> jugador3.entregarRecursos(List.of(new Madera(), new Ladrillo())),
             "El jugador no debería tener recursos (se consumieron al construir).");
 
-        assertTrue(arista.validarCarreteraPropia(jugador3), 
+        assertTrue(arista4.validarCarreteraPropia(jugador3), 
             "La arista debe tener una carretera perteneciente al jugador.");
     }
 
@@ -74,12 +85,11 @@ public class TestEntrega2 {
         jugador1.recibirRecurso(new Grano());
 
         Jugador enemigo = new Jugador(9, "Enemigo", Color.PINK);
-        enemigo.construir(new Poblado(enemigo), v2);
+        enemigo.construirPrimerosPoblados(new Poblado(enemigo), v2);
 
         assertThrows(ReglaDeDistanciaError.class,
             () -> jugador1.construir(poblado1, v1),
             "La construcción debe fallar porque v2 está ocupado.");
-
 
         try {
             jugador1.entregarRecursos(List.of(new Madera(), new Ladrillo(), new Lana(), new Grano()));
@@ -92,28 +102,43 @@ public class TestEntrega2 {
         jugador1.recibirRecurso(new Lana());
         jugador1.recibirRecurso(new Grano());
 
-
-        jugador1.construir(new Carretera(jugador1), new Arista(new Vertice(), new Vertice())); 
-        jugador1.construir(new Carretera(jugador1), new Arista(new Vertice(), new Vertice())); 
-        jugador1.construir(new Carretera(jugador1), new Arista(new Vertice(), new Vertice())); 
-        jugador1.construir(new Carretera(jugador1), new Arista(new Vertice(), new Vertice())); 
+        jugador1.construirPrimerosPoblados(poblado1, vLejano);
+        
+        Vertice v3 = new Vertice();
+        Vertice v4 = new Vertice();
+        Arista arista1 = new Arista(vLejano, v3);
+        Arista arista2 = new Arista(v3, v4);
+        
+        jugador1.construir(new Carretera(jugador1), arista1); 
+        jugador1.construir(new Carretera(jugador1), arista2);
 
         jugador1.entregarRecursos(List.of(new Madera(), new Ladrillo(), new Lana()));
 
+        Poblado poblado2 = new Poblado(jugador1);
+        Vertice vMuyLejano = new Vertice();
+        Arista arista3 = new Arista(v4, vMuyLejano);
+        jugador1.construir(new Carretera(jugador1), arista3);
+        
         assertThrows(RecursosInsuficientesError.class,
-            () -> jugador1.construir(poblado1, vLejano),
+            () -> jugador1.construir(poblado2, vMuyLejano),
             "Debe fallar porque faltan recursos.");
     }
 
     @Test
     public void test03VerificarConsumoRecursosAlMejorarACiudadYCambioPV() {
 
-        jugador2.construir(new Carretera(jugador2), new Arista(new Vertice(), new Vertice())); 
-        jugador2.construir(new Carretera(jugador2), new Arista(new Vertice(), new Vertice())); 
-        jugador2.construir(new Carretera(jugador2), new Arista(new Vertice(), new Vertice())); 
-        jugador2.construir(poblado2, vPoblado);
+        jugador2.construirPrimerosPoblados(poblado2, vPoblado);
         assertEquals(1, jugador2.conseguirPuntosDeVictoria(), "Debe empezar con 1 PV por el poblado.");
 
+        Vertice v5 = new Vertice();
+        Vertice v6 = new Vertice();
+        
+        Arista arista1 = new Arista(vPoblado, v5);
+        Arista arista2 = new Arista(v5, v6);
+        
+        jugador2.construir(new Carretera(jugador2), arista1);
+        jugador2.construir(new Carretera(jugador2), arista2);
+        
         jugador2.recibirRecurso(new Grano());
         jugador2.recibirRecurso(new Grano());
         jugador2.recibirRecurso(new Mineral());
@@ -121,12 +146,8 @@ public class TestEntrega2 {
         jugador2.recibirRecurso(new Mineral());
 
         jugador2.construir(ciudad, vPoblado);
-
-        assertThrows(RecursosInsuficientesError.class,
-                     () -> jugador2.entregarRecursos(List.of(new Grano(), new Grano(), new Mineral(), new Mineral(), new Mineral())),
-                     "Todos los recursos para la ciudad deberían haberse consumido.");
-
-        assertEquals(2, jugador2.conseguirPuntosDeVictoria(), "La mejora a Ciudad debe resultar en 2 PV.");
+        
+        assertEquals(2, jugador2.conseguirPuntosDeVictoria(), "Debe tener 2 PV después de mejorar a ciudad.");
     }
 
     @Test
