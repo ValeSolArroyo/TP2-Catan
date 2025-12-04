@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.vistas.componentes;
 
-import edu.fiuba.algo3.controllers.fasesJuego.ControladorColocaciones;
+import edu.fiuba.algo3.controllers.fasesJuego.AccionesTableroControlador;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,23 +18,17 @@ public class VistaAristas extends StackPane {
     private Map<Integer, Arista> aristas;
     private List<List<Arista>> aristasPorFila;
     private VBox capaAristas;
-    private ControladorColocaciones tableroControlador;
-    private  Map<Arista, Button> botonesAristas = new HashMap<>();
+    private AccionesTableroControlador tableroControlador;
+    private Map<Arista, Button> botonesAristas = new HashMap<>();
 
     private static final Set<Integer> rotacion_45 = Set.of(
-            5, 10, 15, 20, 2, 8, 13, 35, 17, 22, 25, 29,
-            32, 37, 40, 43, 47, 50, 54, 57, 60, 63, 67, 70
-    );
+        5, 10, 15, 20, 2, 8, 13, 35, 17, 22, 25, 29, 32, 37, 40, 43, 47, 50, 54, 57, 60, 63, 67, 70);
 
     private static final Set<Integer> rotacion_neg_45 = Set.of(
-            0, 6, 11, 3, 9, 14, 27, 18, 23, 26, 30, 45,
-            33, 38, 41, 44, 48, 51, 55, 58, 61, 64, 68, 71
-    );
+        0, 6, 11, 3, 9, 14, 27, 18, 23, 26, 30, 45, 33, 38, 41, 44, 48, 51, 55, 58, 61, 64, 68, 71);
 
     private static final Set<Integer> rotacion_vertical = Set.of(
-            4, 1, 7, 12, 19, 16, 21, 24, 28, 34, 31, 36,
-            39, 42, 46, 52, 41, 53, 56, 59, 65, 62, 66, 69
-    );
+        4, 1, 7, 12, 19, 16, 21, 24, 28, 34, 31, 36, 39, 42, 46, 52, 41, 53, 56, 59, 65, 62, 66, 69);
 
     public VistaAristas(Map<Integer, Arista> aristas) {
         this.aristas = aristas;
@@ -96,7 +90,7 @@ public class VistaAristas extends StackPane {
             capaAristas.getChildren().add(filaAristas);
         }
     }
-    public void setControlador(ControladorColocaciones controlador) {
+    public void setControlador(AccionesTableroControlador controlador) {
         this.tableroControlador = controlador;
         construirBotonesAristas();
     }

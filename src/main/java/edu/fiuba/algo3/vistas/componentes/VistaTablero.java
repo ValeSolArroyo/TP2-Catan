@@ -1,5 +1,5 @@
 package edu.fiuba.algo3.vistas.componentes;
-import edu.fiuba.algo3.controllers.fasesJuego.ControladorColocaciones;
+import edu.fiuba.algo3.controllers.fasesJuego.PrimerasColocacionesControlador;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
@@ -28,7 +28,7 @@ public class VistaTablero extends StackPane {
         ocultarAristas();
     }
 
-    public void setControlador(ControladorColocaciones controlador) {
+    public void setControlador(PrimerasColocacionesControlador controlador) {
         vistaAristas.setControlador(controlador);
         vistaVertices.setControlador(controlador);
     }
