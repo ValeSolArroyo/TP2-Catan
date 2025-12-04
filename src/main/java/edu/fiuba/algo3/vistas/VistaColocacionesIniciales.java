@@ -1,8 +1,7 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.CambioTurnoControlador;
-import edu.fiuba.algo3.controllers.fasesJuego.ControladorColocaciones;
-import edu.fiuba.algo3.controllers.fasesJuego.PrimeraColocacionControlador;
+import edu.fiuba.algo3.controllers.fasesJuego.PrimerasColocacionesControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -24,7 +23,7 @@ public class VistaColocacionesIniciales extends BorderPane  {
     private BotonJuego botonPoblado;
     private BotonJuego botonCarretera;
     private BotonGenerico botonFinalizar;
-    private ControladorColocaciones controlador;
+    private PrimerasColocacionesControlador controlador;
     private CambioTurnoControlador cambioTurno;
 
 
@@ -50,7 +49,7 @@ public class VistaColocacionesIniciales extends BorderPane  {
 
         this.vistaTurno = new VistaTurnoActual(cambioTurno);
 
-        ControladorColocaciones controladorColocaciones = new PrimeraColocacionControlador(juego, vistaTablero, this, cambioTurno);
+        PrimerasColocacionesControlador controladorColocaciones = new PrimerasColocacionesControlador(juego, vistaTablero, this, cambioTurno);
 
         vistaTablero.setControlador(controladorColocaciones);
         this.controlador = controladorColocaciones;
