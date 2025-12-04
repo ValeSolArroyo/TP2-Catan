@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas.componentes;
 
+import edu.fiuba.algo3.controllers.fasesJuego.AccionesTableroControlador;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,6 +17,7 @@ public class VistaAristas extends StackPane {
     private Map<Integer, Arista> aristas;
     private List<List<Arista>> aristasPorFila;
     private VBox capaAristas;
+    private AccionesTableroControlador tableroControlador;
 
     private static final Set<Integer> rotacion_45 = Set.of(
             5, 10, 15, 20, 2, 8, 13, 35, 17, 22, 25, 29,
@@ -41,7 +43,6 @@ public class VistaAristas extends StackPane {
         this.getChildren().add(capaAristas);
 
         inicializarAristasPorFila();
-        construirBotonesAristas();
     }
 
     public void inicializarAristasPorFila() {
@@ -82,16 +83,18 @@ public class VistaAristas extends StackPane {
                     HBox.setMargin(boton, new Insets(0, 22, 0, 22));
                 }
 
-                boton.setOnAction(e ->
-                    System.out.println("Arista " + arista.getId() +
-                        " conecta Vertice " + arista.getVertice1().getId() +
-                        " con Vertice " + arista.getVertice2().getId()
-                    ) //controlador.seleccionarArista(a)
-                );
+                boton.setOnAction(e -> { tableroControlador.obtenerArista(arista);
+                    System.out.println("Me clické!! arista");
+                });
                 filaAristas.getChildren().add(boton);
             }
 
             capaAristas.getChildren().add(filaAristas);
         }
+    }
+    public void setControlador(AccionesTableroControlador controlador) {
+        this.tableroControlador = controlador;
+        construirBotonesAristas();
+        System.out.println("YO tmb me seteé!!!!");
     }
 }
