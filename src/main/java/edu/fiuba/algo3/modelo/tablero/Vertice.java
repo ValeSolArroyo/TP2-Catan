@@ -12,6 +12,7 @@ import edu.fiuba.algo3.modelo.excepciones.*;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
+import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 
 public class Vertice implements EspacioConstruible {
     private int id;
@@ -128,5 +129,9 @@ public class Vertice implements EspacioConstruible {
 
     public int getId() {
         return this.id;
+    }
+
+    public List<Arista>  getAristas(){
+        return this.aristas;
     }
 }

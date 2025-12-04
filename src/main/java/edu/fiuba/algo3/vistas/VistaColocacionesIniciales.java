@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.CambioTurnoControlador;
+import edu.fiuba.algo3.controllers.ControladorColocaciones;
 import edu.fiuba.algo3.controllers.fasesJuego.PrimeraColocacionControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
@@ -16,12 +17,18 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class VistaColocacionesIniciales extends BorderPane  {
+    private final VistaTurnoActual vistaTurno;
     private Juego juego;
     private Stage stage;
     private ContenedorPrincipalVistas contenedor;
     private BotonJuego botonPoblado;
+    private BotonJuego botonCarretera;
+    private BotonGenerico botonFinalizar;
+    private ControladorColocaciones controlador;
+    private CambioTurnoControlador cambioTurno;
 
-    public VistaColocacionesIniciales(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego) {
+
+    public VistaColocacionesIniciales(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, CambioTurnoControlador cambioTurno) {
         this.stage = stage;
         this.contenedor = contenedor;
         this.juego = juego;
@@ -40,8 +47,13 @@ public class VistaColocacionesIniciales extends BorderPane  {
 
         Tablero tablero = juego.getTablero();
         VistaTablero vistaTablero = new VistaTablero(tablero);
-        PrimeraColocacionControlador controladorPrimeraColocacion = new PrimeraColocacionControlador(juego, vistaTablero);
-        vistaTablero.setControlador(controladorPrimeraColocacion);
+
+        this.vistaTurno = new VistaTurnoActual(cambioTurno);
+
+        ControladorColocaciones controladorColocaciones = new ControladorColocaciones(juego, vistaTablero, this, cambioTurno);
+
+        vistaTablero.setControlador(controladorColocaciones);
+        this.controlador = controladorColocaciones;
 
         HBox contenedorCentro = new HBox(vistaTablero);
         contenedorCentro.setPadding(new Insets(0, 0, 10, 425));
@@ -52,8 +64,8 @@ public class VistaColocacionesIniciales extends BorderPane  {
         botonesDerecha.setAlignment(Pos.CENTER_RIGHT);
         botonesDerecha.setPadding(new Insets(100, 20, 100, 0));
 
-        BotonJuego botonPoblado = new BotonJuego("Colocar poblado");
-        BotonJuego botonCarretera = new BotonJuego("Colocar Carretera");
+        this.botonPoblado = new BotonJuego("Colocar poblado");
+        this.botonCarretera = new BotonJuego("Colocar Carretera");
 
         botonPoblado.setDisable(false);
         botonCarretera.setDisable(true);
@@ -61,34 +73,28 @@ public class VistaColocacionesIniciales extends BorderPane  {
         botonesDerecha.getChildren().addAll(botonPoblado, botonCarretera);
         this.setRight(botonesDerecha);
 
-        CambioTurnoControlador cambioTurno = new CambioTurnoControlador(stage, contenedor, juego);
-        VistaTurnoActual vistaTurno = new VistaTurnoActual(cambioTurno);
 
-        BotonGenerico botonFinColocaciones = new BotonGenerico("Finalizar colocaciones", "boton-fin-turno", 230, 45);
-        botonFinColocaciones.setDisable(true);
+        this.botonFinalizar = new BotonGenerico("Finalizar colocaciones", "boton-fin-turno", 230, 45);
+        botonFinalizar.setDisable(true);
         HBox contenedorAbajo = new HBox(20);
         contenedorAbajo.setAlignment(Pos.CENTER_LEFT);
         contenedorAbajo.setPadding(new Insets(0, 0, 20, 95));
-        contenedorAbajo.getChildren().addAll(botonFinColocaciones, vistaTurno);
+        contenedorAbajo.getChildren().addAll(botonFinalizar, vistaTurno);
 
         HBox.setMargin(vistaTurno, new Insets(0, 0, 0, 200));
 
         this.setBottom(contenedorAbajo);
 
-        botonPoblado.setOnAction(e -> { vistaTablero.mostrarVertices();
-            botonPoblado.setDisable(true);
-            botonCarretera.setDisable(false);
-        });
+        botonPoblado.setOnAction(e -> controlador.iniciarPoblado());
+        botonCarretera.setOnAction(e -> controlador.iniciarCarretera());
+        botonFinalizar.setOnAction(e -> controlador.terminarColocacion());
 
-        botonCarretera.setOnAction(e -> { vistaTablero.mostrarAristas();
-            botonCarretera.setDisable(true);
-            botonFinColocaciones.setDisable(false);
-        });
-
-        botonFinColocaciones.setOnAction(e -> {
-            // TODO: Pasar al siguinte turno, PERO SOLO SI SE CONSTRUYÓ!!!! SINO NO.
-            });
 
         Transicion.fade(this);
     }
+
+    public void activarPoblado(boolean activar) { botonPoblado.setDisable(!activar); }
+    public void activarCarretera(boolean activar) { botonCarretera.setDisable(!activar); }
+    public void activarFinalizar(boolean activar) { botonFinalizar.setDisable(!activar); }
+
 }

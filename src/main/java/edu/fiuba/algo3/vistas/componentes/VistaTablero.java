@@ -1,26 +1,35 @@
 package edu.fiuba.algo3.vistas.componentes;
+import edu.fiuba.algo3.controllers.ControladorColocaciones;
 import edu.fiuba.algo3.controllers.fasesJuego.AccionesTableroControlador;
+import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
+import edu.fiuba.algo3.vistas.VistaConstrucciones;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.control.Button;
+
+import java.util.List;
 
 
 public class VistaTablero extends StackPane {
     private VistaHexagonos vistaHexagonos;
     private VistaVertices vistaVertices;
     private VistaAristas vistaAristas;
+    private VistaConstrucciones vistaConstrucciones;
 
     public VistaTablero(Tablero tablero) {
         vistaHexagonos = new VistaHexagonos(tablero.getHexagonos());
         vistaVertices = new VistaVertices(tablero.getVertices());
         vistaAristas  = new VistaAristas(tablero.getAristas());
-        // TODO: agregar vistaConstrucciones? para que se pongan encima de todo
+        vistaConstrucciones = new VistaConstrucciones();
 
-        this.getChildren().addAll(vistaHexagonos, vistaVertices, vistaAristas);
+        this.getChildren().addAll(vistaHexagonos, vistaVertices, vistaAristas, vistaConstrucciones);
         ocultarVertices();
         ocultarAristas();
     }
 
-    public void setControlador(AccionesTableroControlador controlador) {
+    public void setControlador(ControladorColocaciones controlador) {
         vistaAristas.setControlador(controlador);
         vistaVertices.setControlador(controlador);
     }
@@ -43,5 +52,22 @@ public class VistaTablero extends StackPane {
     public void mostrarAristas() {
         vistaAristas.setDisable(false);
         vistaAristas.setOpacity(1);
+    }
+
+    public void mostrarAristas(List<Arista> aristas) {
+        vistaAristas.setDisable(false);
+        vistaAristas.setOpacity(1);
+        vistaAristas.mostrarSolo(aristas);
+    }
+
+
+    public void dibujarPobladoEn(Vertice vertice, Color color){
+        Button boton = vistaVertices.botonDe(vertice);
+        vistaConstrucciones.dibujarPoblado(boton, color);
+    }
+
+    public void dibujarCarreteraEn(Arista arista, Color color){
+        Button boton = vistaAristas.botonDe(arista);
+        vistaConstrucciones.dibujarCarretera(boton, color);
     }
 }

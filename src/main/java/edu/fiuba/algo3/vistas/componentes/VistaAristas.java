@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas.componentes;
 
+import edu.fiuba.algo3.controllers.ControladorColocaciones;
 import edu.fiuba.algo3.controllers.fasesJuego.AccionesTableroControlador;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import javafx.geometry.Insets;
@@ -9,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,7 +19,8 @@ public class VistaAristas extends StackPane {
     private Map<Integer, Arista> aristas;
     private List<List<Arista>> aristasPorFila;
     private VBox capaAristas;
-    private AccionesTableroControlador tableroControlador;
+    private ControladorColocaciones tableroControlador;
+    private  Map<Arista, Button> botonesAristas = new HashMap<>();
 
     private static final Set<Integer> rotacion_45 = Set.of(
             5, 10, 15, 20, 2, 8, 13, 35, 17, 22, 25, 29,
@@ -53,7 +56,7 @@ public class VistaAristas extends StackPane {
             List.of(aristas.get(19), aristas.get(16), aristas.get(21), aristas.get(24), aristas.get(28)),
             List.of(aristas.get(35), aristas.get(18), aristas.get(17), aristas.get(23), aristas.get(22), aristas.get(26), aristas.get(25), aristas.get(30), aristas.get(29), aristas.get(45)),
             List.of(aristas.get(34), aristas.get(31), aristas.get(36), aristas.get(39), aristas.get(42), aristas.get(46)),
-            List.of(aristas.get(33), aristas.get(22), aristas.get(38), aristas.get(37), aristas.get(41), aristas.get(40), aristas.get(44), aristas.get(43), aristas.get(48), aristas.get(47)),
+            List.of(aristas.get(33), aristas.get(32), aristas.get(38), aristas.get(37), aristas.get(41), aristas.get(40), aristas.get(44), aristas.get(43), aristas.get(48), aristas.get(47)),
             List.of(aristas.get(52), aristas.get(49), aristas.get(53), aristas.get(56), aristas.get(59)),
             List.of(aristas.get(51), aristas.get(50), aristas.get(55), aristas.get(54), aristas.get(58), aristas.get(57), aristas.get(61), aristas.get(60)),
             List.of(aristas.get(65), aristas.get(62), aristas.get(66), aristas.get(69)),
@@ -86,15 +89,40 @@ public class VistaAristas extends StackPane {
                 boton.setOnAction(e -> { tableroControlador.obtenerArista(arista);
                     System.out.println("Me clické!! arista");
                 });
+
+                botonesAristas.put(arista, boton);
+
                 filaAristas.getChildren().add(boton);
             }
 
             capaAristas.getChildren().add(filaAristas);
         }
     }
-    public void setControlador(AccionesTableroControlador controlador) {
+    public void setControlador(ControladorColocaciones controlador) {
         this.tableroControlador = controlador;
         construirBotonesAristas();
         System.out.println("YO tmb me seteé!!!!");
+    }
+
+    public void mostrarSolo(List<Arista> aristasValidas) {
+        for (Map.Entry<Arista, Button> entry : botonesAristas.entrySet()) {
+
+            Arista arista = entry.getKey();
+            Button boton = entry.getValue();
+
+            boolean esValida = aristasValidas.contains(arista);
+
+            boton.setDisable(!esValida);
+
+            if (esValida) {
+                boton.setOpacity(1);
+            } else {
+                boton.setOpacity(0);
+            }
+        }
+    }
+
+    public Button botonDe(Arista arista) {
+        return botonesAristas.get(arista);
     }
 }

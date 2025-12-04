@@ -171,4 +171,8 @@ public class Juego {
     public Dado getDado() {
         return this.dado;
     }
+
+    public int getIndiceTurno() {
+        return indiceTurno;
+    }
 }
