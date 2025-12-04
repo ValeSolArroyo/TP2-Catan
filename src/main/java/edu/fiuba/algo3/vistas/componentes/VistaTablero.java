@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.vistas.componentes;
-import edu.fiuba.algo3.controllers.ControladorColocaciones;
-import edu.fiuba.algo3.controllers.fasesJuego.AccionesTableroControlador;
+import edu.fiuba.algo3.controllers.fasesJuego.ControladorColocaciones;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.Vertice;

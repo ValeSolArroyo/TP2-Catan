@@ -1,5 +1,6 @@
-package edu.fiuba.algo3.controllers;
+package edu.fiuba.algo3.controllers.fasesJuego;
 
+import edu.fiuba.algo3.controllers.CambioTurnoControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.juegoCommand.AccionPrimeraColocacion;
 import edu.fiuba.algo3.modelo.juegoCommand.AccionSegundaColocacion;
@@ -10,8 +11,14 @@ import edu.fiuba.algo3.vistas.VistaColocacionesIniciales;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 import javafx.scene.paint.Color;
 
-public class ControladorColocaciones {
-    private final CambioTurnoControlador cambioTurno;
+public interface ControladorColocaciones {
+    void obtenerVertice(Vertice vertice);
+    void obtenerArista(Arista arista);
+    void iniciarCarretera();
+    void terminarColocacion();
+    void iniciarPoblado();
+
+    /*private final CambioTurnoControlador cambioTurno;
     private Juego juego;
     private VistaTablero vistaTablero;
     private VistaColocacionesIniciales vistaColocaciones;
@@ -76,5 +83,5 @@ public class ControladorColocaciones {
         vistaTablero.mostrarVertices();
         vistaColocaciones.activarPoblado(false);
         vistaColocaciones.activarCarretera(true);
-    }
+    }*/
 }
