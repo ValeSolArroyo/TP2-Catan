@@ -34,24 +34,26 @@ public class PrimerasColocacionesControlador implements  AccionesTableroControla
     public void obtenerVertice(Vertice vertice) {
         this.vertice = vertice;
         vistaTablero.ocultarVertices();
+        vistaColocaciones.activarCarretera(true);
     }
 
     @Override
     public void obtenerArista(Arista arista) {
         this.arista = arista;
         vistaTablero.ocultarAristas();
+        vistaColocaciones.activarFinalizar(true);
     }
 
     public void iniciarPoblado() {
         vistaTablero.mostrarVertices();
         vistaColocaciones.activarPoblado(false);
-        vistaColocaciones.activarCarretera(true);
+        vistaColocaciones.activarCarretera(false);
     }
 
     public void iniciarCarretera() {
         vistaTablero.mostrarAristas(vertice.getAristas());
         vistaColocaciones.activarCarretera(false);
-        vistaColocaciones.activarFinalizar(true);
+        vistaColocaciones.activarFinalizar(false);
     }
 
     public void terminarColocacion() {
