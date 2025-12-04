@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas.componentes;
 
+import edu.fiuba.algo3.controllers.fasesJuego.AccionesTableroControlador;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,6 +16,7 @@ public class VistaVertices extends StackPane {
     private Map<Integer, Vertice> vertices;
     private List<List<Vertice>> verticesPorFila;
     private VBox capaVertices;
+    private AccionesTableroControlador tableroControlador;
 
     public VistaVertices(Map<Integer, Vertice> vertices) {
         this.vertices = vertices;
@@ -25,7 +27,6 @@ public class VistaVertices extends StackPane {
         this.getChildren().add(capaVertices);
 
         inicializarVerticesPorFila();
-        construirBotonesVertices();
     }
 
     private void inicializarVerticesPorFila() {
@@ -57,13 +58,19 @@ public class VistaVertices extends StackPane {
                 boton.getStyleClass().add("boton-colocacion-vertice");
 
                 boton.setOnAction(e -> {
-                            System.out.println("Boton " + vertice.getId());
-                        } //controlador.seleccionarVertice(v)
-                );
+                    tableroControlador.obtenerVertice(vertice);
+                    System.out.println("Me clické!! vertice");
+                });
 
                 filaVertices.getChildren().add(boton);
             }
             capaVertices.getChildren().add(filaVertices);
         }
+    }
+
+    public void setControlador(AccionesTableroControlador controlador) {
+        this.tableroControlador = controlador;
+        construirBotonesVertices();
+        System.out.println("ME setéeee");
     }
 }
