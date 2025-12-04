@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.controllers.fasesJuego;
 
 import edu.fiuba.algo3.controllers.CambioTurnoControlador;
+import edu.fiuba.algo3.modelo.excepciones.ReglaDeDistanciaError;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.juegoCommand.Accion;
 import edu.fiuba.algo3.modelo.juegoCommand.AccionPrimeraColocacion;
@@ -10,6 +11,7 @@ import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.vistas.VistaColocacionesIniciales;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
+import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
 import javafx.scene.paint.Color;
 
 
@@ -71,7 +73,14 @@ public class PrimerasColocacionesControlador implements  AccionesTableroControla
             System.out.println("2da colocación");
         }
 
-        juego.ejecutarAccion(accion);
+        try {
+            juego.ejecutarAccion(accion);
+
+        } catch (ReglaDeDistanciaError e) {
+            PopUpError.mostrar(e.getMessage());
+            resetearTurno();
+            return;
+        }
 
         vistaTablero.dibujarPobladoEn(vertice, color);
         vistaTablero.dibujarCarreteraEn(arista, color);
@@ -91,6 +100,19 @@ public class PrimerasColocacionesControlador implements  AccionesTableroControla
                 cambioTurno.activarAccionFinTurno();
             }
         }
+        vistaColocaciones.activarFinalizar(false);
+        vistaColocaciones.activarCarretera(false);
+        vistaColocaciones.activarPoblado(true);
+    }
+
+    public void resetearTurno() {
+        // TODO: chequear... lo unico q se me ocurrio
+        this.vertice = null;
+        this.arista = null;
+
+        vistaTablero.ocultarAristas();
+        vistaTablero.mostrarVertices();
+
         vistaColocaciones.activarFinalizar(false);
         vistaColocaciones.activarCarretera(false);
         vistaColocaciones.activarPoblado(true);
