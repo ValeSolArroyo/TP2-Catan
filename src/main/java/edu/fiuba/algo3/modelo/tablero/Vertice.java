@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.comercio.ComercioPuerto;
 import edu.fiuba.algo3.modelo.comercio.NullPuerto;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.NullConstruccion;
+import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.excepciones.*;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
@@ -48,7 +49,17 @@ public class Vertice implements EspacioConstruible {
         for (Vertice verticeVecino : vecinos) {
             verticeVecino.validarReglaDistancia();
         }
-        // habria que validar que sea adyacente a por lo menos una de las aristas
+        if (!validarCarreterasProximas(jugador)) {
+            throw new ConstruccionInvalidaError("No se puede construir si no hay carreteras");
+        }
+        this.construccion = construccion;
+    }
+
+    public void construirPobladoPrimerasColocaciones(Jugador jugador, Poblado construccion) {
+        this.construccion.ocupar();
+        for (Vertice verticeVecino : vecinos) {
+            verticeVecino.validarReglaDistancia();
+        }
         this.construccion = construccion;
     }
 
@@ -58,13 +69,13 @@ public class Vertice implements EspacioConstruible {
             this.construccion.ocupar();
         } catch (YaHayPobladoError e) {
            this.construccion.tieneDePropietarioA(jugador);
+            Construccion antigua = this.construccion;
+            this.construccion = nuevaConstruccion;
+            jugador.eliminarConstruccion(antigua);
         } catch (YaHayCiudadError e) {
             throw new ConstruccionInvalidaError("No se puede mejorar donde ya hay una ciudad.");
         }
-        Construccion antigua = this.construccion;
-        this.construccion = nuevaConstruccion;
-        jugador.eliminarConstruccion(antigua);
-
+        throw new ConstruccionInvalidaError("No se puede mejor una ciudad si no hay poblado");
     }
 
     @Override
@@ -90,11 +101,12 @@ public class Vertice implements EspacioConstruible {
         } catch (YaHayCiudadError | YaHayPobladoError e) {
             try {
                 this.construccion.tieneDePropietarioA(jugador);
-            }catch (ConstruccionInvalidaError error){
+                return true;
+            } catch (ConstruccionInvalidaError error) {
                 return false;
             }
         }
-        return true;
+        return false;
     }
 
     public boolean validarCarreterasProximas(Jugador jugador) {

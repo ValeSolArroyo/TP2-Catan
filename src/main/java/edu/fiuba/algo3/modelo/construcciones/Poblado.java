@@ -10,6 +10,8 @@ import edu.fiuba.algo3.modelo.recursos.Madera;
 import edu.fiuba.algo3.modelo.recursos.Grano;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
+
 import java.util.List;
 
 public class Poblado implements Construccion {
@@ -30,7 +32,6 @@ public class Poblado implements Construccion {
         if (!(this.propietario.equals(jugador))){
             throw new ConstruccionInvalidaError("No se puede mejorar a ciudad un poblado ajeno.");
         }
-
     }
 
     @Override
@@ -40,7 +41,7 @@ public class Poblado implements Construccion {
 
     @Override
     public void ocupar() {
-        throw new YaHayPobladoError("No se puede colocar");
+        throw new YaHayPobladoError("No se puede colocar porque ya hay un poblado");
     }
 
     @Override
@@ -51,5 +52,9 @@ public class Poblado implements Construccion {
     @Override
     public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {
         espacio.construirPoblado(jugador, this);
+    }
+
+    public void aplicarCambioPrimerasColocaciones(Jugador jugador, Vertice vertice) {
+        vertice.construirPobladoPrimerasColocaciones(jugador, this);
     }
 }

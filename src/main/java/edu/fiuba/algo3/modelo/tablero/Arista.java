@@ -39,14 +39,12 @@ public class Arista implements EspacioConstruible {
 
     public void construirCarretera(Jugador jugador, Construccion construccion) {
         this.construccion.ocupar();
-        if (!this.vertice1.validarConstruccionesProximas(jugador)
-                && !this.vertice2.validarConstruccionesProximas(jugador)) {
+        if (!this.vertice1.validarConstruccionesProximas(jugador) && !this.vertice2.validarConstruccionesProximas(jugador)) {
             if (!this.vertice1.validarCarreterasProximas(jugador) && !this.vertice2.validarCarreterasProximas(jugador)) {
                 throw new ConstruccionInvalidaError("No se puede colocar la carretera porque no cumple con las condiciones.");
             }
         }
         this.construccion = construccion;
-
     }
 
     public boolean validarCarreteraPropia(Jugador jugador) {
@@ -55,12 +53,12 @@ public class Arista implements EspacioConstruible {
         } catch (YaHayCarreteraError e) {
             try {
                 construccion.tieneDePropietarioA(jugador);
-            }catch (ConstruccionInvalidaError error){
+                return true;
+            } catch (ConstruccionInvalidaError error) {
                 return false;
-
             }
         }
-        return true;
+        return false;
     }
 
     public void setId(int id) {

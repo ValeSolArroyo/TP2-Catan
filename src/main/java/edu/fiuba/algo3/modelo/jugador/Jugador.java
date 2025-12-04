@@ -3,6 +3,8 @@ package edu.fiuba.algo3.modelo.jugador;
 import edu.fiuba.algo3.modelo.cartasBonificacion.CartaBonificacion;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.comercio.ComercioInterno;
+import edu.fiuba.algo3.modelo.construcciones.Poblado;
+import edu.fiuba.algo3.modelo.excepciones.ConstruccionInvalidaError;
 import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.recursos.*;
@@ -67,6 +69,11 @@ public class Jugador extends Observable {
         }
         construccion.aplicarCambio(this, espacio);
         this.agregarConstruccion(construccion);
+    }
+
+    public void construirPrimerosPoblados(Poblado poblado, Vertice vertice) {
+        poblado.aplicarCambioPrimerasColocaciones(this, vertice);
+        this.agregarConstruccion(poblado);
     }
 
     public void recibirRecurso(Recurso recurso) {
@@ -155,4 +162,5 @@ public class Jugador extends Observable {
     public Map<String, Integer> getRecursosInventario(){
         return this.inventario.getRecursos();
     }
+
 }
