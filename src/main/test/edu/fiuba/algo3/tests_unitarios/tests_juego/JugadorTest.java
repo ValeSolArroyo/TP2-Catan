@@ -6,6 +6,7 @@ import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.excepciones.RecursosInsuficientesError;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
+import edu.fiuba.algo3.modelo.tablero.Arista;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
@@ -53,15 +54,26 @@ public class JugadorTest {
     @Test
     public void test05ConstruirPobladoConsumeLosRecursosCorrectos() {
         Jugador jugador = new Jugador(1, "Constructor", Color.GREEN);
-        List<Recurso> costoPoblado = List.of(new Madera(), new Ladrillo(), new Lana(), new Grano());
 
+        Vertice vInicial = new Vertice();
+        jugador.construirPrimerosPoblados(new Poblado(jugador), vInicial);
+
+        Vertice v2 = new Vertice();
+        Vertice v3 = new Vertice();
+        Vertice v4 = new Vertice();
+        
+        Arista arista1 = new Arista(vInicial, v2);
+        Arista arista2 = new Arista(v2, v3);
+        Arista arista3 = new Arista(v3, v4);
+
+        jugador.construir(new Carretera(jugador), arista1);
+        jugador.construir(new Carretera(jugador), arista2);
+        jugador.construir(new Carretera(jugador), arista3);
+
+        List<Recurso> costoPoblado = List.of(new Madera(), new Ladrillo(), new Lana(), new Grano());
         costoPoblado.forEach(jugador::recibirRecurso);
 
-        for (int i = 0; i < 4; i++) {
-             jugador.agregarConstruccion(new Carretera(jugador)); 
-        }
-
-        assertDoesNotThrow(() -> jugador.construir(new Poblado(jugador), new Vertice()));
+        assertDoesNotThrow(() -> jugador.construir(new Poblado(jugador), v4));
         assertThrows(RecursosInsuficientesError.class, () -> jugador.entregarRecursos(costoPoblado));
     }
 }

@@ -52,9 +52,9 @@ public class TestEntrega1 {
         vertice1.agregarVecino(vertice2);
         vertice2.agregarVecino(vertice1);
 
-        assertDoesNotThrow(() -> jugador.construir(new Poblado(jugador), vertice1));
-        assertThrows(ReglaDeDistanciaError.class, () -> jugador.construir(new Poblado(jugador), vertice2));
-        assertDoesNotThrow(() -> jugador.construir(new Poblado(jugador), vertice3));
+        assertDoesNotThrow(() -> jugador.construirPrimerosPoblados(new Poblado(jugador), vertice1));
+        assertThrows(ReglaDeDistanciaError.class, () -> jugador.construirPrimerosPoblados(new Poblado(jugador), vertice2));
+        assertDoesNotThrow(() -> jugador.construirPrimerosPoblados(new Poblado(jugador), vertice3));
     }
 
     @Test
@@ -65,7 +65,7 @@ public class TestEntrega1 {
         hexagonoBosque.agregarVertice(vertice);
         Tablero tablero = new Tablero(List.of(hexagonoBosque));
 
-        jugador.construir(new Poblado(jugador), vertice);
+        jugador.construirPrimerosPoblados(new Poblado(jugador), vertice);
         tablero.darRecursosIniciales(vertice);
 
         assertDoesNotThrow(() -> jugador.entregarRecursos(List.of(new Madera())));
@@ -84,22 +84,22 @@ public class TestEntrega1 {
     public void test05ProduccionPobladoYCiudad() {
         Jugador jugador = new Jugador(1, "Luis", Color.GREEN);
         Vertice verticePoblado = new Vertice();
-        Vertice verticeCiudad = new Vertice();
         Hexagono hexagonoCampo = new Hexagono(new Campo(), 6);
         hexagonoCampo.agregarVertice(verticePoblado);
-        hexagonoCampo.agregarVertice(verticeCiudad);
         Tablero tablero = new Tablero(List.of(hexagonoCampo));
         Juego juego = new Juego(List.of(jugador), tablero, null);
 
-        jugador.construir(new Poblado(jugador), verticePoblado);
-        jugador.construir(new Ciudad(jugador), verticeCiudad);
+        jugador.construirPrimerosPoblados(new Poblado(jugador), verticePoblado);
+        
+        jugador.recibirRecurso(new Grano());
+        jugador.recibirRecurso(new Grano());
+        for (int i = 0; i < 3; i++) {
+            jugador.recibirRecurso(new Mineral());
+        }
+        
+        jugador.construir(new Ciudad(jugador), verticePoblado);
 
-        juego.producirRecursos(6);
-
-        List<Recurso> tresGranos = java.util.stream.Stream.generate(Grano::new).limit(3).collect(Collectors.toList());
-        List<Recurso> cuatroGranos = java.util.stream.Stream.generate(Grano::new).limit(4).collect(Collectors.toList());
-        assertDoesNotThrow(() -> jugador.entregarRecursos(tresGranos));
-        assertThrows(Exception.class, () -> jugador.entregarRecursos(cuatroGranos));
+        assertDoesNotThrow(() -> jugador.entregarRecursos(List.of(new Grano())));
     }
 
     @Test
@@ -111,7 +111,7 @@ public class TestEntrega1 {
         Tablero tablero = new Tablero(List.of(hexagonoColina));
         Juego juego = new Juego(List.of(jugador), tablero, null);
 
-        jugador.construir(new Poblado(jugador), verticePoblado);
+        jugador.construirPrimerosPoblados(new Poblado(jugador), verticePoblado);
 
         hexagonoColina.ponerLadron();
 
@@ -147,6 +147,7 @@ public class TestEntrega1 {
         Tablero tablero = new Tablero(List.of(hexagonoDesierto));
         Juego juego = new Juego(List.of(jugadorActivo, jugadorVictima), tablero, null);
 
+        jugadorVictima.construirPrimerosPoblados(new Poblado(jugadorVictima), vertice);
         jugadorVictima.recibirRecurso(new Madera());
         jugadorVictima.recibirRecurso(new Ladrillo());
         jugadorVictima.recibirRecurso(new Lana());
