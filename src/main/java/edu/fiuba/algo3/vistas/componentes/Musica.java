@@ -6,6 +6,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class Musica {
+    /*
     File tema_principal = new File("src/main/resources/music/tema_principal.mp3");
     String ruta_tema_principal = "file:///"+tema_principal.getAbsolutePath();
     MediaPlayer mediaPlayer;
@@ -16,4 +17,6 @@ public class Musica {
         mediaPlayer = new MediaPlayer(musicFile);
         mediaPlayer.play();
     }
+
+     */
 }
