@@ -20,7 +20,7 @@ import java.util.List;
 public class VistaSeleccionNombreYColor extends VBox {
     private final List<TextField> nombres = new ArrayList<>();
     private final List<ComboBox<String>> colores = new ArrayList<>();
-    private static final String[] opcionesColores = {"Amarillo", "Verde", "Azul", "Rosa", "Rojo", "Naranja"};
+    private static final String[] opcionesColores = {"Amarillo", "Magenta", "Azul", "Rosa", "Rojo", "Naranja"};
 
     public VistaSeleccionNombreYColor(Stage stage, ContenedorPrincipalVistas contenedor, int cantidad) {
         this.setAlignment(Pos.CENTER);
