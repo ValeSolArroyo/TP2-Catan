@@ -7,6 +7,7 @@ import edu.fiuba.algo3.modelo.comercio.ComercioJugador;
 import edu.fiuba.algo3.modelo.construcciones.Carretera;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
+import edu.fiuba.algo3.modelo.excepciones.NoHayCartasDesarrolloError;
 import edu.fiuba.algo3.modelo.juegoCommand.Accion;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Grano;
@@ -55,7 +56,10 @@ public class Juego {
         this.tablero.moverLadronA(nuevoLugar);
     }
 
-    public void comprarCartaDesarrollo(){
+    public void comprarCartaDesarrollo() {
+        if (this.cartasDesarrollo.isEmpty()) {
+            throw new NoHayCartasDesarrolloError("No se puede comprar una carta porque se acabaron las del mazo.");
+        }
         List<Recurso> costoCarta = List.of(new Mineral(), new Grano(), new Lana());
         Jugador jugador = this.jugadorActual();
         jugador.guardarCartaDesarrollo(this.cartasDesarrollo.get(0), costoCarta);
