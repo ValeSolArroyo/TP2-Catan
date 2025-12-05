@@ -19,4 +19,5 @@ module edu.fiuba.algo3 {
     exports edu.fiuba.algo3.modelo.jugador;
     exports edu.fiuba.algo3.modelo.tablero;
     exports edu.fiuba.algo3.vistas.componentes;
+    exports edu.fiuba.algo3.vistas.componentes.menu;
 }

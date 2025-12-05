@@ -27,6 +27,16 @@ $ java -jar <archivo.jar>
 
 Aquellos que deseen colaborar con el proyecto pueden consultar la [guía de desarrollo](./docs/Desarrollo.md).
 
+## Créditos
+Música utilizada:
+- [MEGALOVANIA - Undertale OST - Toby Fox](https://www.youtube.com/watch?v=KK3KXAECte4&list=RDKK3KXAECte4&start_radio=1).
+- [Spring (It's a Big World Outside) - Stardew Valley OST - ConcernedApe](https://www.youtube.com/watch?v=FO9WXi9gxQg&list=PLoku_1Va0MjwRzYb1yfBS3Ob5eyKbBi2p&index=5).
+- [Minecraft - Minecraft OST - C418](https://www.youtube.com/watch?v=XuZDeT8zI5c&list=PLBO2h-GzDvIYDdNeZs6eAejompnLTZaEq&index=8).
+
+<br>
+
+Font utilizada:
+- [Minecraft - Craftron Gaming](https://www.dafont.com/es/minecraft.font).
 ## Licencia
 
 Este repositorio se encuentra bajo la Licencia MIT.
