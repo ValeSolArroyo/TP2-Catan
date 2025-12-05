@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.vistas;
 
-import edu.fiuba.algo3.controllers.CartasDesarrolloControlador;
+import edu.fiuba.algo3.controllers.cartasDesarrollo.CartasDesarrolloControlador;
 import edu.fiuba.algo3.controllers.VolverControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
@@ -22,11 +22,9 @@ public class VistaCartasDesarrollo extends BorderPane {
             "Progreso de Construccion", "/images/utils/cartas/construccion_carretera.png",
             "Progreso de Descubrimiento", "/images/utils/cartas/descubrimiento.png",
             "Progreso Monopolio", "/images/utils/cartas/monopolio.png"
-
     );
 
     public VistaCartasDesarrollo(Juego juego, ContenedorPrincipalVistas contenedor, Map<String, Integer> contadorCartas, VistaJuegoGeneral vistaJuego, CartasDesarrolloControlador controlador) {
-
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/mar.jpeg"));
 
         HBox cartasHBox = new HBox(40);
@@ -50,11 +48,9 @@ public class VistaCartasDesarrollo extends BorderPane {
         this.setBottom(botonVbox);
 
         Transicion.fade(this);
-
     }
 
     private VBox crearVistaCarta(String nombreCarta, int cantidad, CartasDesarrolloControlador controlador) {
-
         String ruta = rutasCartas.get(nombreCarta);
         Image img = new Image(getClass().getResourceAsStream(ruta));
         ImageView imgView = new ImageView(img);
@@ -62,13 +58,11 @@ public class VistaCartasDesarrollo extends BorderPane {
         imgView.setPreserveRatio(true);
         imgView.setFitWidth(160);
 
-
         BotonJuego botonJugar = new BotonJuego( " " + cantidad + "");
 
         if (cantidad == 0) {
             botonJugar.setDisable(true);
         }
-
 
         botonJugar.setOnAction(e -> {
             switch (nombreCarta) {
@@ -87,7 +81,6 @@ public class VistaCartasDesarrollo extends BorderPane {
                 case "Progreso Monopolio":
                     controlador.jugarMonopolio();
                     break;
-
             }
         });
 

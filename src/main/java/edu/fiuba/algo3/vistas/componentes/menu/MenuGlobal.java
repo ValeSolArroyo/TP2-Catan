@@ -89,6 +89,7 @@ public class MenuGlobal {
             submenuOpciones.setVisible(false);
             submenuMusica.setVisible(false);
             botonOpciones.setText("Opciones");
+            botonMusica.setText("Musica");
             if (!estabaAbierto) {
                 botonMenu.setText("Cerrar");
                 botonMenu.setTranslateY(130);

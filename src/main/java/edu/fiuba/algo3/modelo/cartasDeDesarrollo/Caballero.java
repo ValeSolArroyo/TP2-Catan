@@ -2,11 +2,7 @@ package edu.fiuba.algo3.modelo.cartasDeDesarrollo;
 
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.recursos.Recurso;
-import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Hexagono;
-
-import java.util.List;
 
 public class Caballero implements CartaDesarrollo {
 
@@ -15,8 +11,7 @@ public class Caballero implements CartaDesarrollo {
     private Jugador victima;
     private Jugador jugadorActual;
 
-    public Caballero(){
-    }
+    public Caballero(){}
 
     public Caballero(Juego juego, Hexagono nuevoLugar, Jugador victima, Jugador jugadorActual){
         this.juego = juego;
@@ -26,9 +21,7 @@ public class Caballero implements CartaDesarrollo {
     }
 
     @Override
-    public void ejecutarAlGuardar() {
-
-    }
+    public void ejecutarAlGuardar(Jugador jugador) {}
 
     @Override
     public void ejecutar() {

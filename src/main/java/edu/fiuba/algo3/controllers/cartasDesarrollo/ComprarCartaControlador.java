@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.controllers;
+package edu.fiuba.algo3.controllers.cartasDesarrollo;
 
 import edu.fiuba.algo3.controllers.fasesJuego.AccionControlador;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
@@ -33,7 +33,7 @@ public class ComprarCartaControlador implements AccionControlador {
 
         CartaDesarrollo carta = juego.getCartaComprada();
         String nombreCarta = carta.getCarta();
-        String textoAMostrar = "Obtuviste la Carta" + nombreCarta;
+        String textoAMostrar = "¡Obtuviste la Carta " + nombreCarta + "!";
         VistaMostrarCarta vistaCartas = new VistaMostrarCarta(textoAMostrar, nombreCarta, contenedor, vistaJuego);
 
         contenedor.setContenido(vistaCartas);

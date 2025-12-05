@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.controllers;
+package edu.fiuba.algo3.controllers.cartasDesarrollo;
 
 import edu.fiuba.algo3.controllers.fasesJuego.AccionHexagonoControlador;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.Caballero;
@@ -22,13 +22,10 @@ public class CaballeroControlador implements AccionHexagonoControlador {
 
     public CaballeroControlador(Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego, ContenedorPrincipalVistas contenedor) {
         this.juego = juego;
-
         this.vistaTablero = vistaTablero;
         this.vistaTablero.setControlador(this);
-
         this.vistaJuego = vistaJuego;
         this.contenedor = contenedor;
-
     }
 
     public void elegirLugarLadron(VistaCaballero vistaCaballero) {
