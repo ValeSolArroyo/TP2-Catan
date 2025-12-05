@@ -7,7 +7,6 @@ import edu.fiuba.algo3.modelo.recursos.Ladrillo;
 import edu.fiuba.algo3.modelo.recursos.Madera;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.tablero.Arista;
-import edu.fiuba.algo3.modelo.tablero.Hexagono;
 
 import java.util.List;
 
@@ -24,12 +23,10 @@ public class ProgresoConstruccion implements CartaDesarrollo {
         this.carreterasAConstruir = carreterasAConstruir;
     }
 
-    public ProgresoConstruccion() {
-
-    }
+    public ProgresoConstruccion() {}
 
     @Override
-    public void ejecutarAlGuardar() { }
+    public void ejecutarAlGuardar(Jugador jugador) {}
 
     @Override
     public void ejecutar() {

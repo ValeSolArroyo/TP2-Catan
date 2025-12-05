@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.controllers;
 
-import edu.fiuba.algo3.controllers.fasesJuego.ConstruirControlador;
+import edu.fiuba.algo3.controllers.cartasDesarrollo.CartasDesarrolloControlador;
+import edu.fiuba.algo3.controllers.cartasDesarrollo.ComprarCartaControlador;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
@@ -60,12 +61,10 @@ public class JuegoControlador {
 
         Map<String, Integer> contadorCartas = new HashMap<>();
 
-
         contadorCartas.put("Caballero", 0);
         contadorCartas.put("Progreso de Construccion", 0);
         contadorCartas.put("Progreso de Descubrimiento", 0);
         contadorCartas.put("Progreso Monopolio", 0);
-
 
         for (CartaDesarrollo cartaDesarrollo : cartasDesarrollo) {
             String carta = cartaDesarrollo.getCarta();

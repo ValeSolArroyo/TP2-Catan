@@ -37,6 +37,10 @@ Música utilizada:
 
 Font utilizada:
 - [Minecraft - Craftron Gaming](https://www.dafont.com/es/minecraft.font).
+
+Recursos utilizados:
+- Gif brillitos https://es.picmix.com/stamp/sparkle-pixel-2354107
+
 ## Licencia
 
 Este repositorio se encuentra bajo la Licencia MIT.
