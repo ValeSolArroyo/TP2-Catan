@@ -1,0 +1,23 @@
+@startuml excepciones_construcciones
+
+class RuntimeException {
+}
+
+class YaHayCarreteraError extends RuntimeException {
+    + YaHayCarreteraError(String message)
+}
+
+class YaHayCiudadError extends RuntimeException {
+    + YaHayCiudadError(String message)
+}
+
+class YaHayPobladoError extends RuntimeException {
+    + YaHayPobladoError(String message)
+}
+
+class ConstruccionInvalidaError extends RuntimeException {
+    + ConstruccionInvalidaError(String message)
+}
+
+
+@enduml
