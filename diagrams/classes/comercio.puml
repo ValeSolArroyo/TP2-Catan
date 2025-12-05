@@ -1,0 +1,49 @@
+@startuml
+
+interface ComercioJugador {
+  + ejecutar(Jugador): void
+}
+
+class Banca {
+    - recursoAEntregar: Recurso
+    - recursoDeseado: Recurso
+    + Banca(Recurso, Recurso): 
+    + ejecutar(Jugador): void
+}
+
+class ComercioInterno {
+    - oferente: Jugador
+    - recursosAEntregar: List<Recurso>
+    - recursosDeseados: List<Recurso>
+    + ComercioInterno(Jugador, List<Recurso>, List<Recurso>): 
+    + ejecutar(Jugador): void
+}
+
+interface ComercioPuerto {
+    + ejecutar(Jugador, Vertice, List<Recurso>, List<Recurso>): void
+}
+
+class NullPuerto {
+    + NullPuerto(): 
+    + ejecutar(Jugador, Vertice, List<Recurso>, List<Recurso>): void
+}
+
+class PuertoEspecial {
+    - tipoEspecial: Recurso
+    + PuertoEspecial(Recurso): 
+    + ejecutar(Jugador, Vertice, List<Recurso>, List<Recurso>): void
+}
+
+class PuertoGenerico {
+    + PuertoGenerico(): 
+    + ejecutar(Jugador, Vertice, List<Recurso>, List<Recurso>): void
+}
+
+ComercioJugador ..|> Banca
+ComercioJugador ..|> ComercioInterno
+
+ComercioPuerto ..|> NullPuerto
+ComercioPuerto ..|> PuertoEspecial
+ComercioPuerto ..|> PuertoGenerico 
+
+@enduml
