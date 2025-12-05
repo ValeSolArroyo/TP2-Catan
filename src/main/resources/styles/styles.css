@@ -102,6 +102,7 @@
     -fx-font-weight: bold;
     -fx-font-family: "Minecraft";
     -fx-cursor: hand;
+    -fx-text-alignment: center;
 }
 
 .boton-menu {
@@ -259,4 +260,42 @@
     -fx-font-size: 30px;
     -fx-text-fill: #1f197b;
     -fx-font-weight: bold;
+}
+
+.botones-musica {
+    -fx-font-family: 'Minecraft';
+    -fx-text-fill: #1f197b;
+    -fx-background-color: #D8F9FF;
+    -fx-background-radius: 10;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-opacity: 90%;
+}
+
+.botones-musica-salir {
+    -fx-font-family: 'Minecraft';
+    -fx-text-fill: #1f197b;
+    -fx-background-color: #D8F9FF;
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-border-color: #5f83b0;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 15px;
+}
+
+.botones-musica-salir:hover,
+.botones-musica:hover {
+    -fx-cursor: hand;
+}
+
+.botones-musica-salir:pressed,
+.botones-musica:pressed {
+    -fx-opacity: 0.6;
+}
+
+.texto-musica {
+    -fx-font-family: 'Minecraft';
+    -fx-text-fill: #2d258e;
+    -fx-font-size: 16px;
 }

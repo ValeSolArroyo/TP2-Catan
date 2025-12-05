@@ -47,17 +47,13 @@ public class VistaColocacionesIniciales extends BorderPane  {
         this.setTop(barraJugadores);
 
         cambioTurno.agregarTablero(this.vistaTablero);
-
         this.vistaTurno = new VistaTurnoActual(cambioTurno);
-
         PrimerasColocacionesControlador controladorColocaciones = new PrimerasColocacionesControlador(juego, vistaTablero, this, cambioTurno);
-
         this.vistaTablero.setControlador(controladorColocaciones);
         this.controlador = controladorColocaciones;
 
         HBox contenedorCentro = new HBox(this.vistaTablero);
         contenedorCentro.setPadding(new Insets(0, 0, 10, 425));
-
         this.setCenter(contenedorCentro);
 
         VBox botonesDerecha = new VBox(50);
@@ -65,8 +61,7 @@ public class VistaColocacionesIniciales extends BorderPane  {
         botonesDerecha.setPadding(new Insets(100, 20, 100, 0));
 
         this.botonPoblado = new BotonJuego("Colocar Poblado");
-        this.botonCarretera = new BotonGenerico("Colocar Carretera", "botones-derecha", 230, 70);
-
+        this.botonCarretera = new BotonGenerico("Colocar Carretera", "botones-derecha", 250, 70);
         botonPoblado.setDisable(false);
         botonCarretera.setDisable(true);
 
@@ -80,7 +75,7 @@ public class VistaColocacionesIniciales extends BorderPane  {
         contenedorAbajo.setPadding(new Insets(0, 0, 20, 95));
         contenedorAbajo.getChildren().addAll(botonFinalizar, vistaTurno);
 
-        HBox.setMargin(vistaTurno, new Insets(0, 0, 0, 200));
+        HBox.setMargin(vistaTurno, new Insets(0, 0, 0, 160));
 
         this.setBottom(contenedorAbajo);
 
@@ -88,12 +83,10 @@ public class VistaColocacionesIniciales extends BorderPane  {
         botonCarretera.setOnAction(e -> controlador.iniciarCarretera());
         botonFinalizar.setOnAction(e -> controlador.ejecutar());
 
-
         Transicion.fade(this);
     }
 
     public void activarPoblado(boolean activar) { botonPoblado.setDisable(!activar); }
     public void activarCarretera(boolean activar) { botonCarretera.setDisable(!activar); }
     public void activarFinalizar(boolean activar) { botonFinalizar.setDisable(!activar); }
-
 }
