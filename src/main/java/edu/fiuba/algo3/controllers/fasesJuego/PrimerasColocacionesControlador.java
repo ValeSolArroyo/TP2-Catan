@@ -27,7 +27,10 @@ public class PrimerasColocacionesControlador implements AccionesTableroControlad
 
     public PrimerasColocacionesControlador(Juego juego, VistaTablero vistaTablero, VistaColocacionesIniciales colocacionesIniciales, CambioTurnoControlador cambioTurno) {
         this.juego = juego;
+
         this.vistaTablero = vistaTablero;
+        this.vistaTablero.setControlador(this);
+
         this.vistaColocaciones = colocacionesIniciales;
         this.cambioTurno = cambioTurno;
         this.esSegundaColocacion = false;

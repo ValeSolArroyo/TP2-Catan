@@ -1,4 +1,6 @@
 package edu.fiuba.algo3.vistas.componentes;
+import edu.fiuba.algo3.controllers.fasesJuego.AccionHexagonoControlador;
+import edu.fiuba.algo3.controllers.fasesJuego.AccionesTableroControlador;
 import edu.fiuba.algo3.controllers.fasesJuego.PrimerasColocacionesControlador;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
@@ -28,9 +30,14 @@ public class VistaTablero extends StackPane {
         ocultarAristas();
     }
 
-    public void setControlador(PrimerasColocacionesControlador controlador) {
+    public void setControlador(AccionesTableroControlador controlador) {
         vistaAristas.setControlador(controlador);
         vistaVertices.setControlador(controlador);
+    }
+
+    public void setControlador(AccionHexagonoControlador controlador) {
+        vistaHexagonos.setControlador(controlador);
+
     }
 
     public void ocultarVertices() {
@@ -49,8 +56,7 @@ public class VistaTablero extends StackPane {
     }
 
     public void mostrarAristas() {
-        vistaAristas.setDisable(false);
-        vistaAristas.setOpacity(1);
+        vistaAristas.mostrarAristas();
     }
 
     public void mostrarAristas(List<Arista> aristas) {
@@ -68,5 +74,13 @@ public class VistaTablero extends StackPane {
     public void dibujarCarreteraEn(Arista arista, Color color){
         Button boton = vistaAristas.botonDe(arista);
         vistaConstrucciones.dibujarCarretera(boton, color);
+    }
+
+    public void desactivarHexagonos() {
+        vistaHexagonos.desactivarBotones();
+    }
+
+    public void activarHexagonos() {
+        vistaHexagonos.activarBoton();
     }
 }

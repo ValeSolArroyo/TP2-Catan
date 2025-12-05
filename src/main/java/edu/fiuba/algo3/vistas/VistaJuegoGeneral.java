@@ -50,13 +50,14 @@ public class VistaJuegoGeneral extends BorderPane {
         BotonJuego botonConstruir = new BotonJuego("Construir");
         botonConstruir.setOnAction( e -> controladorJuego.construir());
         BotonJuego botonComprarCartas = new BotonJuego("Comprar cartas");
-        botonComprarCartas.setOnAction( e -> controladorJuego.comprar());
+        botonComprarCartas.setOnAction( e -> controladorJuego.comprarCarta());
 
         botonesDerecha.getChildren().addAll(botonComerciar, botonConstruir, botonComprarCartas);
 
         this.setRight(botonesDerecha);
 
         BotonJuego botonJugarCarta =  new BotonJuego("Jugar carta");
+        botonJugarCarta.setOnAction( e -> controladorJuego.jugarCarta());
         HBox contenedorArribaIzquierda = new HBox(botonJugarCarta);
         //TODO: ver si cambiamos el padding una vez agregamos botones ladron..
         contenedorArribaIzquierda.setPadding(new Insets(30, 0, 0, 110));

@@ -44,6 +44,8 @@ public class VistaVertices extends StackPane {
                 List.of(vertices.get(47), vertices.get(49), vertices.get(51), vertices.get(53)),
                 List.of(vertices.get(48), vertices.get(50), vertices.get(52))
         );
+
+        construirBotonesVertices();
     }
 
     private void construirBotonesVertices() {
@@ -69,7 +71,7 @@ public class VistaVertices extends StackPane {
 
     public void setControlador(AccionesTableroControlador controlador) {
         this.tableroControlador = controlador;
-        construirBotonesVertices();
+
     }
 
     public Button botonDe(Vertice vertice) {
