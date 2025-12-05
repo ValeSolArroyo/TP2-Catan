@@ -108,13 +108,6 @@ public class Juego {
         accion.ejecutar();
     }
 
-    public void ejecutarCartaDesarrollo(CartaDesarrollo carta, Jugador victima, Hexagono nuevoLugar,
-                                        List<Arista> carreterasAConstruir, List<Recurso> recursosDeBanca,
-                                        Recurso recursoDeseado) {
-        Jugador jugador = jugadorActual();
-        carta.ejecutar(this, victima, jugador, nuevoLugar, carreterasAConstruir, recursosDeBanca, recursoDeseado);
-    }
-
     // Comercio con banca e interno
     public void ejecutarComercioJugador(ComercioJugador comercioJugador) {
         Jugador jugador = jugadorActual();

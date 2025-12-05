@@ -10,9 +10,23 @@ import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import java.util.List;
 
 public class PuntoVictoria implements CartaDesarrollo {
+    private Jugador jugadorActual;
+
+    public PuntoVictoria(){
+
+    }
+
+    public PuntoVictoria(Jugador jugador){
+        this.jugadorActual = jugador;
+    }
 
     @Override
-    public void ejecutar(Juego juego, Jugador victima, Jugador jugador, Hexagono nuevoLugar, List<Arista> carreterasAConstruir, List<Recurso> recursosDeBanca, Recurso recursoDeseado) {
-        jugador.sumarPVPorCartaDesarollo();
+    public void ejecutarAlGuardar() {
+        jugadorActual.sumarPVPorCartaDesarollo();
+    }
+
+    @Override
+    public void ejecutar() {
+
     }
 }

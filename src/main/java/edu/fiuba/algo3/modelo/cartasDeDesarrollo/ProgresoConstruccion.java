@@ -13,16 +13,35 @@ import java.util.List;
 
 public class ProgresoConstruccion implements CartaDesarrollo {
 
+    private Juego juego;
+    private Jugador jugadorActual;
+    private  List<Arista> carreterasAConstruir;
+
+
+    public ProgresoConstruccion(Juego juego, Jugador jugador, List<Arista> carreterasAConstruir) {
+        this.juego = juego;
+        this.jugadorActual = jugador;
+        this.carreterasAConstruir = carreterasAConstruir;
+    }
+
+    public ProgresoConstruccion() {
+
+    }
+
     @Override
-    public void ejecutar(Juego juego, Jugador victima, Jugador jugador, Hexagono nuevoLugar, List<Arista> carreterasAConstruir, List<Recurso> recursosDeBanca, Recurso recursoDeseado) {
+    public void ejecutarAlGuardar() { }
+
+    @Override
+    public void ejecutar() {
         for (Arista arista: carreterasAConstruir) {
             List<Recurso> recursosNecesarios = List.of(new Madera(), new Ladrillo());
             for (Recurso recurso : recursosNecesarios) {
-                jugador.recibirRecurso(recurso);
+                jugadorActual.recibirRecurso(recurso);
             }
 
-            jugador.construir(new Carretera(jugador), arista);
-            juego.revisarGranRutaComercial(jugador);
+            jugadorActual.construir(new Carretera(jugadorActual), arista);
+            juego.revisarGranRutaComercial(jugadorActual);
         }
+
     }
 }
