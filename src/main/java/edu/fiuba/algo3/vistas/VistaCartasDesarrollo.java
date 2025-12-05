@@ -8,6 +8,7 @@ import edu.fiuba.algo3.vistas.componentes.Transicion;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -58,7 +59,10 @@ public class VistaCartasDesarrollo extends BorderPane {
         imgView.setPreserveRatio(true);
         imgView.setFitWidth(160);
 
-        BotonJuego botonJugar = new BotonJuego( " " + cantidad + "");
+        Label cantidadTexto = new Label("Tienes: " + cantidad);
+        cantidadTexto.getStyleClass().add("texto-cantidad-carta");
+
+        BotonJuego botonJugar = new BotonJuego("¡Jugar!");
 
         if (cantidad == 0) {
             botonJugar.setDisable(true);
@@ -84,7 +88,7 @@ public class VistaCartasDesarrollo extends BorderPane {
             }
         });
 
-        VBox vbox = new VBox(10, imgView, botonJugar);
+        VBox vbox = new VBox(10, cantidadTexto, imgView, botonJugar);
         vbox.setAlignment(Pos.CENTER);
 
         return vbox;

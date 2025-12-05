@@ -28,7 +28,7 @@ public class ComprarCartaControlador implements AccionControlador {
             juego.ejecutarAccion(accion);
         } catch (RecursosInsuficientesError e) {
             PopUpError.mostrar(e.getMessage());
-            // TODO: resetear
+            return;
         }
 
         CartaDesarrollo carta = juego.getCartaComprada();

@@ -299,3 +299,10 @@
     -fx-text-fill: #2d258e;
     -fx-font-size: 16px;
 }
+
+.texto-cantidad-carta {
+    -fx-font-family: 'Minecraft';
+    -fx-text-fill: #1f197b;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+}
