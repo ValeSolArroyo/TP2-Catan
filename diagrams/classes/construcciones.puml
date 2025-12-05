@@ -1,0 +1,58 @@
+@startuml construcciones
+
+interface Construccion {
+    + producir(Recurso): void
+    + cobrar(Inventario): void
+    + tieneDePropietarioA(Jugador): void
+    + ocupar(): void
+    + puntosVictoria(): int
+    + aplicarCambio(Jugador, EspacioConstruible): void
+}
+
+class Carretera implements Construccion {
+    - propietario: Jugador
+    - costo: List<Recurso>
+    + Carretera(Jugador)
+    + producir(Recurso): void
+    + tieneDePropietarioA(Jugador): void
+    + cobrar(Inventario): void
+    + ocupar(): void
+    + puntosVictoria(): int {return 0}
+    + aplicarCambio(Jugador, EspacioConstruible): void
+}
+
+class Poblado implements Construccion {
+    - propietario: Jugador
+    - costo: List<Recurso>
+    + Poblado(Jugador)
+    + producir(Recurso): void
+    + tieneDePropietarioA(Jugador): void
+    + cobrar(Inventario): void
+    + ocupar(): void
+    + puntosVictoria(): int {return 1}
+    + aplicarCambio(Jugador, EspacioConstruible): void
+    + aplicarCambioPrimerasColocaciones(Jugador, Vertice): void
+}
+
+class Ciudad implements Construccion {
+    - propietario: Jugador
+    - costo: List<Recurso>
+    + Ciudad(Jugador)
+    + producir(Recurso): void
+    + tieneDePropietarioA(Jugador): void
+    + cobrar(Inventario): void
+    + ocupar(): void
+    + puntosVictoria(): int {return 2}
+    + aplicarCambio(Jugador, EspacioConstruible): void
+}
+
+class NullConstruccion implements Construccion {
+    + tieneDePropietarioA(Jugador): void
+    + cobrar(Inventario): void
+    + producir(Recurso): void
+    + ocupar(): void
+    + puntosVictoria(): int {return 0}
+    + aplicarCambio(Jugador, EspacioConstruible): void
+}
+
+@enduml

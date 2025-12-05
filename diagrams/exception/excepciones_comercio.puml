@@ -1,0 +1,16 @@
+@startuml excepciones_comercio
+
+class RuntimeException {
+}
+
+class ComercioInvalidoError extends RuntimeException {
+    + ComercioInvalidoError(String message)
+}
+
+class RecursosInsuficientesError extends RuntimeException {
+    + RecursosInsuficientesError(String mensaje)
+}
+
+
+
+@enduml

@@ -81,16 +81,12 @@ public class JuegoTest {
 
     @Test
     public void test04JugadorPuedeComprarCartaDeDesarrolloSiTieneRecursos() {
-        // Arrange
-        Juego juego = new Juego(List.of(jugador1, jugador2), tablero, cartas);
-
         cartas.add(new PuntoVictoria());
-
+        cartas.add(new PuntoVictoria());
+        Juego juego = new Juego(List.of(jugador1, jugador2), tablero, cartas);
         jugador1.recibirRecurso(new Grano());
         jugador1.recibirRecurso(new Lana());
         jugador1.recibirRecurso(new Mineral());
-
-        // Act & Assert
         assertDoesNotThrow(() -> juego.comprarCartaDesarrollo());
         assertThrows(Exception.class, juego::comprarCartaDesarrollo);
     }

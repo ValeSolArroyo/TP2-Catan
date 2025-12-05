@@ -244,10 +244,10 @@ public class TestEntrega2 {
 
         CartaDesarrollo cartaComprada = mock(CartaDesarrollo.class);
 
-        doThrow(new CartaNoJugableError("La carta no puede ser jugada en este turno.")).when(cartaComprada).ejecutar(any(), any(), any(), any(), any(), any(), any());
+        doThrow(new CartaNoJugableError("La carta no puede ser jugada en este turno.")).when(cartaComprada).ejecutar();
 
         jugador1.guardarCartaDesarrollo(cartaComprada, List.of(new Lana(), new Grano(), new Mineral()));
 
-        assertThrows(CartaNoJugableError.class, () -> cartaComprada.ejecutar(null, null, jugador1, null, null, null, null), "No se debería poder jugar una carta recién comprada.");
+        assertThrows(CartaNoJugableError.class, () -> cartaComprada.ejecutar(), "No se debería poder jugar una carta recién comprada.");
     }
 }

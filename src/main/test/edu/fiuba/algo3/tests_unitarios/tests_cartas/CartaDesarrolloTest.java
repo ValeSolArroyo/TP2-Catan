@@ -62,15 +62,13 @@ public class CartaDesarrolloTest {
     @Test
     public void test07CaballeroAumentaCaballerosJugados() {
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
-        Caballero caballero = new Caballero();
-
         edu.fiuba.algo3.modelo.juego.Juego juego = org.mockito.Mockito.mock(edu.fiuba.algo3.modelo.juego.Juego.class);
         edu.fiuba.algo3.modelo.tablero.Hexagono hexagono = org.mockito.Mockito.mock(edu.fiuba.algo3.modelo.tablero.Hexagono.class);
         Jugador victima = new Jugador(2, "Victima", Color.RED);
+        Caballero caballero = new Caballero(juego, hexagono, victima, jugador);
         int antes = jugador.conseguirCartasCaballeroJugadas();
-        caballero.ejecutar(juego, victima, jugador, hexagono, null, null, null);
+        caballero.ejecutar();
         int despues = jugador.conseguirCartasCaballeroJugadas();
-
         assertEquals(antes + 1, despues);
     }
 
@@ -79,43 +77,37 @@ public class CartaDesarrolloTest {
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
         PuntoVictoria puntoVictoria = new PuntoVictoria();
         int antes = jugador.conseguirPuntosDeVictoria();
-        puntoVictoria.ejecutar(null, null, jugador, null, null, null, null);
+        puntoVictoria.ejecutarAlGuardar(jugador);
         int despues = jugador.conseguirPuntosDeVictoria();
-
         assertTrue(despues > antes);
     }
 
     @Test
     public void test09ProgresoDescubrimientoOtorgaRecursos() {
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
-        ProgresoDescubrimiento carta = new ProgresoDescubrimiento();
         List<Recurso> recursos = List.of(new Madera(), new Grano());
-
+        ProgresoDescubrimiento carta = new ProgresoDescubrimiento(jugador, recursos);
         assertThrows(RecursosInsuficientesError.class, () -> jugador.entregarRecursos(recursos));
-        carta.ejecutar(null, null, jugador, null, null, recursos, null);
-
+        carta.ejecutar();
         assertDoesNotThrow(() -> jugador.entregarRecursos(recursos));
     }
 
     @Test
     public void test10ProgresoConstruccionConstruyeCarretera() {
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
-        ProgresoConstruccion carta = new ProgresoConstruccion();
         edu.fiuba.algo3.modelo.juego.Juego juego = org.mockito.Mockito.mock(edu.fiuba.algo3.modelo.juego.Juego.class);
         edu.fiuba.algo3.modelo.tablero.Arista arista = org.mockito.Mockito.mock(edu.fiuba.algo3.modelo.tablero.Arista.class);
         List<edu.fiuba.algo3.modelo.tablero.Arista> aristas = List.of(arista);
-
-        assertDoesNotThrow(() -> carta.ejecutar(juego, null, jugador, null, aristas, null, null));
+        ProgresoConstruccion carta = new ProgresoConstruccion(juego, jugador, aristas);
+        assertDoesNotThrow(() -> carta.ejecutar());
     }
 
     @Test
     public void test11ProgresoMonopolioInvocaMonopolio() {
-        Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
-        ProgresoMonopolio carta = new ProgresoMonopolio();
         edu.fiuba.algo3.modelo.juego.Juego juego = org.mockito.Mockito.mock(edu.fiuba.algo3.modelo.juego.Juego.class);
         Recurso recurso = new Madera();
-
-        carta.ejecutar(juego, null, jugador, null, null, null, recurso);
+        ProgresoMonopolio carta = new ProgresoMonopolio(juego, recurso);
+        carta.ejecutar();
         org.mockito.Mockito.verify(juego).entregarAJugador(recurso);
     }
 }
