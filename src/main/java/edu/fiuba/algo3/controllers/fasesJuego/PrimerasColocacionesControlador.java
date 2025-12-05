@@ -16,7 +16,7 @@ import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
 import javafx.scene.paint.Color;
 
 
-public class PrimerasColocacionesControlador implements  AccionesTableroControlador {
+public class PrimerasColocacionesControlador implements AccionesTableroControlador {
     private final CambioTurnoControlador cambioTurno;
     private Juego juego;
     private VistaTablero vistaTablero;
@@ -47,6 +47,7 @@ public class PrimerasColocacionesControlador implements  AccionesTableroControla
         vistaColocaciones.activarFinalizar(true);
     }
 
+
     public void iniciarPoblado() {
         vistaTablero.mostrarVertices();
         vistaColocaciones.activarPoblado(false);
@@ -59,7 +60,8 @@ public class PrimerasColocacionesControlador implements  AccionesTableroControla
         vistaColocaciones.activarFinalizar(false);
     }
 
-    public void terminarColocacion() {
+    @Override
+    public void ejecutar() {
         Accion accion;
         Jugador jugador = juego.jugadorActual();
         Color color = jugador.getColor();
@@ -94,7 +96,6 @@ public class PrimerasColocacionesControlador implements  AccionesTableroControla
                 vistaColocaciones.activarFinalizar(false);
                 vistaColocaciones.activarPoblado(false);
                 vistaColocaciones.activarCarretera(false);
-                System.out.println("Fin de la 2da colocación. Pasamos a tirar dados");
                 juego.avanzarTurno();
                 cambioTurno.activarAccionFinTurno();
             }

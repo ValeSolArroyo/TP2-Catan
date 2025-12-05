@@ -25,12 +25,14 @@ public class VistaColocacionesIniciales extends BorderPane  {
     private BotonGenerico botonFinalizar;
     private PrimerasColocacionesControlador controlador;
     private CambioTurnoControlador cambioTurno;
+    private VistaTablero vistaTablero;
 
 
-    public VistaColocacionesIniciales(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, CambioTurnoControlador cambioTurno) {
+    public VistaColocacionesIniciales(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, CambioTurnoControlador cambioTurno, VistaTablero  vistaTablero) {
         this.stage = stage;
         this.contenedor = contenedor;
         this.juego = juego;
+        this.vistaTablero = vistaTablero;
 
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_sin_cartas.jpg"));
         HBox barraJugadores = new HBox(20);
@@ -44,18 +46,16 @@ public class VistaColocacionesIniciales extends BorderPane  {
 
         this.setTop(barraJugadores);
 
-        Tablero tablero = juego.getTablero();
-        VistaTablero vistaTablero = new VistaTablero(tablero);
-        cambioTurno.agregarTablero(vistaTablero);
+        cambioTurno.agregarTablero(this.vistaTablero);
 
         this.vistaTurno = new VistaTurnoActual(cambioTurno);
 
         PrimerasColocacionesControlador controladorColocaciones = new PrimerasColocacionesControlador(juego, vistaTablero, this, cambioTurno);
 
-        vistaTablero.setControlador(controladorColocaciones);
+        this.vistaTablero.setControlador(controladorColocaciones);
         this.controlador = controladorColocaciones;
 
-        HBox contenedorCentro = new HBox(vistaTablero);
+        HBox contenedorCentro = new HBox(this.vistaTablero);
         contenedorCentro.setPadding(new Insets(0, 0, 10, 425));
 
         this.setCenter(contenedorCentro);
@@ -86,7 +86,7 @@ public class VistaColocacionesIniciales extends BorderPane  {
 
         botonPoblado.setOnAction(e -> controlador.iniciarPoblado());
         botonCarretera.setOnAction(e -> controlador.iniciarCarretera());
-        botonFinalizar.setOnAction(e -> controlador.terminarColocacion());
+        botonFinalizar.setOnAction(e -> controlador.ejecutar());
 
 
         Transicion.fade(this);

@@ -16,7 +16,7 @@ public class AccionConstruir implements Accion{
     }
 
     @Override
-    public void ejecutar(){
+    public void ejecutar() {
         juego.construir(construccion, espacio);
     }
 }

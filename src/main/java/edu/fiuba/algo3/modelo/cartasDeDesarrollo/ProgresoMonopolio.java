@@ -30,4 +30,8 @@ public class ProgresoMonopolio implements CartaDesarrollo {
     public void ejecutar() {
         juego.entregarAJugador(recursoDeseado);
     }
+
+    public String getCarta(){
+        return "Progreso Monopolio";
+    }
 }

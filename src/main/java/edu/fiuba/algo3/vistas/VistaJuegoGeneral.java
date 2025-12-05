@@ -1,9 +1,9 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.CambioTurnoControlador;
+import edu.fiuba.algo3.controllers.JuegoControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.vistas.componentes.*;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonGenerico;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
@@ -43,9 +43,14 @@ public class VistaJuegoGeneral extends BorderPane {
         botonesDerecha.setAlignment(Pos.CENTER_RIGHT);
         botonesDerecha.setPadding(new Insets(100, 20, 0, 0));
 
+        JuegoControlador controladorJuego = new JuegoControlador(stage, contenedor, this.juego, this.vistaTablero, this);
+
         BotonJuego botonComerciar = new BotonJuego("Comerciar");
+        botonComerciar.setOnAction( e -> controladorJuego.comerciar());
         BotonJuego botonConstruir = new BotonJuego("Construir");
+        botonConstruir.setOnAction( e -> controladorJuego.construir());
         BotonJuego botonComprarCartas = new BotonJuego("Comprar cartas");
+        botonComprarCartas.setOnAction( e -> controladorJuego.comprar());
 
         botonesDerecha.getChildren().addAll(botonComerciar, botonConstruir, botonComprarCartas);
 

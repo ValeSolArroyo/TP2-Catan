@@ -40,7 +40,7 @@ public class Inventario {
                 return;
             }
         }
-        throw new RecursosInsuficientesError("El recurso " + recursoAEliminar + " no está en el inventario.");
+        throw new RecursosInsuficientesError("No tiene recursos suficientes para realizar esta acción.");
     }
 
     public void descartarMitadRecursos() {
