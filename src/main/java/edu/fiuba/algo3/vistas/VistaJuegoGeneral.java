@@ -56,7 +56,7 @@ public class VistaJuegoGeneral extends BorderPane {
 
         this.setRight(botonesDerecha);
 
-        BotonJuego botonJugarCarta =  new BotonJuego("Jugar carta");
+        BotonJuego botonJugarCarta =  new BotonJuego("Mis cartas");
         botonJugarCarta.setOnAction( e -> controladorJuego.jugarCarta());
         HBox contenedorArribaIzquierda = new HBox(botonJugarCarta);
         //TODO: ver si cambiamos el padding una vez agregamos botones ladron..

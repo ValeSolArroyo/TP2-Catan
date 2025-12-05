@@ -1,15 +1,11 @@
 package edu.fiuba.algo3.vistas.componentes.popups;
 
-import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonAgregarTema;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonGenerico;
-import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 import edu.fiuba.algo3.vistas.componentes.menu.Musica;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
