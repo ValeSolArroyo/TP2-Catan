@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.vistas;
 
-import edu.fiuba.algo3.vistas.componentes.Musica;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
@@ -14,12 +13,8 @@ import static javafx.application.Application.launch;
 public class App extends Application {
     public static final int ANCHO = 1280;
     public static final int ALTO = 720;
-    private Musica reproductor;
-
     @Override
     public void start(Stage stage) {
-        reproductor = new Musica();
-        reproductor.sonidoFondo();
         Font.loadFont(getClass().getResourceAsStream("/fonts/Minecraft.ttf"), 20);
         // TODO: agregar icono app!! está en resources/images pero no lo pude poner
         ContenedorPrincipalVistas contenedor = new ContenedorPrincipalVistas(stage);
