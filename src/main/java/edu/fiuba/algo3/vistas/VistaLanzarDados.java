@@ -49,6 +49,7 @@ public class VistaLanzarDados extends BorderPane {
         turnoContenedor.setAlignment(Pos.CENTER);
         turnoContenedor.setPadding(new Insets(20));
         this.setBottom(turnoContenedor);
+        HBox.setMargin(vistaTurno, new Insets(0, 0, 0, -80));
 
         VBox derecha = new VBox(30);
         derecha.setAlignment(Pos.TOP_CENTER);
