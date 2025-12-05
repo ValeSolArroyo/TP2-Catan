@@ -54,6 +54,7 @@ public class VistaAristas extends StackPane {
             List.of(aristas.get(51), aristas.get(50), aristas.get(55), aristas.get(54), aristas.get(58), aristas.get(57), aristas.get(61), aristas.get(60)),
             List.of(aristas.get(65), aristas.get(62), aristas.get(66), aristas.get(69)),
             List.of(aristas.get(64), aristas.get(63), aristas.get(68), aristas.get(67), aristas.get(71), aristas.get(70)));
+        construirBotonesAristas();
     }
 
     public void construirBotonesAristas() {
@@ -92,7 +93,17 @@ public class VistaAristas extends StackPane {
     }
     public void setControlador(AccionesTableroControlador controlador) {
         this.tableroControlador = controlador;
-        construirBotonesAristas();
+
+    }
+
+    public void mostrarAristas() {
+        for (Map.Entry<Arista, Button> entry : botonesAristas.entrySet()) {
+
+            Button boton = entry.getValue();
+
+            boton.setOpacity(1);
+        }
+
     }
 
     public void mostrarSolo(List<Arista> aristasValidas) {
@@ -112,6 +123,7 @@ public class VistaAristas extends StackPane {
             }
         }
     }
+
 
     public Button botonDe(Arista arista) {
         return botonesAristas.get(arista);

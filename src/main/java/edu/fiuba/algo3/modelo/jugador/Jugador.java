@@ -164,4 +164,5 @@ public class Jugador extends Observable {
         return this.inventario.getRecursos();
     }
 
+    public List<CartaDesarrollo> getCartasDesarrollo(){ return this.cartasDesarrollo; }
 }

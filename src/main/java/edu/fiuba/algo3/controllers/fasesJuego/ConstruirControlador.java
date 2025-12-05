@@ -23,6 +23,8 @@ public class ConstruirControlador implements AccionesTableroControlador{
 
     public ConstruirControlador(VistaTablero vistaTablero, Juego juego, VistaConstruir vistaConstruir) {
         this.vistaTablero = vistaTablero;
+        this.vistaTablero.setControlador(this);
+
         this.juego = juego;
         this.vistaConstruir = vistaConstruir;
     }

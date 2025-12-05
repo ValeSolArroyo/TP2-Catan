@@ -20,8 +20,8 @@ public class VistaMostrarCarta extends BorderPane {
             "Caballero", "/images/utils/cartas/caballero.png",
             "Progreso de Construccion", "/images/utils/cartas/construccion_carretera.png",
             "Progreso de Descubrimiento", "/images/utils/cartas/descubrimiento.png",
-            "Progreso Monopolio", "/images/utils/hexagono/monopolio.png",
-            "Punto de Victoria", "/images/utils/hexagono/pv.png"
+            "Progreso Monopolio", "/images/utils/cartas/monopolio.png",
+            "Punto de Victoria", "/images/utils/cartas/pv.png"
     );
 
     public VistaMostrarCarta(String texto, String nombreCarta, ContenedorPrincipalVistas contenedor, VistaJuegoGeneral vista){
@@ -49,5 +49,7 @@ public class VistaMostrarCarta extends BorderPane {
         botonVbox.setSpacing(10);
         VBox.setMargin(botonAceptar, new Insets(0, 0, 10, 0));
         this.setBottom(botonVbox);
+
+        Transicion.fade(this);
     }
 }

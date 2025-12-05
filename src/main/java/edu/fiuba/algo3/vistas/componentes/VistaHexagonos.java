@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas.componentes;
 
+import edu.fiuba.algo3.controllers.fasesJuego.AccionHexagonoControlador;
 import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,6 +15,7 @@ public class VistaHexagonos extends StackPane {
     private final List<Hexagono> hexagonos;
     private final List<ImagenHexagono> vistasHexagonos = new ArrayList<>();
     private final VBox capaHexagonos;
+    private AccionHexagonoControlador controlador;
 
     private final int[] hexagonosPorFila = {3, 4, 5, 4, 3};
 
@@ -47,10 +49,23 @@ public class VistaHexagonos extends StackPane {
         }
     }
 
+    public void setControlador(AccionHexagonoControlador controlador){
+        this.controlador = controlador;
+    }
+
     public void activarBoton() {
         for (ImagenHexagono imagenHexagono : vistasHexagonos) {
-            imagenHexagono.getBoton().setOnAction(e -> {} //controlador.seleccionarHexagono(this)
+            imagenHexagono.getBoton().setOnAction(e -> {}
             );
         }
     }
+
+    public void desactivarBotones() {
+        for (ImagenHexagono imagenHexagono : vistasHexagonos) {
+            imagenHexagono.getBoton().setDisable(true);
+
+        }
+    }
+
+
 }
