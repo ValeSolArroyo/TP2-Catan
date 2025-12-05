@@ -96,6 +96,7 @@ public class Jugador extends Observable {
     public void guardarCartaDesarrollo(CartaDesarrollo cartaDesarrollo, List<Recurso> costoCarta){
         inventario.consumirRecurso(costoCarta);
         cartasDesarrollo.add(cartaDesarrollo);
+        cartaDesarrollo.ejecutarAlGuardar();
         notificarObservadores();
     }
 

@@ -10,10 +10,26 @@ import java.util.List;
 
 public class ProgresoDescubrimiento implements CartaDesarrollo{
 
+    private Jugador jugadorActual;
+    private  List<Recurso> recursosDeBanca;
+
+    public ProgresoDescubrimiento(){
+
+    }
+
+    public ProgresoDescubrimiento(Jugador jugador,  List<Recurso> recursosDeBanca) {
+       this.jugadorActual = jugador;
+       this.recursosDeBanca = recursosDeBanca;
+    }
+
     @Override
-    public void ejecutar(Juego juego, Jugador victima, Jugador jugador, Hexagono nuevoLugar, List<Arista> carreterasAConstruir, List<Recurso> recursosDeBanca, Recurso recursoDeseado) {
+    public void ejecutarAlGuardar() {}
+
+    @Override
+    public void ejecutar() {
         for (Recurso recurso: recursosDeBanca) {
-            jugador.recibirRecurso(recurso);
+            jugadorActual.recibirRecurso(recurso);
         }
+
     }
 }
