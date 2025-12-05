@@ -2,6 +2,7 @@ package edu.fiuba.algo3.controllers.cartasDesarrollo;
 
 import edu.fiuba.algo3.controllers.fasesJuego.AccionControlador;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
+import edu.fiuba.algo3.modelo.excepciones.NoHayCartasDesarrolloError;
 import edu.fiuba.algo3.modelo.excepciones.RecursosInsuficientesError;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.juegoCommand.AccionComprarCartaDesarrollo;
@@ -26,7 +27,7 @@ public class ComprarCartaControlador implements AccionControlador {
         AccionComprarCartaDesarrollo accion = new AccionComprarCartaDesarrollo(juego);
         try {
             juego.ejecutarAccion(accion);
-        } catch (RecursosInsuficientesError e) {
+        } catch (RecursosInsuficientesError | NoHayCartasDesarrolloError e) {
             PopUpError.mostrar(e.getMessage());
             return;
         }
