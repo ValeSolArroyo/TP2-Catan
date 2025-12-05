@@ -15,7 +15,6 @@ public class VistaConstrucciones extends Pane {
     }
 
     public void dibujarPoblado(Button botonVertice, Color color) {
-
         Circle poblado = new Circle(12);
         poblado.setFill(color);
         poblado.setStroke(Color.BLACK);
@@ -32,7 +31,6 @@ public class VistaConstrucciones extends Pane {
     }
 
     public void dibujarCarretera(Button botonArista, Color color) {
-
         Rectangle carretera = new Rectangle(6, 40);
         carretera.setFill(color);
         carretera.setStroke(Color.BLACK);
@@ -49,6 +47,9 @@ public class VistaConstrucciones extends Pane {
 
         this.getChildren().add(carretera);
     }
+
+    //public void dibujarCiudad(Button botonVertice, Color color)
+    // que sea un triángulo
 }
 
 

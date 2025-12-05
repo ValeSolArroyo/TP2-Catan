@@ -25,5 +25,4 @@ public class AccionComprarCartaDesarrollo implements Accion{
     public void ejecutar(){
         juego.comprarCartaDesarrollo();
     }
-
 }

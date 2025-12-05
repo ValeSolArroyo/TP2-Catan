@@ -38,4 +38,9 @@ public class Caballero implements CartaDesarrollo {
         juego.revisarGranCaballeria(jugadorActual);
 
     }
+
+    public String getCarta(){
+        return "Caballero";
+    }
+
 }

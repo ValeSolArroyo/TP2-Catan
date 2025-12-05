@@ -2,10 +2,12 @@ package edu.fiuba.algo3.controllers;
 
 
 import edu.fiuba.algo3.modelo.juego.Juego;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaColocacionesIniciales;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.VistaLanzarDados;
+import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -75,8 +77,9 @@ public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> 
         Juego juego = iniciar.crearNuevaPartida(jugadores);
 
         CambioTurnoControlador cambioTurno = new CambioTurnoControlador(stage, contenedor, juego);
-
-        VistaColocacionesIniciales vistaJuego = new VistaColocacionesIniciales(stage, contenedor,juego, cambioTurno);
+        Tablero tablero = juego.getTablero();
+        VistaTablero vistaTablero = new VistaTablero(tablero);
+        VistaColocacionesIniciales vistaJuego = new VistaColocacionesIniciales(stage, contenedor,juego, cambioTurno, vistaTablero);
         contenedor.setContenido(vistaJuego);
     }
 }

@@ -27,6 +27,9 @@ public class PuntoVictoria implements CartaDesarrollo {
 
     @Override
     public void ejecutar() {
+    }
 
+    public String getCarta(){
+        return "Punto de Victoria";
     }
 }

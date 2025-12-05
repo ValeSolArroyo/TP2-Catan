@@ -41,8 +41,8 @@ public class ImagenHexagono extends StackPane {
             ruta = "/images/utils/hexagono/desierto.png";
         }
 
-        Image imgagen = new Image(getClass().getResource(ruta).toExternalForm());
-        ImageView view = new ImageView(imgagen);
+        Image imagen = new Image(getClass().getResource(ruta).toExternalForm());
+        ImageView view = new ImageView(imagen);
 
         view.setFitWidth(90);
         view.setFitHeight(125);

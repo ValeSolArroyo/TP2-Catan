@@ -42,8 +42,6 @@ public class VistaDados extends VBox implements Observador {
     public void actualizar() {
         int valor1 = dado.obtenerDado1();
         int valor2 = dado.obtenerDado2();
-        System.out.println("/images/utils/dado/" + valor1 + ".png");
-        System.out.println("/images/utils/dado/" + valor2 + ".png");
         dado1.setImage(new Image(getClass().getResource("/images/utils/dado/" + valor1 + ".png").toExternalForm()));
         dado2.setImage(new Image(getClass().getResource("/images/utils/dado/" + valor2 + ".png").toExternalForm()));
         textoResultado.setText("¡Obtuviste un " + (valor1 + valor2) + "!");

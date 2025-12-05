@@ -30,6 +30,9 @@ public class ProgresoDescubrimiento implements CartaDesarrollo{
         for (Recurso recurso: recursosDeBanca) {
             jugadorActual.recibirRecurso(recurso);
         }
+    }
 
+    public String getCarta(){
+        return "Progreso de Descubrimiento";
     }
 }

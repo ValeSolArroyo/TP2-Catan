@@ -26,6 +26,8 @@ public class Juego {
     private GranCaballeria granCaballeria;
     private GranRutaComercial granRutaComercial;
 
+    private CartaDesarrollo cartaComprada;
+
     public Juego(List<Jugador> jugadores, Tablero tablero, List<CartaDesarrollo> cartasDesarrollo) {
         if (jugadores.isEmpty()) {
             throw new IllegalArgumentException("Debe haber al menos un jugador.");
@@ -57,6 +59,7 @@ public class Juego {
         List<Recurso> costoCarta = List.of(new Mineral(), new Grano(), new Lana());
         Jugador jugador = this.jugadorActual();
         jugador.guardarCartaDesarrollo(this.cartasDesarrollo.get(0), costoCarta);
+        this.cartaComprada = this.cartasDesarrollo.get(0);
         cartasDesarrollo.remove(0);
     }
 
@@ -167,5 +170,9 @@ public class Juego {
 
     public int getIndiceTurno() {
         return indiceTurno;
+    }
+
+    public CartaDesarrollo getCartaComprada() {
+        return this.cartaComprada;
     }
 }

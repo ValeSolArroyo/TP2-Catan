@@ -44,4 +44,8 @@ public class ProgresoConstruccion implements CartaDesarrollo {
         }
 
     }
+
+    public String getCarta(){
+        return "Progreso de Construccion";
+    }
 }
