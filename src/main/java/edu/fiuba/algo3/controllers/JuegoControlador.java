@@ -55,7 +55,6 @@ public class JuegoControlador {
     }
 
     public void jugarCarta() {
-        System.out.println("Caballero");
         Jugador jugadorActual = juego.jugadorActual();
         List<CartaDesarrollo> cartasDesarrollo = jugadorActual.getCartasDesarrollo();
 

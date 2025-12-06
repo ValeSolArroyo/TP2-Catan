@@ -12,11 +12,11 @@ import java.util.Map;
 
 public class ImagenHexagono extends StackPane {
     private static final Map<String, String> rutasImagenes = Map.of(
-            "Bosque", "/images/utils/hexagono/bosque.png",
-            "Colina", "/images/utils/hexagono/colina.png",
-            "Pastizal", "/images/utils/hexagono/pasto.png",
-            "Campo", "/images/utils/hexagono/campo.png",
-            "Montaña", "/images/utils/hexagono/montaña.png"
+            "Bosque", "/images/utils/hexagonosFichas/bosque.png",
+            "Colina", "/images/utils/hexagonosFichas/colina.png",
+            "Pastizal", "/images/utils/hexagonosFichas/pasto.png",
+            "Campo", "/images/utils/hexagonosFichas/campo.png",
+            "Montaña", "/images/utils/hexagonosFichas/montaña.png"
     );
     private static final double ANCHO = 90;
     private static final double ALTO  = 125;
@@ -38,7 +38,7 @@ public class ImagenHexagono extends StackPane {
         if (rutasImagenes.containsKey(terreno)) {
             ruta = rutasImagenes.get(terreno);
         } else {
-            ruta = "/images/utils/hexagono/desierto.png";
+            ruta = "/images/utils/hexagonosFichas/desierto.png";
         }
 
         Image imagen = new Image(getClass().getResource(ruta).toExternalForm());
