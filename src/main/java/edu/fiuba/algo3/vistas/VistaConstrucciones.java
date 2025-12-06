@@ -7,8 +7,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
-
-
 public class VistaConstrucciones extends Pane {
     public VistaConstrucciones() {
         setPickOnBounds(false);
@@ -20,34 +18,35 @@ public class VistaConstrucciones extends Pane {
         poblado.setStroke(Color.BLACK);
         poblado.setStrokeWidth(2);
 
-        Point2D punto = botonVertice.localToScene(0, 0);
+        Point2D puntoEscena = botonVertice.localToScene(botonVertice.getWidth() / 2, botonVertice.getHeight() / 2);
+        Point2D destino = this.sceneToLocal(puntoEscena);
 
-        Point2D destino = this.sceneToLocal(punto);
-
-        poblado.setLayoutX(destino.getX() + botonVertice.getWidth() / 2);
-        poblado.setLayoutY(destino.getY() + botonVertice.getHeight() / 2);
+        poblado.setLayoutX(destino.getX());
+        poblado.setLayoutY(destino.getY());
 
         this.getChildren().add(poblado);
     }
 
     public void dibujarCarretera(Button botonArista, Color color) {
-        Rectangle carretera = new Rectangle(6, 40);
+        Rectangle carretera = new Rectangle(8, 35);
         carretera.setFill(color);
         carretera.setStroke(Color.BLACK);
-        carretera.setStrokeWidth(1.5);
+        carretera.setStrokeWidth(2);
 
-        javafx.geometry.Point2D punto = botonArista.localToScene(0, 0);
+        Point2D centroBotonEnEscena = botonArista.localToScene(
+                botonArista.getWidth() / 2,
+                botonArista.getHeight() / 2
+        );
 
-        Point2D destino = this.sceneToLocal(punto);
-
-        carretera.setLayoutX(destino.getX() + botonArista.getWidth() / 2);
-        carretera.setLayoutY(destino.getY() + botonArista.getHeight() / 2);
+        Point2D centroCarreteraEnConstrucciones = this.sceneToLocal(centroBotonEnEscena);
+        carretera.setX(centroCarreteraEnConstrucciones.getX() - carretera.getWidth() / 2);
+        carretera.setY(centroCarreteraEnConstrucciones.getY() - carretera.getHeight() / 2);
 
         carretera.setRotate(botonArista.getRotate());
 
         this.getChildren().add(carretera);
+        carretera.toBack();
     }
-
     //public void dibujarCiudad(Button botonVertice, Color color)
     // que sea un triángulo
 }

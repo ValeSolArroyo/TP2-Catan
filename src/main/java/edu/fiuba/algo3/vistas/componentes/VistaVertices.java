@@ -39,7 +39,7 @@ public class VistaVertices extends StackPane {
                 List.of(vertices.get(25), vertices.get(16), vertices.get(18), vertices.get(20), vertices.get(22), vertices.get(37)),
                 List.of(vertices.get(26), vertices.get(28), vertices.get(30), vertices.get(32), vertices.get(34), vertices.get(36)),
                 List.of(vertices.get(27), vertices.get(29), vertices.get(31), vertices.get(33), vertices.get(35)),
-                List.of(vertices.get(30), vertices.get(40), vertices.get(42), vertices.get(44), vertices.get(46)),
+                List.of(vertices.get(38), vertices.get(40), vertices.get(42), vertices.get(44), vertices.get(46)),
                 List.of(vertices.get(39), vertices.get(41), vertices.get(43), vertices.get(45)),
                 List.of(vertices.get(47), vertices.get(49), vertices.get(51), vertices.get(53)),
                 List.of(vertices.get(48), vertices.get(50), vertices.get(52))
