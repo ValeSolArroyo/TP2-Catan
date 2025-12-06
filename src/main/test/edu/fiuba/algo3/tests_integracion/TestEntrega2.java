@@ -3,6 +3,7 @@ package edu.fiuba.algo3.tests_integracion;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 import edu.fiuba.algo3.modelo.excepciones.*;
 import org.junit.jupiter.api.BeforeEach;
 
+import edu.fiuba.algo3.modelo.juego.*;
 import edu.fiuba.algo3.modelo.construcciones.*;
 import edu.fiuba.algo3.modelo.jugador.*;
 import edu.fiuba.algo3.modelo.comercio.*;
@@ -250,4 +252,5 @@ public class TestEntrega2 {
 
         assertThrows(CartaNoJugableError.class, () -> cartaComprada.ejecutar(), "No se debería poder jugar una carta recién comprada.");
     }
+
 }
