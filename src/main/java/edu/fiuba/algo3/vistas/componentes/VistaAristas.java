@@ -91,6 +91,7 @@ public class VistaAristas extends StackPane {
             capaAristas.getChildren().add(filaAristas);
         }
     }
+
     public void setControlador(AccionesTableroControlador controlador) {
         this.tableroControlador = controlador;
 

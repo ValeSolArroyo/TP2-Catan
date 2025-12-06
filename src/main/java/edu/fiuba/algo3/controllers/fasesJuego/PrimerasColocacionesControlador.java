@@ -114,7 +114,7 @@ public class PrimerasColocacionesControlador implements AccionesTableroControlad
         this.arista = null;
 
         vistaTablero.ocultarAristas();
-        vistaTablero.mostrarVertices();
+        vistaTablero.ocultarVertices();
 
         vistaColocaciones.activarFinalizar(false);
         vistaColocaciones.activarCarretera(false);
