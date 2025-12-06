@@ -8,7 +8,7 @@ public class FabricaCartas {
     public static List<CartaDesarrollo> crearMazo() {
         List<CartaDesarrollo> mazo = new ArrayList<>();
 
-        for (int i = 0; i < 14; i++) {
+        /*for (int i = 0; i < 14; i++) {
             mazo.add(new Caballero());
 
         }
@@ -23,7 +23,10 @@ public class FabricaCartas {
             mazo.add(new ProgresoConstruccion());
         }
 
-        Collections.shuffle(mazo);
+        Collections.shuffle(mazo);*/
+
+        mazo.add(new ProgresoDescubrimiento());
+        mazo.add(new ProgresoMonopolio());
 
         return mazo;
     }

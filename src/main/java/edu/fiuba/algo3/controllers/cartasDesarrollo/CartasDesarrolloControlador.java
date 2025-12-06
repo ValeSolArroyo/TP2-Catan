@@ -44,5 +44,9 @@ public class CartasDesarrolloControlador {
     }
 
     public void jugarMonopolio() {
+        ProgresoMonopolioControlador controlador = new ProgresoMonopolioControlador(juego, vistaJuego, contenedor);
+        VistaProgresoMonopolio vista = new VistaProgresoMonopolio(controlador);
+        controlador.setVistaProgreso(vista);
+        contenedor.setContenido(vista);
     }
 }

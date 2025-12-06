@@ -45,7 +45,7 @@ public class VistaCaballero extends BorderPane {
         HBox tableroContenedor = new HBox(20);
         tableroContenedor.setAlignment(Pos.CENTER);
         tableroContenedor.getChildren().add(this.vistaTablero);
-        HBox.setMargin(this.vistaTablero, new Insets(0, 0, 7, 100));
+        HBox.setMargin(this.vistaTablero, new Insets(0, 0, 7, 325));
         this.setCenter(tableroContenedor);
 
         inicializarBotones();

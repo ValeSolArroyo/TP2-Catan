@@ -39,7 +39,7 @@ public class ProgresoConstruccion implements CartaDesarrollo {
             jugadorActual.construir(new Carretera(jugadorActual), arista);
             juego.revisarGranRutaComercial(jugadorActual);
         }
-
+        jugadorActual.eliminarCarta(this);
     }
 
     public String getCarta(){

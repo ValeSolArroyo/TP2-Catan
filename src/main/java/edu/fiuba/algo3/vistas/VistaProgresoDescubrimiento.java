@@ -2,6 +2,7 @@ package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.cartasDesarrollo.ProgresoDescubrimientoControlador;
 import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
+import edu.fiuba.algo3.vistas.componentes.ListadoRecurso;
 import edu.fiuba.algo3.vistas.componentes.Transicion;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonGenerico;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
@@ -18,16 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class VistaProgresoDescubrimiento extends BorderPane {
-    private static final double ANCHO = 110;
-    private static final double ALTO  = 145;
-    private static final Map<String, String> rutasImagenes = Map.of(
-            "Bosque", "/images/utils/hexagonos/hexagono_Madera.png",
-            "Colina", "/images/utils/hexagonos/hexagono_Ladrillo.png",
-            "Pastizal", "/images/utils/hexagonos/hexagono_Lana.png",
-            "Campo", "/images/utils/hexagonos/hexagono_Grano.png",
-            "Montaña", "/images/utils/hexagonos/hexagono_Mineral.png"
-    );
-
     private Map<String, BotonGenerico> botonesPorRecurso = new HashMap<>();
     private ProgresoDescubrimientoControlador controlador;
     private BotonJuego botonEjecutar;
@@ -60,25 +51,20 @@ public class VistaProgresoDescubrimiento extends BorderPane {
         hbox.setAlignment(Pos.CENTER);
 
         for (String tipo : controlador.getTiposDeRecurso()) {
-            Label label = new Label("Recurso: " + tipo);
-            label.getStyleClass().add("texto-recurso-hexagono");
             String ruta = "/images/utils/hexagonos/hexagono_" + tipo + ".png";
-            ImageView imagen = new ImageView(new Image(getClass().getResourceAsStream(ruta)));
-            imagen.setFitWidth(ANCHO);
-            imagen.setFitHeight(ALTO);
+
+            ListadoRecurso recursos = new ListadoRecurso(tipo, ruta);
 
             BotonGenerico boton = new BotonGenerico("Seleccionar: 0", "botones-progreso", 230, 80);
             botonesPorRecurso.put(tipo, boton);
             boton.setOnAction(e -> controlador.agregarRecurso(tipo));
 
-            VBox vbox = new VBox(10, label, imagen, boton);
-            vbox.setAlignment(Pos.CENTER);
-            hbox.getChildren().add(vbox);
+            VBox contenedor = new VBox(10, recursos, boton);
+            contenedor.setAlignment(Pos.CENTER);
+            hbox.getChildren().add(contenedor);
         }
-
         this.setCenter(hbox);
     }
-
 
     public void sumarContador(String recurso){
         BotonGenerico boton = botonesPorRecurso.get(recurso);
@@ -86,7 +72,6 @@ public class VistaProgresoDescubrimiento extends BorderPane {
         int nuevoValor = valor + 1;
         boton.setText("Seleccionar: " + nuevoValor);
     }
-
 
     public void desactivarBotones() {
         for (BotonGenerico boton : botonesPorRecurso.values()){
