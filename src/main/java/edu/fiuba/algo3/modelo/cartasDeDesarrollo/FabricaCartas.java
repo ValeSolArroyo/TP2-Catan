@@ -25,7 +25,6 @@ public class FabricaCartas {
 
         Collections.shuffle(mazo);*/
 
-        mazo.add(new ProgresoDescubrimiento());
         mazo.add(new ProgresoMonopolio());
 
         return mazo;

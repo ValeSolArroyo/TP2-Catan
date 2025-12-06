@@ -2,12 +2,14 @@ package edu.fiuba.algo3.controllers.cartasDesarrollo;
 
 import edu.fiuba.algo3.controllers.fasesJuego.AccionControlador;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.ProgresoMonopolio;
+import edu.fiuba.algo3.modelo.excepciones.RecursosInsuficientesError;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.juegoCommand.Accion;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.VistaProgresoMonopolio;
+import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
 
 public class ProgresoMonopolioControlador implements AccionControlador {
     private Juego juego;
@@ -46,7 +48,12 @@ public class ProgresoMonopolioControlador implements AccionControlador {
     @Override
     public void ejecutar() {
         Accion accion = new ProgresoMonopolio(juego, recursoElegido, juego.jugadorActual());
-        juego.ejecutarAccion(accion);
+        try {
+            juego.ejecutarAccion(accion);
+        } catch (RecursosInsuficientesError e) {
+            PopUpError.mostrar("Los jugadores que no tienen de ese tipo no pudieron entregar.");
+        }
+
         contenedor.setContenido(vistaJuego);
     }
 
