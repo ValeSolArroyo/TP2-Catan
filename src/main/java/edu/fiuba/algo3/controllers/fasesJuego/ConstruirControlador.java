@@ -9,10 +9,13 @@ import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.juegoCommand.AccionConstruir;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.vistas.VistaConstruir;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
+
+import java.util.List;
 
 public class ConstruirControlador implements AccionesTableroControlador{
     private VistaTablero vistaTablero;
@@ -60,7 +63,9 @@ public class ConstruirControlador implements AccionesTableroControlador{
 
     public void construirCarretera() {
         this.construccion = new Carretera(this.juego.jugadorActual());
-        vistaTablero.mostrarAristas();
+        Tablero tablero = juego.getTablero();
+        List<Arista> aristas = tablero.getListaAristas();
+        vistaTablero.mostrarAristas(aristas);
         vistaConstruir.desactivarBotones();
     }
 

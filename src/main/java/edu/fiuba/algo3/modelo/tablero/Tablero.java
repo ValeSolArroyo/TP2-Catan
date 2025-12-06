@@ -58,6 +58,9 @@ public class Tablero {
         }
         return aristas;
     }
+
+    public List<Arista> getListaAristas(){
+        return aristas; }
 }
 
 
