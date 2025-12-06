@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.vistas;
 
-import edu.fiuba.algo3.controllers.VolverControlador;
 import edu.fiuba.algo3.controllers.cartasDesarrollo.ProgresoDescubrimientoControlador;
 import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
 import edu.fiuba.algo3.vistas.componentes.Transicion;
@@ -18,15 +17,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class VistaProgresoDescubrimiento extends BorderPane {
-
+    private static final double ANCHO = 110;
+    private static final double ALTO  = 145;
     private static final Map<String, String> rutasImagenes = Map.of(
-            "Bosque", "/images/utils/hexagono/bosque.png",
-            "Colina", "/images/utils/hexagono/colina.png",
-            "Pastizal", "/images/utils/hexagono/pasto.png",
-            "Campo", "/images/utils/hexagono/campo.png",
-            "Montaña", "/images/utils/hexagono/montaña.png"
+            "Bosque", "/images/utils/hexagonos/hexagono_bosque.png",
+            "Colina", "/images/utils/hexagonos/hexagono_colina.png",
+            "Pastizal", "/images/utils/hexagonos/hexagono_pasto.png",
+            "Campo", "/images/utils/hexagonos/hexagono_campo.png",
+            "Montaña", "/images/utils/hexagonos/hexagono_montaña.png"
     );
 
+    // TODO: mejorar este código, además quiero que el botón del número sea tipo:
+    // Seleccionar
+    // Y quizás abajo te puede aparecer: Recursos elegidos: Tipo, Tipo???
+
+    // Sino que sea Seleccionar: 0
+    // y si lo seleccionas pasa a 1?
     private Map<String, BotonJuego> botonesPorRecurso = new HashMap<>();
     private ProgresoDescubrimientoControlador controlador;
     private BotonJuego botonEjecutar;
@@ -48,7 +54,6 @@ public class VistaProgresoDescubrimiento extends BorderPane {
         this.setBottom(botonVbox);
 
         Transicion.fade(this);
-
     }
 
 
@@ -58,14 +63,13 @@ public class VistaProgresoDescubrimiento extends BorderPane {
         hexagonosHBox.setAlignment(Pos.CENTER);
 
         // Madera
-        Label labelMadera = new Label("Recurso:  Madera");
+        Label labelMadera = new Label("Recurso: Madera");
         labelMadera.getStyleClass().add("texto-recurso-hexagono");
 
-        ImageView imagenMadera = new ImageView(new Image(
-                getClass().getResourceAsStream(rutasImagenes.get("Bosque"))
-        ));
-        imagenMadera.setFitWidth(100);
-        imagenMadera.setPreserveRatio(true);
+        ImageView imagenMadera = new ImageView(new Image(getClass().getResourceAsStream(rutasImagenes.get("Bosque"))));
+        imagenMadera.setFitWidth(ANCHO);
+        imagenMadera.setFitHeight(ALTO);
+        imagenMadera.setPreserveRatio(false);
 
         BotonJuego botonMadera = new BotonJuego("0");
         botonesPorRecurso.put("Madera", botonMadera);
@@ -83,11 +87,10 @@ public class VistaProgresoDescubrimiento extends BorderPane {
         Label labelLana = new Label("Recurso:  Lana");
         labelLana.getStyleClass().add("texto-recurso-hexagono");
 
-        ImageView imagenLana = new ImageView(new Image(
-                getClass().getResourceAsStream(rutasImagenes.get("Pastizal"))
-        ));
-        imagenLana.setFitWidth(100);
-        imagenLana.setPreserveRatio(true);
+        ImageView imagenLana = new ImageView(new Image(getClass().getResourceAsStream(rutasImagenes.get("Pastizal"))));
+        imagenLana.setFitWidth(ANCHO);
+        imagenLana.setFitHeight(ALTO);
+        imagenLana.setPreserveRatio(false);
 
         BotonJuego botonLana = new BotonJuego("0");
         botonesPorRecurso.put("Lana", botonLana);
@@ -105,11 +108,10 @@ public class VistaProgresoDescubrimiento extends BorderPane {
         Label labelGrano = new Label("Recurso:  Grano");
         labelGrano.getStyleClass().add("texto-recurso-hexagono");
 
-        ImageView imagenGrano = new ImageView(new Image(
-                getClass().getResourceAsStream(rutasImagenes.get("Campo"))
-        ));
-        imagenGrano.setFitWidth(100);
-        imagenGrano.setPreserveRatio(true);
+        ImageView imagenGrano = new ImageView(new Image(getClass().getResourceAsStream(rutasImagenes.get("Campo"))));
+        imagenGrano.setFitWidth(ANCHO);
+        imagenGrano.setFitHeight(ALTO);
+        imagenGrano.setPreserveRatio(false);
 
         BotonJuego botonGrano = new BotonJuego("0");
         botonesPorRecurso.put("Grano", botonGrano);
@@ -130,11 +132,10 @@ public class VistaProgresoDescubrimiento extends BorderPane {
         Label labelMineral = new Label("Recurso:  Mineral");
         labelMineral.getStyleClass().add("texto-recurso-hexagono");
 
-        ImageView imagenMineral = new ImageView(new Image(
-                getClass().getResourceAsStream(rutasImagenes.get("Montaña"))
-        ));
-        imagenMineral.setFitWidth(100);
-        imagenMineral.setPreserveRatio(true);
+        ImageView imagenMineral = new ImageView(new Image(getClass().getResourceAsStream(rutasImagenes.get("Montaña"))));
+        imagenMineral.setFitWidth(ANCHO);
+        imagenMineral.setFitHeight(ALTO);
+        imagenMineral.setPreserveRatio(false);
 
         BotonJuego botonMineral = new BotonJuego("0");
         botonesPorRecurso.put("Mineral", botonMineral);
@@ -154,12 +155,10 @@ public class VistaProgresoDescubrimiento extends BorderPane {
         Label labelLadrillo = new Label("Recurso:  Ladrillo");
         labelLadrillo.getStyleClass().add("texto-recurso-hexagono");
 
-        ImageView imagenLadrillo = new ImageView(new Image(
-                getClass().getResourceAsStream(rutasImagenes.get("Colina"))
-        ));
-
-        imagenLadrillo.setPreserveRatio(true);
-        imagenLadrillo.setFitWidth(160);
+        ImageView imagenLadrillo = new ImageView(new Image(getClass().getResourceAsStream(rutasImagenes.get("Colina"))));
+        imagenLadrillo.setFitWidth(ANCHO);
+        imagenLadrillo.setFitHeight(ALTO);
+        imagenLadrillo.setPreserveRatio(false);
 
         BotonJuego botonLadrillo = new BotonJuego("0");
         botonesPorRecurso.put("Ladrillo", botonLadrillo);
@@ -173,7 +172,6 @@ public class VistaProgresoDescubrimiento extends BorderPane {
         hexagonosHBox.getChildren().addAll(vboxLadrillo);
 
         this.setCenter(hexagonosHBox);
-
     }
 
 
@@ -190,8 +188,6 @@ public class VistaProgresoDescubrimiento extends BorderPane {
             boton.setDisable(true);
             boton.setOpacity(0);
         }
-
-
     }
 
     public void activarBotonEjecutar() {

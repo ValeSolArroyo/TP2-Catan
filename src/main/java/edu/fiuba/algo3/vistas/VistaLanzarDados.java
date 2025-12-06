@@ -3,7 +3,6 @@ package edu.fiuba.algo3.vistas;
 import edu.fiuba.algo3.controllers.CambioTurnoControlador;
 import edu.fiuba.algo3.controllers.fasesJuego.DadosControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.vistas.componentes.*;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 import javafx.geometry.Insets;
@@ -29,17 +28,18 @@ public class VistaLanzarDados extends BorderPane {
 
         HBox barraJugadores = new HBox(20);
         barraJugadores.setAlignment(Pos.CENTER);
+        barraJugadores.setPadding(new Insets(40, 0, 0, 0));
         for (var jugador : juego.getJugadores()) {
             InfoJugador info = new InfoJugador(jugador);
-            HBox.setMargin(info, new Insets(0, 10, 0, 10));
+            HBox.setMargin(info, new Insets(2, 10, 2, 10));
             barraJugadores.getChildren().add(info);
         }
         this.setTop(barraJugadores);
 
-        HBox tableroContenedor = new HBox(20);
+        HBox tableroContenedor = new HBox(15);
         tableroContenedor.setAlignment(Pos.CENTER);
         tableroContenedor.getChildren().add(this.vistaTablero);
-        HBox.setMargin(this.vistaTablero, new Insets(7, 0, 0, 325));
+        HBox.setMargin(this.vistaTablero, new Insets(4, 0, 0, 325));
         this.setCenter(tableroContenedor);
 
         CambioTurnoControlador cambioTurno = new CambioTurnoControlador(stage, contenedor, juego);
@@ -49,11 +49,11 @@ public class VistaLanzarDados extends BorderPane {
         turnoContenedor.setAlignment(Pos.CENTER);
         turnoContenedor.setPadding(new Insets(20));
         this.setBottom(turnoContenedor);
-        HBox.setMargin(vistaTurno, new Insets(0, 0, 0, -80));
+        HBox.setMargin(vistaTurno, new Insets(0, 0, 40, -80));
 
         VBox derecha = new VBox(30);
         derecha.setAlignment(Pos.TOP_CENTER);
-        derecha.setPadding(new Insets(150, 20, 0, 0));
+        derecha.setPadding(new Insets(100, 20, 0, 0));
 
         VistaDados vistaDados = new VistaDados(juego.getDado());
         BotonJuego botonLanzarDados = new BotonJuego("Lanzar dados");
