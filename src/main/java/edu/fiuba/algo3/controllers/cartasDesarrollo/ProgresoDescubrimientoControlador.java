@@ -31,72 +31,37 @@ public class ProgresoDescubrimientoControlador implements AccionControlador {
 
     }
 
-    public void agregarMadera() {
+    private void agregar(Recurso recurso, String nombre) {
         if (recursosDeseados.size() == 1) {
-            recursosDeseados.add(new Madera());
-            vista.sumarContador("Madera");
             vista.desactivarBotones();
             vista.activarBotonEjecutar();
         }
-        recursosDeseados.add(new Madera());
-        vista.sumarContador("Madera");
+        recursosDeseados.add(recurso);
+        vista.sumarContador(nombre);
     }
 
-    public void agregarLana() {
-        if (recursosDeseados.size() == 1) {
-            recursosDeseados.add(new Lana());
-            vista.sumarContador("Lana");
-            vista.desactivarBotones();
-            vista.activarBotonEjecutar();
-            return;
+    public void agregarRecurso(String tipo) {
+        if (tipo.equals("Madera")) {
+            agregar(new Madera(), "Madera");
+        } else if (tipo.equals("Lana")) {
+            agregar(new Lana(), "Lana");
+        } else if (tipo.equals("Grano")) {
+            agregar(new Grano(), "Grano");
+        } else if (tipo.equals("Ladrillo")) {
+            agregar(new Ladrillo(), "Ladrillo");
+        } else if (tipo.equals("Mineral")) {
+            agregar(new Mineral(), "Mineral");
         }
-        recursosDeseados.add(new Lana());
-        vista.sumarContador("Lana");
-
-    }
-
-    public void agregarGrano() {
-        if (recursosDeseados.size() == 1) {
-            recursosDeseados.add(new Grano());
-            vista.sumarContador("Grano");
-            vista.desactivarBotones();
-            vista.activarBotonEjecutar();
-            return;
-        }
-        recursosDeseados.add(new Grano());
-        vista.sumarContador("Grano");
-    }
-
-    public void agregarMineral() {
-        if (recursosDeseados.size() == 1) {
-            recursosDeseados.add(new Mineral());
-            vista.sumarContador("Mineral");
-            vista.desactivarBotones();
-            vista.activarBotonEjecutar();
-            return;
-        }
-        recursosDeseados.add(new Mineral());
-        vista.sumarContador("Mineral");
-    }
-
-    public void agregarLadrillo() {
-        if (recursosDeseados.size() == 1) {
-            recursosDeseados.add(new Ladrillo());
-            vista.sumarContador("Ladrillo");
-            vista.desactivarBotones();
-            vista.activarBotonEjecutar();
-        }
-        recursosDeseados.add(new Ladrillo());
-        vista.sumarContador("Ladrillo");
-
     }
 
     @Override
     public void ejecutar() {
-
         Accion accion = new ProgresoDescubrimiento(juego.jugadorActual(), recursosDeseados);
         juego.ejecutarAccion(accion);
         contenedor.setContenido(vistaJuego);
+    }
 
+    public List<String> getTiposDeRecurso() {
+        return List.of("Madera", "Lana", "Grano", "Mineral", "Ladrillo");
     }
 }
