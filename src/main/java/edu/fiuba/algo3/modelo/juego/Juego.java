@@ -142,11 +142,11 @@ public class Juego {
     }
 
     public void revisarGranCaballeria(Jugador jugador) {
-        granCaballeria.evaluarCartaBonificacion(jugador);
+        granCaballeria.evaluarCartaBonificacion(jugador, tablero);
     }
 
     public void revisarGranRutaComercial(Jugador jugador) {
-        granRutaComercial.evaluarCartaBonificacion(jugador);
+        granRutaComercial.evaluarCartaBonificacion(jugador, tablero);
     }
 
     public void entregarAJugador(Recurso recursoDeseado) {

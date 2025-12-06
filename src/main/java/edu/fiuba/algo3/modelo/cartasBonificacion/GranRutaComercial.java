@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.cartasBonificacion;
 
 import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
 
 public class GranRutaComercial implements CartaBonificacion{
 
@@ -14,8 +15,8 @@ public class GranRutaComercial implements CartaBonificacion{
     }
 
     @Override
-    public void evaluarCartaBonificacion(Jugador jugador) {
-        int cantidad=  jugador.conseguirRutaMasLarga();
+    public void evaluarCartaBonificacion(Jugador jugador, Tablero tablero) {
+        int cantidad=  tablero.conseguirRutaMasLarga(jugador);
         if ((mayorRutaComercial == 5) && (cantidad >= 5)  && (!yaOtorgada)){
             this.dueño = jugador;
             this.yaOtorgada = true;

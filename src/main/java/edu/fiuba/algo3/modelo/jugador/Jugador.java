@@ -111,9 +111,6 @@ public class Jugador extends Observable {
         return cartasCaballeroJugadas;
     }
 
-    public int conseguirRutaMasLarga(){
-        return 0; //implmentar para que consiga la ruta más larga y devuelva la cant de carreteras
-    }
 
     public void recibirCartaBonificacion (CartaBonificacion cartaBonificacion){
         this.cartasBonificacion.add(cartaBonificacion);
