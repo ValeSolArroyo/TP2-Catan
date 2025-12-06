@@ -25,6 +25,7 @@ public class ProgresoDescubrimiento implements CartaDesarrollo{
         for (Recurso recurso: recursosDeBanca) {
             jugadorActual.recibirRecurso(recurso);
         }
+        jugadorActual.eliminarCarta(this);
     }
 
     public String getCarta(){

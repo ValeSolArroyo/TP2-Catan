@@ -7,12 +7,14 @@ import edu.fiuba.algo3.modelo.recursos.Recurso;
 public class ProgresoMonopolio implements CartaDesarrollo {
     private Juego juego;
     private Recurso recursoDeseado;
+    private Jugador jugadorActual;
 
     public ProgresoMonopolio(){}
 
-    public ProgresoMonopolio(Juego juego, Recurso recursoDeseado) {
+    public ProgresoMonopolio(Juego juego, Recurso recursoDeseado, Jugador jugadorActual) {
         this.juego = juego;
         this.recursoDeseado = recursoDeseado;
+        this.jugadorActual = jugadorActual;
     }
 
     @Override
@@ -21,6 +23,7 @@ public class ProgresoMonopolio implements CartaDesarrollo {
     @Override
     public void ejecutar() {
         juego.entregarAJugador(recursoDeseado);
+        jugadorActual.eliminarCarta(this);
     }
 
     public String getCarta(){
