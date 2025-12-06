@@ -3,6 +3,7 @@ package edu.fiuba.algo3.vistas;
 import edu.fiuba.algo3.controllers.cartasDesarrollo.ProgresoDescubrimientoControlador;
 import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
 import edu.fiuba.algo3.vistas.componentes.Transicion;
+import edu.fiuba.algo3.vistas.componentes.botones.BotonGenerico;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,29 +21,27 @@ public class VistaProgresoDescubrimiento extends BorderPane {
     private static final double ANCHO = 110;
     private static final double ALTO  = 145;
     private static final Map<String, String> rutasImagenes = Map.of(
-            "Bosque", "/images/utils/hexagonos/hexagono_bosque.png",
-            "Colina", "/images/utils/hexagonos/hexagono_colina.png",
-            "Pastizal", "/images/utils/hexagonos/hexagono_pasto.png",
-            "Campo", "/images/utils/hexagonos/hexagono_campo.png",
-            "Montaña", "/images/utils/hexagonos/hexagono_montaña.png"
+            "Bosque", "/images/utils/hexagonos/hexagono_Madera.png",
+            "Colina", "/images/utils/hexagonos/hexagono_Ladrillo.png",
+            "Pastizal", "/images/utils/hexagonos/hexagono_Lana.png",
+            "Campo", "/images/utils/hexagonos/hexagono_Grano.png",
+            "Montaña", "/images/utils/hexagonos/hexagono_Mineral.png"
     );
 
-    // TODO: mejorar este código, además quiero que el botón del número sea tipo:
-    // Seleccionar
-    // Y quizás abajo te puede aparecer: Recursos elegidos: Tipo, Tipo???
-
-    // Sino que sea Seleccionar: 0
-    // y si lo seleccionas pasa a 1?
-    private Map<String, BotonJuego> botonesPorRecurso = new HashMap<>();
+    private Map<String, BotonGenerico> botonesPorRecurso = new HashMap<>();
     private ProgresoDescubrimientoControlador controlador;
     private BotonJuego botonEjecutar;
 
     public VistaProgresoDescubrimiento(ProgresoDescubrimientoControlador controlador){
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/mar.jpeg"));
         this.controlador = controlador;
+        controlador.setVistaProgreso(this);
+
         inicializarRecursos();
 
-        botonEjecutar = new BotonJuego("Ejecutar");
+        // TODO: estaría buieno si podemos que se pueda poner volver, y que lo deje
+        // volver a elegir. detalle igual
+        botonEjecutar = new BotonJuego("Confirmar");
         botonEjecutar.setOnAction(e -> controlador.ejecutar());
         botonEjecutar.setDisable(true);
         botonEjecutar.setOpacity(0);
@@ -56,135 +55,41 @@ public class VistaProgresoDescubrimiento extends BorderPane {
         Transicion.fade(this);
     }
 
-
     private void inicializarRecursos() {
+        HBox hbox = new HBox(40);
+        hbox.setAlignment(Pos.CENTER);
 
-        HBox hexagonosHBox = new HBox(40);
-        hexagonosHBox.setAlignment(Pos.CENTER);
+        for (String tipo : controlador.getTiposDeRecurso()) {
+            Label label = new Label("Recurso: " + tipo);
+            label.getStyleClass().add("texto-recurso-hexagono");
+            String ruta = "/images/utils/hexagonos/hexagono_" + tipo + ".png";
+            ImageView imagen = new ImageView(new Image(getClass().getResourceAsStream(ruta)));
+            imagen.setFitWidth(ANCHO);
+            imagen.setFitHeight(ALTO);
 
-        // Madera
-        Label labelMadera = new Label("Recurso: Madera");
-        labelMadera.getStyleClass().add("texto-recurso-hexagono");
+            BotonGenerico boton = new BotonGenerico("Seleccionar: 0", "botones-progreso", 230, 80);
+            botonesPorRecurso.put(tipo, boton);
+            boton.setOnAction(e -> controlador.agregarRecurso(tipo));
 
-        ImageView imagenMadera = new ImageView(new Image(getClass().getResourceAsStream(rutasImagenes.get("Bosque"))));
-        imagenMadera.setFitWidth(ANCHO);
-        imagenMadera.setFitHeight(ALTO);
-        imagenMadera.setPreserveRatio(false);
+            VBox vbox = new VBox(10, label, imagen, boton);
+            vbox.setAlignment(Pos.CENTER);
+            hbox.getChildren().add(vbox);
+        }
 
-        BotonJuego botonMadera = new BotonJuego("0");
-        botonesPorRecurso.put("Madera", botonMadera);
-        botonMadera.setPrefSize(40, 40);
-
-        botonMadera.setOnAction(e -> controlador.agregarMadera());
-
-        VBox vboxMadera = new VBox(10, labelMadera, imagenMadera, botonMadera);
-        vboxMadera.setAlignment(Pos.CENTER);
-
-        hexagonosHBox.getChildren().addAll(vboxMadera);
-
-
-        //Lana
-        Label labelLana = new Label("Recurso:  Lana");
-        labelLana.getStyleClass().add("texto-recurso-hexagono");
-
-        ImageView imagenLana = new ImageView(new Image(getClass().getResourceAsStream(rutasImagenes.get("Pastizal"))));
-        imagenLana.setFitWidth(ANCHO);
-        imagenLana.setFitHeight(ALTO);
-        imagenLana.setPreserveRatio(false);
-
-        BotonJuego botonLana = new BotonJuego("0");
-        botonesPorRecurso.put("Lana", botonLana);
-        botonLana.setPrefSize(40, 40);
-
-        botonLana.setOnAction(e -> controlador.agregarLana());
-
-        VBox vboxLana = new VBox(10, labelLana, imagenLana, botonLana);
-        vboxLana.setAlignment(Pos.CENTER);
-
-        hexagonosHBox.getChildren().addAll(vboxLana);
-
-
-        //Grano
-        Label labelGrano = new Label("Recurso:  Grano");
-        labelGrano.getStyleClass().add("texto-recurso-hexagono");
-
-        ImageView imagenGrano = new ImageView(new Image(getClass().getResourceAsStream(rutasImagenes.get("Campo"))));
-        imagenGrano.setFitWidth(ANCHO);
-        imagenGrano.setFitHeight(ALTO);
-        imagenGrano.setPreserveRatio(false);
-
-        BotonJuego botonGrano = new BotonJuego("0");
-        botonesPorRecurso.put("Grano", botonGrano);
-        botonGrano.setPrefSize(40, 40);
-
-        botonGrano.setOnAction(e -> controlador.agregarGrano());
-
-        VBox vboxGrano = new VBox(10, labelGrano, imagenGrano, botonGrano);
-        vboxGrano.setAlignment(Pos.CENTER);
-
-        this.getChildren().add(vboxGrano);
-
-        hexagonosHBox.getChildren().addAll(vboxGrano);
-
-
-
-        //Mineral
-        Label labelMineral = new Label("Recurso:  Mineral");
-        labelMineral.getStyleClass().add("texto-recurso-hexagono");
-
-        ImageView imagenMineral = new ImageView(new Image(getClass().getResourceAsStream(rutasImagenes.get("Montaña"))));
-        imagenMineral.setFitWidth(ANCHO);
-        imagenMineral.setFitHeight(ALTO);
-        imagenMineral.setPreserveRatio(false);
-
-        BotonJuego botonMineral = new BotonJuego("0");
-        botonesPorRecurso.put("Mineral", botonMineral);
-        botonMineral.setPrefSize(40, 40);
-
-        botonMineral.setOnAction(e -> controlador.agregarMineral());
-
-        VBox vboxMineral = new VBox(10, labelMineral, imagenMineral, botonMineral);
-        vboxMineral.setAlignment(Pos.CENTER);
-
-        this.getChildren().add(vboxMineral);
-
-        hexagonosHBox.getChildren().addAll(vboxMineral);
-
-
-        // Ladrillo
-        Label labelLadrillo = new Label("Recurso:  Ladrillo");
-        labelLadrillo.getStyleClass().add("texto-recurso-hexagono");
-
-        ImageView imagenLadrillo = new ImageView(new Image(getClass().getResourceAsStream(rutasImagenes.get("Colina"))));
-        imagenLadrillo.setFitWidth(ANCHO);
-        imagenLadrillo.setFitHeight(ALTO);
-        imagenLadrillo.setPreserveRatio(false);
-
-        BotonJuego botonLadrillo = new BotonJuego("0");
-        botonesPorRecurso.put("Ladrillo", botonLadrillo);
-        botonLadrillo.setPrefSize(40, 40);
-
-        botonLadrillo.setOnAction(e -> controlador.agregarLadrillo());
-
-        VBox vboxLadrillo = new VBox(10, labelLadrillo, imagenLadrillo, botonLadrillo);
-        vboxLadrillo.setAlignment(Pos.CENTER);
-
-        hexagonosHBox.getChildren().addAll(vboxLadrillo);
-
-        this.setCenter(hexagonosHBox);
+        this.setCenter(hbox);
     }
 
 
     public void sumarContador(String recurso){
-        BotonJuego boton = botonesPorRecurso.get(recurso);
-        int valor = Integer.parseInt(boton.getText());
+        BotonGenerico boton = botonesPorRecurso.get(recurso);
+        int valor = Integer.parseInt(boton.getText().replace("Seleccionar: ", "").trim());
         int nuevoValor = valor + 1;
-        boton.setText(" " + nuevoValor + " ");
+        boton.setText("Seleccionar: " + nuevoValor);
     }
 
 
     public void desactivarBotones() {
-        for (BotonJuego boton : botonesPorRecurso.values()){
+        for (BotonGenerico boton : botonesPorRecurso.values()){
             boton.setDisable(true);
             boton.setOpacity(0);
         }
