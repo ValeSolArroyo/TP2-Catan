@@ -18,7 +18,7 @@ public class VistaConstruir extends BorderPane {
     private Juego juego;
     private VistaTablero vistaTablero;
     private ConstruirControlador construirControlador;
-    private BotonJuego botonCarretera;
+    private BotonGenerico botonCarretera;
     private BotonJuego botonPoblado;
     private BotonJuego botonCiudad;
     private BotonGenerico botonFinTurno;
@@ -72,7 +72,7 @@ public class VistaConstruir extends BorderPane {
         VBox botonesDerecha = new VBox(50);
         botonesDerecha.setAlignment(Pos.CENTER_RIGHT);
         botonesDerecha.setPadding(new Insets(100, 20, 0, 0));
-        botonCarretera = new BotonJuego("Colocar Carretera");
+        botonCarretera = new BotonGenerico("Colocar Carretera", "botones-derecha", 250, 70);
         botonPoblado = new BotonJuego("Colocar Poblado");
         botonCiudad = new BotonJuego("Colocar Ciudad");
 
