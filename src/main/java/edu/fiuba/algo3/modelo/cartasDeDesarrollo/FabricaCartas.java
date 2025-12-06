@@ -10,6 +10,7 @@ public class FabricaCartas {
 
         for (int i = 0; i < 14; i++) {
             mazo.add(new Caballero());
+
         }
 
         for (int i = 0; i < 5; i++) {

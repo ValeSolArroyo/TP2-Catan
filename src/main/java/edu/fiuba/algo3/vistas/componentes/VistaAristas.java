@@ -97,10 +97,8 @@ public class VistaAristas extends StackPane {
     }
 
     public void mostrarAristas() {
-        for (Map.Entry<Arista, Button> entry : botonesAristas.entrySet()) {
-
-            Button boton = entry.getValue();
-
+        for (Button boton: botonesAristas.values()) {
+            boton.setDisable(false);
             boton.setOpacity(1);
         }
 

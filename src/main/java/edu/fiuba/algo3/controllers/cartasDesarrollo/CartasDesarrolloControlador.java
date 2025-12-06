@@ -1,9 +1,7 @@
 package edu.fiuba.algo3.controllers.cartasDesarrollo;
 
 import edu.fiuba.algo3.modelo.juego.Juego;
-import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
-import edu.fiuba.algo3.vistas.VistaCaballero;
-import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
+import edu.fiuba.algo3.vistas.*;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 import javafx.stage.Stage;
 
@@ -30,9 +28,19 @@ public class CartasDesarrolloControlador {
     }
 
     public void jugarProgresoConstruccion() {
+        ProgresoConstruccionControlador controlador = new ProgresoConstruccionControlador(juego, vistaTablero, vistaJuego, contenedor);
+        VistaProgresoConstruccion vista = new VistaProgresoConstruccion(juego, vistaTablero,controlador);
+        controlador.setVistaProgreso(vista);
+        contenedor.setContenido(vista);
+
     }
 
     public void jugarProgresoDescubrimiento() {
+        ProgresoDescubrimientoControlador controlador = new ProgresoDescubrimientoControlador(juego, vistaJuego, contenedor);
+        VistaProgresoDescubrimiento vista = new VistaProgresoDescubrimiento(controlador);
+        controlador.setVistaProgreso(vista);
+        contenedor.setContenido(vista);
+
     }
 
     public void jugarMonopolio() {
