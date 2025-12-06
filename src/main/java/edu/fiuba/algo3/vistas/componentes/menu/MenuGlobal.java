@@ -33,7 +33,7 @@ public class MenuGlobal {
         BotonMenu botonAcerca = new BotonMenu("Acerca de");
         botonAcerca.setOnAction(e -> PopUpAcercaDe.mostrar());
 
-        menuDesplegable.getChildren().addAll(botonAyuda, botonMusica, botonOpciones, botonAcerca);
+        menuDesplegable.getChildren().addAll(botonMusica, botonOpciones, botonAyuda, botonAcerca);
 
         VBox submenuOpciones = new VBox(5);
         submenuOpciones.setAlignment(Pos.BOTTOM_RIGHT);
@@ -71,7 +71,7 @@ public class MenuGlobal {
         botonSilenciar.setOnAction(e -> musicaControlador.silenciar());
 
         submenuMusica.getChildren().addAll(botonSilenciar, botonElegirTema);
-        submenuMusica.setTranslateX(-220);
+        submenuMusica.setTranslateX(-330);
 
         botonMusica.setOnAction(e -> {
             boolean estabaAbierto = submenuMusica.isVisible();
