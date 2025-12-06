@@ -4,10 +4,15 @@ import edu.fiuba.algo3.modelo.cartasBonificacion.CartaBonificacion;
 import edu.fiuba.algo3.modelo.cartasBonificacion.GranCaballeria;
 import edu.fiuba.algo3.modelo.cartasBonificacion.GranRutaComercial;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
+import edu.fiuba.algo3.modelo.tableroFactory.TableroCatanFactory;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class CartaBonificacionTest {
 
@@ -28,9 +33,9 @@ public class CartaBonificacionTest {
         GranCaballeria granCaballeria = new GranCaballeria();
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
 
-        granCaballeria.evaluarCartaBonificacion(jugador);
+        Tablero tablero = mock(Tablero.class);
 
-        assertDoesNotThrow(() -> granCaballeria.evaluarCartaBonificacion(jugador));
+        assertDoesNotThrow(() -> granCaballeria.evaluarCartaBonificacion(jugador, tablero));
     }
 
     @Test
@@ -38,9 +43,10 @@ public class CartaBonificacionTest {
         GranRutaComercial granRutaComercial = new GranRutaComercial();
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
 
-        granRutaComercial.evaluarCartaBonificacion(jugador);
+       Tablero tableroMock = mock(Tablero.class);
+        when(tableroMock.conseguirRutaMasLarga(jugador)).thenReturn(5);
 
-        assertDoesNotThrow(() -> granRutaComercial.evaluarCartaBonificacion(jugador));
+        assertDoesNotThrow(() -> granRutaComercial.evaluarCartaBonificacion(jugador, tableroMock));
     }
 
     @Test
@@ -51,8 +57,11 @@ public class CartaBonificacionTest {
         CartaBonificacion carta1 = new GranCaballeria();
         CartaBonificacion carta2 = new GranRutaComercial();
 
-        assertDoesNotThrow(() -> carta1.evaluarCartaBonificacion(jugador1));
-        assertDoesNotThrow(() -> carta2.evaluarCartaBonificacion(jugador2));
+        Tablero tableroMock = mock(Tablero.class);
+        when(tableroMock.conseguirRutaMasLarga(jugador2)).thenReturn(5);
+
+        assertDoesNotThrow(() -> carta1.evaluarCartaBonificacion(jugador1, tableroMock));
+        assertDoesNotThrow(() -> carta2.evaluarCartaBonificacion(jugador2, tableroMock));
     }
 
     @Test
@@ -64,14 +73,59 @@ public class CartaBonificacionTest {
         jugador.registrarCaballeroJugado();
         jugador.registrarCaballeroJugado();
 
-        assertDoesNotThrow(() -> granCaballeria.evaluarCartaBonificacion(jugador));
+        Tablero tableroMock = mock(Tablero.class);
+
+        assertDoesNotThrow(() -> granCaballeria.evaluarCartaBonificacion(jugador, tableroMock));
     }
 
     @Test
     public void test07GranRutaComercialOtorgaBonificacionAlTener5Carreteras() {
         GranRutaComercial granRutaComercial = new GranRutaComercial();
-        Jugador jugador = org.mockito.Mockito.mock(Jugador.class);
-        org.mockito.Mockito.when(jugador.conseguirRutaMasLarga()).thenReturn(5);
-        assertDoesNotThrow(() -> granRutaComercial.evaluarCartaBonificacion(jugador));
+        Jugador jugador = mock(Jugador.class);
+        Tablero tableroMock = mock(Tablero.class);
+        when(tableroMock.conseguirRutaMasLarga(jugador)).thenReturn(5);
+        assertDoesNotThrow(() -> granRutaComercial.evaluarCartaBonificacion(jugador, tableroMock));
+    }
+
+    @Test
+    public void test08BonificacionGranRutaComercialPasaAlJugadorConMasCarreteras() {
+        Tablero tablero = mock(Tablero.class);
+        GranRutaComercial granRuta = new GranRutaComercial();
+
+        Jugador jugador1 = new Jugador(1, "jugador1", Color.RED);
+        Jugador jugador2 = new Jugador(2, "jugador2", Color.BLUE);
+
+        int pvInicialjugador1 = jugador1.conseguirPuntosDeVictoria();
+        int pvInicialjugador2 = jugador2.conseguirPuntosDeVictoria();
+
+        
+        Mockito.when(tablero.conseguirRutaMasLarga(jugador1)).thenReturn(5);
+        Mockito.when(tablero.conseguirRutaMasLarga(jugador2)).thenReturn(0);
+
+        granRuta.evaluarCartaBonificacion(jugador1, tablero);
+
+        int pvTrasAsignacionjugador1 = jugador1.conseguirPuntosDeVictoria();
+        int pvTrasAsignacionjugador2 = jugador2.conseguirPuntosDeVictoria();
+
+        assertEquals(pvInicialjugador1 + 2, pvTrasAsignacionjugador1,
+                "jugador1 debe ganar los 2 PV de la bonificación");
+        assertEquals(pvInicialjugador2, pvTrasAsignacionjugador2,
+                "jugador2 todavía no debe tener puntos extra");
+
+        Mockito.when(tablero.conseguirRutaMasLarga(jugador1)).thenReturn(5);
+        Mockito.when(tablero.conseguirRutaMasLarga(jugador2)).thenReturn(6);
+
+        granRuta.evaluarCartaBonificacion(jugador2, tablero);
+
+        int pvFinaljugador1 = jugador1.conseguirPuntosDeVictoria();
+        int pvFinaljugador2 = jugador2.conseguirPuntosDeVictoria();
+
+        assertEquals(pvInicialjugador1, pvFinaljugador1,
+                "jugador1 debe perder los 2 PV cuando jugador2 supera la ruta");
+
+        assertEquals(pvInicialjugador2 + 2, pvFinaljugador2,
+                "jugador2 debe recibir la bonificación ahora");
+
+        
     }
 }

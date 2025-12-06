@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.cartasBonificacion;
 
 import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
 
 public class GranCaballeria implements CartaBonificacion {
     private Jugador dueño;
@@ -13,7 +14,7 @@ public class GranCaballeria implements CartaBonificacion {
     }
 
     @Override
-    public void evaluarCartaBonificacion(Jugador jugador) {
+    public void evaluarCartaBonificacion(Jugador jugador, Tablero tablero) {
         int cantidad = jugador.conseguirCartasCaballeroJugadas();
         if ((mayorEjercito == 3) && (cantidad == 3) && (!yaOtorgada)) {
             this.dueño = jugador;
