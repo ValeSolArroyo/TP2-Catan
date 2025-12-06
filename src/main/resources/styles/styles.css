@@ -306,3 +306,10 @@
     -fx-font-weight: bold;
     -fx-font-size: 20px;
 }
+
+.texto-recurso-hexagono {
+    -fx-font-family: 'Minecraft';
+    -fx-text-fill: #0f0b67;
+    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+}

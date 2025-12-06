@@ -11,10 +11,9 @@ public class testDebug {
         Tablero tablero = factory.crearTablero();
 
         System.out.println("ARISTAS");
-
         for (Arista arista : tablero.getAristas().values()) {
-            System.out.println(
-                    "Arista " + arista.getId() +
+           System.out.println(
+                   "Arista " + arista.getId() +
                             " conecta Vertice " + arista.getVertice1().getId() +
                             " con Vertice " + arista.getVertice2().getId()
             );

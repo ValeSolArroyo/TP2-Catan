@@ -53,7 +53,7 @@ public class VistaVertices extends StackPane {
             HBox filaVertices = new HBox();
             filaVertices.setAlignment(Pos.CENTER);
             filaVertices.setSpacing(65);
-            filaVertices.setPadding(new Insets(8, 0, 8, 0));
+            filaVertices.setPadding(new Insets(8, 0, 9, 0));
             for (Vertice vertice : fila) {
                 Button boton = new Button();
                 boton.setPrefSize(20, 20);

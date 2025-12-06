@@ -55,14 +55,15 @@ public class VistaTablero extends StackPane {
         vistaVertices.setOpacity(1);
     }
 
-    public void mostrarAristas() {
-        vistaAristas.mostrarAristas();
-    }
-
     public void mostrarAristas(List<Arista> aristas) {
         vistaAristas.setDisable(false);
         vistaAristas.setOpacity(1);
-        vistaAristas.mostrarSolo(aristas);
+        if(aristas.size() == 0) {
+            vistaAristas.mostrarAristas();
+        }else {
+            vistaAristas.mostrarSolo(aristas);
+        }
+
     }
 
 
