@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.CambioTurnoControlador;
+import edu.fiuba.algo3.controllers.VolverControlador;
 import edu.fiuba.algo3.controllers.fasesJuego.ConstruirControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
@@ -11,6 +12,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -24,7 +26,7 @@ public class VistaConstruir extends BorderPane {
     private BotonGenerico botonFinTurno;
 
 
-    public VistaConstruir(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero) {
+    public VistaConstruir(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego) {
         this.juego = juego;
         this.vistaTablero = vistaTablero;
         construirControlador = new ConstruirControlador(vistaTablero, juego, this);
@@ -45,7 +47,7 @@ public class VistaConstruir extends BorderPane {
         HBox tableroContenedor = new HBox(20);
         tableroContenedor.setAlignment(Pos.CENTER);
         tableroContenedor.getChildren().add(this.vistaTablero);
-        HBox.setMargin(this.vistaTablero, new Insets(0, 0, 7, 100));
+        HBox.setMargin(this.vistaTablero, new Insets(0, 0, 7, 363));
         this.setCenter(tableroContenedor);
 
         inicializarBotones();
@@ -54,14 +56,29 @@ public class VistaConstruir extends BorderPane {
         cambioTurno.agregarTablero(this.vistaTablero);
         VistaTurnoActual vistaTurno = new VistaTurnoActual(cambioTurno);
 
-        botonFinTurno = new BotonGenerico("Finalizar turno", "boton-fin-turno", 230, 45);
-
+        botonFinTurno = new BotonGenerico("Finalizar construccion", "boton-fin-turno", 300, 45);
         HBox contenedorAbajo = new HBox(20);
         contenedorAbajo.setAlignment(Pos.CENTER_LEFT);
-        contenedorAbajo.setPadding(new Insets(0, 0, 20, 95));
+        contenedorAbajo.setPadding(new Insets(0, 0, 20, 70));
         contenedorAbajo.getChildren().addAll(botonFinTurno, vistaTurno);
 
-        HBox.setMargin(vistaTurno, new Insets(0, 0, 0, 200));
+        BotonJuego botonVolver = new BotonJuego("Volver");
+        botonVolver.setOnAction(new VolverControlador(contenedor, vistaJuego));
+        botonVolver.setPrefWidth(100);
+        botonVolver.setPrefHeight(20);
+
+        HBox botonVolverContenedor = new HBox(botonVolver);
+        botonVolverContenedor.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setMargin(botonVolver, new Insets(-40, 5, 0, 0));
+        StackPane topContainer = new StackPane();
+
+        topContainer.getChildren().addAll(barraJugadores, botonVolverContenedor);
+        StackPane.setAlignment(barraJugadores, Pos.TOP_CENTER);
+        StackPane.setAlignment(botonVolverContenedor, Pos.TOP_RIGHT);
+
+        this.setTop(topContainer);
+
+        HBox.setMargin(vistaTurno, new Insets(0, 0, 0, 155));
 
         this.setBottom(contenedorAbajo);
 
