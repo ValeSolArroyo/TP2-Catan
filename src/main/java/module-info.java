@@ -20,4 +20,8 @@ module edu.fiuba.algo3 {
     exports edu.fiuba.algo3.modelo.tablero;
     exports edu.fiuba.algo3.vistas.componentes;
     exports edu.fiuba.algo3.vistas.componentes.menu;
+    exports edu.fiuba.algo3.modelo.cartasDeDesarrollo;
+    exports edu.fiuba.algo3.modelo.cartasBonificacion;
+    exports edu.fiuba.algo3.modelo.juegoCommand;
+    exports edu.fiuba.algo3.modelo.observer;
 }
