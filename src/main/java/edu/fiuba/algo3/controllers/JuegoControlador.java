@@ -6,7 +6,7 @@ import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
-import edu.fiuba.algo3.vistas.VistaCartasDesarrollo;
+import edu.fiuba.algo3.vistas.cartasDesarrollo.VistaCartasDesarrollo;
 import edu.fiuba.algo3.vistas.VistaConstruir;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;

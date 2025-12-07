@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.vistas;
+package edu.fiuba.algo3.vistas.componentes;
 
 import javafx.geometry.Point2D;
 import javafx.scene.control.Button;

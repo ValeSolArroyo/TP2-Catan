@@ -131,20 +131,18 @@ public class Jugador extends Observable {
     }
 
     public void evaluarSiEsGanador() {
-        int puntos = conseguirPuntosDeVictoria();
+        int puntos = conseguirPuntosDeVictoriaTotales();
         if (puntos >= 10) {
             notificarObservadores();
         }
     }
     
-    public int conseguirPuntosDeVictoria(){
+    public int conseguirPuntosDeVictoriaTotales(){
         int puntosConstruccion = puntosPorConstrucciones();
         int puntosCartasBonificacion = cartasBonificacion.size() * 2;
 
-        // Por pantalla
         this.puntosVictoria = puntosConstruccion + puntosCartasBonificacion;
 
-        // Los reales (PV Bonificacion, ocultos). Para evaluar ganador, llamamos a conseguirPuntos
         return puntosConstruccion + puntosCartasBonificacion + puntosVictoriaCartaDesarrollo;
     }
 
@@ -155,6 +153,10 @@ public class Jugador extends Observable {
     }
 
     public int getPuntosVictoria() { return this.puntosVictoria; }
+
+    public int getPuntosVictoriaCartaDesarrollo() {
+        return this.puntosVictoriaCartaDesarrollo;
+    }
 
     public void sumarPVPorCartaDesarollo() {
         this.puntosVictoriaCartaDesarrollo++;

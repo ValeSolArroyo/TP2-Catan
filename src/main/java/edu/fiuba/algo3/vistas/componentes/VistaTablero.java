@@ -1,11 +1,9 @@
 package edu.fiuba.algo3.vistas.componentes;
 import edu.fiuba.algo3.controllers.fasesJuego.AccionHexagonoControlador;
 import edu.fiuba.algo3.controllers.fasesJuego.AccionesTableroControlador;
-import edu.fiuba.algo3.controllers.fasesJuego.PrimerasColocacionesControlador;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
-import edu.fiuba.algo3.vistas.VistaConstrucciones;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Button;

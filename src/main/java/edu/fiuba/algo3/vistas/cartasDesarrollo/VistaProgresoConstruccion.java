@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.vistas;
+package edu.fiuba.algo3.vistas.cartasDesarrollo;
 
 import edu.fiuba.algo3.controllers.cartasDesarrollo.ProgresoConstruccionControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
@@ -33,7 +33,7 @@ public class VistaProgresoConstruccion extends BorderPane {
         barraJugadores.setAlignment(Pos.CENTER);
 
         for (Jugador jugador : juego.getJugadores()) {
-            InfoJugador info = new InfoJugador(jugador);
+            InfoJugador info = new InfoJugador(jugador, juego);
             HBox.setMargin(info, new Insets(0, 10, 0, 10));
             barraJugadores.getChildren().add(info);
         }

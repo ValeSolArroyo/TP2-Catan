@@ -26,7 +26,7 @@ public class VistaJuegoGeneral extends BorderPane {
         barraJugadores.setAlignment(Pos.CENTER);
 
         for (Jugador jugador : juego.getJugadores()) {
-            InfoJugador info = new InfoJugador(jugador);
+            InfoJugador info = new InfoJugador(jugador, juego);
             HBox.setMargin(info, new Insets(0, 10, 0, 10));
             barraJugadores.getChildren().add(info);
         }

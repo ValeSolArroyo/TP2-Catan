@@ -8,7 +8,7 @@ import edu.fiuba.algo3.modelo.juegoCommand.Accion;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
-import edu.fiuba.algo3.vistas.VistaProgresoMonopolio;
+import edu.fiuba.algo3.vistas.cartasDesarrollo.VistaProgresoMonopolio;
 import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
 
 public class ProgresoMonopolioControlador implements AccionControlador {

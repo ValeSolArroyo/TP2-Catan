@@ -2,6 +2,10 @@ package edu.fiuba.algo3.controllers.cartasDesarrollo;
 
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.vistas.*;
+import edu.fiuba.algo3.vistas.cartasDesarrollo.VistaCaballero;
+import edu.fiuba.algo3.vistas.cartasDesarrollo.VistaProgresoConstruccion;
+import edu.fiuba.algo3.vistas.cartasDesarrollo.VistaProgresoDescubrimiento;
+import edu.fiuba.algo3.vistas.cartasDesarrollo.VistaProgresoMonopolio;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 import javafx.stage.Stage;
 

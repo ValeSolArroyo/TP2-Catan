@@ -30,7 +30,7 @@ public class VistaLanzarDados extends BorderPane {
         barraJugadores.setAlignment(Pos.CENTER);
         barraJugadores.setPadding(new Insets(40, 0, 0, 0));
         for (var jugador : juego.getJugadores()) {
-            InfoJugador info = new InfoJugador(jugador);
+            InfoJugador info = new InfoJugador(jugador, juego);
             HBox.setMargin(info, new Insets(2, 10, 2, 10));
             barraJugadores.getChildren().add(info);
         }
