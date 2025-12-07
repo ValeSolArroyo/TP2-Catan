@@ -6,6 +6,7 @@ import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
+import edu.fiuba.algo3.vistas.VistaComercio;
 import edu.fiuba.algo3.vistas.cartasDesarrollo.VistaCartasDesarrollo;
 import edu.fiuba.algo3.vistas.VistaConstruir;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
@@ -37,16 +38,10 @@ public class JuegoControlador {
     }
 
     public void comerciar() {
-        // Que aparezcan 3 botones:
-            // Comerciar con jugadores
-            // Comerciar con banca
-            // Comerciar con puertos
-        // --> SE TIENEN QUE VER LOS PUERTOS Y DEBEN TENER UN TEXTO CORRESPONDIENTE
-        // TIPO 3:1, 2:1...
+        ComercioControlador controlador = new ComercioControlador(juego, vistaJuego, contenedor, vistaTablero);
+        VistaComercio vista = new VistaComercio(controlador);
+        contenedor.setContenido(vista);
 
-        //ControladorComercio cc = new ControladorComercio(juego, this);
-        //VistaComercio vista = new VistaComercio(cc);
-        //contenedor.setContenido(vista);
     }
 
     public void comprarCarta() {
