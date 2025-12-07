@@ -1,0 +1,66 @@
+@startuml JuegoCommand
+
+interface Accion {
+    + ejecutar(): void
+}
+class AccionComprarCartaDesarrollo extends Accion {
+    - juego: Juego
+    + AccionComprarCartaDesarrollo(Juego):
+    + ejecutar(): void
+}
+class AccionConstruir extends Accion {
+    - construccion: Construccion
+    - juego: Juego
+    - espacio: EspacioConstruible
+    + AccionConstruir(Construccion, EspacioConstruible, Juego):
+    + ejecutar(): void
+}
+class AccionFinalizarTurno extends Accion {
+    - juego: Juego
+    + AccionFinalizarTurno(Juego):
+    + ejecutar(): void
+}
+class AccionMoverLadron extends Accion {
+    - nuevoLugar: Hexagono
+    - juego: Juego
+    + AccionMoverLadron(Juego, Hexagono):
+    + ejecutar(): void
+}
+class AccionPrimeraColocacion extends Accion {
+    - vertice: Vertice
+    - arista: Arista
+    - juego: Juego
+    + AccionPrimeraColocacion(Juego, Vertice, Arista):
+    + ejecutar(): void
+}
+class AccionRobarCarta extends Accion {
+    - juego: Juego
+    - victima: Jugador
+    + AccionRobarCarta(Juego, Jugador):
+    + ejecutar(): void
+}
+class AccionSegundaColocacion extends Accion {
+    - juego: Juego
+    - arista: Arista
+    - vertice: Vertice
+    + AccionSegundaColocacion(Juego, Vertice, Arista):
+    + ejecutar(): void
+}
+
+class Juego {
+    + ejecutarAccion(Accion): void
+}
+
+
+' --- Relaciones ---
+Juego ..> Accion : "invoca"
+
+AccionComprarCartaDesarrollo ..> Juego : "usa"
+AccionConstruir ..> Juego : "usa"
+AccionFinalizarTurno ..> Juego : "usa"
+AccionMoverLadron ..> Juego : "usa"
+AccionPrimeraColocacion ..> Juego : "usa"
+AccionRobarCarta ..> Juego : "usa"
+AccionSegundaColocacion ..> Juego : "usa"
+
+@enduml

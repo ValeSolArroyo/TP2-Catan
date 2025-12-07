@@ -1,4 +1,4 @@
-@startuml
+@startuml Tablero
 
 class Arista {
   - id: int
@@ -6,8 +6,8 @@ class Arista {
   - vertice2: Vertice
   - construccion: Construccion
   - VER xq no se usa
-  - propietario: Jugador  
-  + Arista(Vertice, Vertice): 
+  - propietario: Jugador
+  + Arista(Vertice, Vertice):
   + conectaVertices(Vertice, Vertice): boolean
   + construirPoblado(Jugador, Construccion): void
   + construirCiudad(Jugador, Construccion): void
@@ -29,7 +29,7 @@ class Hexagono {
   - aristas: List<Arista>
   - vertices: List<Vertice>
   - estrategiaActual: StrategyHexagono
-  + Hexagono(Terreno, int): 
+  + Hexagono(Terreno, int):
   + ponerLadron(): void
   + quitarLadron(): void
   + agregarVertice(Vertice): void
@@ -43,10 +43,10 @@ class Hexagono {
 }
 class Tablero {
   - hexagonos: List<Hexagono>
-  - VER xq no se usan
+  - VER xq no se usa vertice
   - vertices: List<Vertice>
   - aristas: List<Arista>
-  + Tablero(List<Hexagono>): 
+  + Tablero(List<Hexagono>):
   + producir(int): void
   + darRecursosIniciales(Vertice): void
   + moverLadronA(Hexagono): void
@@ -60,7 +60,7 @@ class Vertice {
   - vecinos: List<Vertice>
   - aristas: List<Arista>
   - puerto: ComercioPuerto
-  + Vertice(): 
+  + Vertice():
   + agregarVecino(Vertice): void
   + agregarArista(Arista): void
   + asignarPuerto(ComercioPuerto): void
@@ -78,10 +78,38 @@ class Vertice {
   + getAristas(): List<Arista>
 }
 
-EspacioConstruible ..> Arista
-EspacioConstruible ..> Vertice
+
+interface TableroFactory {
+  + crearTablero(): Tablero
+}
+
+class TableroCatanFactory implements TableroFactory {
+  - verticesBorde: Set<Vertice>
+  - todosLosVertices: List<Vertice>
+  + crearTablero(): Tablero
+  - construirTablero(List<Terreno>, List<Integer>): Tablero
+  - inicializarVertices(): List<Vertice>
+  - conectarAristas(List<Hexagono>): List<Arista>
+  - asignarPuertos(): void
+  + crearHexagonos(List<Terreno>, List<Integer>): List<Hexagono>
+  + generarTerrenosAleatorios(): List<Terreno>
+  + generarFichasAleatorias(): List<Integer>
+}
+
+class VerticeCatan {
+  - todosLosVertices: List<Vertice>
+  + asignarVertices(List<Hexagono>): void
+  + identificarVerticesBorde(): Set<Vertice>
+}
+
+EspacioConstruible <|.. Arista
+EspacioConstruible <|.. Vertice
+
 Tablero "1" o-- "*" Hexagono
 Hexagono "1" o-- "*" Vertice
 Hexagono "1" o-- "*" Arista
+
+TableroCatanFactory ..> Tablero : "crea"
+TableroCatanFactory ..> VerticeCatan : "usa"
 
 @enduml

@@ -1,4 +1,4 @@
-@startuml
+@startuml Recursos
 
 class Grano {
   + coincideCon(Recurso): boolean

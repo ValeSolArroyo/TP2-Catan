@@ -105,7 +105,7 @@ public class CartaDesarrolloTest {
     public void test10ProgresoMonopolioEntregaRecursosCorrectamente() {
         edu.fiuba.algo3.modelo.juego.Juego juego = org.mockito.Mockito.mock(edu.fiuba.algo3.modelo.juego.Juego.class);
         Recurso recurso = new Madera();
-        ProgresoMonopolio carta = new ProgresoMonopolio(juego, recurso);
+        ProgresoMonopolio carta = new ProgresoMonopolio(juego, recurso, null);
         carta.ejecutar();
         org.mockito.Mockito.verify(juego).entregarAJugador(recurso);
     }

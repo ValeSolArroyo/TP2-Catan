@@ -1,4 +1,4 @@
-@startuml
+@startuml Terreno
 
 class Bosque { 
     + producirPara(Construccion): void
@@ -43,11 +43,30 @@ interface Terreno {
     + getTerreno(): String
 }
 
+interface Visitante {
+  + visitarTerrenoProductor(Terreno): int
+  + visitarDesierto(Desierto): int
+}
+
+class VisitanteTerreno {
+  - fichas: List<Integer>
+  - indiceFicha: int
+  - obtenerSiguienteFicha(): int
+  + VisitanteTerreno(List<Integer>): 
+  + visitarTerrenoProductor(Terreno): int
+  + visitarDesierto(Desierto): int
+}
+
 Terreno <|.. Bosque
 Terreno <|.. Campo
 Terreno <|.. Colina
 Terreno <|.. Desierto
 Terreno <|.. Montaña
 Terreno <|.. Pastizal
+
+Visitante <|.. VisitanteTerreno
+
+Visitante <-- Terreno : usa
+Visitante --> Terreno : usa
 
 @enduml
