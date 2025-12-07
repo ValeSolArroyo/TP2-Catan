@@ -6,7 +6,6 @@ import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.componentes.*;
-import edu.fiuba.algo3.vistas.componentes.botones.BotonGenerico;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,13 +14,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class VistaCaballero extends BorderPane {
     private BotonJuego botonMoverLadron;
     private BotonJuego botonRobarCarta;
-    private BotonGenerico botonFinTurno;
     private CaballeroControlador controlador;
     private BotonJuego botonEjecutar;
-
+    private VBox panelVictimas;
     private Juego juego;
     private VistaTablero vistaTablero;
 
@@ -43,10 +43,17 @@ public class VistaCaballero extends BorderPane {
 
         this.setTop(barraJugadores);
 
+        panelVictimas = new VBox(10);
+        panelVictimas.setAlignment(Pos.CENTER_LEFT);
+        panelVictimas.setPrefWidth(180);
+        panelVictimas.setVisible(false);
+
+        this.setLeft(panelVictimas);
+
         HBox tableroContenedor = new HBox(20);
         tableroContenedor.setAlignment(Pos.CENTER);
         tableroContenedor.getChildren().add(this.vistaTablero);
-        HBox.setMargin(this.vistaTablero, new Insets(0, 0, 7, 325));
+        HBox.setMargin(this.vistaTablero, new Insets(0, 0, 7, 140));
         this.setCenter(tableroContenedor);
 
         inicializarBotones();
@@ -55,14 +62,12 @@ public class VistaCaballero extends BorderPane {
         cambioTurno.agregarTablero(this.vistaTablero);
         VistaTurnoActual vistaTurno = new VistaTurnoActual(cambioTurno);
 
-        botonFinTurno = new BotonGenerico("Finalizar turno", "boton-fin-turno", 230, 45);
-
         HBox contenedorAbajo = new HBox(20);
         contenedorAbajo.setAlignment(Pos.CENTER_LEFT);
         contenedorAbajo.setPadding(new Insets(0, 0, 20, 95));
-        contenedorAbajo.getChildren().addAll(botonFinTurno, vistaTurno);
+        contenedorAbajo.getChildren().addAll(vistaTurno);
 
-        HBox.setMargin(vistaTurno, new Insets(0, 0, 0, 200));
+        HBox.setMargin(vistaTurno, new Insets(0, 0, 0, 450));
 
         this.setBottom(contenedorAbajo);
 
@@ -79,19 +84,27 @@ public class VistaCaballero extends BorderPane {
         this.botonRobarCarta = new BotonJuego("Robar Carta");
         botonRobarCarta.setOnAction(e -> controlador.elegirVictima());
 
-        this.botonEjecutar = new BotonJuego("Ejecutar");
+        this.botonEjecutar = new BotonJuego("Continuar");
         botonEjecutar.setOnAction(e -> controlador.ejecutar());
 
         botonMoverLadron.setDisable(false);
         botonRobarCarta.setDisable(true);
         botonEjecutar.setDisable(true);
 
-
         botonesDerecha.getChildren().addAll(botonMoverLadron, botonRobarCarta);
         this.setRight(botonesDerecha);
-
     }
 
+    public void mostrarJugadoresParaRobar(List<Jugador> posiblesVictimas) {
+        panelVictimas.setAlignment(Pos.CENTER_LEFT);
+        for (Jugador jugador : posiblesVictimas) {
+            BotonJuego boton = new BotonJuego(jugador.getNombre());
+            boton.setOnAction(e -> {controlador.conseguirVictima(jugador);});
+            panelVictimas.getChildren().add(boton);
+        }
+        panelVictimas.setVisible(true);
+        this.setLeft(panelVictimas);
+    }
 
     public void activarBotonRobar() {
         this.botonRobarCarta.setDisable(false);

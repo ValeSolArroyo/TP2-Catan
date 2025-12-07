@@ -14,4 +14,6 @@ public interface Construccion {
     void tieneDePropietarioA(Jugador jugador);
     void ocupar();
     int puntosVictoria();
-    void aplicarCambio(Jugador jugador, EspacioConstruible espacio);}
+    void aplicarCambio(Jugador jugador, EspacioConstruible espacio);
+    int getIdPropietario();
+}

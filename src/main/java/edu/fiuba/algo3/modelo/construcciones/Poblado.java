@@ -57,4 +57,9 @@ public class Poblado implements Construccion {
     public void aplicarCambioPrimerasColocaciones(Jugador jugador, Vertice vertice) {
         vertice.construirPobladoPrimerasColocaciones(jugador, this);
     }
+
+    @Override
+    public int getIdPropietario() {
+        return propietario.getId();
+    }
 }
