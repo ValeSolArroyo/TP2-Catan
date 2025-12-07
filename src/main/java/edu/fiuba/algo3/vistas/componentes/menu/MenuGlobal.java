@@ -50,15 +50,7 @@ public class MenuGlobal {
         submenuOpciones.setTranslateY(70);
 
         // TODO: mejorar estos events feos
-        botonOpciones.setOnAction(e -> {
-            boolean estabaAbierto = submenuOpciones.isVisible();
-            submenuOpciones.setVisible(!estabaAbierto);
-            if (!estabaAbierto) {
-                botonOpciones.setText("Cerrar");
-            } else {
-                botonOpciones.setText("Opciones");
-            }
-        });
+        botonOpciones.setOnAction(e -> cerrar_abrir_menu("Opciones", submenuOpciones, botonOpciones));
 
         VBox submenuMusica = new VBox(5);
         submenuMusica.setAlignment(Pos.BOTTOM_RIGHT);
@@ -73,15 +65,7 @@ public class MenuGlobal {
         submenuMusica.getChildren().addAll(botonSilenciar, botonElegirTema);
         submenuMusica.setTranslateX(-330);
 
-        botonMusica.setOnAction(e -> {
-            boolean estabaAbierto = submenuMusica.isVisible();
-            submenuMusica.setVisible(!estabaAbierto);
-            if (!estabaAbierto) {
-                botonMusica.setText("Cerrar");
-            } else {
-                botonMusica.setText("Música");
-            }
-        });
+        botonMusica.setOnAction(e -> cerrar_abrir_menu("Música", submenuMusica, botonMusica));
 
         botonMenu.setOnAction(e -> {
             boolean estabaAbierto = menuDesplegable.isVisible();
@@ -105,5 +89,15 @@ public class MenuGlobal {
 
     public VBox getMenu() {
         return contenidoMenu;
+    }
+
+    private void cerrar_abrir_menu(String texto, VBox submenu, BotonMenu boton) {
+        boolean estabaAbierto = submenu.isVisible();
+        submenu.setVisible(!estabaAbierto);
+        if (!estabaAbierto) {
+            boton.setText("Cerrar");
+        } else {
+            boton.setText(texto);
+        }
     }
 }

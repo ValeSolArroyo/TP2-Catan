@@ -27,7 +27,6 @@ public class VistaColocacionesIniciales extends BorderPane  {
     private CambioTurnoControlador cambioTurno;
     private VistaTablero vistaTablero;
 
-
     public VistaColocacionesIniciales(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, CambioTurnoControlador cambioTurno, VistaTablero  vistaTablero) {
         this.stage = stage;
         this.contenedor = contenedor;

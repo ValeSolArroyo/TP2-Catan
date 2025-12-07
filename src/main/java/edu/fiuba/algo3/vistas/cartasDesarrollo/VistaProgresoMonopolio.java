@@ -48,7 +48,7 @@ public class VistaProgresoMonopolio extends BorderPane {
         hbox.setAlignment(Pos.CENTER);
 
         for (String tipo : controlador.getTiposDeRecurso()) {
-            String ruta = "/images/utils/hexagonos/hexagono_" + tipo + ".png";
+            String ruta = "/images/utils/recursos/" + tipo + ".png";
 
             ListadoRecurso recursos = new ListadoRecurso(tipo, ruta);
 
