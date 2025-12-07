@@ -1,9 +1,10 @@
-package edu.fiuba.algo3.vistas;
+package edu.fiuba.algo3.vistas.cartasDesarrollo;
 
 import edu.fiuba.algo3.controllers.cartasDesarrollo.CaballeroControlador;
 import edu.fiuba.algo3.controllers.CambioTurnoControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.componentes.*;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonGenerico;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
@@ -35,7 +36,7 @@ public class VistaCaballero extends BorderPane {
         barraJugadores.setAlignment(Pos.CENTER);
 
         for (Jugador jugador : juego.getJugadores()) {
-            InfoJugador info = new InfoJugador(jugador);
+            InfoJugador info = new InfoJugador(jugador, juego);
             HBox.setMargin(info, new Insets(0, 10, 0, 10));
             barraJugadores.getChildren().add(info);
         }

@@ -7,7 +7,7 @@ import edu.fiuba.algo3.modelo.juegoCommand.Accion;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
-import edu.fiuba.algo3.vistas.VistaCaballero;
+import edu.fiuba.algo3.vistas.cartasDesarrollo.VistaCaballero;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 

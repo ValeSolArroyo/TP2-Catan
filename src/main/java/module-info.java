@@ -23,4 +23,5 @@ module edu.fiuba.algo3 {
     exports edu.fiuba.algo3.modelo.cartasBonificacion;
     exports edu.fiuba.algo3.modelo.juegoCommand;
     exports edu.fiuba.algo3.modelo.observer;
+    exports edu.fiuba.algo3.vistas.cartasDesarrollo;
 }

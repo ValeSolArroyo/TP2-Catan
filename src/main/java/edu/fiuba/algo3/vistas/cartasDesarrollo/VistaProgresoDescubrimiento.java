@@ -1,6 +1,6 @@
-package edu.fiuba.algo3.vistas;
+package edu.fiuba.algo3.vistas.cartasDesarrollo;
 
-import edu.fiuba.algo3.controllers.cartasDesarrollo.ProgresoMonopolioControlador;
+import edu.fiuba.algo3.controllers.cartasDesarrollo.ProgresoDescubrimientoControlador;
 import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
 import edu.fiuba.algo3.vistas.componentes.ListadoRecurso;
 import edu.fiuba.algo3.vistas.componentes.Transicion;
@@ -15,12 +15,12 @@ import javafx.scene.layout.VBox;
 import java.util.HashMap;
 import java.util.Map;
 
-public class VistaProgresoMonopolio extends BorderPane {
+public class VistaProgresoDescubrimiento extends BorderPane {
     private Map<String, BotonGenerico> botonesPorRecurso = new HashMap<>();
-    private ProgresoMonopolioControlador controlador;
+    private ProgresoDescubrimientoControlador controlador;
     private BotonJuego botonEjecutar;
 
-    public VistaProgresoMonopolio(ProgresoMonopolioControlador controlador){
+    public VistaProgresoDescubrimiento(ProgresoDescubrimientoControlador controlador){
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/mar.jpeg"));
         this.controlador = controlador;
         controlador.setVistaProgreso(this);
@@ -52,15 +52,22 @@ public class VistaProgresoMonopolio extends BorderPane {
 
             ListadoRecurso recursos = new ListadoRecurso(tipo, ruta);
 
-            BotonGenerico boton = new BotonGenerico("Pedir recurso", "botones-progreso", 230, 80);
+            BotonGenerico boton = new BotonGenerico("Seleccionar: 0", "botones-progreso", 230, 80);
             botonesPorRecurso.put(tipo, boton);
-            boton.setOnAction(e -> controlador.elegirRecurso(tipo));
+            boton.setOnAction(e -> controlador.agregarRecurso(tipo));
 
             VBox contenedor = new VBox(10, recursos, boton);
             contenedor.setAlignment(Pos.CENTER);
             hbox.getChildren().add(contenedor);
         }
         this.setCenter(hbox);
+    }
+
+    public void sumarContador(String recurso){
+        BotonGenerico boton = botonesPorRecurso.get(recurso);
+        int valor = Integer.parseInt(boton.getText().replace("Seleccionar: ", "").trim());
+        int nuevoValor = valor + 1;
+        boton.setText("Seleccionar: " + nuevoValor);
     }
 
     public void desactivarBotones() {

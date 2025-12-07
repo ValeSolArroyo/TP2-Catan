@@ -1,8 +1,10 @@
-package edu.fiuba.algo3.vistas;
+package edu.fiuba.algo3.vistas.cartasDesarrollo;
 
 import edu.fiuba.algo3.controllers.cartasDesarrollo.CartasDesarrolloControlador;
 import edu.fiuba.algo3.controllers.VolverControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
+import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
+import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
 import edu.fiuba.algo3.vistas.componentes.Transicion;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;

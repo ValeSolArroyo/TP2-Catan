@@ -5,7 +5,6 @@ import edu.fiuba.algo3.modelo.cartasBonificacion.GranCaballeria;
 import edu.fiuba.algo3.modelo.cartasBonificacion.GranRutaComercial;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.tableroFactory.TableroCatanFactory;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -95,8 +94,8 @@ public class CartaBonificacionTest {
         Jugador jugador1 = new Jugador(1, "jugador1", Color.RED);
         Jugador jugador2 = new Jugador(2, "jugador2", Color.BLUE);
 
-        int pvInicialjugador1 = jugador1.conseguirPuntosDeVictoria();
-        int pvInicialjugador2 = jugador2.conseguirPuntosDeVictoria();
+        int pvInicialjugador1 = jugador1.conseguirPuntosDeVictoriaTotales();
+        int pvInicialjugador2 = jugador2.conseguirPuntosDeVictoriaTotales();
 
         
         Mockito.when(tablero.conseguirRutaMasLarga(jugador1)).thenReturn(5);
@@ -104,8 +103,8 @@ public class CartaBonificacionTest {
 
         granRuta.evaluarCartaBonificacion(jugador1, tablero);
 
-        int pvTrasAsignacionjugador1 = jugador1.conseguirPuntosDeVictoria();
-        int pvTrasAsignacionjugador2 = jugador2.conseguirPuntosDeVictoria();
+        int pvTrasAsignacionjugador1 = jugador1.conseguirPuntosDeVictoriaTotales();
+        int pvTrasAsignacionjugador2 = jugador2.conseguirPuntosDeVictoriaTotales();
 
         assertEquals(pvInicialjugador1 + 2, pvTrasAsignacionjugador1,
                 "jugador1 debe ganar los 2 PV de la bonificación");
@@ -117,8 +116,8 @@ public class CartaBonificacionTest {
 
         granRuta.evaluarCartaBonificacion(jugador2, tablero);
 
-        int pvFinaljugador1 = jugador1.conseguirPuntosDeVictoria();
-        int pvFinaljugador2 = jugador2.conseguirPuntosDeVictoria();
+        int pvFinaljugador1 = jugador1.conseguirPuntosDeVictoriaTotales();
+        int pvFinaljugador2 = jugador2.conseguirPuntosDeVictoriaTotales();
 
         assertEquals(pvInicialjugador1, pvFinaljugador1,
                 "jugador1 debe perder los 2 PV cuando jugador2 supera la ruta");

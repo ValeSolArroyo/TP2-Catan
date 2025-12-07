@@ -11,7 +11,6 @@ import java.util.List;
 import edu.fiuba.algo3.modelo.excepciones.*;
 import org.junit.jupiter.api.BeforeEach;
 
-import edu.fiuba.algo3.modelo.juego.*;
 import edu.fiuba.algo3.modelo.construcciones.*;
 import edu.fiuba.algo3.modelo.jugador.*;
 import edu.fiuba.algo3.modelo.comercio.*;
@@ -130,7 +129,7 @@ public class TestEntrega2 {
     public void test03VerificarConsumoRecursosAlMejorarACiudadYCambioPV() {
 
         jugador2.construirPrimerosPoblados(poblado2, vPoblado);
-        assertEquals(1, jugador2.conseguirPuntosDeVictoria(), "Debe empezar con 1 PV por el poblado.");
+        assertEquals(1, jugador2.conseguirPuntosDeVictoriaTotales(), "Debe empezar con 1 PV por el poblado.");
 
         Vertice v5 = new Vertice();
         Vertice v6 = new Vertice();
@@ -149,7 +148,7 @@ public class TestEntrega2 {
 
         jugador2.construir(ciudad, vPoblado);
         
-        assertEquals(2, jugador2.conseguirPuntosDeVictoria(), "Debe tener 2 PV después de mejorar a ciudad.");
+        assertEquals(2, jugador2.conseguirPuntosDeVictoriaTotales(), "Debe tener 2 PV después de mejorar a ciudad.");
     }
 
     @Test

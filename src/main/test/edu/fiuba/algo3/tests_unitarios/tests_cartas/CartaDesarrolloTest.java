@@ -75,9 +75,9 @@ public class CartaDesarrolloTest {
     public void test07PuntoVictoriaSumaPunto() {
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
         PuntoVictoria puntoVictoria = new PuntoVictoria();
-        int antes = jugador.conseguirPuntosDeVictoria();
+        int antes = jugador.conseguirPuntosDeVictoriaTotales();
         puntoVictoria.ejecutarAlGuardar(jugador);
-        int despues = jugador.conseguirPuntosDeVictoria();
+        int despues = jugador.conseguirPuntosDeVictoriaTotales();
         assertTrue(despues > antes);
     }
 

@@ -7,7 +7,7 @@ import edu.fiuba.algo3.modelo.juegoCommand.Accion;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
-import edu.fiuba.algo3.vistas.VistaProgresoDescubrimiento;
+import edu.fiuba.algo3.vistas.cartasDesarrollo.VistaProgresoDescubrimiento;
 
 import java.util.ArrayList;
 import java.util.List;

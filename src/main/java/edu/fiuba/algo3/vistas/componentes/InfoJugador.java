@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas.componentes;
 
+import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -14,9 +15,11 @@ public class InfoJugador extends VBox implements Observador {
     private Label nombreLabel;
     private Label puntosLabel;
     private Label recursosLabel;
+    private Juego juego;
 
-    public InfoJugador(Jugador jugador) {
+    public InfoJugador(Jugador jugador, Juego juego) {
         this.jugador = jugador;
+        this.juego = juego;
         jugador.agregarObservador(this);
 
         this.setPadding(new Insets(0, 20, 10, 20));
@@ -26,9 +29,9 @@ public class InfoJugador extends VBox implements Observador {
         this.setBorder(new Border(new BorderStroke(colorJugador, BorderStrokeStyle.SOLID, new CornerRadii(5), new BorderWidths(3))));
 
         nombreLabel = new Label(jugador.getNombre());
-        puntosLabel = new Label("PV: " + jugador.getPuntosVictoria());
+        puntosLabel = new Label("");
         Label recursosTituloLabel = new Label("Recursos:");
-        recursosLabel = new Label(formatearRecursos());
+        recursosLabel = new Label("");
 
         nombreLabel.getStyleClass().add("nombre-jugador");
         puntosLabel.getStyleClass().add("pv-jugador");
@@ -65,7 +68,18 @@ public class InfoJugador extends VBox implements Observador {
     }
 
     public void actualizar() {
-        puntosLabel.setText("PV: " + jugador.conseguirPuntosDeVictoria());
-        recursosLabel.setText(formatearRecursos());
+        if (this.jugador == juego.jugadorActual()) {
+            if (jugador.getPuntosVictoriaCartaDesarrollo() > 0) {
+                puntosLabel.setText("PV: " + jugador.getPuntosVictoria() + " (+" + jugador.getPuntosVictoriaCartaDesarrollo() + ")");
+            } else {
+                puntosLabel.setText("PV: " + jugador.getPuntosVictoria());
+            }
+            recursosLabel.setText(formatearRecursos());
+        } else {
+            puntosLabel.setText("PV: " + jugador.getPuntosVictoria());
+            String recursosTexto = formatearRecursos();
+            String espacios = recursosTexto.replaceAll(".", "-");
+            recursosLabel.setText(espacios);
+        }
     }
 }
