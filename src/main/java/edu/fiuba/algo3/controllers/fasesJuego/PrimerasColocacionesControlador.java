@@ -50,7 +50,6 @@ public class PrimerasColocacionesControlador implements AccionesTableroControlad
         vistaColocaciones.activarFinalizar(true);
     }
 
-
     public void iniciarPoblado() {
         vistaTablero.mostrarVertices();
         vistaColocaciones.activarPoblado(false);
@@ -67,6 +66,7 @@ public class PrimerasColocacionesControlador implements AccionesTableroControlad
     public void ejecutar() {
         Accion accion;
         Jugador jugador = juego.jugadorActual();
+        jugador.notificarObservadores();
         Color color = jugador.getColor();
         int ultimoIndice = juego.getJugadores().size() -1;
         int turnoActual = juego.getIndiceTurno();
