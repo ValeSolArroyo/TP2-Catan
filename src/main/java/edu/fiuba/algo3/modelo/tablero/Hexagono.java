@@ -56,6 +56,10 @@ public class Hexagono {
         }
     }
 
+    public void notificarLadron(Tablero tablero) {
+        estrategiaActual.registrarEnTablero(tablero, this);
+    }
+
     public String getTerreno() {
         return this.terreno.getTerreno();
     }

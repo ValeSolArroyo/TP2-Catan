@@ -17,7 +17,7 @@ public class CartasDesarrolloControlador {
     private ContenedorPrincipalVistas contenedor;
     private Stage stage;
     
-    public CartasDesarrolloControlador(Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego, ContenedorPrincipalVistas contenedor, Stage stage){
+    public CartasDesarrolloControlador(Stage stage, Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego, ContenedorPrincipalVistas contenedor) {
         this.juego = juego;
         this.vistaTablero = vistaTablero;
         this.vistaJuego = vistaJuego;
@@ -26,7 +26,7 @@ public class CartasDesarrolloControlador {
     }
 
     public void jugarCaballero() {
-        CaballeroControlador controlador = new CaballeroControlador(juego, vistaTablero, vistaJuego, contenedor);
+        CaballeroControlador controlador = new CaballeroControlador(stage, juego, vistaTablero, contenedor);
         VistaCaballero vista = new VistaCaballero(stage, contenedor, juego, vistaTablero, controlador);
         contenedor.setContenido(vista);
     }

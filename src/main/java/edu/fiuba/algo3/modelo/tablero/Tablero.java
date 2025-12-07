@@ -13,6 +13,7 @@ public class Tablero {
 
     public Tablero(List<Hexagono> hexagonos) {
         this.hexagonos = hexagonos;
+        inicializarLadron();
     }
 
     public void producir(int numero) {
@@ -26,6 +27,17 @@ public class Tablero {
             hexagono.entregarRecursoInicialA(vertice);
         }
     }
+
+    private void inicializarLadron() {
+        for (Hexagono hexagono : hexagonos) {
+            hexagono.notificarLadron(this);
+        }
+    }
+
+    public void registrarHexagonoConLadron(Hexagono hexagono) {
+        this.hexagonoOcupadoLadron = hexagono;
+    }
+
 
     public void moverLadronA(Hexagono nuevoLugar){
         hexagonoOcupadoLadron.quitarLadron();
@@ -98,12 +110,6 @@ public class Tablero {
 
         return rutaMasLarga;
     }
-
-
-
-
-
-
 
     public List<Hexagono> getHexagonos() {
         return this.hexagonos;

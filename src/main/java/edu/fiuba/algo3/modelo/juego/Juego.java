@@ -96,13 +96,14 @@ public class Juego {
         }
     }
 
-    public void lanzarDados() {
+    public int lanzarDados() {
         int resultado = dado.lanzarDados();
         if (resultado != 7) {
             this.producirRecursos(resultado);
         } else {
             this.descartePorLadron();
         }
+        return resultado;
     }
 
     public void descartePorLadron() {
