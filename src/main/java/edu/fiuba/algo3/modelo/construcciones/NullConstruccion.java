@@ -30,4 +30,9 @@ public class NullConstruccion implements Construccion {
 
     @Override
     public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {}
+
+    @Override
+    public int getIdPropietario() {
+        return -1;
+    }
 }

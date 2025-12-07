@@ -135,4 +135,8 @@ public class Vertice implements EspacioConstruible {
     public List<Arista>  getAristas(){
         return this.aristas;
     }
+
+    public int getIdPropietario() {
+        return construccion.getIdPropietario();
+    }
 }

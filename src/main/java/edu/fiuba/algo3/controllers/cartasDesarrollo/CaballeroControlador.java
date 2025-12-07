@@ -11,6 +11,10 @@ import edu.fiuba.algo3.vistas.cartasDesarrollo.VistaCaballero;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 public class CaballeroControlador implements AccionHexagonoControlador {
     private Juego juego;
     private VistaCaballero vistaCaballero;
@@ -36,13 +40,15 @@ public class CaballeroControlador implements AccionHexagonoControlador {
 
     @Override
     public void obtenerHexagono(Hexagono hexagono) {
-       this.nuevoLugar = hexagono;
-       vistaTablero.desactivarHexagonos();
-       vistaCaballero.activarBotonRobar();
+        this.nuevoLugar = hexagono;
+        vistaTablero.mostrarLadronEn(hexagono);
+        vistaTablero.desactivarHexagonos();
+        vistaCaballero.activarBotonRobar();
     }
 
     public void conseguirVictima(Jugador victima){
         this.victima = victima;
+        ejecutar();
     }
 
     @Override
@@ -50,13 +56,26 @@ public class CaballeroControlador implements AccionHexagonoControlador {
         Accion accion = new Caballero(juego, nuevoLugar, victima, juego.jugadorActual());
         juego.ejecutarAccion(accion);
         contenedor.setContenido(vistaJuego);
-
+        System.out.println("Me ejecuté");
     }
 
     public void elegirVictima() {
-        //la idea es que consiga los jugadores que tiene asentamiento en ese hexgono y le pase a la vista sus instancias
-        //con sus nombres como texto y cada boton guarda la instancia del jugador
+        List<Jugador> jugadores = juego.getJugadores();
+        Set<Integer> ids =  nuevoLugar.getIdsJugadoresConConstruccion();
+        List<Jugador> posiblesVictimas = new ArrayList<>();
+
+        for (Integer id : ids) {
+            if (id != -1) {
+                for (Jugador jugador : jugadores) {
+                    if (jugador.getId() == id && jugador != juego.jugadorActual()) {
+                        posiblesVictimas.add(jugador);
+                    }
+                }
+            }
+        }
+        vistaCaballero.mostrarJugadoresParaRobar(posiblesVictimas);
         vistaCaballero.desactivarRobarCarta();
+        vistaCaballero.activarBotonEjecutar();
         vistaCaballero.activarBotonEjecutar();
     }
 }

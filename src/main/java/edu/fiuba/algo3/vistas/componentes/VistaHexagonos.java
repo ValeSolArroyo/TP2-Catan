@@ -16,6 +16,7 @@ public class VistaHexagonos extends StackPane {
     private final List<ImagenHexagono> vistasHexagonos = new ArrayList<>();
     private final VBox capaHexagonos;
     private AccionHexagonoControlador controlador;
+    private ImagenHexagono imagenConLadronActual;
 
     private final int[] hexagonosPorFila = {3, 4, 5, 4, 3};
 
@@ -27,7 +28,6 @@ public class VistaHexagonos extends StackPane {
         capaHexagonos.setPadding(new Insets(25, 85, 0, 5));
 
         construirHexagonos();
-        activarBoton();
 
         this.getChildren().add(capaHexagonos);
     }
@@ -43,6 +43,9 @@ public class VistaHexagonos extends StackPane {
                 Hexagono hexagono = hexagonos.get(indiceHexagonos++);
                 ImagenHexagono vista = new ImagenHexagono(hexagono);
                 vistasHexagonos.add(vista);
+                if (vista.tieneLadronInicial()) {
+                    imagenConLadronActual = vista;
+                }
                 filaHexagono.getChildren().add(vista);
             }
             capaHexagonos.getChildren().add(filaHexagono);
@@ -55,17 +58,37 @@ public class VistaHexagonos extends StackPane {
 
     public void activarBoton() {
         for (ImagenHexagono imagenHexagono : vistasHexagonos) {
-            imagenHexagono.getBoton().setOnAction(e -> {}
-            );
+            if (imagenHexagono == imagenConLadronActual) {
+                imagenHexagono.getBoton().setDisable(true);
+                imagenHexagono.getBoton().setOpacity(0);
+                continue;
+            }
+            imagenHexagono.getBoton().setOpacity(1);
+            imagenHexagono.getBoton().setDisable(false);
+            imagenHexagono.getBoton().setOnAction(e -> controlador.obtenerHexagono(imagenHexagono.getHexagono()));
         }
     }
 
     public void desactivarBotones() {
         for (ImagenHexagono imagenHexagono : vistasHexagonos) {
             imagenHexagono.getBoton().setDisable(true);
-
+            imagenHexagono.getBoton().setOpacity(0);
         }
     }
 
+    public void mostrarLadronEn(Hexagono hexagono) {
+        imagenConLadronActual.ocultarLadron();
+        imagenConLadronActual.getBoton().setDisable(true);
+        imagenConLadronActual.getBoton().setOpacity(0);
 
+        for (ImagenHexagono imagen : vistasHexagonos) {
+            if (imagen.getHexagono() == hexagono) {
+                imagen.getBoton().setDisable(true);
+                imagen.getBoton().setOpacity(0);
+                imagen.mostrarLadron();
+                imagenConLadronActual = imagen;
+                return;
+            }
+        }
+    }
 }

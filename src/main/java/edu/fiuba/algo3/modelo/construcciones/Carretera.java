@@ -48,4 +48,9 @@ public class Carretera implements Construccion {
     public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {
         espacio.construirCarretera(jugador, this);
     }
+
+    @Override
+    public int getIdPropietario() {
+        return propietario.getId();
+    }
 }

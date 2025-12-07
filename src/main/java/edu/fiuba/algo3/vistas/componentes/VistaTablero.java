@@ -2,6 +2,7 @@ package edu.fiuba.algo3.vistas.componentes;
 import edu.fiuba.algo3.controllers.fasesJuego.AccionHexagonoControlador;
 import edu.fiuba.algo3.controllers.fasesJuego.AccionesTableroControlador;
 import edu.fiuba.algo3.modelo.tablero.Arista;
+import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 import javafx.scene.layout.StackPane;
@@ -35,7 +36,6 @@ public class VistaTablero extends StackPane {
 
     public void setControlador(AccionHexagonoControlador controlador) {
         vistaHexagonos.setControlador(controlador);
-
     }
 
     public void ocultarVertices() {
@@ -64,7 +64,6 @@ public class VistaTablero extends StackPane {
 
     }
 
-
     public void dibujarPobladoEn(Vertice vertice, Color color){
         Button boton = vistaVertices.botonDe(vertice);
         vistaConstrucciones.dibujarPoblado(boton, color);
@@ -73,6 +72,10 @@ public class VistaTablero extends StackPane {
     public void dibujarCarreteraEn(Arista arista, Color color){
         Button boton = vistaAristas.botonDe(arista);
         vistaConstrucciones.dibujarCarretera(boton, color);
+    }
+
+    public void mostrarLadronEn(Hexagono hexagono) {
+        vistaHexagonos.mostrarLadronEn(hexagono);
     }
 
     public void desactivarHexagonos() {

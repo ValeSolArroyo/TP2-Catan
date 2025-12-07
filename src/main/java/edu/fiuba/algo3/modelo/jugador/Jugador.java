@@ -158,6 +158,10 @@ public class Jugador extends Observable {
         return this.puntosVictoriaCartaDesarrollo;
     }
 
+    public int getId() {
+        return this.id;
+    }
+
     public void sumarPVPorCartaDesarollo() {
         this.puntosVictoriaCartaDesarrollo++;
     }

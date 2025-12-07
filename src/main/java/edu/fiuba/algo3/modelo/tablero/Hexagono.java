@@ -5,7 +5,9 @@ import edu.fiuba.algo3.modelo.hexagonoStrategy.StrategyHexagono;
 import edu.fiuba.algo3.modelo.hexagonoStrategy.StrategySinLadron;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Hexagono {
     private final Terreno terreno;
@@ -68,5 +70,14 @@ public class Hexagono {
 
     public List<Arista> getAristas() {
         return this.aristas;
+    }
+
+    public Set<Integer> getIdsJugadoresConConstruccion() {
+        Set<Integer> idJugadores = new HashSet<>();
+        for (Vertice vertice : vertices) {
+            int idJugador = vertice.getIdPropietario();
+            idJugadores.add(idJugador);
+        }
+        return idJugadores;
     }
 }

@@ -22,10 +22,10 @@ public class ImagenHexagono extends StackPane {
     private static final double ALTO  = 125;
     private Hexagono hexagono;
     private Button boton;
+    private ImageView ladron;
 
     public ImagenHexagono(Hexagono hexagono) {
         this.hexagono = hexagono;
-
         String terreno = hexagono.getTerreno();
         int ficha = hexagono.getFicha();
         mostrarImagen(terreno, ficha);
@@ -54,22 +54,43 @@ public class ImagenHexagono extends StackPane {
             Label fichaNumero = new Label(String.valueOf(ficha));
             fichaNumero.getStyleClass().add("ficha-numero");
             this.getChildren().add(fichaNumero);
-        } else {
-            // TODO: al mover el ladrón hay que ver cómo hacemos
-            Image ladronImagen = new Image(getClass().getResource("/images/utils/ladron.png").toExternalForm());
-            ImageView ladron = new ImageView(ladronImagen);
-            ladron.setFitWidth(40);
-            ladron.setPreserveRatio(true);
-
-            this.getChildren().add(ladron);
         }
+
+        Image ladronImagen = new Image(getClass().getResource("/images/utils/ladron.png").toExternalForm());
+        ladron = new ImageView(ladronImagen);
+        ladron.setFitWidth(40);
+        ladron.setPreserveRatio(true);
+
+        if (!terreno.equals("Desierto")) {
+            ladron.setOpacity(0);
+        }
+
+        this.getChildren().add(ladron);
     }
 
     public void agregarBoton() {
        boton = new Button();
-       boton.setStyle("-fx-background-color: transparent;");
+       boton.setStyle("-fx-background-color: white;");
        boton.setPrefSize(65, 65);
+       boton.setDisable(true);
+       boton.setOpacity(0);
        this.getChildren().addAll(boton);
+    }
+
+    public void mostrarLadron() {
+        ladron.setOpacity(1);
+    }
+
+    public void ocultarLadron() {
+        ladron.setOpacity(0);
+    }
+
+    public boolean tieneLadronInicial() {
+        return ladron.getOpacity() == 1;
+    }
+
+    public Hexagono getHexagono() {
+        return hexagono;
     }
 
     public Button getBoton() {

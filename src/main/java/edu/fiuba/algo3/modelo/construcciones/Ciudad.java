@@ -53,4 +53,9 @@ public class Ciudad implements Construccion {
     public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {
         espacio.construirCiudad(jugador, this);
     }
+
+    @Override
+    public int getIdPropietario() {
+        return propietario.getId();
+    }
 }
