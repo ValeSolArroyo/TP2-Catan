@@ -91,7 +91,7 @@ public class VistaCaballero extends BorderPane {
         botonRobarCarta.setDisable(true);
         botonEjecutar.setDisable(true);
 
-        botonesDerecha.getChildren().addAll(botonMoverLadron, botonRobarCarta);
+        botonesDerecha.getChildren().addAll(botonMoverLadron, botonRobarCarta, botonEjecutar);
         this.setRight(botonesDerecha);
     }
 
@@ -104,6 +104,10 @@ public class VistaCaballero extends BorderPane {
         }
         panelVictimas.setVisible(true);
         this.setLeft(panelVictimas);
+    }
+
+    public void ocultarJugadoresParaRobar() {
+        panelVictimas.setVisible(false);
     }
 
     public void activarBotonRobar() {

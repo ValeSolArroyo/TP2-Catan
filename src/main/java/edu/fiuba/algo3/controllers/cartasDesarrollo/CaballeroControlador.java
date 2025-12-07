@@ -10,25 +10,28 @@ import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.cartasDesarrollo.VistaCaballero;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
+import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
+import edu.fiuba.algo3.vistas.componentes.popups.PopUpInformativo;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 public class CaballeroControlador implements AccionHexagonoControlador {
+    private Stage stage;
     private Juego juego;
     private VistaCaballero vistaCaballero;
     private Hexagono nuevoLugar;
     private VistaTablero vistaTablero;
     private Jugador victima;
     private ContenedorPrincipalVistas contenedor;
-    private VistaJuegoGeneral vistaJuego;
 
-    public CaballeroControlador(Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego, ContenedorPrincipalVistas contenedor) {
+    public CaballeroControlador(Stage stage, Juego juego, VistaTablero vistaTablero, ContenedorPrincipalVistas contenedor) {
+        this.stage = stage;
         this.juego = juego;
         this.vistaTablero = vistaTablero;
         this.vistaTablero.setControlador(this);
-        this.vistaJuego = vistaJuego;
         this.contenedor = contenedor;
     }
 
@@ -48,15 +51,24 @@ public class CaballeroControlador implements AccionHexagonoControlador {
 
     public void conseguirVictima(Jugador victima){
         this.victima = victima;
-        ejecutar();
+        vistaCaballero.desactivarRobarCarta();
+        vistaCaballero.ocultarJugadoresParaRobar();
+        vistaCaballero.activarBotonEjecutar();
     }
 
     @Override
     public void ejecutar() {
-        Accion accion = new Caballero(juego, nuevoLugar, victima, juego.jugadorActual());
-        juego.ejecutarAccion(accion);
+        try {
+            Accion accion = new Caballero(juego, nuevoLugar, victima, juego.jugadorActual());
+            juego.ejecutarAccion(accion);
+        } catch (IndexOutOfBoundsException e) {
+            PopUpError.mostrar("No se le pudo robar a ese jugador ya que no tenía más recursos");
+        } catch (NullPointerException e) {
+            PopUpInformativo.mostrar("No hay jugadores para robar en donde moviste al ladrón.");
+        }
+        VistaJuegoGeneral vistaJuego = new VistaJuegoGeneral(stage, contenedor, juego, vistaTablero);
         contenedor.setContenido(vistaJuego);
-        System.out.println("Me ejecuté");
+
     }
 
     public void elegirVictima() {
@@ -73,9 +85,11 @@ public class CaballeroControlador implements AccionHexagonoControlador {
                 }
             }
         }
-        vistaCaballero.mostrarJugadoresParaRobar(posiblesVictimas);
         vistaCaballero.desactivarRobarCarta();
-        vistaCaballero.activarBotonEjecutar();
-        vistaCaballero.activarBotonEjecutar();
+        if (posiblesVictimas.isEmpty()) {
+            vistaCaballero.activarBotonEjecutar();
+        } else {
+            vistaCaballero.mostrarJugadoresParaRobar(posiblesVictimas);
+        }
     }
 }

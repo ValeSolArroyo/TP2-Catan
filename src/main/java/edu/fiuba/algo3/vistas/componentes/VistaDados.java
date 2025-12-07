@@ -15,7 +15,6 @@ public class VistaDados extends VBox implements Observador {
     private ImageView dado2;
     private Label textoResultado;
     private Dado dado;
-    private Button botonLanzar;
 
     public VistaDados(Dado dado) {
         this.dado = dado;

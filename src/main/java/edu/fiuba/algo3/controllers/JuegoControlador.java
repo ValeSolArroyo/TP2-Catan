@@ -70,7 +70,7 @@ public class JuegoControlador {
             contadorCartas.put(carta, contadorCartas.get(carta) + 1);
         }
 
-        CartasDesarrolloControlador controlador = new CartasDesarrolloControlador(juego, vistaTablero, vistaJuego, contenedor,stage);
+        CartasDesarrolloControlador controlador = new CartasDesarrolloControlador(stage, juego, vistaTablero, vistaJuego, contenedor);
 
         VistaCartasDesarrollo vista = new VistaCartasDesarrollo(this.juego, this.contenedor, contadorCartas, vistaJuego,controlador);
         contenedor.setContenido(vista);
