@@ -63,7 +63,7 @@ public class VistaHexagonos extends StackPane {
                 imagenHexagono.getBoton().setOpacity(0);
                 continue;
             }
-            imagenHexagono.getBoton().setOpacity(1);
+            imagenHexagono.getBoton().setOpacity(0.5);
             imagenHexagono.getBoton().setDisable(false);
             imagenHexagono.getBoton().setOnAction(e -> controlador.obtenerHexagono(imagenHexagono.getHexagono()));
         }

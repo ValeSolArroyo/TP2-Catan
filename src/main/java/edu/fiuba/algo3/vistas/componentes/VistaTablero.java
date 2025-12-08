@@ -64,6 +64,12 @@ public class VistaTablero extends StackPane {
 
     }
 
+    public void mostrarTodasLasAristas() {
+        vistaAristas.setDisable(false);
+        vistaAristas.setOpacity(1);
+        this.vistaAristas.mostrarAristas();
+    }
+
     public void dibujarPobladoEn(Vertice vertice, Color color){
         Button boton = vistaVertices.botonDe(vertice);
         vistaConstrucciones.dibujarPoblado(boton, color);

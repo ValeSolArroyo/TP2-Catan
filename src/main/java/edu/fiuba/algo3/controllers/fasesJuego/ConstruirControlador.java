@@ -36,12 +36,14 @@ public class ConstruirControlador implements AccionesTableroControlador{
     public void obtenerVertice(Vertice vertice) {
         this.espacio = vertice;
         vistaTablero.ocultarVertices();
+        vistaConstruir.habilitarBotonFinConstruccion();
     }
 
     @Override
     public void obtenerArista(Arista arista) {
         this.espacio = arista;
         vistaTablero.ocultarAristas();
+        vistaConstruir.habilitarBotonFinConstruccion();
     }
 
     @Override
@@ -52,7 +54,20 @@ public class ConstruirControlador implements AccionesTableroControlador{
         } catch (ConstruccionInvalidaError | YaHayCarreteraError |
                  YaHayPobladoError | YaHayCiudadError | RecursosInsuficientesError e) {
             PopUpError.mostrar(e.getMessage());
+            vistaConstruir.desactivarBotonFinConstruccion();
+            vistaConstruir.activarBotones();
         }
+    }
+
+    public void cancelarConstruccion() {
+        this.construccion = null;
+        this.espacio = null;
+
+        vistaTablero.ocultarVertices();
+        vistaTablero.ocultarAristas();
+
+        vistaConstruir.desactivarBotonFinConstruccion();
+        vistaConstruir.activarBotones();
     }
 
     public void construirPoblado() {
@@ -63,9 +78,7 @@ public class ConstruirControlador implements AccionesTableroControlador{
 
     public void construirCarretera() {
         this.construccion = new Carretera(this.juego.jugadorActual());
-        Tablero tablero = juego.getTablero();
-        List<Arista> aristas = tablero.getListaAristas();
-        vistaTablero.mostrarAristas(aristas);
+        vistaTablero.mostrarTodasLasAristas();
         vistaConstruir.desactivarBotones();
     }
 
