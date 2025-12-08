@@ -29,11 +29,38 @@ public class Caballero implements CartaDesarrollo {
         juego.robarCartaDe(victima);
         jugadorActual.registrarCaballeroJugado();
         juego.revisarGranCaballeria(jugadorActual);
-        jugadorActual.eliminarCarta(this);
+        jugadorActual.eliminarCarta(new Caballero());
     }
 
     public String getCarta(){
         return "Caballero";
     }
+    @Override
+    public boolean coincideCon(CartaDesarrollo cartaAComparar) {
+        return cartaAComparar.coincideConCaballero();
+    }
+    @Override
+    public boolean coincideConCaballero() {
+        return true;
+    }
 
+    @Override
+    public boolean coincideConProgresoConstruccion() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoDescubrimiento() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoMonopolio() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConPuntoVictoria() {
+        return false;
+    }
 }

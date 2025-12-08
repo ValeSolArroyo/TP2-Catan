@@ -100,7 +100,14 @@ public class Jugador extends Observable {
     }
 
     public void eliminarCarta(CartaDesarrollo cartaDesarrollo) {
-        cartasDesarrollo.remove(cartaDesarrollo);
+        CartaDesarrollo cartaABorrar;
+        for (CartaDesarrollo cartaEnLista : cartasDesarrollo) {
+            if (cartaDesarrollo.coincideCon(cartaEnLista)) {
+                cartaABorrar = cartaEnLista;
+                cartasDesarrollo.remove(cartaABorrar);
+                break;
+            }
+        }
     }
 
     public void registrarCaballeroJugado(){

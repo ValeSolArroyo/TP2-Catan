@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.vistas.cartasDesarrollo;
 
-import edu.fiuba.algo3.controllers.cartasDesarrollo.CaballeroControlador;
 import edu.fiuba.algo3.controllers.CambioTurnoControlador;
+import edu.fiuba.algo3.controllers.fasesJuego.RoboControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
@@ -19,13 +19,13 @@ import java.util.List;
 public class VistaCaballero extends BorderPane {
     private BotonJuego botonMoverLadron;
     private BotonJuego botonRobarCarta;
-    private CaballeroControlador controlador;
+    private RoboControlador controlador;
     private BotonJuego botonEjecutar;
     private VBox panelVictimas;
     private Juego juego;
     private VistaTablero vistaTablero;
 
-    public VistaCaballero(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero, CaballeroControlador controlador) {
+    public VistaCaballero(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero, RoboControlador controlador) {
         this.juego = juego;
         this.vistaTablero = vistaTablero;
         this.controlador = controlador;

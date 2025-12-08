@@ -23,10 +23,40 @@ public class ProgresoMonopolio implements CartaDesarrollo {
     @Override
     public void ejecutar() {
         juego.entregarAJugador(recursoDeseado);
-        jugadorActual.eliminarCarta(this);
+        jugadorActual.eliminarCarta(new ProgresoMonopolio());
     }
 
     public String getCarta(){
         return "Progreso Monopolio";
+    }
+
+    @Override
+    public boolean coincideCon(CartaDesarrollo cartaAComparar) {
+        return cartaAComparar.coincideConProgresoMonopolio();
+    }
+
+    @Override
+    public boolean coincideConCaballero() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoConstruccion() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoDescubrimiento() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoMonopolio() {
+        return true;
+    }
+
+    @Override
+    public boolean coincideConPuntoVictoria() {
+        return false;
     }
 }

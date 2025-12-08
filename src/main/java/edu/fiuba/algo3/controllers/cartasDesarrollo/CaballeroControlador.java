@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.controllers.cartasDesarrollo;
 
 import edu.fiuba.algo3.controllers.fasesJuego.AccionHexagonoControlador;
+import edu.fiuba.algo3.controllers.fasesJuego.RoboControlador;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.Caballero;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.juegoCommand.Accion;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class CaballeroControlador implements AccionHexagonoControlador {
+public class CaballeroControlador implements AccionHexagonoControlador, RoboControlador {
     private Stage stage;
     private Juego juego;
     private VistaCaballero vistaCaballero;
@@ -35,6 +36,7 @@ public class CaballeroControlador implements AccionHexagonoControlador {
         this.contenedor = contenedor;
     }
 
+    @Override
     public void elegirLugarLadron(VistaCaballero vistaCaballero) {
         this.vistaCaballero = vistaCaballero;
         vistaCaballero.desactivarMoverLadron();
@@ -49,6 +51,7 @@ public class CaballeroControlador implements AccionHexagonoControlador {
         vistaCaballero.activarBotonRobar();
     }
 
+    @Override
     public void conseguirVictima(Jugador victima){
         this.victima = victima;
         vistaCaballero.desactivarRobarCarta();
@@ -71,6 +74,7 @@ public class CaballeroControlador implements AccionHexagonoControlador {
 
     }
 
+    @Override
     public void elegirVictima() {
         List<Jugador> jugadores = juego.getJugadores();
         Set<Integer> ids =  nuevoLugar.getIdsJugadoresConConstruccion();
