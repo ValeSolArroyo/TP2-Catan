@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.vistas.componentes;
 
 import edu.fiuba.algo3.controllers.fasesJuego.AccionesTableroControlador;
+import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -74,7 +75,7 @@ public class VistaVertices extends StackPane {
 
     }
 
-    public Button botonDe(Vertice vertice) {
+    public Button botonDe(EspacioConstruible vertice) {
         for (List<Vertice> fila : verticesPorFila) {
             for (Vertice verticeFila : fila) {
                 if (verticeFila == vertice) {

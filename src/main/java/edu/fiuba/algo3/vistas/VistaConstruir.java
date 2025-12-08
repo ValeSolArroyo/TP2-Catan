@@ -26,10 +26,9 @@ public class VistaConstruir extends BorderPane {
     private BotonJuego botonCancelar;
 
 
-    public VistaConstruir(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego) {
+    public VistaConstruir(Stage stage,ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego) {
         this.juego = juego;
         this.vistaTablero = vistaTablero;
-        construirControlador = new ConstruirControlador(vistaTablero, juego, this);
 
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_sin_cartas.jpg"));
 
