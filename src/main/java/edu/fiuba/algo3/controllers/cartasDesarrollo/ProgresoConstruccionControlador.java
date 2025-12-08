@@ -15,6 +15,7 @@ import edu.fiuba.algo3.vistas.cartasDesarrollo.VistaProgresoConstruccion;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage; // Importación necesaria para manejar el Stage
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +26,12 @@ public class   ProgresoConstruccionControlador implements AccionesTableroControl
     private VistaJuegoGeneral vistaJuego;
     private ContenedorPrincipalVistas contenedor;
     private VistaProgresoConstruccion vistaProgreso;
+    private Stage stage;
 
     private List<Arista> aristas = new ArrayList<>();
+    private int carreterasConstruidas = 0;
 
-    public ProgresoConstruccionControlador (Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego, ContenedorPrincipalVistas contenedor){
+    public ProgresoConstruccionControlador (Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego, ContenedorPrincipalVistas contenedor, Stage stage){
         this.juego = juego;
         this.vistaTablero = vistaTablero;
 
@@ -36,64 +39,79 @@ public class   ProgresoConstruccionControlador implements AccionesTableroControl
 
         this.vistaJuego = vistaJuego;
         this.contenedor = contenedor;
+        this.stage = stage;
     }
 
     public void setVistaProgreso(VistaProgresoConstruccion vistaProgreso){
         this.vistaProgreso = vistaProgreso;
     }
 
-
-
     public void activarAristas(){
-        this.vistaTablero.mostrarAristas(aristas);
-        vistaProgreso.desactivarBoton();
-
+        this.aristas.clear();
+        this.vistaTablero.mostrarTodasLasAristas();
+        vistaProgreso.desactivarBotonElegir();
+        vistaProgreso.desactivarBotonEjecutar();
     }
 
     @Override
     public void obtenerVertice(Vertice vertice) {
+        // No hace nada
     }
 
     @Override
     public void obtenerArista(Arista arista){
-        if (aristas.size() == 1) {
-            if ( !aristas.contains(arista) ) {
-                this.aristas.add(arista);
-                vistaTablero.ocultarAristas();
-                vistaProgreso.activarBotonEjecutar();
-                return;
-            }
-
+        if (aristas.isEmpty()) {
+            this.aristas.add(arista);
+            vistaTablero.ocultarAristas();
+            vistaProgreso.activarBotonEjecutar();
         }
-        this.aristas.add(arista);
     }
 
     @Override
     public void ejecutar(){
-        Jugador jugador = juego.jugadorActual();
-        Color color = jugador.getColor();
-
-        Accion accion = new ProgresoConstruccion(juego, jugador, aristas);
-
-        try {
-            juego.ejecutarAccion(accion);
-
-        } catch (ConstruccionInvalidaError | YaHayCarreteraError e) {
-            PopUpError.mostrar(e.getMessage());
-            resetear();
+        if (aristas.isEmpty()) {
+            PopUpError.mostrar("Debe seleccionar una carretera.");
             return;
         }
 
-        vistaTablero.dibujarCarreteraEn(aristas.get(0) , color);
-        vistaTablero.dibujarCarreteraEn(aristas.get(1), color);
+        Jugador jugador = juego.jugadorActual();
+        Color color = jugador.getColor();
+        Arista aristaAConstruir = aristas.get(0);
 
-        contenedor.setContenido(vistaJuego);
+        Accion accion = new ProgresoConstruccion(juego, jugador, List.of(aristaAConstruir));
+
+        try {
+            juego.ejecutarAccion(accion);
+            carreterasConstruidas++;
+
+        } catch (ConstruccionInvalidaError | YaHayCarreteraError e) {
+            PopUpError.mostrar(e.getMessage());
+            resetearSeleccionActual();
+            vistaProgreso.activarBotonElegir();
+            return;
+        }
+
+        vistaTablero.dibujarCarreteraEn(aristaAConstruir , color);
+
+        if (carreterasConstruidas == 2) {
+            // Se completó la segunda carretera.
+            vistaProgreso.desactivarBotonEjecutar();
+            vistaProgreso.activarBotonFinalizar();
+
+        } else {
+            resetearSeleccionActual();
+            vistaProgreso.activarBotonElegir();
+        }
     }
 
-    private void resetear(){
+    public void finalizarCarta() {
+        VistaJuegoGeneral nuevaVistaJuego = new VistaJuegoGeneral(stage, contenedor, juego, vistaTablero);
+        contenedor.setContenido(nuevaVistaJuego);
+    }
+
+    private void resetearSeleccionActual(){
         aristas.clear();
-        activarAristas();
+        vistaTablero.ocultarAristas();
     }
-
 }
 
