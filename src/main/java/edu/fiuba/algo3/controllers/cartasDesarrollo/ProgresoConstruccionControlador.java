@@ -15,7 +15,7 @@ import edu.fiuba.algo3.vistas.cartasDesarrollo.VistaProgresoConstruccion;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage; // Importación necesaria para manejar el Stage
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,6 @@ public class   ProgresoConstruccionControlador implements AccionesTableroControl
 
     @Override
     public void obtenerVertice(Vertice vertice) {
-        // No hace nada
     }
 
     @Override
@@ -94,7 +93,6 @@ public class   ProgresoConstruccionControlador implements AccionesTableroControl
         vistaTablero.dibujarCarreteraEn(aristaAConstruir , color);
 
         if (carreterasConstruidas == 2) {
-            // Se completó la segunda carretera.
             vistaProgreso.desactivarBotonEjecutar();
             vistaProgreso.activarBotonFinalizar();
 
