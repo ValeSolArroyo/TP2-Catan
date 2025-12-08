@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
 public class VistaConstrucciones extends Pane {
@@ -47,8 +48,32 @@ public class VistaConstrucciones extends Pane {
         this.getChildren().add(carretera);
         carretera.toBack();
     }
-    //public void dibujarCiudad(Button botonVertice, Color color)
-    // que sea un triángulo
+
+    public void dibujarCiudad(Button botonVertice, Color color) {
+        Polygon ciudad = new Polygon();
+        ciudad.getPoints().addAll(
+                0.0, -15.0,   // punta arriba
+                -12.0, 10.0,  // esquina inferior izquierda
+                12.0, 10.0    // esquina inferior derecha
+        );
+
+        ciudad.setFill(color);
+        ciudad.setStroke(Color.BLACK);
+        ciudad.setStrokeWidth(2);
+
+        Point2D puntoEscena = botonVertice.localToScene(
+                botonVertice.getWidth() / 2,
+                botonVertice.getHeight() / 2
+        );
+
+        Point2D destino = this.sceneToLocal(puntoEscena);
+
+        ciudad.setLayoutX(destino.getX());
+        ciudad.setLayoutY(destino.getY());
+
+        this.getChildren().add(ciudad);
+    }
+
 }
 
 

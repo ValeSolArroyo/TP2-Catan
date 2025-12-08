@@ -2,6 +2,7 @@ package edu.fiuba.algo3.controllers;
 
 import edu.fiuba.algo3.controllers.cartasDesarrollo.CartasDesarrolloControlador;
 import edu.fiuba.algo3.controllers.cartasDesarrollo.ComprarCartaControlador;
+import edu.fiuba.algo3.controllers.fasesJuego.ConstruirControlador;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
@@ -33,7 +34,9 @@ public class JuegoControlador {
     }
 
     public void construir() {
+        ConstruirControlador controlador = new ConstruirControlador(vistaTablero, juego, contenedor, vistaJuego);
         VistaConstruir vista = new VistaConstruir(this.stage, this.contenedor, this.juego, this.vistaTablero, this.vistaJuego);
+        controlador.setVistaConstruir(vista);
         contenedor.setContenido(vista);
     }
 

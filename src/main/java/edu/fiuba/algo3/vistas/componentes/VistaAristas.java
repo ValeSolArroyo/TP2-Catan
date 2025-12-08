@@ -2,6 +2,7 @@ package edu.fiuba.algo3.vistas.componentes;
 
 import edu.fiuba.algo3.controllers.fasesJuego.AccionesTableroControlador;
 import edu.fiuba.algo3.modelo.tablero.Arista;
+import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -124,7 +125,7 @@ public class VistaAristas extends StackPane {
     }
 
 
-    public Button botonDe(Arista arista) {
+    public Button botonDe(EspacioConstruible arista) {
         return botonesAristas.get(arista);
     }
 }
