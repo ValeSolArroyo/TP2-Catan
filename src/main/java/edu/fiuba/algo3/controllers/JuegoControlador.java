@@ -35,7 +35,7 @@ public class JuegoControlador {
 
     public void construir() {
         ConstruirControlador controlador = new ConstruirControlador(vistaTablero, juego, contenedor, vistaJuego);
-        VistaConstruir vista = new VistaConstruir(this.stage, this.contenedor, this.juego, this.vistaTablero, this.vistaJuego);
+        VistaConstruir vista = new VistaConstruir(this.stage, this.contenedor, this.juego, this.vistaTablero, this.vistaJuego, controlador);
         controlador.setVistaConstruir(vista);
         contenedor.setContenido(vista);
     }

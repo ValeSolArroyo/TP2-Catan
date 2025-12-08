@@ -25,10 +25,10 @@ public class VistaConstruir extends BorderPane {
     private BotonGenerico botonFinConstruccion;
     private BotonJuego botonCancelar;
 
-
-    public VistaConstruir(Stage stage,ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego) {
+    public VistaConstruir(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego, ConstruirControlador controlador) {
         this.juego = juego;
         this.vistaTablero = vistaTablero;
+        this.construirControlador = controlador;
 
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_sin_cartas.jpg"));
 
@@ -55,7 +55,7 @@ public class VistaConstruir extends BorderPane {
         cambioTurno.agregarTablero(this.vistaTablero);
         VistaTurnoActual vistaTurno = new VistaTurnoActual(cambioTurno);
 
-        botonFinConstruccion = new BotonGenerico("Finalizar construccion", "boton-fin-turno", 300, 45);
+        botonFinConstruccion = new BotonGenerico("Construir", "boton-fin-turno", 200, 40);
         botonFinConstruccion.setDisable(true);
         botonFinConstruccion.setOnAction(e -> construirControlador.ejecutar());
         HBox contenedorAbajo = new HBox(20);
@@ -84,7 +84,7 @@ public class VistaConstruir extends BorderPane {
 
         this.setTop(topContainer);
 
-        HBox.setMargin(vistaTurno, new Insets(0, 0, 0, 155));
+        HBox.setMargin(vistaTurno, new Insets(0, 0, 0, 255));
 
         this.setBottom(contenedorAbajo);
 
