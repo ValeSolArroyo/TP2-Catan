@@ -66,6 +66,8 @@ public class VistaConstruir extends BorderPane {
 
         BotonJuego botonVolver = new BotonJuego("Volver");
         botonVolver.setOnAction(e -> {
+            this.vistaTablero.ocultarVertices();
+            this.vistaTablero.ocultarAristas();
             VistaJuegoGeneral nuevaVistaJuego = new VistaJuegoGeneral(stage, contenedor, juego, this.vistaTablero);
             contenedor.setContenido(nuevaVistaJuego);
         });
