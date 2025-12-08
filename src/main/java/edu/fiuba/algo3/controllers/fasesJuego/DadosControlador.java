@@ -1,6 +1,5 @@
 package edu.fiuba.algo3.controllers.fasesJuego;
 
-import edu.fiuba.algo3.controllers.cartasDesarrollo.CaballeroControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
@@ -29,10 +28,9 @@ public class DadosControlador {
             dadosLanzados = true;
         } else {
             if (this.resultado == 7) {
-                CaballeroControlador caballeroControlador = new CaballeroControlador(stage, juego, this.vistaTablero, contenedor);
-                VistaCaballero vistaCaballero = new VistaCaballero(stage, contenedor, juego, this.vistaTablero, caballeroControlador);
+                LadronControlador ladronControlador = new LadronControlador(stage, juego, this.vistaTablero, contenedor);
+                VistaCaballero vistaCaballero = new VistaCaballero(stage, contenedor, juego, this.vistaTablero, ladronControlador);
                 contenedor.setContenido(vistaCaballero);
-                caballeroControlador.elegirLugarLadron(vistaCaballero);
             } else {
                 VistaJuegoGeneral vista = new VistaJuegoGeneral(stage, contenedor, juego, this.vistaTablero);
                 contenedor.setContenido(vista);

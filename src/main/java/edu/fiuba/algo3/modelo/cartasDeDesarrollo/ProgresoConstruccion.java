@@ -39,10 +39,40 @@ public class ProgresoConstruccion implements CartaDesarrollo {
             jugadorActual.construir(new Carretera(jugadorActual), arista);
             juego.revisarGranRutaComercial(jugadorActual);
         }
-        jugadorActual.eliminarCarta(this);
+        jugadorActual.eliminarCarta(new ProgresoConstruccion());
     }
 
     public String getCarta(){
         return "Progreso de Construccion";
+    }
+
+    @Override
+    public boolean coincideCon(CartaDesarrollo cartaAComparar) {
+        return cartaAComparar.coincideConProgresoConstruccion();
+    }
+
+    @Override
+    public boolean coincideConCaballero() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoConstruccion() {
+        return true;
+    }
+
+    @Override
+    public boolean coincideConProgresoDescubrimiento() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoMonopolio() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConPuntoVictoria() {
+        return false;
     }
 }

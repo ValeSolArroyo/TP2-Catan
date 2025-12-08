@@ -25,10 +25,40 @@ public class ProgresoDescubrimiento implements CartaDesarrollo{
         for (Recurso recurso: recursosDeBanca) {
             jugadorActual.recibirRecurso(recurso);
         }
-        jugadorActual.eliminarCarta(this);
+        jugadorActual.eliminarCarta(new ProgresoDescubrimiento());
     }
 
     public String getCarta(){
         return "Progreso de Descubrimiento";
+    }
+
+    @Override
+    public boolean coincideCon(CartaDesarrollo cartaAComparar) {
+        return cartaAComparar.coincideConProgresoDescubrimiento();
+    }
+
+    @Override
+    public boolean coincideConCaballero() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoConstruccion() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoDescubrimiento() {
+        return true;
+    }
+
+    @Override
+    public boolean coincideConProgresoMonopolio() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConPuntoVictoria() {
+        return false;
     }
 }

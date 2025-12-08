@@ -8,7 +8,7 @@ public class PuntoVictoria implements CartaDesarrollo {
     @Override
     public void ejecutarAlGuardar(Jugador jugador) {
         jugador.sumarPVPorCartaDesarollo();
-        jugador.eliminarCarta(this);
+        jugador.eliminarCarta(new PuntoVictoria());
     }
 
     @Override
@@ -17,5 +17,35 @@ public class PuntoVictoria implements CartaDesarrollo {
 
     public String getCarta(){
         return "Punto de Victoria";
+    }
+
+    @Override
+    public boolean coincideCon(CartaDesarrollo cartaAComparar) {
+        return cartaAComparar.coincideConPuntoVictoria();
+    }
+
+    @Override
+    public boolean coincideConCaballero() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoConstruccion() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoDescubrimiento() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoMonopolio() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConPuntoVictoria() {
+        return true;
     }
 }
