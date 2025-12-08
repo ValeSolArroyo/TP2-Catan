@@ -32,11 +32,17 @@ public class CartasDesarrolloControlador {
     }
 
     public void jugarProgresoConstruccion() {
-        ProgresoConstruccionControlador controlador = new ProgresoConstruccionControlador(juego, vistaTablero, vistaJuego, contenedor);
-        VistaProgresoConstruccion vista = new VistaProgresoConstruccion(juego, vistaTablero,controlador);
+        ProgresoConstruccionControlador controlador = new ProgresoConstruccionControlador(
+                juego,
+                vistaTablero,
+                vistaJuego,
+                contenedor,
+                this.stage
+        );
+
+        VistaProgresoConstruccion vista = new VistaProgresoConstruccion(juego, vistaTablero, controlador);
         controlador.setVistaProgreso(vista);
         contenedor.setContenido(vista);
-
     }
 
     public void jugarProgresoDescubrimiento() {

@@ -7,6 +7,7 @@ import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
 import edu.fiuba.algo3.vistas.componentes.InfoJugador;
 import edu.fiuba.algo3.vistas.componentes.Transicion;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
+import edu.fiuba.algo3.vistas.componentes.botones.BotonGenerico;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
@@ -18,7 +19,8 @@ public class VistaProgresoConstruccion extends BorderPane {
 
     private Juego juego;
     private BotonJuego botonEjecutar;
-    private BotonJuego botonAristas;
+    private BotonGenerico botonSeleccionar;
+    private BotonJuego botonFinalizar;
     private VistaTablero vistaTablero;
     private ProgresoConstruccionControlador controlador;
 
@@ -43,43 +45,65 @@ public class VistaProgresoConstruccion extends BorderPane {
         HBox tableroContenedor = new HBox(20);
         tableroContenedor.setAlignment(Pos.CENTER);
         tableroContenedor.getChildren().add(this.vistaTablero);
-        HBox.setMargin(this.vistaTablero, new Insets(0, 0, 7, 100));
+        HBox.setMargin(this.vistaTablero, new Insets(0, 0, 0, 352));
+        this.vistaTablero.setTranslateY(-40);
         this.setCenter(tableroContenedor);
 
         inicializarBotones();
 
         Transicion.fade(this);
-
-
     }
 
     private void inicializarBotones() {
         VBox botonDerecha = new VBox(50);
         botonDerecha.setAlignment(Pos.CENTER_RIGHT);
-        botonDerecha.setPadding(new Insets(100, 20, 0, 0));
-        botonAristas = new BotonJuego("Elegir Carreteras");
-        botonEjecutar = new BotonJuego("Ejecutar");
+        botonDerecha.setPadding(new Insets(100, 10, 0, 0));
 
-        botonDerecha.getChildren().addAll(botonAristas, botonEjecutar);
+        botonSeleccionar = new BotonGenerico("Elegir Carretera", "botones-derecha", 250, 70);
+        botonEjecutar = new BotonJuego("Construir");
+        botonFinalizar = new BotonJuego("Finalizar");
+
+        botonDerecha.getChildren().addAll(botonSeleccionar, botonEjecutar, botonFinalizar);
 
         this.setRight(botonDerecha);
 
-        botonAristas.setOnAction(e -> controlador.activarAristas());
+        botonSeleccionar.setOnAction(e -> controlador.activarAristas());
         botonEjecutar.setOnAction(e -> controlador.ejecutar());
+        botonFinalizar.setOnAction(e -> controlador.finalizarCarta());
 
-        botonAristas.setDisable(false);
-        botonEjecutar.setDisable(true);
-        botonEjecutar.setOpacity(0);
+        activarBotonElegir();
     }
 
-    public void desactivarBoton(){
-        botonAristas.setDisable(true);
-        botonAristas.setOpacity(0);
+    public void activarBotonElegir(){
+        botonSeleccionar.setDisable(false);
+        botonSeleccionar.setOpacity(1);
+        desactivarBotonEjecutar();
+        desactivarBotonFinalizar();
+    }
+
+    public void desactivarBotonElegir(){
+        botonSeleccionar.setDisable(true);
+        botonSeleccionar.setOpacity(0);
     }
 
     public void activarBotonEjecutar(){
         botonEjecutar.setDisable(false);
         botonEjecutar.setOpacity(1);
+        desactivarBotonFinalizar();
     }
 
+    public void desactivarBotonEjecutar(){
+        botonEjecutar.setDisable(true);
+        botonEjecutar.setOpacity(0);
+    }
+
+    public void activarBotonFinalizar(){
+        botonFinalizar.setDisable(false);
+        botonFinalizar.setOpacity(1);
+    }
+
+    public void desactivarBotonFinalizar(){
+        botonFinalizar.setDisable(true);
+        botonFinalizar.setOpacity(0);
+    }
 }
