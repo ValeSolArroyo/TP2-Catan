@@ -45,6 +45,7 @@ public class ConstruirControlador implements AccionesTableroControlador{
         this.espacio = vertice;
         vistaTablero.ocultarVertices();
         vistaConstruir.habilitarBotonFinConstruccion();
+        vistaConstruir.ocultarBotonCancelar();
     }
 
     @Override
@@ -52,6 +53,7 @@ public class ConstruirControlador implements AccionesTableroControlador{
         this.espacio = arista;
         vistaTablero.ocultarAristas();
         vistaConstruir.habilitarBotonFinConstruccion();
+        vistaConstruir.ocultarBotonCancelar();
     }
 
     @Override
@@ -80,10 +82,7 @@ public class ConstruirControlador implements AccionesTableroControlador{
         }else if (construccion.getClass() == Carretera.class) {
             vistaTablero.dibujarCarreteraEn(this.espacio, color);
         }
-
-        contenedor.setContenido(vistaJuego);
-
-
+        cancelarConstruccion();
     }
 
 
