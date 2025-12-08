@@ -3,10 +3,9 @@ package edu.fiuba.algo3.modelo.tablero;
 import edu.fiuba.algo3.modelo.hexagonoStrategy.StrategyConLadron;
 import edu.fiuba.algo3.modelo.hexagonoStrategy.StrategyHexagono;
 import edu.fiuba.algo3.modelo.hexagonoStrategy.StrategySinLadron;
-import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
-
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -45,12 +44,6 @@ public class Hexagono {
         }
     }
 
-    public void registrarPropietariosEn(Set<Jugador> jugadores) {
-        for (Vertice vertice : vertices) {
-            vertice.registrarPropietarioEn(jugadores);
-        }
-    }
-
     public void producirRecursos(int numero) {
         if (numero == this.numeroFicha) {
             estrategiaActual.producirRecursos(vertices, terreno);
@@ -61,5 +54,34 @@ public class Hexagono {
         if (vertices.contains(vertice)) {
             vertice.producirSegunTerreno(this.terreno);
         }
+    }
+
+    public void notificarLadron(Tablero tablero) {
+        estrategiaActual.registrarEnTablero(tablero, this);
+    }
+
+    public String getTerreno() {
+        return this.terreno.getTerreno();
+    }
+
+    public int getFicha() {
+        return this.numeroFicha;
+    }
+
+    public List<Vertice> getVertices() {
+        return this.vertices;
+    }
+
+    public List<Arista> getAristas() {
+        return this.aristas;
+    }
+
+    public Set<Integer> getIdsJugadoresConConstruccion() {
+        Set<Integer> idJugadores = new HashSet<>();
+        for (Vertice vertice : vertices) {
+            int idJugador = vertice.getIdPropietario();
+            idJugadores.add(idJugador);
+        }
+        return idJugadores;
     }
 }

@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.construcciones;
 
+import edu.fiuba.algo3.modelo.excepciones.ConstruccionInvalidaError;
 import edu.fiuba.algo3.modelo.excepciones.YaHayCiudadError;
 import edu.fiuba.algo3.modelo.jugador.Inventario;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
@@ -7,12 +8,12 @@ import edu.fiuba.algo3.modelo.recursos.Grano;
 import edu.fiuba.algo3.modelo.recursos.Mineral;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
-
 import java.util.List;
-import java.util.Set;
 
 public class Ciudad implements Construccion {
     private final Jugador propietario;
+    private final List<Recurso> costo = List.of(new Grano(), new Grano(),
+            new Mineral(), new Mineral(), new Mineral());
 
     public Ciudad(Jugador propietario) {
         this.propietario = propietario;
@@ -20,33 +21,41 @@ public class Ciudad implements Construccion {
 
     @Override
     public void producir(Recurso recurso) {
-        recurso.asignarA(propietario);
-        recurso.asignarA(propietario); // produce doble
+        propietario.recibirRecurso(recurso);
+        propietario.recibirRecurso(recurso);
     }
 
     @Override
-    public void registrarPropietarioEn(Set<Jugador> jugadores) {
-        jugadores.add(propietario);
-    }
+    public void tieneDePropietarioA(Jugador jugador) {
 
-    @Override
-    public boolean tieneDePropietarioA(Jugador jugador) {
-        return this.propietario.equals(jugador);
+        if (!(this.propietario.equals(jugador))){
+            throw new ConstruccionInvalidaError("No se puede mejorar a ciudad un poblado ajeno.");
+        }
+
     }
 
     @Override
     public void cobrar(Inventario inventario) {
-        inventario.consumirRecurso(List.of(new Grano(), new Grano(), new Mineral(), new Mineral(), new Mineral()));
+        inventario.consumirRecurso(costo);
     }
-
-    @Override
-    public void validarEn(EspacioConstruible espacio, Jugador jugador) {
-        espacio.validarCiudad(jugador);
-    }
-
 
     @Override
     public void ocupar() {
-        throw new YaHayCiudadError("No se puede colocar");
+        throw new YaHayCiudadError("No se puede colocar porque ya hay una ciudad");
+    }
+
+    @Override
+    public int puntosVictoria() {
+        return 2;
+    }
+
+    @Override
+    public void aplicarCambio(Jugador jugador, EspacioConstruible espacio) {
+        espacio.construirCiudad(jugador, this);
+    }
+
+    @Override
+    public int getIdPropietario() {
+        return propietario.getId();
     }
 }

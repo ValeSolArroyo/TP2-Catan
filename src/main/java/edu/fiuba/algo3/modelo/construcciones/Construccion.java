@@ -9,10 +9,11 @@ import java.util.List;
 import java.util.Set;
 
 public interface Construccion {
-    void validarEn(EspacioConstruible espacio, Jugador jugador);
     void producir(Recurso recurso);
     void cobrar(Inventario inventario);
-    void registrarPropietarioEn(Set<Jugador> jugadores);
-    boolean tieneDePropietarioA(Jugador jugador);
+    void tieneDePropietarioA(Jugador jugador);
     void ocupar();
+    int puntosVictoria();
+    void aplicarCambio(Jugador jugador, EspacioConstruible espacio);
+    int getIdPropietario();
 }

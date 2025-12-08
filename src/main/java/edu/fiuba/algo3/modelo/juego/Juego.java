@@ -3,12 +3,16 @@ package edu.fiuba.algo3.modelo.juego;
 import edu.fiuba.algo3.modelo.cartasBonificacion.GranCaballeria;
 import edu.fiuba.algo3.modelo.cartasBonificacion.GranRutaComercial;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
+import edu.fiuba.algo3.modelo.comercio.ComercioJugador;
+import edu.fiuba.algo3.modelo.construcciones.Carretera;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
-import edu.fiuba.algo3.modelo.juegoState.EstadoPrimeraColocacion;
-import edu.fiuba.algo3.modelo.juegoState.EstadoJuego;
-import edu.fiuba.algo3.modelo.juegoState.EstadoSegundaColocacion;
-import edu.fiuba.algo3.modelo.juegoState.EstadoTirarDados;
+import edu.fiuba.algo3.modelo.construcciones.Poblado;
+import edu.fiuba.algo3.modelo.excepciones.NoHayCartasDesarrolloError;
+import edu.fiuba.algo3.modelo.juegoCommand.Accion;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.recursos.Grano;
+import edu.fiuba.algo3.modelo.recursos.Mineral;
+import edu.fiuba.algo3.modelo.recursos.Lana;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.tablero.*;
 
@@ -19,10 +23,11 @@ public class Juego {
     private Tablero tablero;
     private int indiceTurno;
     private final Dado dado;
-    private EstadoJuego estadoActual;
     private List<CartaDesarrollo> cartasDesarrollo;
     private GranCaballeria granCaballeria;
     private GranRutaComercial granRutaComercial;
+
+    private CartaDesarrollo cartaComprada;
 
     public Juego(List<Jugador> jugadores, Tablero tablero, List<CartaDesarrollo> cartasDesarrollo) {
         if (jugadores.isEmpty()) {
@@ -32,50 +37,90 @@ public class Juego {
         this.dado = new Dado();
         this.tablero = tablero;
         this.indiceTurno = 0;
-        this.estadoActual = new EstadoPrimeraColocacion();
         this.cartasDesarrollo = cartasDesarrollo;
-    }
-
-    public void establecerEstado(EstadoJuego estado) {
-        this.estadoActual = estado;
-    }
-
-    public void colocarPobladoInicial(Juego juego, Vertice vertice, Arista arista) {
-     estadoActual.colocarPobladoInicial(this, vertice, arista);
-    }
-
-    public int lanzarDados() {
-        return estadoActual.lanzarDados(this, dado);
-    }
-
-    public void descartePorLadron() {
-        estadoActual.descartePorLadron(this, listaJugadores);
-    }
-
-    public List<Jugador> moverLadron(Hexagono hexagono) {
-        return estadoActual.moverLadron(this, hexagono);
-    }
-
-    public void robarCartaDe(Jugador victima) {
-        estadoActual.robarCartaDe(this, victima);
-    }
-
-    public void finalizarTurno() {
-        estadoActual.finalizarTurno(this);
+        this.granCaballeria = new GranCaballeria();
+        this.granRutaComercial = new GranRutaComercial();
     }
 
     public void construir(Construccion construccion, EspacioConstruible espacio) {
-        estadoActual.construir(this, construccion, espacio);
+        Jugador jugador = this.jugadorActual();
+        jugador.construir(construccion, espacio);
     }
 
-    public void comprarCartaDesarrollo(Jugador jugador){
-        estadoActual.comprarCartaDesarrollo(this, cartasDesarrollo);
+    public void robarCartaDe(Jugador victima) {
+        Jugador ladron = this.jugadorActual();
+        ladron.robarCarta(victima);
     }
 
-    public void jugarCartaDesarrollo(Juego juego, CartaDesarrollo cartaDesarrollo, Jugador victima, List<Arista> carreterasAConstruir, List<Recurso> recursosDeBanca, Recurso recursoAnunciado, List<Jugador> jugadores, Hexagono nuevoLugarLadron){
-        estadoActual.jugarCartaDesarrollo(this, cartaDesarrollo, victima, carreterasAConstruir, recursosDeBanca, recursoAnunciado, listaJugadores, nuevoLugarLadron);
+    public void moverLadron(Hexagono nuevoLugar){
+        this.tablero.moverLadronA(nuevoLugar);
     }
 
+    public void comprarCartaDesarrollo() {
+        if (this.cartasDesarrollo.isEmpty()) {
+            throw new NoHayCartasDesarrolloError("No se puede comprar una carta porque se acabaron las del mazo.");
+        }
+        List<Recurso> costoCarta = List.of(new Mineral(), new Grano(), new Lana());
+        Jugador jugador = this.jugadorActual();
+        jugador.guardarCartaDesarrollo(this.cartasDesarrollo.get(0), costoCarta);
+        this.cartaComprada = this.cartasDesarrollo.get(0);
+        cartasDesarrollo.remove(0);
+    }
+
+    public void ejecutarComercioPuerto(Vertice verticePuerto, List<Recurso> recursosAEntregar, Recurso recursoDeseado) {
+        Jugador jugador = this.jugadorActual();
+        jugador.comerciarConPuerto(verticePuerto, recursosAEntregar, recursoDeseado);
+    }
+
+    public void colocarPrimerPoblado(Vertice vertice, Arista arista) {
+        Jugador jugador = this.jugadorActual();
+
+        jugador.construirPrimerosPoblados(new Poblado(jugador), vertice);
+        jugador.construir(new Carretera(jugador), arista);
+
+        if (this.indiceTurno < listaJugadores.size() - 1) {
+            this.avanzarTurno();
+        }
+    }
+
+    public void colocarSegundoPoblado(Vertice vertice, Arista arista) {
+        Jugador jugador = this.jugadorActual();
+
+        jugador.construirPrimerosPoblados(new Poblado(jugador), vertice);
+        jugador.construir(new Carretera(jugador), arista);
+
+        this.darRecursosIniciales(vertice);
+
+        if (this.indiceTurno > 0) {
+            this.retrocederTurno();
+        }
+    }
+
+    public int lanzarDados() {
+        int resultado = dado.lanzarDados();
+        if (resultado != 7) {
+            this.producirRecursos(resultado);
+        } else {
+            this.descartePorLadron();
+        }
+        return resultado;
+    }
+
+    public void descartePorLadron() {
+        for (Jugador jugador : listaJugadores){
+            jugador.descartar();
+        }
+    }
+
+    public void ejecutarAccion(Accion accion){
+        accion.ejecutar();
+    }
+
+    // Comercio con banca e interno
+    public void ejecutarComercioJugador(ComercioJugador comercioJugador) {
+        Jugador jugador = jugadorActual();
+        comercioJugador.ejecutar(jugador);
+    }
 
     public void producirRecursos(int numero) {
         tablero.producir(numero);
@@ -85,47 +130,55 @@ public class Juego {
         tablero.darRecursosIniciales(vertice);
     }
 
-    public void primeraColocacionRealizada(){
-        if (todosColocaronPrimerPoblado()) {
-            establecerEstado(new EstadoSegundaColocacion());
-        } else {
-            avanzarTurno();
-        }
-    }
-
-    public void segundaColocacionRealizada(){
-        if (todosTerminaronColocacionesIniciales()) {
-            establecerEstado(new EstadoTirarDados());
-        } else {
-            retrocederTurno();
-        }
-    }
-
-    public boolean todosColocaronPrimerPoblado() {
-        for (Jugador jugador : listaJugadores) {
-            if (!jugador.primeraColocacion()) return false;
-        }
-        return true;
-    }
-
-    public boolean todosTerminaronColocacionesIniciales() {
-        for (Jugador jugador : listaJugadores) {
-            if (!jugador.segundaColocacion()) return false;
-        }
-        return true;
-    }
-
-
     public Jugador jugadorActual() {
-        return listaJugadores.get(indiceTurno);
+        return listaJugadores.get(this.indiceTurno);
     }
 
     public void avanzarTurno() {
-        indiceTurno = (indiceTurno + 1) % listaJugadores.size();
+        this.indiceTurno = (this.indiceTurno + 1) % listaJugadores.size();
     }
 
     public void retrocederTurno() {
-        indiceTurno = (indiceTurno - 1 + listaJugadores.size()) % listaJugadores.size();
+        this.indiceTurno = (this.indiceTurno - 1 + listaJugadores.size()) % listaJugadores.size();
     }
 
+    public void revisarGranCaballeria(Jugador jugador) {
+        granCaballeria.evaluarCartaBonificacion(jugador, tablero);
+    }
+
+    public void revisarGranRutaComercial(Jugador jugador) {
+        granRutaComercial.evaluarCartaBonificacion(jugador, tablero);
+    }
+
+    public void entregarAJugador(Recurso recursoDeseado) {
+        Jugador jugador = jugadorActual();
+        for (Jugador jugadorQueEntrega: listaJugadores) {
+            if (jugadorQueEntrega == jugador) continue;
+            jugadorQueEntrega.entregarRecursos(List.of(recursoDeseado));
+            jugador.recibirRecurso(recursoDeseado);
+        }
+    }
+
+    public void evaluarPVJugadorActual() {
+        Jugador jugador = jugadorActual();
+        jugador.evaluarSiEsGanador();
+    }
+
+    public List<Jugador> getJugadores() {
+        return listaJugadores;
+    }
+
+    public Tablero getTablero() { return tablero; }
+
+    public Dado getDado() {
+        return this.dado;
+    }
+
+    public int getIndiceTurno() {
+        return indiceTurno;
+    }
+
+    public CartaDesarrollo getCartaComprada() {
+        return this.cartaComprada;
+    }
 }

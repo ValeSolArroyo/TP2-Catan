@@ -1,0 +1,118 @@
+@startuml Juego
+
+class Juego {
+    - listaJugadores: List<Jugador>
+    - tablero: Tablero
+    - indiceTurno: int
+    - dado: Dado
+    - cartasDesarrollo: List<CartaDesarrollo>
+    - granCaballeria: GranCaballeria
+    - granRutaComercial: GranRutaComercial
+    - cartaComprada: CartaDesarrollo
+    + Juego(List<Jugador>, Tablero, List<CartaDesarrollo>):
+    + construir(Construccion, EspacioConstruible): void
+    + robarCartaDe(Jugador): void
+    + moverLadron(Hexagono): void
+    + comprarCartaDesarrollo(): void
+    + ejecutarComercioPuerto(Vertice, List<Recurso>, Recurso): void
+    + colocarPrimerPoblado(Vertice, Arista): void
+    + colocarSegundoPoblado(Vertice, Arista): void
+    + lanzarDados(): void
+    + descartePorLadron(): void
+    + ejecutarAccion(Accion): void
+    + ejecutarComercioJugador(ComercioJugador): void
+    + producirRecursos(int): void
+    + darRecursosIniciales(Vertice): void
+    + jugadorActual(): Jugador
+    + avanzarTurno(): void
+    + retrocederTurno(): void
+    + revisarGranCaballeria(Jugador): void
+    + revisarGranRutaComercial(Jugador): void
+    + entregarAJugador(Recurso): void
+    + evaluarPVJugadorActual(): void
+    + getJugadores(): List<Jugador>
+    + getTablero(): Tablero
+    + getDado(): Dado
+    + getIndiceTurno(): int
+    + getCartaComprada(): CartaDesarrollo
+}
+
+class Jugador {
+    - id: int
+    - nombre: String
+    - color: Color
+    - puntosVictoria: int
+    - puntosVictoriaCartaDesarrollo: int
+    - inventario: Inventario
+    - construcciones: List<Construccion>
+    - cartasDesarrollo: List<CartaDesarrollo>
+    - cartasBonificacion: List<CartaBonificacion>
+    - cartasCaballeroJugadas: int
+    + Jugador(int, String, Color):
+    + descartar(): void
+    + robarCarta(Jugador): void
+    - serRobadoPor(Jugador): void
+    + agregarConstruccion(Construccion): void
+    + eliminarConstruccion(Construccion): void
+    + construir(Construccion, EspacioConstruible): void
+    + construirPrimerosPoblados(Poblado, Vertice): void
+    + recibirRecurso(Recurso): void
+    + comerciarConPuerto(Vertice, List<Recurso>, Recurso): void
+    + aceptarOferta(Jugador, List<Recurso>, List<Recurso>): void
+    + entregarRecursos(List<Recurso>): void
+    + guardarCartaDesarrollo(CartaDesarrollo, List<Recurso>): void
+    + eliminarCarta(CartaDesarrollo): void
+    + registrarCaballeroJugado(): void
+    + conseguirCartasCaballeroJugadas(): int
+    + recibirCartaBonificacion(CartaBonificacion): void
+    + perderCartaBonificacion(CartaBonificacion): void
+    - puntosPorConstrucciones(): int
+    + evaluarSiEsGanador(): void
+    + conseguirPuntosDeVictoria(): int
+    + getNombre(): String
+    + getColor(): Color
+    + getPuntosVictoria(): int
+    + sumarPVPorCartaDesarollo(): void
+    + getRecursosInventario(): Map<String, Integer>
+    + getCartasDesarrollo(): List<CartaDesarrollo>
+}
+
+class Inventario {
+    - recursos: List<Recurso>
+    - jugador: Jugador
+    + Inventario(Jugador):
+    + agregarRecurso(Recurso): void
+    + consumirRecurso(List<Recurso>): void
+    - eliminarRecurso(Recurso, List<Recurso>): void
+    + descartarMitadRecursos(): void
+    + quitarRecursoAlAzar(): Recurso
+    + getRecursos(): Map<String, Integer>
+}
+
+class Dado {
+    - valor1 : int
+    - valor2 : int
+    + lanzarDados(): int
+    + obtenerDado1(): int
+    + obtenerDado2(): int
+}
+
+abstract class Observable {}
+
+
+class Tablero {
+    + producir(int): void
+    + darRecursosIniciales(Vertice): void
+    + moverLadronA(Hexagono): void
+}
+
+Juego "1" *-- "1" Tablero
+Juego "1" *-- "1" Dado
+Juego "1" o-- "2..4" Jugador
+
+Jugador "1" *-- "1" Inventario
+
+Observable <|-- Jugador
+Observable <|-- Dado
+
+@enduml

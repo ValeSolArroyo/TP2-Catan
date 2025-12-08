@@ -15,12 +15,14 @@ public class VisitanteTerreno implements Visitante {
         return fichas.get(indiceFicha++);
     }
 
-    public int visitar(Bosque bosque) { return obtenerSiguienteFicha(); }
-    public int visitar(Colina colina) { return obtenerSiguienteFicha(); }
-    public int visitar(Pastizal pastizal) { return obtenerSiguienteFicha(); }
-    public int visitar(Campo campo) { return obtenerSiguienteFicha(); }
-    public int visitar(Montaña montaña) { return obtenerSiguienteFicha(); }
+    @Override
+    public int visitarTerrenoProductor(Terreno terreno) {
+        return obtenerSiguienteFicha();
+    }
 
+    @Override
     // Comportamiento especial para Desierto
-    public int visitar(Desierto desierto) { return 0; }
+    public int visitarDesierto(Desierto desierto) {
+        return 0;
+    }
 }

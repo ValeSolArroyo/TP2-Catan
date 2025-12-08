@@ -1,5 +1,7 @@
 package edu.fiuba.algo3.modelo.hexagonoStrategy;
 
+import edu.fiuba.algo3.modelo.tablero.Hexagono;
+import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
 
@@ -12,4 +14,7 @@ public class StrategySinLadron implements StrategyHexagono {
             vertice.producirSegunTerreno(terreno);
         }
     }
+
+    @Override
+    public void registrarEnTablero(Tablero tablero, Hexagono hexagono) {}
 }

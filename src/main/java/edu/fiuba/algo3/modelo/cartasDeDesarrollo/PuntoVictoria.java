@@ -1,17 +1,51 @@
 package edu.fiuba.algo3.modelo.cartasDeDesarrollo;
 
-import edu.fiuba.algo3.modelo.excepciones.CartaNoJugableError;
-import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.recursos.Recurso;
-import edu.fiuba.algo3.modelo.tablero.Arista;
-import edu.fiuba.algo3.modelo.tablero.Hexagono;
-
-import java.util.List;
 
 public class PuntoVictoria implements CartaDesarrollo {
+    public PuntoVictoria(){}
+
     @Override
-    public void aplicarEfecto(Juego juego, Jugador jugador, Jugador victima, List<Arista> carreterasAContruir, List<Recurso> recursosDeBanca, Recurso recursoAnunciado, List<Jugador> jugadores, Hexagono nuevoLugarLadron) {
-        throw new CartaNoJugableError("La carta de Punto de Victoria no se puede jugar.");
+    public void ejecutarAlGuardar(Jugador jugador) {
+        jugador.sumarPVPorCartaDesarollo();
+        jugador.eliminarCarta(new PuntoVictoria());
+    }
+
+    @Override
+    public void ejecutar() {
+    }
+
+    public String getCarta(){
+        return "Punto de Victoria";
+    }
+
+    @Override
+    public boolean coincideCon(CartaDesarrollo cartaAComparar) {
+        return cartaAComparar.coincideConPuntoVictoria();
+    }
+
+    @Override
+    public boolean coincideConCaballero() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoConstruccion() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoDescubrimiento() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoMonopolio() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConPuntoVictoria() {
+        return true;
     }
 }

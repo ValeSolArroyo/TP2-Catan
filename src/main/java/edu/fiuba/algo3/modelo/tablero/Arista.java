@@ -6,10 +6,11 @@ import edu.fiuba.algo3.modelo.excepciones.YaHayCarreteraError;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 
 public class Arista implements EspacioConstruible {
-
+    private int id;
     private final Vertice vertice1;
     private final Vertice vertice2;
     private Construccion construccion;
+    private Jugador propietario;
 
     public Arista(Vertice vertice1, Vertice vertice2) {
         this.vertice1 = vertice1;
@@ -27,38 +28,52 @@ public class Arista implements EspacioConstruible {
                 (this.vertice1 == v2 && this.vertice2 == v1);
     }
 
-    @Override
-    public void validarPoblado(Jugador jugador) {
+    
+    public void construirPoblado(Jugador jugador, Construccion construccion) {
         throw new ConstruccionInvalidaError("No se puede construir un poblado en un arista");
     }
 
-    @Override
-    public void validarCiudad(Jugador jugador) {
+    public void construirCiudad(Jugador jugador, Construccion construccion) {
         throw new ConstruccionInvalidaError("No se puede construir una ciudad en un vértice");
     }
 
-    @Override
-    public void validarCarretera(Jugador jugador) {
+    public void construirCarretera(Jugador jugador, Construccion construccion) {
         this.construccion.ocupar();
-        if (!this.vertice1.validarConstruccionesProximas(jugador)
-                && !this.vertice2.validarConstruccionesProximas(jugador)) {
+        if (!this.vertice1.validarConstruccionesProximas(jugador) && !this.vertice2.validarConstruccionesProximas(jugador)) {
             if (!this.vertice1.validarCarreterasProximas(jugador) && !this.vertice2.validarCarreterasProximas(jugador)) {
                 throw new ConstruccionInvalidaError("No se puede colocar la carretera porque no cumple con las condiciones.");
             }
         }
+        this.construccion = construccion;
     }
 
     public boolean validarCarreteraPropia(Jugador jugador) {
         try {
             this.construccion.ocupar();
         } catch (YaHayCarreteraError e) {
-            return construccion.esPropiedadDe(jugador);
+            try {
+                construccion.tieneDePropietarioA(jugador);
+                return true;
+            } catch (ConstruccionInvalidaError error) {
+                return false;
+            }
         }
         return false;
     }
 
-    @Override
-    public void asignarConstruccion(Construccion construccion) {
-        this.construccion = construccion;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Vertice getVertice1() {
+        return this.vertice1;
+    }
+
+    public Vertice getVertice2() {
+        return this.vertice2;
+    }
+
+    public int getId() {
+        return this.id;
     }
 }

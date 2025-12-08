@@ -1,0 +1,131 @@
+@startuml
+title Test 03 Jugador Recibe Recursos Iniciales Al Colocar Segundo Poblado \n Parte 1: Setup y Primera Colocación
+
+Test -> Jugador ** : <<create>> Jugador(1, "Ana", Color.BLUE)
+Test -> Vertice ** : <<create>> Vertice()
+Test -> Hexagono ** : <<create>> Hexagono(Bosque, 8)
+Test -> Hexagono : agregarVertice(vertice)
+Test -> Tablero ** : <<create>> Tablero(hexagonos)
+
+== Construcción Primera Colocación ==
+Test -> Jugador : construirPrimerosPoblados(poblado, vertice)
+activate Jugador
+
+Jugador -> Poblado ** : <<create>> Poblado(jugador)
+Jugador -> Poblado : aplicarCambioPrimerasColocaciones(jugador, vertice)
+activate Poblado
+
+Poblado -> Vertice : construirPobladoPrimerasColocaciones(jugador, this)
+activate Vertice
+
+Vertice -> Construccion : construccion.ocupar()
+note right: NullConstruccion\nno lanza excepción
+
+Vertice -> Vertice : validarDistancia()
+loop Para cada vecino
+  Vertice -> Vertice : verticeVecino.validarReglaDistancia()
+end
+
+Vertice -> Vertice : construccion = poblado
+Vertice --> Poblado
+deactivate Vertice
+
+Poblado --> Jugador
+deactivate Poblado
+
+Jugador -> Jugador : agregarConstruccion(poblado)
+Jugador --> Test
+deactivate Jugador
+
+@enduml
+
+@startuml
+title Test 03 - Parte 2: Dar Recursos Iniciales
+
+Test -> Tablero : darRecursosIniciales(vertice)
+activate Tablero
+
+loop Para cada hexágono en tablero
+  Tablero -> Hexagono : entregarRecursoInicialA(vertice)
+  activate Hexagono
+  
+  Hexagono -> Hexagono : vertices.contains(vertice)?
+  
+  alt Vértice pertenece a este hexágono
+    note right of Hexagono
+      El vértice SÍ está en 
+      los vértices del hexágono
+    end note
+    
+    Hexagono -> Vertice : producirSegunTerreno(terreno)
+    activate Vertice
+    
+    Vertice -> Terreno : producirPara(construccion)
+    activate Terreno
+
+    Terreno -> Construccion : producir(madera)
+    activate Construccion
+    
+    Construccion -> Recurso ** : <<create>> Madera()
+    
+    Construccion -> Recurso : asignarA(propietario)
+    activate Recurso
+    
+    Recurso -> Jugador : recibirRecurso(this)
+    activate Jugador
+    
+    Jugador -> Inventario : agregarRecurso(recurso)
+    activate Inventario
+    
+    Inventario -> Inventario : recursos.add(recurso)
+    
+    Inventario --> Jugador
+    deactivate Inventario
+    
+    Jugador --> Recurso
+    deactivate Jugador
+    
+    Recurso --> Construccion
+    deactivate Recurso
+    
+    Construccion --> Terreno
+    deactivate Construccion
+    
+    Terreno --> Vertice
+    deactivate Terreno
+    
+    Vertice --> Hexagono
+    deactivate Vertice
+    
+  else Vértice NO pertenece
+    note right of Hexagono
+      El vértice no está en
+      este hexágono, no hace nada
+    end note
+  end
+  
+  Hexagono --> Tablero
+  deactivate Hexagono
+end
+
+Tablero --> Test
+deactivate Tablero
+
+@enduml
+
+@startuml
+title Test 03 - Parte 3: Verificación Final del Test
+Test -> Jugador : entregarRecursos([Madera])
+activate Jugador
+
+Jugador -> Inventario : consumirRecurso(recursos)
+activate Inventario
+
+Inventario -> Inventario : eliminarRecurso(Madera)
+
+Inventario --> Jugador : OK (recurso encontrado y eliminado)
+deactivate Inventario
+
+Jugador --> Test : assertDoesNotThrow
+deactivate Jugador
+@enduml
