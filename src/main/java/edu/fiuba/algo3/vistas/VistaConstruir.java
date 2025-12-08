@@ -1,7 +1,6 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.CambioTurnoControlador;
-import edu.fiuba.algo3.controllers.VolverControlador;
 import edu.fiuba.algo3.controllers.fasesJuego.ConstruirControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
@@ -23,7 +22,8 @@ public class VistaConstruir extends BorderPane {
     private BotonGenerico botonCarretera;
     private BotonJuego botonPoblado;
     private BotonJuego botonCiudad;
-    private BotonGenerico botonFinTurno;
+    private BotonGenerico botonFinConstruccion;
+    private BotonJuego botonCancelar;
 
 
     public VistaConstruir(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego) {
@@ -56,14 +56,19 @@ public class VistaConstruir extends BorderPane {
         cambioTurno.agregarTablero(this.vistaTablero);
         VistaTurnoActual vistaTurno = new VistaTurnoActual(cambioTurno);
 
-        botonFinTurno = new BotonGenerico("Finalizar construccion", "boton-fin-turno", 300, 45);
+        botonFinConstruccion = new BotonGenerico("Finalizar construccion", "boton-fin-turno", 300, 45);
+        botonFinConstruccion.setDisable(true);
+        botonFinConstruccion.setOnAction(e -> construirControlador.ejecutar());
         HBox contenedorAbajo = new HBox(20);
         contenedorAbajo.setAlignment(Pos.CENTER_LEFT);
         contenedorAbajo.setPadding(new Insets(0, 0, 20, 70));
-        contenedorAbajo.getChildren().addAll(botonFinTurno, vistaTurno);
+        contenedorAbajo.getChildren().addAll(botonFinConstruccion, vistaTurno);
 
         BotonJuego botonVolver = new BotonJuego("Volver");
-        botonVolver.setOnAction(new VolverControlador(contenedor, vistaJuego));
+        botonVolver.setOnAction(e -> {
+            VistaJuegoGeneral nuevaVistaJuego = new VistaJuegoGeneral(stage, contenedor, juego, this.vistaTablero);
+            contenedor.setContenido(nuevaVistaJuego);
+        });
         botonVolver.setPrefWidth(100);
         botonVolver.setPrefHeight(20);
 
@@ -93,22 +98,46 @@ public class VistaConstruir extends BorderPane {
         botonPoblado = new BotonJuego("Colocar Poblado");
         botonCiudad = new BotonJuego("Colocar Ciudad");
 
-        botonesDerecha.getChildren().addAll(botonCarretera, botonPoblado, botonCiudad);
+        botonCancelar = new BotonJuego("Cancelar");
+        botonCancelar.setVisible(false);
+        botonesDerecha.getChildren().addAll(botonCarretera, botonPoblado, botonCiudad, botonCancelar);
 
         this.setRight(botonesDerecha);
 
         botonPoblado.setOnAction(e -> construirControlador.construirPoblado());
         botonCarretera.setOnAction(e -> construirControlador.construirCarretera());
         botonCiudad.setOnAction(e -> construirControlador.construirCiudad());
+        botonCancelar.setOnAction(e -> construirControlador.cancelarConstruccion());
+    }
+
+    public void habilitarBotonFinConstruccion() {
+        botonFinConstruccion.setDisable(false);
+    }
+
+    public void desactivarBotonFinConstruccion() {
+        botonFinConstruccion.setDisable(true);
+    }
+
+    public void activarBotones() {
+        botonCarretera.setDisable(false);
+        botonPoblado.setDisable(false);
+        botonCiudad.setDisable(false);
+        ocultarBotonCancelar();
     }
 
     public void desactivarBotones() {
         botonCarretera.setDisable(true);
-        botonCarretera.setOpacity(0);
         botonPoblado.setDisable(true);
-        botonPoblado.setOpacity(0);
         botonCiudad.setDisable(true);
-        botonCiudad.setOpacity(0);
-        botonFinTurno.setDisable(true);
+        botonFinConstruccion.setDisable(true);
+        mostrarBotonCancelar();
+    }
+
+    public void mostrarBotonCancelar() {
+        botonCancelar.setVisible(true);
+    }
+
+    public void ocultarBotonCancelar() {
+        botonCancelar.setVisible(false);
     }
 }
