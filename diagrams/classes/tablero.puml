@@ -1,66 +1,48 @@
-@startuml Tablero
+@startuml
 
-class Arista {
-  - id: int
-  - vertice1: Vertice
-  - vertice2: Vertice
-  - construccion: Construccion
-  - VER xq no se usa
-  - propietario: Jugador
-  + Arista(Vertice, Vertice):
-  + conectaVertices(Vertice, Vertice): boolean
-  + construirPoblado(Jugador, Construccion): void
-  + construirCiudad(Jugador, Construccion): void
-  + construirCarretera(Jugador, Construccion): void
-  + validarCarreteraPropia(Jugador): boolean
-  + setId(int): void
-  + getId(): int
-  + getVertice1(): Vertice
-  + getVertice2(): Vertice
+class Tablero {
+  - hexagonos: List<Hexagono>
+  - hexagonoOcupadoLadron: Hexagono
+  - vertices: List<Vertice>
+  - aristas: List<Arista>
+  
+  + producir(int): void
+  + darRecursosIniciales(Vertice): void
+  - inicializarLadron(): void
+  + registrarHexagonoConLadron(Hexagono): void
+  + moverLadronA(Hexagono): void
+  - dfsMasLarga(Arista, Set<Arista>, Map): int
+  - dfsAux(Arista, Set<Arista>, Map): int
+  + conseguirRutaMasLarga(Jugador): int
+  + getHexagonos(): List<Hexagono>
+  + getVertices(): Map<Integer, Vertice>
+  + getAristas(): Map<Integer, Arista>
 }
-interface EspacioConstruible {
-  + construirPoblado(Jugador, Construccion): void
-  + construirCiudad(Jugador, Construccion): void
-  + construirCarretera(Jugador, Construccion): void
-}
+
 class Hexagono {
   - terreno: Terreno
   - numeroFicha: int
   - aristas: List<Arista>
   - vertices: List<Vertice>
   - estrategiaActual: StrategyHexagono
-  + Hexagono(Terreno, int):
+  
   + ponerLadron(): void
   + quitarLadron(): void
   + agregarVertice(Vertice): void
   + agregarArista(Arista): void
   + producirRecursos(int): void
   + entregarRecursoInicialA(Vertice): void
-  + getTerreno(): Terreno
-  + getFicha(): int
-  + getVertices(): List<Vertice>
-  + getAristas(): List<Arista>
+  + notificarLadron(Tablero): void
+  + getIdsJugadoresConConstruccion(): Set<Integer>
 }
-class Tablero {
-  - hexagonos: List<Hexagono>
-  - VER xq no se usa vertice
-  - vertices: List<Vertice>
-  - aristas: List<Arista>
-  + Tablero(List<Hexagono>):
-  + producir(int): void
-  + darRecursosIniciales(Vertice): void
-  + moverLadronA(Hexagono): void
-  + getHexagonos(): List<Hexagono>
-  + getVertices(): Map<Integer, Vertice>
-  + getAristas(): Map<Integer, Arista>
-}
+
 class Vertice {
   - id: int
   - construccion: Construccion
   - vecinos: List<Vertice>
   - aristas: List<Arista>
   - puerto: ComercioPuerto
-  + Vertice():
+  
   + agregarVecino(Vertice): void
   + agregarArista(Arista): void
   + asignarPuerto(ComercioPuerto): void
@@ -69,23 +51,56 @@ class Vertice {
   + construirCiudad(Jugador, Construccion): void
   + construirCarretera(Jugador, Construccion): void
   + producirSegunTerreno(Terreno): void
+  - validarReglaDistancia(): void
   + validarConstruccionesProximas(Jugador): boolean
   + validarCarreterasProximas(Jugador): boolean
   + ejecutarComercio(Jugador, List<Recurso>, List<Recurso>): void
-  - validarReglaDistancia(): void
-  + setId(int): void
-  + getId(): int
-  + getAristas(): List<Arista>
+  + getIdPropietario(): int
 }
 
+class Arista {
+  - id: int
+  - vertice1: Vertice
+  - vertice2: Vertice
+  - construccion: Construccion
+  - propietario: Jugador
+  
+  + conectaVertices(Vertice, Vertice): boolean
+  + construirPoblado(Jugador, Construccion): void
+  + construirCiudad(Jugador, Construccion): void
+  + construirCarretera(Jugador, Construccion): void
+  + validarCarreteraPropia(Jugador): boolean
+}
+
+interface EspacioConstruible {
+  + construirPoblado(Jugador, Construccion): void
+  + construirCiudad(Jugador, Construccion): void
+  + construirCarretera(Jugador, Construccion): void
+}
+
+interface StrategyHexagono {
+  + producirRecursos(List<Vertice>, Terreno): void
+  + registrarEnTablero(Tablero, Hexagono): void
+}
+
+class StrategyConLadron {
+  + producirRecursos(List<Vertice>, Terreno): void
+  + registrarEnTablero(Tablero, Hexagono): void
+}
+
+class StrategySinLadron {
+  + producirRecursos(List<Vertice>, Terreno): void
+  + registrarEnTablero(Tablero, Hexagono): void
+}
 
 interface TableroFactory {
   + crearTablero(): Tablero
 }
 
-class TableroCatanFactory implements TableroFactory {
+class TableroCatanFactory {
   - verticesBorde: Set<Vertice>
   - todosLosVertices: List<Vertice>
+  
   + crearTablero(): Tablero
   - construirTablero(List<Terreno>, List<Integer>): Tablero
   - inicializarVertices(): List<Vertice>
@@ -98,18 +113,30 @@ class TableroCatanFactory implements TableroFactory {
 
 class VerticeCatan {
   - todosLosVertices: List<Vertice>
+  
   + asignarVertices(List<Hexagono>): void
   + identificarVerticesBorde(): Set<Vertice>
 }
 
-EspacioConstruible <|.. Arista
-EspacioConstruible <|.. Vertice
+Tablero --> "19" Hexagono
+Hexagono --> "6" Vertice
+Hexagono --> "6" Arista
+Hexagono --> Terreno
+Hexagono --> StrategyHexagono
 
-Tablero "1" o-- "*" Hexagono
-Hexagono "1" o-- "*" Vertice
-Hexagono "1" o-- "*" Arista
+Vertice ..|> EspacioConstruible
+Arista ..|> EspacioConstruible
+Vertice --> "1" Construccion
+Arista --> "1" Construccion
+Vertice --> "0..*" Vertice : vecinos
+Vertice --> "0..*" Arista
+Vertice --> ComercioPuerto
 
-TableroCatanFactory ..> Tablero : "crea"
-TableroCatanFactory ..> VerticeCatan : "usa"
+StrategyConLadron ..|> StrategyHexagono
+StrategySinLadron ..|> StrategyHexagono
+
+TableroCatanFactory ..|> TableroFactory
+TableroCatanFactory --> Tablero
+TableroCatanFactory --> VerticeCatan
 
 @enduml

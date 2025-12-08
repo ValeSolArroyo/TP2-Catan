@@ -1,0 +1,89 @@
+@startuml
+
+interface CartaDesarrollo {
+    + ejecutarAlGuardar(Jugador): void
+    + ejecutar(): void
+    + getCarta(): String
+    + coincideCon(CartaDesarrollo): boolean
+    + coincideConCaballero(): boolean
+    + coincideConProgresoConstruccion(): boolean
+    + coincideConProgresoDescubrimiento(): boolean
+    + coincideConProgresoMonopolio(): boolean
+    + coincideConPuntoVictoria(): boolean
+}
+
+class Caballero {
+    - juego: Juego
+    - nuevoLugar: Hexagono
+    - victima: Jugador
+    - jugadorActual: Jugador
+
+    + ejecutarAlGuardar(Jugador): void
+    + ejecutar(): void
+    + getCarta(): String
+    + coincideCon(CartaDesarrollo): boolean
+}
+
+class PuntoVictoria {
+    + ejecutarAlGuardar(Jugador): void
+    + ejecutar(): void
+    + getCarta(): String
+    + coincideCon(CartaDesarrollo): boolean
+}
+
+class ProgresoConstruccion {
+    - juego: Juego
+    - jugadorActual: Jugador
+    - carreterasAConstruir: List<Arista>
+
+    + ejecutarAlGuardar(Jugador): void
+    + ejecutar(): void
+    + getCarta(): String
+    + coincideCon(CartaDesarrollo): boolean
+}
+
+class ProgresoDescubrimiento {
+    - jugadorActual: Jugador
+    - recursosDeBanca: List<Recurso>
+
+    + ejecutarAlGuardar(Jugador): void
+    + ejecutar(): void
+    + getCarta(): String
+    + coincideCon(CartaDesarrollo): boolean
+}
+
+class ProgresoMonopolio {
+    - juego: Juego
+    - recursoDeseado: Recurso
+    - jugadorActual: Jugador
+
+    + ejecutarAlGuardar(Jugador): void
+    + ejecutar(): void
+    + getCarta(): String
+    + coincideCon(CartaDesarrollo): boolean
+}
+
+class FabricaCartas {
+    + {static} crearMazo(): List<CartaDesarrollo>
+}
+
+CartaDesarrollo <|.. Caballero
+CartaDesarrollo <|.. PuntoVictoria
+CartaDesarrollo <|.. ProgresoConstruccion
+CartaDesarrollo <|.. ProgresoDescubrimiento
+CartaDesarrollo <|.. ProgresoMonopolio
+
+FabricaCartas ..> CartaDesarrollo : crea
+
+note right of FabricaCartas
+    Mazo: 14 Caballero
+    5 Punto Victoria
+    2 Monopolio
+    2 Descubrimiento
+    2 Construcción
+end note
+
+
+CartaDesarrollo --|> Accion
+
+@enduml

@@ -1,0 +1,38 @@
+@startuml
+
+
+interface CartaBonificacion {
+    + evaluarCartaBonificacion(Jugador, Tablero): void
+}
+
+class GranCaballeria {
+    - dueño: Jugador
+    - mayorEjercito: int
+    - yaOtorgada: boolean
+
+    + evaluarCartaBonificacion(Jugador, Tablero): void
+}
+
+class GranRutaComercial {
+    - dueño: Jugador
+    - mayorRutaComercial: int
+    - yaOtorgada: boolean
+
+    + evaluarCartaBonificacion(Jugador, Tablero): void
+}
+
+CartaBonificacion <|.. GranCaballeria
+CartaBonificacion <|.. GranRutaComercial
+
+note right of GranCaballeria
+    Requiere: 3+ caballeros jugados
+    Valor: 2 PV
+end note
+
+note right of GranRutaComercial
+    Requiere: 5+ carreteras continuas
+    Valor: 2 PV
+end note
+
+
+@enduml
