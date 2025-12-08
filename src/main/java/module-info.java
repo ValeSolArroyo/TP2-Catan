@@ -1,8 +1,9 @@
 module edu.fiuba.algo3 {
     requires javafx.controls;
     requires json.simple;
-    requires edu.fiuba.algo3;
-    //requires edu.fiuba.algo3;
+    requires javafx.graphics;
+    requires java.desktop;
+    requires javafx.media;
 
     exports edu.fiuba.algo3;
     exports edu.fiuba.algo3.vistas;
@@ -15,4 +16,11 @@ module edu.fiuba.algo3 {
     exports edu.fiuba.algo3.modelo.juego;
     exports edu.fiuba.algo3.modelo.jugador;
     exports edu.fiuba.algo3.modelo.tablero;
+    exports edu.fiuba.algo3.vistas.componentes;
+    exports edu.fiuba.algo3.vistas.componentes.menu;
+    exports edu.fiuba.algo3.modelo.cartasDeDesarrollo;
+    exports edu.fiuba.algo3.modelo.cartasBonificacion;
+    exports edu.fiuba.algo3.modelo.juegoCommand;
+    exports edu.fiuba.algo3.modelo.observer;
+    exports edu.fiuba.algo3.vistas.cartasDesarrollo;
 }

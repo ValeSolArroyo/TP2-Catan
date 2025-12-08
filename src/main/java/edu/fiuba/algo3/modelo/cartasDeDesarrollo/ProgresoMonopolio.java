@@ -3,18 +3,60 @@ package edu.fiuba.algo3.modelo.cartasDeDesarrollo;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
-import edu.fiuba.algo3.modelo.tablero.Arista;
-import edu.fiuba.algo3.modelo.tablero.Hexagono;
 
-import java.util.List;
+public class ProgresoMonopolio implements CartaDesarrollo {
+    private Juego juego;
+    private Recurso recursoDeseado;
+    private Jugador jugadorActual;
 
-public class ProgresoMonopolio implements CartaDesarrollo{
+    public ProgresoMonopolio(){}
+
+    public ProgresoMonopolio(Juego juego, Recurso recursoDeseado, Jugador jugadorActual) {
+        this.juego = juego;
+        this.recursoDeseado = recursoDeseado;
+        this.jugadorActual = jugadorActual;
+    }
 
     @Override
-    public void aplicarEfecto(Juego juego, Jugador jugador, Jugador victima, List<Arista> carreterasAContruir, List<Recurso> recursosDeBanca, Recurso recursoAnunciado, List<Jugador> jugadores, Hexagono nuevoLugarLadron) {
-        for (Jugador jugadorQueEntrega: jugadores) {
-            jugadorQueEntrega.entregarRecursos(List.of(recursoAnunciado));
-            jugador.recibirRecurso(recursoAnunciado);
-        }
+    public void ejecutarAlGuardar(Jugador jugador) {}
+
+    @Override
+    public void ejecutar() {
+        juego.entregarAJugador(recursoDeseado);
+        jugadorActual.eliminarCarta(new ProgresoMonopolio());
+    }
+
+    public String getCarta(){
+        return "Progreso Monopolio";
+    }
+
+    @Override
+    public boolean coincideCon(CartaDesarrollo cartaAComparar) {
+        return cartaAComparar.coincideConProgresoMonopolio();
+    }
+
+    @Override
+    public boolean coincideConCaballero() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoConstruccion() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoDescubrimiento() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoMonopolio() {
+        return true;
+    }
+
+    @Override
+    public boolean coincideConPuntoVictoria() {
+        return false;
     }
 }

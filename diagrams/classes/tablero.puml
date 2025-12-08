@@ -1,0 +1,115 @@
+@startuml Tablero
+
+class Arista {
+  - id: int
+  - vertice1: Vertice
+  - vertice2: Vertice
+  - construccion: Construccion
+  - VER xq no se usa
+  - propietario: Jugador
+  + Arista(Vertice, Vertice):
+  + conectaVertices(Vertice, Vertice): boolean
+  + construirPoblado(Jugador, Construccion): void
+  + construirCiudad(Jugador, Construccion): void
+  + construirCarretera(Jugador, Construccion): void
+  + validarCarreteraPropia(Jugador): boolean
+  + setId(int): void
+  + getId(): int
+  + getVertice1(): Vertice
+  + getVertice2(): Vertice
+}
+interface EspacioConstruible {
+  + construirPoblado(Jugador, Construccion): void
+  + construirCiudad(Jugador, Construccion): void
+  + construirCarretera(Jugador, Construccion): void
+}
+class Hexagono {
+  - terreno: Terreno
+  - numeroFicha: int
+  - aristas: List<Arista>
+  - vertices: List<Vertice>
+  - estrategiaActual: StrategyHexagono
+  + Hexagono(Terreno, int):
+  + ponerLadron(): void
+  + quitarLadron(): void
+  + agregarVertice(Vertice): void
+  + agregarArista(Arista): void
+  + producirRecursos(int): void
+  + entregarRecursoInicialA(Vertice): void
+  + getTerreno(): Terreno
+  + getFicha(): int
+  + getVertices(): List<Vertice>
+  + getAristas(): List<Arista>
+}
+class Tablero {
+  - hexagonos: List<Hexagono>
+  - VER xq no se usa vertice
+  - vertices: List<Vertice>
+  - aristas: List<Arista>
+  + Tablero(List<Hexagono>):
+  + producir(int): void
+  + darRecursosIniciales(Vertice): void
+  + moverLadronA(Hexagono): void
+  + getHexagonos(): List<Hexagono>
+  + getVertices(): Map<Integer, Vertice>
+  + getAristas(): Map<Integer, Arista>
+}
+class Vertice {
+  - id: int
+  - construccion: Construccion
+  - vecinos: List<Vertice>
+  - aristas: List<Arista>
+  - puerto: ComercioPuerto
+  + Vertice():
+  + agregarVecino(Vertice): void
+  + agregarArista(Arista): void
+  + asignarPuerto(ComercioPuerto): void
+  + construirPoblado(Jugador, Construccion): void
+  + construirPobladoPrimerasColocaciones(Jugador, Poblado): void
+  + construirCiudad(Jugador, Construccion): void
+  + construirCarretera(Jugador, Construccion): void
+  + producirSegunTerreno(Terreno): void
+  + validarConstruccionesProximas(Jugador): boolean
+  + validarCarreterasProximas(Jugador): boolean
+  + ejecutarComercio(Jugador, List<Recurso>, List<Recurso>): void
+  - validarReglaDistancia(): void
+  + setId(int): void
+  + getId(): int
+  + getAristas(): List<Arista>
+}
+
+
+interface TableroFactory {
+  + crearTablero(): Tablero
+}
+
+class TableroCatanFactory implements TableroFactory {
+  - verticesBorde: Set<Vertice>
+  - todosLosVertices: List<Vertice>
+  + crearTablero(): Tablero
+  - construirTablero(List<Terreno>, List<Integer>): Tablero
+  - inicializarVertices(): List<Vertice>
+  - conectarAristas(List<Hexagono>): List<Arista>
+  - asignarPuertos(): void
+  + crearHexagonos(List<Terreno>, List<Integer>): List<Hexagono>
+  + generarTerrenosAleatorios(): List<Terreno>
+  + generarFichasAleatorias(): List<Integer>
+}
+
+class VerticeCatan {
+  - todosLosVertices: List<Vertice>
+  + asignarVertices(List<Hexagono>): void
+  + identificarVerticesBorde(): Set<Vertice>
+}
+
+EspacioConstruible <|.. Arista
+EspacioConstruible <|.. Vertice
+
+Tablero "1" o-- "*" Hexagono
+Hexagono "1" o-- "*" Vertice
+Hexagono "1" o-- "*" Arista
+
+TableroCatanFactory ..> Tablero : "crea"
+TableroCatanFactory ..> VerticeCatan : "usa"
+
+@enduml

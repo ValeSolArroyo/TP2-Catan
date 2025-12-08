@@ -1,0 +1,72 @@
+@startuml Terreno
+
+class Bosque { 
+    + producirPara(Construccion): void
+    + aceptar(Visitante): int
+    + colocarLadron(Hexagono): void
+    + getTerreno(): String
+}
+class Campo {
+    + producirPara(Construccion): void
+    + aceptar(Visitante): int
+    + colocarLadron(Hexagono): void
+    + getTerreno(): String
+}
+class Colina {
+    + producirPara(Construccion): void
+    + aceptar(Visitante): int
+    + colocarLadron(Hexagono): void
+    + getTerreno(): String
+}
+class Desierto {
+    + producirPara(Construccion): void
+    + aceptar(Visitante): int
+    + colocarLadron(Hexagono): void
+    + getTerreno(): String
+}
+class Montaña {
+    + producirPara(Construccion): void
+    + aceptar(Visitante): int
+    + colocarLadron(Hexagono): void
+    + getTerreno(): String
+}
+class Pastizal {
+    + producirPara(Construccion): void
+    + aceptar(Visitante): int
+    + colocarLadron(Hexagono): void
+    + getTerreno(): String
+}
+interface Terreno {
+    + producirPara(Construccion): void
+    + aceptar(Visitante): int
+    + colocarLadron(Hexagono): void
+    + getTerreno(): String
+}
+
+interface Visitante {
+  + visitarTerrenoProductor(Terreno): int
+  + visitarDesierto(Desierto): int
+}
+
+class VisitanteTerreno {
+  - fichas: List<Integer>
+  - indiceFicha: int
+  - obtenerSiguienteFicha(): int
+  + VisitanteTerreno(List<Integer>): 
+  + visitarTerrenoProductor(Terreno): int
+  + visitarDesierto(Desierto): int
+}
+
+Terreno <|.. Bosque
+Terreno <|.. Campo
+Terreno <|.. Colina
+Terreno <|.. Desierto
+Terreno <|.. Montaña
+Terreno <|.. Pastizal
+
+Visitante <|.. VisitanteTerreno
+
+Visitante <-- Terreno : usa
+Visitante --> Terreno : usa
+
+@enduml

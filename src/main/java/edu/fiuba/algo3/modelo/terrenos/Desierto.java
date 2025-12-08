@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.modelo.terrenos;
 
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
+import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import edu.fiuba.algo3.modelo.terrenosVisitor.Visitante;
 
 public class Desierto implements Terreno {
@@ -10,6 +11,16 @@ public class Desierto implements Terreno {
     }
 
     public int aceptar(Visitante visitante) {
-        return visitante.visitar(this);
+        return visitante.visitarDesierto(this);
+    }
+
+    @Override
+    public void colocarLadron(Hexagono hexagono) {
+        hexagono.ponerLadron();
+    }
+
+    @Override
+    public String getTerreno() {
+        return "Desierto";
     }
 }

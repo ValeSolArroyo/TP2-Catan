@@ -2,38 +2,30 @@ package edu.fiuba.algo3.modelo.comercio;
 
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
 
 import java.util.List;
 
-public class ComercioInterno implements Comercio {
-
+public class ComercioInterno implements ComercioJugador {
     private final Jugador oferente;
+    private List<Recurso> recursosAEntregar;
+    private List<Recurso> recursosDeseados;
 
-    public ComercioInterno(Jugador oferente) {
+    public ComercioInterno(Jugador oferente, List<Recurso> recursosAEntregar, List<Recurso> recursosDeseados) {
         this.oferente = oferente;
+        this.recursosAEntregar = recursosAEntregar;
+        this.recursosDeseados = recursosDeseados;
     }
 
-    @Override
-    public void validar(Jugador aceptante, List<Recurso> recursosAEntregar, List<Recurso> recursosDeseados) {
-
-        aceptante.tieneRecursos(recursosDeseados.get(0), recursosDeseados.size());
-
-        oferente.tieneRecursos(recursosAEntregar.get(0), recursosAEntregar.size());
-
-    }
-
-    @Override
-    public void ejecutar(Jugador aceptante, List<Recurso> recursosAEntregar, List<Recurso> recursosDeseados) {
-
+    public void ejecutar(Jugador aceptante) {
         aceptante.entregarRecursos(recursosDeseados);
-        for (Recurso recurso: recursosDeseados){
+        for (Recurso recurso: recursosDeseados) {
             oferente.recibirRecurso(recurso);
         }
 
         oferente.entregarRecursos(recursosAEntregar);
-        for (Recurso recurso: recursosAEntregar){
+        for (Recurso recurso: recursosAEntregar) {
             aceptante.recibirRecurso(recurso);
         }
     }
-
 }

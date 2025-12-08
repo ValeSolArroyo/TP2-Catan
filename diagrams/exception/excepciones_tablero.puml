@@ -1,0 +1,14 @@
+@startuml excepciones_tablero
+
+class RuntimeException {
+}
+
+class ReglaDeDistanciaError extends RuntimeException {
+    + ReglaDeDistanciaError(String mensaje)
+}
+
+class CartaNoJugableError extends RuntimeException {
+    + CartaNoJugableError(String message)
+}
+
+@enduml

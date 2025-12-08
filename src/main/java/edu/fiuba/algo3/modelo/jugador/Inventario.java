@@ -3,36 +3,46 @@ package edu.fiuba.algo3.modelo.jugador;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.excepciones.RecursosInsuficientesError;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-    public class Inventario {
-        private List<Recurso> recursos;
-        public Inventario() {
-            this.recursos = new ArrayList<>();
-        }
+public class Inventario {
+    private List<Recurso> recursos;
+    private final Jugador jugador;
+
+    public Inventario(Jugador jugador) {
+        this.jugador = jugador;
+        this.recursos = new ArrayList<>();
+
+    }
 
     public void agregarRecurso(Recurso recurso) {
         recursos.add(recurso);
+        jugador.notificarObservadores();
     }
 
-    public void consumirRecurso(List<Recurso> recursos) {
-        if (!recursos.isEmpty()) {
-            for (Recurso recurso : recursos) {
-                recurso.eliminarDe(this);
+    public void consumirRecurso(List<Recurso> listaRecursos) {
+        if (!listaRecursos.isEmpty()) {
+            List<Recurso> listaCopiaSeguridad = new ArrayList<>(recursos);
+            for (Recurso recurso : listaRecursos) {
+                this.eliminarRecurso(recurso, listaCopiaSeguridad);
             }
+            this.recursos = listaCopiaSeguridad;
         }
+        jugador.notificarObservadores();
     }
 
-    public void eliminarRecurso(Recurso recursoAEliminar){
-        for (Recurso recursoInventario: recursos){
+    private void eliminarRecurso(Recurso recursoAEliminar, List<Recurso> listaCopiaSeguridad){
+        for (Recurso recursoInventario: listaCopiaSeguridad){
             if (recursoInventario.coincideCon(recursoAEliminar)){
-                recursos.remove(recursoInventario);
+                listaCopiaSeguridad.remove(recursoInventario);
                 return;
             }
         }
-        throw new RecursosInsuficientesError("El recurso " + recursoAEliminar + " no está en el inventario.");
+        throw new RecursosInsuficientesError("No tiene recursos suficientes para realizar esta acción.");
     }
-    
+
     public void descartarMitadRecursos() {
         int cantidadRecursos = recursos.size();
         if (cantidadRecursos > 7 ) {
@@ -41,43 +51,31 @@ import java.util.List;
                 recursos.remove(0);
             }
         }
-    }
-
-    public void validarRecursos(Recurso recursoAValidar, int cantidadNecesaria) {
-        int cantidadAcumulada = 0;
-        for (Recurso recurso : recursos) {
-            if (recurso.coincideCon(recursoAValidar)) {
-                cantidadAcumulada++;
-            }
-        }
-
-        if (cantidadAcumulada < cantidadNecesaria) {
-            throw new RecursosInsuficientesError("Se requieren " + cantidadNecesaria + " recursos y solo hay " + cantidadAcumulada
-            );
-        }
+        jugador.notificarObservadores();
     }
 
     public Recurso quitarRecursoAlAzar() {
         int indice = (int) (Math.random() * recursos.size());
         Recurso robado = recursos.get(indice);
         recursos.remove(indice);
+        jugador.notificarObservadores();
         return robado;
     }
+    
+    public Map<String, Integer> getRecursos() {
+        List<Recurso> recursosAContar = List.of(new Madera(), new Lana(), new Mineral(), new Ladrillo(), new Grano());
+        Map<String, Integer> recursosAMostrar = new HashMap<>();
 
-        public void ejecturarCompra(List<Recurso> costoCarta) {
-            for (Recurso recurso: costoCarta){
-                verificarRecurso(recurso);
-            }
-            consumirRecurso(costoCarta);
-        }
-
-        private void verificarRecurso(Recurso recursoNecesitado) {
-            for (Recurso recurso: recursos){
-                if (recurso.coincideCon(recursoNecesitado)){
-                    return;
+        for (Recurso tipoRecurso : recursosAContar) {
+            String claveRecurso = tipoRecurso.getNombreRecurso();
+            recursosAMostrar.put(claveRecurso, 0);
+            for (Recurso recurso : recursos) {
+                if (recurso.coincideCon(tipoRecurso)) {
+                    recursosAMostrar.put(claveRecurso, recursosAMostrar.get(claveRecurso) + 1);
                 }
             }
-            throw new RecursosInsuficientesError("No dispone de recursos suficientes para comprar Carta Desarrollo");
         }
+        return recursosAMostrar;
     }
+}
 

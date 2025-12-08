@@ -1,18 +1,6 @@
 package edu.fiuba.algo3.modelo.recursos;
 
-import edu.fiuba.algo3.modelo.jugador.Inventario;
-import edu.fiuba.algo3.modelo.jugador.Jugador;
-
 public class Madera implements Recurso {
-    @Override
-    public void asignarA(Jugador jugador) {
-        jugador.recibirRecurso(this);
-    }
-
-    @Override
-    public void eliminarDe(Inventario inventario) {
-        inventario.eliminarRecurso(this);
-    }
 
     @Override
     public boolean coincideCon(Recurso otro) {
@@ -35,4 +23,9 @@ public class Madera implements Recurso {
 
     @Override
     public boolean coincideConMineral(Mineral m) { return false; }
+
+    @Override
+    public String getNombreRecurso() {
+        return "Madera";
+    }
 }

@@ -2,23 +2,30 @@ package edu.fiuba.algo3.modelo.tablero;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
+import edu.fiuba.algo3.modelo.comercio.ComercioPuerto;
+import edu.fiuba.algo3.modelo.comercio.NullPuerto;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.NullConstruccion;
+import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.excepciones.*;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
+import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 
 public class Vertice implements EspacioConstruible {
+    private int id;
     private Construccion construccion;
     private List<Vertice> vecinos;
     private List<Arista> aristas;
+    private ComercioPuerto puerto;
 
     public Vertice() {
         this.construccion = new NullConstruccion();
         this.vecinos = new ArrayList<>();
         this.aristas = new ArrayList<>();
+        this.puerto = new NullPuerto();
     }
 
     public void agregarVecino(Vertice vecino) {
@@ -33,48 +40,53 @@ public class Vertice implements EspacioConstruible {
         }
     }
 
+    public void asignarPuerto(ComercioPuerto puerto) {
+        this.puerto = puerto;
+    }
+
     @Override
-    public void validarPoblado(Jugador jugador) {
+    public void construirPoblado(Jugador jugador, Construccion construccion) {
         this.construccion.ocupar();
-        this.validarDistancia();
-    }
-
-    // TODO: PREGUNTAR EL VIERNES SI ES MUY TERRIBLE MANEJARNOS CON EXCEPCIONES...
-    @Override
-    public void validarCiudad(Jugador jugador) {
-        try {
-            this.construccion.ocupar();
-        } catch (YaHayPobladoError e) {
-            if (!this.construccion.tieneDePropietarioA(jugador)) {
-                throw new ConstruccionInvalidaError("No se puede mejorar a ciudad un poblado ajeno.");
-            }
-        } catch (YaHayCiudadError e) {
-            throw new ConstruccionInvalidaError("No se puede mejorar donde ya hay una ciudad.");
+        for (Vertice verticeVecino : vecinos) {
+            verticeVecino.validarReglaDistancia();
         }
-    }
-
-    @Override
-    public void validarCarretera(Jugador jugador) {
-        throw new ConstruccionInvalidaError("No se puede construir una carretera en un vértice");
-    }
-
-    @Override
-    public void asignarConstruccion(Construccion construccion) {
+        if (!validarCarreterasProximas(jugador)) {
+            throw new ConstruccionInvalidaError("No se puede construir si no hay carreteras");
+        }
         this.construccion = construccion;
     }
 
-    public void registrarPropietarioEn(Set<Jugador> jugadores) {
-        construccion.registrarPropietarioEn(jugadores);
+    public void construirPobladoPrimerasColocaciones(Jugador jugador, Poblado construccion) {
+        this.construccion.ocupar();
+        for (Vertice verticeVecino : vecinos) {
+            verticeVecino.validarReglaDistancia();
+        }
+        this.construccion = construccion;
+    }
+
+    @Override
+    public void construirCiudad(Jugador jugador, Construccion nuevaConstruccion) {
+        try {
+            this.construccion.ocupar();
+        } catch (YaHayPobladoError e) {
+           this.construccion.tieneDePropietarioA(jugador);
+            Construccion antigua = this.construccion;
+            this.construccion = nuevaConstruccion;
+            jugador.eliminarConstruccion(antigua);
+            return;
+        } catch (YaHayCiudadError e) {
+            throw new ConstruccionInvalidaError("No se puede mejorar donde ya hay una ciudad.");
+        }
+        throw new ConstruccionInvalidaError("No se puede mejor una ciudad si no hay poblado");
+    }
+
+    @Override
+    public void construirCarretera(Jugador jugador, Construccion construccion) {
+        throw new ConstruccionInvalidaError("No se puede construir una carretera en un vértice");
     }
 
     public void producirSegunTerreno(Terreno terreno) {
         terreno.producirPara(construccion);
-    }
-
-    private void validarDistancia() {
-        for (Vertice verticeVecino : vecinos) {
-            verticeVecino.validarReglaDistancia();
-        }
     }
 
     private void validarReglaDistancia() {
@@ -89,7 +101,12 @@ public class Vertice implements EspacioConstruible {
         try {
             this.construccion.ocupar();
         } catch (YaHayCiudadError | YaHayPobladoError e) {
-            return construccion.tieneDePropietarioA(jugador);
+            try {
+                this.construccion.tieneDePropietarioA(jugador);
+                return true;
+            } catch (ConstruccionInvalidaError error) {
+                return false;
+            }
         }
         return false;
     }
@@ -103,10 +120,23 @@ public class Vertice implements EspacioConstruible {
         return false;
     }
 
-    public void validarPuerto(Jugador jugador) {
-        if (!(this.construccion.tieneDePropietarioA(jugador))){
-            throw new ComercioInvalidoError("No tiene acceso al puerto para comerciar");
-        }
+    public void ejecutarComercio(Jugador jugador, List<Recurso> recursosEntregados, List<Recurso> recursoDeseado) {
+        this.puerto.ejecutar(jugador, this, recursosEntregados, recursoDeseado);
+    }
 
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public List<Arista>  getAristas(){
+        return this.aristas;
+    }
+
+    public int getIdPropietario() {
+        return construccion.getIdPropietario();
     }
 }

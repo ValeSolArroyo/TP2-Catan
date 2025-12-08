@@ -1,0 +1,65 @@
+@startuml Recursos
+
+class Grano {
+  + coincideCon(Recurso): boolean
+  + coincideConMadera(Madera): boolean
+  + coincideConGrano(Grano): boolean
+  + coincideConLana(Lana): boolean
+  + coincideConMineral(Mineral): boolean
+  + coincideConLadrillo(Ladrillo): boolean
+  + getNombreRecurso(): String
+}
+class Ladrillo {
+  nombreRecurso: String
+  + coincideCon(Recurso): boolean
+  + coincideConMadera(Madera): boolean
+  + coincideConGrano(Grano): boolean
+  + coincideConLana(Lana): boolean
+  + coincideConMineral(Mineral): boolean
+  + coincideConLadrillo(Ladrillo): boolean
+  + getNombreRecurso(): String
+}
+class Lana {
+  + coincideCon(Recurso): boolean
+  + coincideConMadera(Madera): boolean
+  + coincideConGrano(Grano): boolean
+  + coincideConLana(Lana): boolean
+  + coincideConMineral(Mineral): boolean
+  + coincideConLadrillo(Ladrillo): boolean
+  + getNombreRecurso(): String
+}
+class Madera {
+ + coincideCon(Recurso): boolean
+  + coincideConMadera(Madera): boolean
+  + coincideConGrano(Grano): boolean
+  + coincideConLana(Lana): boolean
+  + coincideConMineral(Mineral): boolean
+  + coincideConLadrillo(Ladrillo): boolean
+  + getNombreRecurso(): String
+}
+class Mineral {
+  + coincideCon(Recurso): boolean
+  + coincideConMadera(Madera): boolean
+  + coincideConGrano(Grano): boolean
+  + coincideConLana(Lana): boolean
+  + coincideConMineral(Mineral): boolean
+  + coincideConLadrillo(Ladrillo): boolean
+  + getNombreRecurso(): String
+}
+interface Recurso{
+  + coincideCon(Recurso): boolean
+  + coincideConMadera(Madera): boolean
+  + coincideConGrano(Grano): boolean
+  + coincideConLana(Lana): boolean
+  + coincideConMineral(Mineral): boolean
+  + coincideConLadrillo(Ladrillo): boolean
+  + getNombreRecurso(): String
+}
+
+Recurso ..|> Grano
+Recurso ..|> Ladrillo   
+Recurso ..|> Lana
+Recurso ..|> Madera
+Recurso ..|> Mineral
+
+@enduml

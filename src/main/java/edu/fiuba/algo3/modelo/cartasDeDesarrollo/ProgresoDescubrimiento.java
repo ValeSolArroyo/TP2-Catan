@@ -1,18 +1,64 @@
 package edu.fiuba.algo3.modelo.cartasDeDesarrollo;
 
-import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
-import edu.fiuba.algo3.modelo.tablero.Arista;
-import edu.fiuba.algo3.modelo.tablero.Hexagono;
 
 import java.util.List;
 
 public class ProgresoDescubrimiento implements CartaDesarrollo{
+
+    private Jugador jugadorActual;
+    private  List<Recurso> recursosDeBanca;
+
+    public ProgresoDescubrimiento(){}
+
+    public ProgresoDescubrimiento(Jugador jugador,  List<Recurso> recursosDeBanca) {
+       this.jugadorActual = jugador;
+       this.recursosDeBanca = recursosDeBanca;
+    }
+
     @Override
-    public void aplicarEfecto(Juego juego, Jugador jugador, Jugador victima, List<Arista> carreterasAContruir, List<Recurso> recursosDeBanca, Recurso recursoAnunciado, List<Jugador> jugadores, Hexagono nuevoLugarLadron) {
+    public void ejecutarAlGuardar(Jugador jugador) {}
+
+    @Override
+    public void ejecutar() {
         for (Recurso recurso: recursosDeBanca) {
-            jugador.recibirRecurso(recurso);
+            jugadorActual.recibirRecurso(recurso);
         }
+        jugadorActual.eliminarCarta(new ProgresoDescubrimiento());
+    }
+
+    public String getCarta(){
+        return "Progreso de Descubrimiento";
+    }
+
+    @Override
+    public boolean coincideCon(CartaDesarrollo cartaAComparar) {
+        return cartaAComparar.coincideConProgresoDescubrimiento();
+    }
+
+    @Override
+    public boolean coincideConCaballero() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoConstruccion() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoDescubrimiento() {
+        return true;
+    }
+
+    @Override
+    public boolean coincideConProgresoMonopolio() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConPuntoVictoria() {
+        return false;
     }
 }

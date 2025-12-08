@@ -7,21 +7,72 @@ import edu.fiuba.algo3.modelo.recursos.Ladrillo;
 import edu.fiuba.algo3.modelo.recursos.Madera;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.tablero.Arista;
-import edu.fiuba.algo3.modelo.tablero.Hexagono;
 
 import java.util.List;
 
-public class ProgresoConstruccion implements CartaDesarrollo{
+public class ProgresoConstruccion implements CartaDesarrollo {
+
+    private Juego juego;
+    private Jugador jugadorActual;
+    private  List<Arista> carreterasAConstruir;
+
+
+    public ProgresoConstruccion(Juego juego, Jugador jugador, List<Arista> carreterasAConstruir) {
+        this.juego = juego;
+        this.jugadorActual = jugador;
+        this.carreterasAConstruir = carreterasAConstruir;
+    }
+
+    public ProgresoConstruccion() {}
 
     @Override
-    public void aplicarEfecto(Juego juego, Jugador jugador, Jugador victima, List<Arista> carreterasAContruir, List<Recurso> recursosDeBanca, Recurso recursoAnunciado, List<Jugador> jugadores, Hexagono nuevoLugarLadron) {
-        for (Arista arista: carreterasAContruir) {
+    public void ejecutarAlGuardar(Jugador jugador) {}
+
+    @Override
+    public void ejecutar() {
+        for (Arista arista: carreterasAConstruir) {
             List<Recurso> recursosNecesarios = List.of(new Madera(), new Ladrillo());
             for (Recurso recurso : recursosNecesarios) {
-                jugador.recibirRecurso(recurso);
+                jugadorActual.recibirRecurso(recurso);
             }
-            // TODO: ver si se puede mover el propietario de construcción a vértice y arista
-            jugador.construir(new Carretera(jugador), arista);
+
+            jugadorActual.construir(new Carretera(jugadorActual), arista);
+            juego.revisarGranRutaComercial(jugadorActual);
         }
+        jugadorActual.eliminarCarta(new ProgresoConstruccion());
+    }
+
+    public String getCarta(){
+        return "Progreso de Construccion";
+    }
+
+    @Override
+    public boolean coincideCon(CartaDesarrollo cartaAComparar) {
+        return cartaAComparar.coincideConProgresoConstruccion();
+    }
+
+    @Override
+    public boolean coincideConCaballero() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoConstruccion() {
+        return true;
+    }
+
+    @Override
+    public boolean coincideConProgresoDescubrimiento() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConProgresoMonopolio() {
+        return false;
+    }
+
+    @Override
+    public boolean coincideConPuntoVictoria() {
+        return false;
     }
 }
