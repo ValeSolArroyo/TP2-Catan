@@ -2,6 +2,8 @@ package edu.fiuba.algo3.modelo.tableroFactory;
 
 import edu.fiuba.algo3.modelo.tablero.Hexagono;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
@@ -170,19 +172,24 @@ public class VerticeCatan {
         hexagonos.get(18).agregarVertice(todosLosVertices.get(43));
     }
 
-    public Set<Vertice> identificarVerticesBorde() {
-        Set<Vertice> verticesBorde = new HashSet<>();
+    private List<Vertice> identificarVerticesPorIds(List<Integer> idsPuerto) {
+        List<Vertice> verticesPuerto = new ArrayList<>();
 
-        List<Integer> idsBorde = List.of(0, 6, 10, 5, 1, 7, 11,
-                4, 12, 14, 24, 15, 23, 25, 37, 26, 36, 27, 35, 38, 46, 39, 45,
-                47, 49, 51, 53, 48, 50, 52
-        );
-
-        for (int id : idsBorde) {
-            if (id >= 0 && id < todosLosVertices.size()) {
-                verticesBorde.add(todosLosVertices.get(id));
-            }
+        for (int id : idsPuerto) {
+            verticesPuerto.add(todosLosVertices.get(id));
         }
-        return verticesBorde;
+        return verticesPuerto;
+    }
+
+    public List<Vertice> identificarVerticesPuertoGenerico() {
+        // 4 puertos genericos
+        List<Integer> idsVerticePuertoGenerico = List.of(5, 11, 47, 53);
+        return identificarVerticesPorIds(idsVerticePuertoGenerico);
+    }
+
+    public List<Vertice> identificarVerticesPuertoEspecial() {
+        // 5 puertos especiales
+        List<Integer> idsVerticePuertoEspecial = List.of(6, 14, 24, 38, 46);
+        return identificarVerticesPorIds(idsVerticePuertoEspecial);
     }
 }
