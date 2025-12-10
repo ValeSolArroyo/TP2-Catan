@@ -198,7 +198,7 @@
 }
 
 .titulo-recursos-jugador {
-    -fx-font-size: 17px;
+    -fx-font-size: 16px;
     -fx-text-fill: #1c146a;
     -fx-font-weight: bold;
     -fx-underline: true;
@@ -206,7 +206,7 @@
 }
 
 .recursos-jugador {
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
     -fx-text-fill: #1c146a;
     -fx-font-family: "Minecraft";
 }

@@ -3,7 +3,9 @@ package edu.fiuba.algo3.vistas.componentes;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.util.Map;
@@ -16,6 +18,9 @@ public class InfoJugador extends VBox implements Observador {
     private Label puntosLabel;
     private Label recursosLabel;
     private Juego juego;
+    private HBox bonificaciones;
+    private ImageView caballeria;
+    private ImageView rutaComercial;
 
     public InfoJugador(Jugador jugador, Juego juego) {
         this.jugador = jugador;
@@ -42,8 +47,27 @@ public class InfoJugador extends VBox implements Observador {
         filaNombreYPV.setSpacing(60);
         filaNombreYPV.getChildren().addAll(nombreLabel, puntosLabel);
 
-        this.getChildren().addAll(filaNombreYPV, recursosTituloLabel, recursosLabel);
+        bonificaciones = new HBox();
+        bonificaciones.setAlignment(Pos.CENTER_RIGHT);
 
+        caballeria = new ImageView(getClass().getResource("/images/utils/bonificacion/caballero.png").toExternalForm());
+        caballeria.setFitHeight(25);
+        caballeria.setPreserveRatio(true);
+
+        rutaComercial = new ImageView(getClass().getResource("/images/utils/bonificacion/carretera.png").toExternalForm());
+        rutaComercial.setFitHeight(25);
+        rutaComercial.setPreserveRatio(true);
+
+        bonificaciones.getChildren().setAll(caballeria, rutaComercial);
+
+        HBox filaRecursos = new HBox();
+        filaRecursos.setAlignment(Pos.CENTER_LEFT);
+        filaRecursos.getChildren().addAll(recursosLabel, bonificaciones);
+
+        this.getChildren().addAll(filaNombreYPV, recursosTituloLabel, filaRecursos);
+
+        ocultarImagenCaballeria();
+        ocultarImagenRutaComercial();
         actualizar();
     }
 
@@ -81,5 +105,21 @@ public class InfoJugador extends VBox implements Observador {
             String espacios = recursosTexto.replaceAll(".", "-");
             recursosLabel.setText(espacios);
         }
+    }
+
+    public void ocultarImagenCaballeria() {
+        this.caballeria.setOpacity(0);
+    }
+
+    public void mostrarImagenCaballeria() {
+        this.caballeria.setOpacity(1);
+    }
+
+    public void ocultarImagenRutaComercial() {
+        this.rutaComercial.setOpacity(0);
+    }
+
+    public void mostrarImagenRutaComercial() {
+        this.rutaComercial.setOpacity(1);
     }
 }
