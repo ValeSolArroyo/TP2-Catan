@@ -119,7 +119,24 @@ public class Vertice implements EspacioConstruible {
         return false;
     }
 
+    public boolean validarConstruccionesActualYProximas(Jugador jugador) {
+        if (this.validarConstruccionesProximas(jugador)) {
+            return true;
+        }
+
+        for (Vertice vecino : vecinos) {
+            if (vecino.validarConstruccionesProximas(jugador)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void ejecutarComercio(Jugador jugador, List<Recurso> recursosEntregados, List<Recurso> recursoDeseado) {
+        if (!this.validarConstruccionesActualYProximas(jugador)) {
+            throw new ComercioInvalidoError("Tiene que haber una construcción propia cercana al puerto para comerciar.");
+        }
         this.puerto.ejecutar(jugador, this, recursosEntregados, recursoDeseado);
     }
 
