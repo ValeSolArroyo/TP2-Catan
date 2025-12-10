@@ -4,6 +4,7 @@ module edu.fiuba.algo3 {
     requires javafx.graphics;
     requires java.desktop;
     requires javafx.media;
+    //requires edu.fiuba.algo3;
 
     exports edu.fiuba.algo3;
     exports edu.fiuba.algo3.vistas;

@@ -17,7 +17,7 @@ public class BotonComenzarControlador implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        VistaSeleccionCantidadJugadores seleccion = new VistaSeleccionCantidadJugadores(stage, contenedor);
+        VistaSeleccionCantidadJugadores seleccion = new VistaSeleccionCantidadJugadores(contenedor);
         contenedor.setContenido(seleccion);
     }
 }

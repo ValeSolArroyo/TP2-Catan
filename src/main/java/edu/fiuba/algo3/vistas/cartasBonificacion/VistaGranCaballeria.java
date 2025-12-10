@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.vistas.cartasBonificacion;
 
+import edu.fiuba.algo3.controllers.CambioTurnoControlador;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
@@ -18,7 +19,7 @@ import javafx.scene.layout.VBox;
 
 public class VistaGranCaballeria extends BorderPane {
 
-    public VistaGranCaballeria(ContenedorPrincipalVistas contenedor, Jugador jugadorActual, VistaJuegoGeneral vistaJuego) {
+    public VistaGranCaballeria(CambioTurnoControlador controlador, Jugador jugadorActual, VistaJuegoGeneral vistaJuego) {
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/mar.jpeg"));
         StackPane cartaConBrillos = new StackPane();
         cartaConBrillos.setAlignment(Pos.CENTER);
@@ -45,7 +46,7 @@ public class VistaGranCaballeria extends BorderPane {
         this.setCenter(cartaConBrillos);
 
         BotonJuego botonContinuar = new BotonJuego("Continuar");
-        botonContinuar.setOnAction(e -> contenedor.setContenido(vistaJuego));
+        botonContinuar.setOnAction(e -> controlador.continuarTurno());
 
         VBox botonVolverContenedor = new VBox(botonContinuar);
         botonVolverContenedor.setAlignment(Pos.CENTER);

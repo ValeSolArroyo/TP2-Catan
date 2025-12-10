@@ -10,12 +10,12 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 public class CantidadJugadoresControlador implements EventHandler<ActionEvent> {
-    private Stage stage;
+
     private ContenedorPrincipalVistas contenedor;
     private final int cantidadJugadores;
 
-    public CantidadJugadoresControlador(Stage stage, ContenedorPrincipalVistas contenedor, int cantidadJugadores){
-        this.stage = stage;
+    public CantidadJugadoresControlador(ContenedorPrincipalVistas contenedor, int cantidadJugadores){
+
         this.contenedor = contenedor;
         this.cantidadJugadores = cantidadJugadores;
     }
@@ -26,7 +26,7 @@ public class CantidadJugadoresControlador implements EventHandler<ActionEvent> {
             PopUpError.mostrar("La cantidad de jugadores debe ser entre 2 y 4.");
             return;
         }
-        VistaSeleccionNombreYColor vistaNombresYColor = new VistaSeleccionNombreYColor(stage, contenedor, cantidadJugadores);
+        VistaSeleccionNombreYColor vistaNombresYColor = new VistaSeleccionNombreYColor(contenedor, cantidadJugadores);
         contenedor.setContenido(vistaNombresYColor);
     }
 }

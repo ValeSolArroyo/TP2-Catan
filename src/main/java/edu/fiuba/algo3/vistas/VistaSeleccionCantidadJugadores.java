@@ -11,7 +11,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class VistaSeleccionCantidadJugadores extends VBox {
-    public VistaSeleccionCantidadJugadores(Stage stage, ContenedorPrincipalVistas contenedor) {
+    public VistaSeleccionCantidadJugadores(ContenedorPrincipalVistas contenedor) {
         this.setAlignment(Pos.CENTER);
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/mar.jpeg"));
         this.setSpacing(20);
@@ -35,7 +35,7 @@ public class VistaSeleccionCantidadJugadores extends VBox {
         for (int i = 2; i <= 4; i++) {
             Button botonCantidad = new Button("Jugar con " + i + " jugadores");
             botonCantidad.getStyleClass().add("boton-confirmar");
-            botonCantidad.setOnAction(new CantidadJugadoresControlador(stage, contenedor, i));
+            botonCantidad.setOnAction(new CantidadJugadoresControlador(contenedor, i));
 
             opcionesBotones.getChildren().add(botonCantidad);
         }

@@ -28,7 +28,7 @@ public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> 
             "Magenta", Color.MAGENTA, "Azul", Color.BLUE, "Rosa", Color.PINK,
             "Rojo", Color.RED, "Naranja", Color.ORANGE);
 
-    public ConfirmarJugadoresControlador(Stage stage, ContenedorPrincipalVistas contenedor, List<TextField> nombres, List<ComboBox<String>> colores) {
+    public ConfirmarJugadoresControlador(ContenedorPrincipalVistas contenedor, List<TextField> nombres, List<ComboBox<String>> colores) {
         this.contenedor = contenedor;
         this.nombres = nombres;
         this.colores = colores;
