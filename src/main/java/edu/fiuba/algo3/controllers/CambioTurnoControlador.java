@@ -4,11 +4,9 @@ import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.juegoCommand.AccionFinalizarTurno;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.observer.Observable;
-import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
-import edu.fiuba.algo3.vistas.VistaGanador;
-import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
-import edu.fiuba.algo3.vistas.VistaLanzarDados;
+import edu.fiuba.algo3.vistas.*;
 import edu.fiuba.algo3.vistas.cartasBonificacion.VistaGranCaballeria;
+import edu.fiuba.algo3.vistas.cartasBonificacion.VistaGranRutaComercial;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -31,18 +29,23 @@ public class CambioTurnoControlador extends Observable {
     public void activarAccionFinTurno() {
         Jugador jugadorActual = juego.jugadorActual();
         if (jugadorActual.evaluarSiEsGanador()) {
-            VistaGanador vistaGanador = new VistaGanador(jugadorActual);
+            VistaGanador vistaGanador = new VistaGanador(jugadorActual, this);
             contenedor.setContenido(vistaGanador);
             return;
         }
 
         if (juego.revisarGranCaballeria(jugadorActual)) {
-            VistaGranCaballeria vistaGCaballeria = new VistaGranCaballeria(contenedor, jugadorActual, this.vistaJuego);
+            VistaGranCaballeria vistaGCaballeria = new VistaGranCaballeria(this, jugadorActual, this.vistaJuego);
             contenedor.setContenido(vistaGCaballeria);
             return;
         }
 
-        //validarGranRutaComercial(jugadorActual);
+        if (juego.revisarGranRutaComercial(jugadorActual)) {
+            VistaGranRutaComercial vistaGRutaComercial = new VistaGranRutaComercial(this, jugadorActual, this.vistaJuego);
+            contenedor.setContenido(vistaGRutaComercial);
+            return;
+        }
+
 
         AccionFinalizarTurno accion = new AccionFinalizarTurno(juego);
         juego.ejecutarAccion(accion);
@@ -75,5 +78,14 @@ public class CambioTurnoControlador extends Observable {
 
     public void setVistaJuego(VistaJuegoGeneral vistaJuego) {
         this.vistaJuego = vistaJuego;
+    }
+
+    public void continuarTurno() {
+        activarAccionFinTurno();
+    }
+
+    public void iniciarNuevaPartida() {
+        VistaSeleccionCantidadJugadores vista = new VistaSeleccionCantidadJugadores(contenedor);
+        contenedor.setContenido(vista);
     }
 }

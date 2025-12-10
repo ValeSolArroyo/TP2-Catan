@@ -16,10 +16,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-
-public class VistaGranCaballeria extends BorderPane {
-
-    public VistaGranCaballeria(CambioTurnoControlador controlador, Jugador jugadorActual, VistaJuegoGeneral vistaJuego) {
+public class VistaGranRutaComercial extends BorderPane {
+    public VistaGranRutaComercial(CambioTurnoControlador controlador, Jugador jugadorActual, VistaJuegoGeneral vistaJuego) {
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/mar.jpeg"));
         StackPane cartaConBrillos = new StackPane();
         cartaConBrillos.setAlignment(Pos.CENTER);
@@ -27,16 +25,16 @@ public class VistaGranCaballeria extends BorderPane {
         VBox contenido = new VBox(20);
         contenido.setAlignment(Pos.CENTER);
 
-        Label textoGanador = new Label("¡Enhorabuena " + jugadorActual.getNombre() + " obtuviste la carta de Gran Caballeria!");
+        Label textoGanador = new Label("¡Enhorabuena " + jugadorActual.getNombre() + " obtuviste la carta de Gran Ruta Comercial!");
         textoGanador.getStyleClass().add("obtencion-bonificacion");
 
-        Image imagenCarta = new Image(getClass().getResource("/images/utils/bonificacion/caballero.png").toExternalForm());
+        Image imagenCarta = new Image(getClass().getResource("/images/utils/bonificacion/carretera.png").toExternalForm());
 
         ImageView imagenView = new ImageView(imagenCarta);
         imagenView.setFitWidth(250);
         imagenView.setPreserveRatio(true);
 
-        Label textoExplicativo = new Label("Si un jugador juega mas cartas de Caballeria que tu,\nperderas esta valiosa carta que otorga dos Puntos de Victoria...");
+        Label textoExplicativo = new Label("Si un jugador consigue una ruta mas larga que tu,\nperderas esta valiosa carta que otorga dos Puntos de Victoria...");
         textoExplicativo.getStyleClass().add("obtencion-bonificacion");
 
         contenido.getChildren().addAll(textoGanador, imagenView, textoExplicativo);
@@ -55,3 +53,5 @@ public class VistaGranCaballeria extends BorderPane {
         this.setBottom(botonVolverContenedor);
     }
 }
+
+
