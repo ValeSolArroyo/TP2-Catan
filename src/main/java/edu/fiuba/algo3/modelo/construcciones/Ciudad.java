@@ -46,7 +46,7 @@ public class Ciudad implements Construccion {
 
     @Override
     public int puntosVictoria() {
-        return 2;
+        return 1;
     }
 
     @Override

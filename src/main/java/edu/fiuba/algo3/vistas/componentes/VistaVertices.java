@@ -86,6 +86,5 @@ public class VistaVertices extends StackPane {
             }
         }
         return new Button();
-
     }
 }
