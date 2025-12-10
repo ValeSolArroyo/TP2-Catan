@@ -6,6 +6,7 @@ import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.componentes.Brillos;
 import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
+import edu.fiuba.algo3.vistas.componentes.Transicion;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -53,5 +54,7 @@ public class VistaGranCaballeria extends BorderPane {
         botonVolverContenedor.setPadding(new Insets(20));
 
         this.setBottom(botonVolverContenedor);
+
+        Transicion.fade(this);
     }
 }

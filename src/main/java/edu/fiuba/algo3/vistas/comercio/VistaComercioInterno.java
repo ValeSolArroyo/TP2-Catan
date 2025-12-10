@@ -7,6 +7,7 @@ import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
 import edu.fiuba.algo3.vistas.componentes.ListadoRecurso;
+import edu.fiuba.algo3.vistas.componentes.Transicion;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonGenerico;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 import javafx.geometry.Insets;
@@ -22,31 +23,30 @@ import java.util.List;
 import java.util.Map;
 
 public class VistaComercioInterno extends BorderPane {
-    private ComercioInternoControlador controlador;
     private List<Recurso> recursos;
-    private BotonJuego botonConfirmar;
+    private BotonGenerico botonConfirmar;
     private Map<Recurso, BotonGenerico> botonesPorRecursoAEntregar;
     private Map<Recurso, BotonGenerico> botonesPorRecursoARecibir;
-    private Map<String, Integer> recursosJugadorActual;
 
     public VistaComercioInterno(ContenedorPrincipalVistas contenedor, ComercioInternoControlador controlador, List<Recurso> recursos, VistaJuegoGeneral vista, Map<String, Integer> recursosJugadorActual) {
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/mar.jpeg"));
-        this.controlador = controlador;
         this.recursos = recursos;
-        this.recursosJugadorActual = recursosJugadorActual;
         botonesPorRecursoAEntregar = new HashMap<>();
         botonesPorRecursoARecibir = new HashMap<>();
 
         VBox centro = new VBox(20);
-        centro.setPadding(new Insets(40, 20, 40, 20));
+        centro.setPadding(new Insets(40, 20, 0, 20));
         centro.setAlignment(Pos.TOP_CENTER);
 
         Label titulo = new Label("Intercambio con otro jugador: haz tu oferta.");
+        titulo.getStyleClass().add("titulo-comercio");
 
         HBox hboxBanca = new HBox(40);
         hboxBanca.setAlignment(Pos.CENTER);
+        VBox.setMargin(hboxBanca, new Insets(0, 0, 40, 0));
 
         Label textoEntregar = new Label("Elige el recurso que quieres entregar en el intercambio:");
+        textoEntregar.getStyleClass().add("texto-comercio");
 
         HBox hboxEntrega = new HBox(40);
         hboxEntrega.setAlignment(Pos.CENTER);
@@ -57,10 +57,11 @@ public class VistaComercioInterno extends BorderPane {
             String ruta = "/images/utils/recursos/" + nombreRecurso + ".png";
 
             Label textoRecurso = new Label("¡Tienes " + cantidad + "!");
+            textoRecurso.getStyleClass().add("texto-tienes-cantidad");
 
             ListadoRecurso listadoRecurso = new ListadoRecurso(recurso.getNombreRecurso(), ruta);
 
-            BotonGenerico boton = new BotonGenerico("Cantidad: 0", "botones-progreso", 230, 80);
+            BotonGenerico boton = new BotonGenerico("Cantidad: 0", "botones-progreso", 220, 70);
             boton.setOnAction(e -> controlador.obtenerRecursosAEntregar(recurso));
             boton.setDisable(true);
             botonesPorRecursoAEntregar.put(recurso, boton);
@@ -72,13 +73,14 @@ public class VistaComercioInterno extends BorderPane {
 
 
         Label textoBanca = new Label("Elige el recurso que quieres recibir en el intercambio:");
+        textoBanca.getStyleClass().add("texto-comercio");
 
         for (Recurso recurso : this.recursos) {
             String ruta = "/images/utils/recursos/" + recurso.getNombreRecurso() + ".png";
 
             ListadoRecurso listadoRecurso = new ListadoRecurso(recurso.getNombreRecurso(), ruta);
 
-            BotonGenerico boton = new BotonGenerico("Cantidad: 0", "botones-progreso", 230, 80);
+            BotonGenerico boton = new BotonGenerico("Cantidad: 0", "botones-progreso", 220, 70);
             boton.setOnAction(e -> controlador.obtenerRecursosARecibir(recurso));
             botonesPorRecursoARecibir.put(recurso, boton);
 
@@ -91,11 +93,11 @@ public class VistaComercioInterno extends BorderPane {
 
         this.setCenter(centro);
 
-        botonConfirmar = new BotonJuego("Confirmar");
+        botonConfirmar = new BotonGenerico("Confirmar", "botones-comercio", 150, 50);
         botonConfirmar.setOnAction(e -> controlador.anunciarOferta());
         desactivarBotonEjecutar();
 
-        BotonJuego botonVolver = new BotonJuego("Volver");
+        BotonGenerico botonVolver = new BotonGenerico("Volver", "botones-comercio", 150, 50);
         botonVolver.setOnAction(new VolverControlador(contenedor, vista));
 
         HBox botonesInferiores = new HBox(20, botonVolver, botonConfirmar);
@@ -103,6 +105,8 @@ public class VistaComercioInterno extends BorderPane {
         botonesInferiores.setPadding(new Insets(20));
 
         this.setBottom(botonesInferiores);
+
+        Transicion.fade(this);
     }
 
     public void sumarContadorEntregar(Recurso recurso) {
@@ -119,27 +123,9 @@ public class VistaComercioInterno extends BorderPane {
         boton.setText("Cantidad: " + nuevoValor);
     }
 
-    public void activarBotonesARecibir() {
-        for (Button botonRecibir : botonesPorRecursoARecibir.values()) {
-            botonRecibir.setDisable(false);
-        }
-    }
-
-    public void desactivarBotonesARecibir() {
-        for (Button botonRecibir : botonesPorRecursoARecibir.values()) {
-            botonRecibir.setDisable(true);
-        }
-    }
-
     public void activarBotonesAEntregar() {
         for (Button botonRecibir : botonesPorRecursoAEntregar.values()) {
             botonRecibir.setDisable(false);
-        }
-    }
-
-    public void desactivarBotonesAEntregar() {
-        for (Button botonRecibir : botonesPorRecursoAEntregar.values()) {
-            botonRecibir.setDisable(true);
         }
     }
 

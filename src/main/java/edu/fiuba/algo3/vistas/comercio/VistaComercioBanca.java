@@ -7,6 +7,7 @@ import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
 import edu.fiuba.algo3.vistas.componentes.ListadoRecurso;
+import edu.fiuba.algo3.vistas.componentes.Transicion;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonGenerico;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 import javafx.geometry.Insets;
@@ -102,6 +103,8 @@ public class VistaComercioBanca extends BorderPane {
         botonesInferiores.setPadding(new Insets(20));
 
         this.setBottom(botonesInferiores);
+
+        Transicion.fade(this);
     }
 
     public void activarBotonEjecutar() {
