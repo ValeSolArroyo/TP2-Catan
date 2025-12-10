@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 
 public class VistaGanador extends BorderPane {
     public VistaGanador(Jugador jugadorActual, CambioTurnoControlador controlador) {
-        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/mar.jpeg"));
+        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/ganador.gif"));
         StackPane cartaConBrillos = new StackPane();
         cartaConBrillos.setAlignment(Pos.CENTER);
 
@@ -23,9 +23,9 @@ public class VistaGanador extends BorderPane {
         contenido.setAlignment(Pos.CENTER);
 
         Label textoGanador = new Label("¡Ganaste " + jugadorActual.getNombre() + "!");
-        Label PVGanador = new Label("Cantidad de PV obtenidos: " + jugadorActual.conseguirPuntosDeVictoriaTotales());
+        textoGanador.getStyleClass().add("obtencion-bonificacion");
 
-        contenido.getChildren().addAll(textoGanador, PVGanador);
+        contenido.getChildren().addAll(textoGanador);
 
         cartaConBrillos.getChildren().addAll(Brillos.crearBrillos(), contenido);
         this.setCenter(cartaConBrillos);
@@ -35,7 +35,7 @@ public class VistaGanador extends BorderPane {
 
         HBox contenedorBoton = new HBox(botonNuevaPartida);
         contenedorBoton.setAlignment(Pos.CENTER);
-        contenedorBoton.setPadding(new Insets(20, 0, 40, 0)); // separación del borde inferior
+        contenedorBoton.setPadding(new Insets(20, 0, 40, 0));
 
         this.setBottom(contenedorBoton);
 

@@ -109,17 +109,18 @@ public class InfoJugador extends VBox implements Observador {
             recursosLabel.setText(espacios);
         }
 
+        if (jugador.getCartasBonificacion().isEmpty()) {
+            ocultarImagenRutaComercial();
+            ocultarImagenCaballeria();
+        }
+
         for (CartaBonificacion carta : jugador.getCartasBonificacion()) {
             if (carta.getClass() == GranCaballeria.class) {
                 mostrarImagenCaballeria();
-            } else {
-                ocultarImagenCaballeria();
             }
 
             if (carta.getClass() == GranRutaComercial.class) {
                 mostrarImagenRutaComercial();
-            } else {
-                ocultarImagenRutaComercial();
             }
         }
     }
