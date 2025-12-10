@@ -37,12 +37,11 @@ public class CambioTurnoControlador extends Observable {
         }
 
         if (juego.revisarGranCaballeria(jugadorActual)) {
-            VistaGranCaballeria vistaGCaballeria = new VistaGranCaballeria(jugadorActual, this.vistaJuego);
+            VistaGranCaballeria vistaGCaballeria = new VistaGranCaballeria(contenedor, jugadorActual, this.vistaJuego);
             contenedor.setContenido(vistaGCaballeria);
             return;
         }
 
-        //validarGranCaballeria(jugadorActual);
         //validarGranRutaComercial(jugadorActual);
 
         AccionFinalizarTurno accion = new AccionFinalizarTurno(juego);
