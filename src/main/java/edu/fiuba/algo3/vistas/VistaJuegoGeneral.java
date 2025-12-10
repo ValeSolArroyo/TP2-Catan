@@ -59,7 +59,7 @@ public class VistaJuegoGeneral extends BorderPane {
         BotonJuego botonJugarCarta =  new BotonJuego("Mis cartas");
         botonJugarCarta.setOnAction( e -> controladorJuego.jugarCarta());
         HBox contenedorArribaIzquierda = new HBox(botonJugarCarta);
-        //TODO: ver si cambiamos el padding una vez agregamos botones ladron..
+
         contenedorArribaIzquierda.setPadding(new Insets(30, 0, 0, 110));
         contenedorArribaIzquierda.setAlignment(Pos.CENTER_LEFT);
 
@@ -67,6 +67,7 @@ public class VistaJuegoGeneral extends BorderPane {
 
         CambioTurnoControlador cambioTurno = new CambioTurnoControlador(contenedor, juego);
         cambioTurno.agregarTablero(this.vistaTablero);
+        cambioTurno.setVistaJuego(this);
         VistaTurnoActual vistaTurno = new VistaTurnoActual(cambioTurno);
 
         BotonGenerico botonFinTurno = new BotonGenerico("Finalizar turno", "boton-fin-turno", 230, 45);

@@ -1,9 +1,13 @@
 package edu.fiuba.algo3.vistas.cartasBonificacion;
 
+import edu.fiuba.algo3.controllers.VolverControlador;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.componentes.Brillos;
 import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
+import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -15,7 +19,7 @@ import javafx.scene.layout.VBox;
 
 public class VistaGranCaballeria extends BorderPane {
 
-    public VistaGranCaballeria(Jugador jugadorActual, VistaJuegoGeneral vistaJuego) {
+    public VistaGranCaballeria(ContenedorPrincipalVistas contenedor, Jugador jugadorActual, VistaJuegoGeneral vistaJuego) {
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/mar.jpeg"));
         StackPane cartaConBrillos = new StackPane();
         cartaConBrillos.setAlignment(Pos.CENTER);
@@ -40,6 +44,14 @@ public class VistaGranCaballeria extends BorderPane {
         cartaConBrillos.getChildren().addAll(Brillos.crearBrillos(), contenido);
 
         this.setCenter(cartaConBrillos);
-    }
 
+        BotonJuego botonContinuar = new BotonJuego("Continuar");
+        botonContinuar.setOnAction(e -> contenedor.setContenido(vistaJuego));
+
+        VBox botonVolverContenedor = new VBox(botonContinuar);
+        botonVolverContenedor.setAlignment(Pos.CENTER);
+        botonVolverContenedor.setPadding(new Insets(20));
+
+        this.setBottom(botonVolverContenedor);
+    }
 }
