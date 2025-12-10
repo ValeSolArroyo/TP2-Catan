@@ -1,6 +1,9 @@
 package edu.fiuba.algo3.vistas.componentes;
 
+import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -8,12 +11,16 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class VistaConstrucciones extends Pane {
+    private final Map<EspacioConstruible, Node> construcciones = new HashMap<>();
     public VistaConstrucciones() {
         setPickOnBounds(false);
     }
 
-    public void dibujarPoblado(Button botonVertice, Color color) {
+    public void dibujarPoblado(Button botonVertice, Color color, EspacioConstruible vertice) {
         Circle poblado = new Circle(12);
         poblado.setFill(color);
         poblado.setStroke(Color.BLACK);
@@ -26,6 +33,7 @@ public class VistaConstrucciones extends Pane {
         poblado.setLayoutY(destino.getY());
 
         this.getChildren().add(poblado);
+        construcciones.put(vertice, poblado);
     }
 
     public void dibujarCarretera(Button botonArista, Color color) {
@@ -49,13 +57,14 @@ public class VistaConstrucciones extends Pane {
         carretera.toBack();
     }
 
-    public void dibujarCiudad(Button botonVertice, Color color) {
+    public void dibujarCiudad(Button botonVertice, Color color, EspacioConstruible vertice) {
+        Node previo = construcciones.get(vertice);
+        if (previo != null) {
+            previo.setVisible(false);
+        }
+
         Polygon ciudad = new Polygon();
-        ciudad.getPoints().addAll(
-                0.0, -15.0,   // punta arriba
-                -12.0, 10.0,  // esquina inferior izquierda
-                12.0, 10.0    // esquina inferior derecha
-        );
+        ciudad.getPoints().addAll(0.0, -15.0, -12.0, 10.0, 12.0, 10.0);
 
         ciudad.setFill(color);
         ciudad.setStroke(Color.BLACK);

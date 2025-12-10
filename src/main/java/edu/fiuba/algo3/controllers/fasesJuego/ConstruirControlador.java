@@ -60,14 +60,11 @@ public class ConstruirControlador implements AccionesTableroControlador{
     public void ejecutar() {
         Jugador jugador = juego.jugadorActual();
         Color color = jugador.getColor();
-
         Accion accion = new AccionConstruir(this.construccion, this.espacio, juego);
-
         try {
             juego.ejecutarAccion(accion);
-        } catch (ConstruccionInvalidaError | YaHayCarreteraError |
-                 YaHayPobladoError | YaHayCiudadError | RecursosInsuficientesError e) {
-
+        } catch (ConstruccionInvalidaError | YaHayCarreteraError | YaHayPobladoError
+                 | YaHayCiudadError | RecursosInsuficientesError | ReglaDeDistanciaError e) {
             PopUpError.mostrar(e.getMessage());
             vistaConstruir.desactivarBotonFinConstruccion();
             vistaConstruir.activarBotones();
@@ -76,10 +73,10 @@ public class ConstruirControlador implements AccionesTableroControlador{
 
         if (construccion.getClass() == Poblado.class) {
             vistaTablero.dibujarPobladoEn(this.espacio, color);
-        }else if (construccion.getClass() == Ciudad.class) {
+        } else if (construccion.getClass() == Ciudad.class) {
             vistaTablero.dibujarCiudadEn( this.espacio, color);
 
-        }else if (construccion.getClass() == Carretera.class) {
+        } else if (construccion.getClass() == Carretera.class) {
             vistaTablero.dibujarCarreteraEn(this.espacio, color);
         }
         cancelarConstruccion();

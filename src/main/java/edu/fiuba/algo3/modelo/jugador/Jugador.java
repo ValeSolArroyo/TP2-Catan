@@ -64,11 +64,13 @@ public class Jugador extends Observable {
     }
 
     public void construir(Construccion construccion, EspacioConstruible espacio) {
-        if (construcciones.size() >= 4) {
-            construccion.cobrar(inventario);
-        }
         construccion.aplicarCambio(this, espacio);
+
         this.agregarConstruccion(construccion);
+    }
+
+    public void cobrarConstruccion(Construccion construccion) {
+        construccion.cobrar(inventario);
     }
 
     public void construirPrimerosPoblados(Poblado poblado, Vertice vertice) {
@@ -125,14 +127,6 @@ public class Jugador extends Observable {
         this.cartasBonificacion.remove(cartaBonificacion);
         this.puntosVictoriaCartas -= 2;
         notificarObservadores();
-    }
-
-    private int puntosPorConstrucciones() {
-        int total = 0;
-        for (Construccion construccion : construcciones) {
-            total += construccion.puntosVictoria();
-        }
-        return total;
     }
 
     public boolean evaluarSiEsGanador() {
