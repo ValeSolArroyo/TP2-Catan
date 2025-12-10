@@ -13,7 +13,6 @@ import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
 import edu.fiuba.algo3.vistas.componentes.popups.PopUpInformativo;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +58,7 @@ public class CaballeroControlador implements AccionHexagonoControlador, RoboCont
 
     @Override
     public void ejecutar() {
+        Jugador jugadorActual = juego.jugadorActual();
         try {
             Accion accion = new Caballero(juego, nuevoLugar, victima, juego.jugadorActual());
             juego.ejecutarAccion(accion);
@@ -67,9 +67,10 @@ public class CaballeroControlador implements AccionHexagonoControlador, RoboCont
         } catch (NullPointerException e) {
             PopUpInformativo.mostrar("No hay jugadores para robar en donde moviste al ladrón.");
         }
+        jugadorActual.sumarCartaCaballeroJugada();
+        jugadorActual.eliminarCarta(new Caballero());
         VistaJuegoGeneral vistaJuego = new VistaJuegoGeneral(contenedor, juego, vistaTablero);
         contenedor.setContenido(vistaJuego);
-
     }
 
     @Override

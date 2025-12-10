@@ -366,3 +366,11 @@
     -fx-cursor: hand;
     -fx-text-alignment: center;
 }
+
+.obtencion-bonificacion {
+    -fx-font-family: "Minecraft";
+    -fx-text-fill: #2C2470;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+}

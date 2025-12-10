@@ -29,7 +29,7 @@ public class VistaColocacionesIniciales extends BorderPane  {
         this.juego = juego;
         this.vistaTablero = vistaTablero;
 
-        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_puertos_con_cartas.jpg"));
+        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_puertos_sin_cartas.jpg"));
         HBox barraJugadores = new HBox(20);
         barraJugadores.setAlignment(Pos.CENTER);
 
