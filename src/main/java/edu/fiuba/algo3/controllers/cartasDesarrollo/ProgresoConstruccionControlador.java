@@ -75,13 +75,10 @@ public class   ProgresoConstruccionControlador implements AccionesTableroControl
         Jugador jugador = juego.jugadorActual();
         Color color = jugador.getColor();
         Arista aristaAConstruir = aristas.get(0);
-
         Accion accion = new ProgresoConstruccion(juego, jugador, List.of(aristaAConstruir));
-
         try {
             juego.ejecutarAccion(accion);
             carreterasConstruidas++;
-
         } catch (ConstruccionInvalidaError | YaHayCarreteraError e) {
             PopUpError.mostrar(e.getMessage());
             resetearSeleccionActual();

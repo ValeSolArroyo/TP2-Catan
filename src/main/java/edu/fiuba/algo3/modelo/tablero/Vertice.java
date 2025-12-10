@@ -52,8 +52,8 @@ public class Vertice implements EspacioConstruible {
         if (!validarCarreterasProximas(jugador)) {
             throw new ConstruccionInvalidaError("No se puede construir si no hay carreteras");
         }
-        this.construccion = construccion;
         jugador.cobrarConstruccion(construccion);
+        this.construccion = construccion;
     }
 
     public void construirPobladoPrimerasColocaciones(Jugador jugador, Poblado construccion) {
@@ -70,9 +70,9 @@ public class Vertice implements EspacioConstruible {
             this.construccion.ocupar();
         } catch (YaHayPobladoError e) {
            this.construccion.tieneDePropietarioA(jugador);
+           jugador.cobrarConstruccion(nuevaConstruccion);
            Construccion antigua = this.construccion;
            this.construccion = nuevaConstruccion;
-           jugador.cobrarConstruccion(nuevaConstruccion);
            jugador.eliminarConstruccion(antigua);
            return;
         } catch (YaHayCiudadError e) {

@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo.cartasDeDesarrollo;
 
 import edu.fiuba.algo3.modelo.construcciones.Carretera;
+import edu.fiuba.algo3.modelo.excepciones.ConstruccionInvalidaError;
+import edu.fiuba.algo3.modelo.excepciones.YaHayCarreteraError;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Ladrillo;
@@ -31,13 +33,9 @@ public class ProgresoConstruccion implements CartaDesarrollo {
     @Override
     public void ejecutar() {
         for (Arista arista: carreterasAConstruir) {
-            List<Recurso> recursosNecesarios = List.of(new Madera(), new Ladrillo());
-            for (Recurso recurso : recursosNecesarios) {
-                jugadorActual.recibirRecurso(recurso);
-            }
-
-            jugadorActual.construir(new Carretera(jugadorActual), arista);
+            arista.construirCarreteraPrimerasColocaciones(jugadorActual, new Carretera(jugadorActual));
             juego.revisarGranRutaComercial(jugadorActual);
+            // TODO: agregar al controlador como hicimos con caballero
         }
         jugadorActual.eliminarCarta(new ProgresoConstruccion());
     }
