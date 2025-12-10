@@ -31,7 +31,7 @@ public class   ProgresoConstruccionControlador implements AccionesTableroControl
     private List<Arista> aristas = new ArrayList<>();
     private int carreterasConstruidas = 0;
 
-    public ProgresoConstruccionControlador (Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego, ContenedorPrincipalVistas contenedor, Stage stage){
+    public ProgresoConstruccionControlador (Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego, ContenedorPrincipalVistas contenedor){
         this.juego = juego;
         this.vistaTablero = vistaTablero;
 
@@ -39,7 +39,6 @@ public class   ProgresoConstruccionControlador implements AccionesTableroControl
 
         this.vistaJuego = vistaJuego;
         this.contenedor = contenedor;
-        this.stage = stage;
     }
 
     public void setVistaProgreso(VistaProgresoConstruccion vistaProgreso){
@@ -103,7 +102,7 @@ public class   ProgresoConstruccionControlador implements AccionesTableroControl
     }
 
     public void finalizarCarta() {
-        VistaJuegoGeneral nuevaVistaJuego = new VistaJuegoGeneral(stage, contenedor, juego, vistaTablero);
+        VistaJuegoGeneral nuevaVistaJuego = new VistaJuegoGeneral(contenedor, juego, vistaTablero);
         contenedor.setContenido(nuevaVistaJuego);
     }
 

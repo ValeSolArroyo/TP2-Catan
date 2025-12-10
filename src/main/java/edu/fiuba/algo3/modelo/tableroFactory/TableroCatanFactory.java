@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo.tableroFactory;
 
-import edu.fiuba.algo3.modelo.comercio.PuertoEspecial;
-import edu.fiuba.algo3.modelo.comercio.PuertoGenerico;
+import edu.fiuba.algo3.modelo.comercio.puertos.PuertoEspecial;
+import edu.fiuba.algo3.modelo.comercio.puertos.PuertoGenerico;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Hexagono;

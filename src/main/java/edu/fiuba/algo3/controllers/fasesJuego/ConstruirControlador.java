@@ -85,11 +85,7 @@ public class ConstruirControlador implements AccionesTableroControlador{
         cancelarConstruccion();
     }
 
-
     public void cancelarConstruccion() {
-        this.construccion = null;
-        this.espacio = null;
-
         vistaTablero.ocultarVertices();
         vistaTablero.ocultarAristas();
 

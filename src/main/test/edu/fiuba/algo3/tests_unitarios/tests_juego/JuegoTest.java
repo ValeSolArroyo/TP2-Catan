@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.tests_unitarios.tests_juego;
 
-import edu.fiuba.algo3.modelo.comercio.Banca;
+import edu.fiuba.algo3.modelo.comercio.interno.Banca;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.*;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;

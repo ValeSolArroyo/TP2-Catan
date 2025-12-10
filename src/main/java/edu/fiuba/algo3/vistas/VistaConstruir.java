@@ -25,7 +25,7 @@ public class VistaConstruir extends BorderPane {
     private BotonGenerico botonFinConstruccion;
     private BotonJuego botonCancelar;
 
-    public VistaConstruir(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego, ConstruirControlador controlador) {
+    public VistaConstruir(ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego, ConstruirControlador controlador) {
         this.juego = juego;
         this.vistaTablero = vistaTablero;
         this.construirControlador = controlador;
@@ -51,7 +51,7 @@ public class VistaConstruir extends BorderPane {
 
         inicializarBotones();
 
-        CambioTurnoControlador cambioTurno = new CambioTurnoControlador(stage, contenedor, juego);
+        CambioTurnoControlador cambioTurno = new CambioTurnoControlador(contenedor, juego);
         cambioTurno.agregarTablero(this.vistaTablero);
         VistaTurnoActual vistaTurno = new VistaTurnoActual(cambioTurno);
 
@@ -67,7 +67,7 @@ public class VistaConstruir extends BorderPane {
         botonVolver.setOnAction(e -> {
             this.vistaTablero.ocultarVertices();
             this.vistaTablero.ocultarAristas();
-            VistaJuegoGeneral nuevaVistaJuego = new VistaJuegoGeneral(stage, contenedor, juego, this.vistaTablero);
+            VistaJuegoGeneral nuevaVistaJuego = new VistaJuegoGeneral(contenedor, juego, this.vistaTablero);
             contenedor.setContenido(nuevaVistaJuego);
         });
         botonVolver.setPrefWidth(100);

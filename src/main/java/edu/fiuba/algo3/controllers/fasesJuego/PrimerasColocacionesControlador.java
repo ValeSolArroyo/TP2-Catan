@@ -10,7 +10,10 @@ import edu.fiuba.algo3.modelo.juegoCommand.AccionSegundaColocacion;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
+import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaColocacionesIniciales;
+import edu.fiuba.algo3.vistas.VistaLanzarDados;
+import edu.fiuba.algo3.vistas.componentes.VistaDados;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
 import javafx.scene.paint.Color;
@@ -24,9 +27,11 @@ public class PrimerasColocacionesControlador implements AccionesTableroControlad
     private Vertice vertice;
     private Arista arista;
     private boolean esSegundaColocacion;
+    private ContenedorPrincipalVistas contenedor;
 
-    public PrimerasColocacionesControlador(Juego juego, VistaTablero vistaTablero, VistaColocacionesIniciales colocacionesIniciales, CambioTurnoControlador cambioTurno) {
+    public PrimerasColocacionesControlador(Juego juego, ContenedorPrincipalVistas contenedor, VistaTablero vistaTablero, VistaColocacionesIniciales colocacionesIniciales, CambioTurnoControlador cambioTurno) {
         this.juego = juego;
+        this.contenedor = contenedor;
 
         this.vistaTablero = vistaTablero;
         this.vistaTablero.setControlador(this);
@@ -99,8 +104,8 @@ public class PrimerasColocacionesControlador implements AccionesTableroControlad
                 vistaColocaciones.activarFinalizar(false);
                 vistaColocaciones.activarPoblado(false);
                 vistaColocaciones.activarCarretera(false);
-                juego.avanzarTurno();
-                cambioTurno.activarAccionFinTurno();
+                VistaLanzarDados vistaDados = new VistaLanzarDados(contenedor, juego, vistaTablero);
+                contenedor.setContenido(vistaDados);
             }
         }
         vistaColocaciones.activarFinalizar(false);

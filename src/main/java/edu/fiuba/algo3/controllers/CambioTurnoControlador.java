@@ -13,15 +13,13 @@ import javafx.stage.Stage;
 
 public class CambioTurnoControlador extends Observable {
     private Juego juego;
-    private Stage stage;
     private ContenedorPrincipalVistas contenedor;
     private String nombreJugadorActual;
     private Color colorJugadorActual;
     private VistaTablero vistaTablero;
 
-    public CambioTurnoControlador(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego) {
+    public CambioTurnoControlador(ContenedorPrincipalVistas contenedor, Juego juego) {
         this.juego = juego;
-        this.stage = stage;
         this.contenedor = contenedor;
         actualizarDatosJugadorActual();
     }
@@ -34,7 +32,7 @@ public class CambioTurnoControlador extends Observable {
 
         this.notificarObservadores();
 
-        VistaLanzarDados vistaLanzarDados = new VistaLanzarDados(stage, contenedor, juego, vistaTablero);
+        VistaLanzarDados vistaLanzarDados = new VistaLanzarDados(contenedor, juego, vistaTablero);
         contenedor.setContenido(vistaLanzarDados);
     }
 
