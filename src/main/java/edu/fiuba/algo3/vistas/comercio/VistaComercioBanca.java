@@ -22,31 +22,28 @@ import java.util.List;
 import java.util.Map;
 
 public class VistaComercioBanca extends BorderPane {
-    private ComercioBancaControlador controlador;
-    private List<Recurso> recursos;
-    private BotonJuego botonConfirmar;
+    private BotonGenerico botonConfirmar;
     private List<Button> listaBotonesElegir;
     private List<Button> listaBotonesBanca;
-    private Map<String, Integer> recursosJugadorActual;
 
     public VistaComercioBanca(ContenedorPrincipalVistas contenedor, ComercioBancaControlador controlador, List<Recurso> recursos, VistaJuegoGeneral vista, Map<String, Integer> recursosJugadorActual) {
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/mar.jpeg"));
-        this.controlador = controlador;
-        this.recursos = recursos;
-        this.recursosJugadorActual = recursosJugadorActual;
         listaBotonesElegir = new ArrayList<>();
         listaBotonesBanca =  new ArrayList<>();
 
         VBox centro = new VBox(20);
-        centro.setPadding(new Insets(40, 20, 40, 20));
+        centro.setPadding(new Insets(40, 20, 0, 20));
         centro.setAlignment(Pos.TOP_CENTER);
 
         Label titulo = new Label("Intercambio con la Banca: obten 1 recurso por 4 tuyos.");
+        titulo.getStyleClass().add("titulo-comercio");
 
         HBox hboxBanca = new HBox(40);
         hboxBanca.setAlignment(Pos.CENTER);
+        VBox.setMargin(hboxBanca, new Insets(0, 0, 40, 0));
 
         Label textoEntregar = new Label("Elige el recurso que quieres entregar a la Banca:");
+        textoEntregar.getStyleClass().add("texto-comercio");
 
         HBox hboxEntrega = new HBox(40);
         hboxEntrega.setAlignment(Pos.CENTER);
@@ -57,10 +54,11 @@ public class VistaComercioBanca extends BorderPane {
             String ruta = "/images/utils/recursos/" + nombreRecurso + ".png";
 
             Label textoRecurso = new Label("¡Tienes " + cantidad + "!");
+            textoRecurso.getStyleClass().add("texto-tienes-cantidad");
 
             ListadoRecurso listadoRecurso = new ListadoRecurso(recurso.getNombreRecurso(), ruta);
 
-            BotonGenerico boton = new BotonGenerico("Seleccionar", "botones-progreso", 230, 80);
+            BotonGenerico boton = new BotonGenerico("Seleccionar", "botones-comercio", 220, 70);
             boton.setOnAction(e -> controlador.obtenerRecursoAEntregar(recurso));
             boton.setDisable(true);
             listaBotonesElegir.add(boton);
@@ -72,13 +70,14 @@ public class VistaComercioBanca extends BorderPane {
 
 
         Label textoBanca = new Label("Elige el recurso que quieres de la Banca:");
+        textoBanca.getStyleClass().add("texto-comercio");
 
         for (Recurso recurso : recursos) {
             String ruta = "/images/utils/recursos/" + recurso.getNombreRecurso() + ".png";
 
             ListadoRecurso listadoRecurso = new ListadoRecurso(recurso.getNombreRecurso(), ruta);
 
-            BotonGenerico boton = new BotonGenerico("Seleccionar", "botones-progreso", 230, 80);
+            BotonGenerico boton = new BotonGenerico("Seleccionar", "botones-comercio", 220, 70);
             boton.setOnAction(e -> controlador.obtenerRecursoBanca(recurso));
             listaBotonesBanca.add(boton);
 
@@ -91,11 +90,11 @@ public class VistaComercioBanca extends BorderPane {
 
         this.setCenter(centro);
 
-        botonConfirmar = new BotonJuego("Confirmar");
+        botonConfirmar = new BotonGenerico("Confirmar", "botones-comercio", 150, 50);
         botonConfirmar.setOnAction(e -> controlador.ejecutar());
         desactivarBotonEjecutar();
 
-        BotonJuego botonVolver = new BotonJuego("Volver");
+        BotonGenerico botonVolver = new BotonGenerico("Volver", "botones-comercio", 150, 50);
         botonVolver.setOnAction(new VolverControlador(contenedor, vista));
 
         HBox botonesInferiores = new HBox(20, botonVolver, botonConfirmar);

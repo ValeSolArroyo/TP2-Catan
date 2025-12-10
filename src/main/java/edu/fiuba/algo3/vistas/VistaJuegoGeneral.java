@@ -20,7 +20,7 @@ public class VistaJuegoGeneral extends BorderPane {
         this.juego = juego;
         this.vistaTablero = vistaTablero;
 
-        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo.jpg"));
+        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_puertos_con_cartas.jpg"));
 
         HBox barraJugadores = new HBox(20);
         barraJugadores.setAlignment(Pos.CENTER);

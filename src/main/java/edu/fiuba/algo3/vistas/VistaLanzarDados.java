@@ -21,7 +21,7 @@ public class VistaLanzarDados extends BorderPane {
         this.contenedor = contenedor;
         this.vistaTablero = vistaTablero;
 
-        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_sin_cartas.jpg"));
+        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_puertos_sin_cartas.jpg"));
 
         HBox barraJugadores = new HBox(20);
         barraJugadores.setAlignment(Pos.CENTER);
