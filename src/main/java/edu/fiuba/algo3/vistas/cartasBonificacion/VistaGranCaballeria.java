@@ -35,7 +35,7 @@ public class VistaGranCaballeria extends BorderPane {
         imagenView.setFitWidth(250);
         imagenView.setPreserveRatio(true);
 
-        Label textoExplicativo = new Label("Si un jugador juega mas cartas de Caballeria que tu,\nperderas esta valiosa carta que otorga un Punto de Victoria...");
+        Label textoExplicativo = new Label("Si un jugador juega mas cartas de Caballeria que tu,\nperderas esta valiosa carta que otorga dos Puntos de Victoria...");
         textoExplicativo.getStyleClass().add("obtencion-bonificacion");
 
         contenido.getChildren().addAll(textoGanador, imagenView, textoExplicativo);

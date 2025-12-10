@@ -1,5 +1,8 @@
 package edu.fiuba.algo3.vistas.componentes;
 
+import edu.fiuba.algo3.modelo.cartasBonificacion.CartaBonificacion;
+import edu.fiuba.algo3.modelo.cartasBonificacion.GranCaballeria;
+import edu.fiuba.algo3.modelo.cartasBonificacion.GranRutaComercial;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import javafx.geometry.Insets;
@@ -93,8 +96,8 @@ public class InfoJugador extends VBox implements Observador {
 
     public void actualizar() {
         if (this.jugador == juego.jugadorActual()) {
-            if (jugador.getPuntosVictoriaCartaDesarrollo() > 0) {
-                puntosLabel.setText("PV: " + jugador.getPuntosVictoria() + " (+" + jugador.getPuntosVictoriaCartaDesarrollo() + ")");
+            if (jugador.getPuntosVictoriaCartas() > 0) {
+                puntosLabel.setText("PV: " + jugador.getPuntosVictoria() + " (+" + jugador.getPuntosVictoriaCartas() + ")");
             } else {
                 puntosLabel.setText("PV: " + jugador.getPuntosVictoria());
             }
@@ -104,6 +107,20 @@ public class InfoJugador extends VBox implements Observador {
             String recursosTexto = formatearRecursos();
             String espacios = recursosTexto.replaceAll(".", "-");
             recursosLabel.setText(espacios);
+        }
+
+        for (CartaBonificacion carta : jugador.getCartasBonificacion()) {
+            if (carta.getClass() == GranCaballeria.class) {
+                mostrarImagenCaballeria();
+            } else {
+                ocultarImagenCaballeria();
+            }
+
+            if (carta.getClass() == GranRutaComercial.class) {
+                mostrarImagenRutaComercial();
+            } else {
+                ocultarImagenRutaComercial();
+            }
         }
     }
 
@@ -122,4 +139,5 @@ public class InfoJugador extends VBox implements Observador {
     public void mostrarImagenRutaComercial() {
         this.rutaComercial.setOpacity(1);
     }
+
 }
