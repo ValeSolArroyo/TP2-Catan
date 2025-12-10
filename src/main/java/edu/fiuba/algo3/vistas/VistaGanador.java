@@ -25,5 +25,7 @@ public class VistaGanador extends BorderPane {
 
         cartaConBrillos.getChildren().addAll(Brillos.crearBrillos(), contenido);
         this.setCenter(cartaConBrillos);
+
+        // TODO: agregar botón de jugar nueva partida y otro de salir del juego
     }
 }

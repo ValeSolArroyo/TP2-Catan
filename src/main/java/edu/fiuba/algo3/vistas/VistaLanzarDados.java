@@ -58,7 +58,7 @@ public class VistaLanzarDados extends BorderPane {
         derecha.getChildren().addAll(vistaDados, botonLanzarDados);
         this.setRight(derecha);
 
-        DadosControlador dadosControlador = new DadosControlador(juego, contenedor, this.vistaTablero);
+        DadosControlador dadosControlador = new DadosControlador(juego, contenedor, this.vistaTablero, cambioTurno);
 
         botonLanzarDados.setOnAction(e -> {
             dadosControlador.lanzarDados();

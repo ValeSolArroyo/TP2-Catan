@@ -28,8 +28,8 @@ public class Caballero implements CartaDesarrollo {
         juego.moverLadron(nuevoLugar);
         juego.robarCartaDe(victima);
         jugadorActual.registrarCaballeroJugado();
-        juego.revisarGranCaballeria(jugadorActual);
         jugadorActual.eliminarCarta(new Caballero());
+        jugadorActual.sumarCartaCaballeroJugada();
     }
 
     public String getCarta(){
