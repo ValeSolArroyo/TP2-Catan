@@ -7,6 +7,7 @@ import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.comercio.VistaComercioBanca;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.comercio.VistaComercioInterno;
+import edu.fiuba.algo3.vistas.comercio.VistaComercioPuerto;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 import java.util.List;
 import java.util.Map;
@@ -46,12 +47,11 @@ public class ComercioControlador {
     }
 
     public void comerciarConPuertos(){
-        //ComercioPuertoControlador controlador = new  ComercioPuertoControlador(juego, contenedor, vistaJuego);
-        //VistaComercioPuerto vista = new VistaComercioPuerto(controlador);
-        //contenedor.setContenido(vista);
+        ComercioPuertoControlador controlador = new ComercioPuertoControlador(juego, contenedor, vistaJuego, vistaTablero);
+        VistaComercioPuerto vista = new VistaComercioPuerto(controlador, contenedor, juego, vistaTablero, vistaJuego);
+        controlador.setVistaComercio(vista);
 
+        contenedor.setContenido(vista);
     }
-
-
 }
 
