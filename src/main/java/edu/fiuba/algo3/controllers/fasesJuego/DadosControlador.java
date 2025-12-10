@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.controllers.fasesJuego;
 
+import edu.fiuba.algo3.controllers.CambioTurnoControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
@@ -13,11 +14,13 @@ public class DadosControlador {
     private boolean dadosLanzados = false;
     private VistaTablero vistaTablero;
     private int resultado;
+    private CambioTurnoControlador cambioTurnoControlador;
 
-    public DadosControlador(Juego juego, ContenedorPrincipalVistas contenedor, VistaTablero vistaTablero) {
+    public DadosControlador(Juego juego, ContenedorPrincipalVistas contenedor, VistaTablero vistaTablero, CambioTurnoControlador cambioTurnoControlador) {
         this.juego = juego;
         this.contenedor = contenedor;
         this.vistaTablero = vistaTablero;
+        this.cambioTurnoControlador = cambioTurnoControlador;
     }
 
     public void lanzarDados() {
@@ -31,6 +34,7 @@ public class DadosControlador {
                 contenedor.setContenido(vistaCaballero);
             } else {
                 VistaJuegoGeneral vista = new VistaJuegoGeneral(contenedor, juego, this.vistaTablero);
+                cambioTurnoControlador.setVistaJuego(vista);
                 contenedor.setContenido(vista);
             }
         }

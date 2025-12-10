@@ -6,7 +6,9 @@ import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.observer.Observable;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaGanador;
+import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.VistaLanzarDados;
+import edu.fiuba.algo3.vistas.cartasBonificacion.VistaGranCaballeria;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -18,6 +20,7 @@ public class CambioTurnoControlador extends Observable {
     private String nombreJugadorActual;
     private Color colorJugadorActual;
     private VistaTablero vistaTablero;
+    private VistaJuegoGeneral vistaJuego;
 
     public CambioTurnoControlador(ContenedorPrincipalVistas contenedor, Juego juego) {
         this.juego = juego;
@@ -32,6 +35,15 @@ public class CambioTurnoControlador extends Observable {
             contenedor.setContenido(vistaGanador);
             return;
         }
+
+        if (juego.revisarGranCaballeria(jugadorActual)) {
+            VistaGranCaballeria vistaGCaballeria = new VistaGranCaballeria(jugadorActual, this.vistaJuego);
+            contenedor.setContenido(vistaGCaballeria);
+            return;
+        }
+
+        //validarGranCaballeria(jugadorActual);
+        //validarGranRutaComercial(jugadorActual);
 
         AccionFinalizarTurno accion = new AccionFinalizarTurno(juego);
         juego.ejecutarAccion(accion);
@@ -60,5 +72,9 @@ public class CambioTurnoControlador extends Observable {
 
     public void agregarTablero(VistaTablero vistaTablero) {
         this.vistaTablero = vistaTablero;
+    }
+
+    public void setVistaJuego(VistaJuegoGeneral vistaJuego) {
+        this.vistaJuego = vistaJuego;
     }
 }

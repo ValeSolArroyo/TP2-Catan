@@ -110,14 +110,9 @@ public class Jugador extends Observable {
         }
     }
 
-    public void registrarCaballeroJugado(){
-        this.cartasCaballeroJugadas =  this.cartasCaballeroJugadas + 1;
-    }
-
     public int conseguirCartasCaballeroJugadas() {
         return cartasCaballeroJugadas;
     }
-
 
     public void recibirCartaBonificacion (CartaBonificacion cartaBonificacion){
         this.cartasBonificacion.add(cartaBonificacion);
@@ -152,6 +147,10 @@ public class Jugador extends Observable {
         this.puntosVictoria = puntosConstruccion + puntosCartasBonificacion;
 
         return puntosConstruccion + puntosCartasBonificacion + puntosVictoriaCartaDesarrollo;
+    }
+
+    public void sumarCartaCaballeroJugada() {
+        this.cartasCaballeroJugadas += 1;
     }
 
     public String getNombre() { return this.nombre; }

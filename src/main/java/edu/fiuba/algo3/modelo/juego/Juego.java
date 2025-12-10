@@ -141,12 +141,12 @@ public class Juego {
         this.indiceTurno = (this.indiceTurno - 1 + listaJugadores.size()) % listaJugadores.size();
     }
 
-    public void revisarGranCaballeria(Jugador jugador) {
-        granCaballeria.evaluarCartaBonificacion(jugador, tablero);
+    public boolean revisarGranCaballeria(Jugador jugador) {
+        return granCaballeria.evaluarCartaBonificacion(jugador, tablero);
     }
 
-    public void revisarGranRutaComercial(Jugador jugador) {
-        granRutaComercial.evaluarCartaBonificacion(jugador, tablero);
+    public boolean revisarGranRutaComercial(Jugador jugador) {
+        return granRutaComercial.evaluarCartaBonificacion(jugador, tablero);
     }
 
     public void entregarAJugador(Recurso recursoDeseado) {
