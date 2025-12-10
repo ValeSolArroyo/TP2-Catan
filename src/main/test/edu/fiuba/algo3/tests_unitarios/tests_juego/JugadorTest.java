@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.tests_unitarios.tests_juego;
 
+import edu.fiuba.algo3.modelo.cartasDeDesarrollo.PuntoVictoria;
 import edu.fiuba.algo3.modelo.construcciones.Carretera;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
@@ -75,5 +76,16 @@ public class JugadorTest {
 
         assertDoesNotThrow(() -> jugador.construir(new Poblado(jugador), v4));
         assertThrows(RecursosInsuficientesError.class, () -> jugador.entregarRecursos(costoPoblado));
+    }
+
+    @Test
+    public void test06ValidarQueFuncionenBienPVCarta() {
+        Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
+        for (int i = 0; i < 10; i++) {
+            jugador.guardarCartaDesarrollo(new PuntoVictoria(), List.of());
+        }
+
+        assertTrue(jugador.conseguirPuntosDeVictoriaTotales() == 10);
+        assertTrue(jugador.getPuntosVictoriaCartaDesarrollo() == 10);
     }
 }

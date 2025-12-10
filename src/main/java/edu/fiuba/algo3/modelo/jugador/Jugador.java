@@ -137,11 +137,12 @@ public class Jugador extends Observable {
         return total;
     }
 
-    public void evaluarSiEsGanador() {
+    public boolean evaluarSiEsGanador() {
         int puntos = conseguirPuntosDeVictoriaTotales();
         if (puntos >= 10) {
-            notificarObservadores();
+            return true;
         }
+        return false;
     }
     
     public int conseguirPuntosDeVictoriaTotales(){

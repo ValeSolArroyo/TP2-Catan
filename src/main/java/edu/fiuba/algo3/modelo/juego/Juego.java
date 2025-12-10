@@ -158,11 +158,6 @@ public class Juego {
         }
     }
 
-    public void evaluarPVJugadorActual() {
-        Jugador jugador = jugadorActual();
-        jugador.evaluarSiEsGanador();
-    }
-
     public List<Jugador> getJugadores() {
         return listaJugadores;
     }

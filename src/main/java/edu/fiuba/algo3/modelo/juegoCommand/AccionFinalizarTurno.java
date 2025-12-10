@@ -11,7 +11,8 @@ public class AccionFinalizarTurno implements Accion{
 
     @Override
     public void ejecutar(){
-        juego.evaluarPVJugadorActual();
+        juego.revisarGranCaballeria(juego.jugadorActual());
+        juego.revisarGranRutaComercial(juego.jugadorActual());
         juego.avanzarTurno();
     }
 }
