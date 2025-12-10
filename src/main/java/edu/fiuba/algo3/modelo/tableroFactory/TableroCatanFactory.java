@@ -93,13 +93,15 @@ public class TableroCatanFactory implements TableroFactory {
         }
 
         // 5 puertos especiales (uno de cada recurso)
-        List<Recurso> recursosEspeciales = List.of(
+        List<Recurso> recursosEspeciales = new ArrayList<>(List.of(
                 new Madera(),
                 new Ladrillo(),
                 new Lana(),
                 new Grano(),
                 new Mineral()
-        );
+        ));
+
+        Collections.shuffle(recursosEspeciales);
 
         for (int i = 0; i < 5; i++) {
             Vertice vertice = verticesPuertoEspecial.get(i);
