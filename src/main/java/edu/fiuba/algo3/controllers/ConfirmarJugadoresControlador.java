@@ -21,7 +21,6 @@ import java.util.*;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 
 public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> {
-    private Stage stage;
     private ContenedorPrincipalVistas contenedor;
     private List<TextField> nombres;
     private List<ComboBox<String>> colores;
@@ -30,7 +29,6 @@ public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> 
             "Rojo", Color.RED, "Naranja", Color.ORANGE);
 
     public ConfirmarJugadoresControlador(Stage stage, ContenedorPrincipalVistas contenedor, List<TextField> nombres, List<ComboBox<String>> colores) {
-        this.stage = stage;
         this.contenedor = contenedor;
         this.nombres = nombres;
         this.colores = colores;
@@ -76,10 +74,10 @@ public class ConfirmarJugadoresControlador implements EventHandler<ActionEvent> 
         IniciarJuegoControlador iniciar = new IniciarJuegoControlador();
         Juego juego = iniciar.crearNuevaPartida(jugadores);
 
-        CambioTurnoControlador cambioTurno = new CambioTurnoControlador(stage, contenedor, juego);
+        CambioTurnoControlador cambioTurno = new CambioTurnoControlador( contenedor, juego);
         Tablero tablero = juego.getTablero();
         VistaTablero vistaTablero = new VistaTablero(tablero);
-        VistaColocacionesIniciales vistaJuego = new VistaColocacionesIniciales(stage, contenedor,juego, cambioTurno, vistaTablero);
+        VistaColocacionesIniciales vistaJuego = new VistaColocacionesIniciales(contenedor,juego, cambioTurno, vistaTablero);
         contenedor.setContenido(vistaJuego);
     }
 }

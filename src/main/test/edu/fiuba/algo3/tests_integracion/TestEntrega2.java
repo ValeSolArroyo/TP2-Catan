@@ -1,5 +1,9 @@
 package edu.fiuba.algo3.tests_integracion;
 
+import edu.fiuba.algo3.modelo.comercio.interno.Banca;
+import edu.fiuba.algo3.modelo.comercio.puertos.ComercioPuerto;
+import edu.fiuba.algo3.modelo.comercio.puertos.PuertoEspecial;
+import edu.fiuba.algo3.modelo.comercio.puertos.PuertoGenerico;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,7 +17,6 @@ import org.junit.jupiter.api.BeforeEach;
 
 import edu.fiuba.algo3.modelo.construcciones.*;
 import edu.fiuba.algo3.modelo.jugador.*;
-import edu.fiuba.algo3.modelo.comercio.*;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.tablero.*;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.*;

@@ -3,8 +3,8 @@ package edu.fiuba.algo3.modelo.tablero;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.fiuba.algo3.modelo.comercio.ComercioPuerto;
-import edu.fiuba.algo3.modelo.comercio.NullPuerto;
+import edu.fiuba.algo3.modelo.comercio.puertos.ComercioPuerto;
+import edu.fiuba.algo3.modelo.comercio.puertos.NullPuerto;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.NullConstruccion;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
@@ -12,7 +12,6 @@ import edu.fiuba.algo3.modelo.excepciones.*;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
-import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 
 public class Vertice implements EspacioConstruible {
     private int id;

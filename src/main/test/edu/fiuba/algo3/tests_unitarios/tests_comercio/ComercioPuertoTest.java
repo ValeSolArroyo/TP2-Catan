@@ -1,8 +1,8 @@
 package edu.fiuba.algo3.tests_unitarios.tests_comercio;
 
 import edu.fiuba.algo3.modelo.tablero.Vertice;
-import edu.fiuba.algo3.modelo.comercio.PuertoGenerico;
-import edu.fiuba.algo3.modelo.comercio.PuertoEspecial;
+import edu.fiuba.algo3.modelo.comercio.puertos.PuertoGenerico;
+import edu.fiuba.algo3.modelo.comercio.puertos.PuertoEspecial;
 import edu.fiuba.algo3.modelo.recursos.Madera;
 import edu.fiuba.algo3.modelo.recursos.Ladrillo;
 import edu.fiuba.algo3.modelo.recursos.Lana;

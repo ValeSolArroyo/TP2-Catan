@@ -25,7 +25,7 @@ public class VistaCaballero extends BorderPane {
     private Juego juego;
     private VistaTablero vistaTablero;
 
-    public VistaCaballero(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero, RoboControlador controlador) {
+    public VistaCaballero(ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero, RoboControlador controlador) {
         this.juego = juego;
         this.vistaTablero = vistaTablero;
         this.controlador = controlador;
@@ -58,7 +58,7 @@ public class VistaCaballero extends BorderPane {
 
         inicializarBotones();
 
-        CambioTurnoControlador cambioTurno = new CambioTurnoControlador(stage, contenedor, juego);
+        CambioTurnoControlador cambioTurno = new CambioTurnoControlador(contenedor, juego);
         cambioTurno.agregarTablero(this.vistaTablero);
         VistaTurnoActual vistaTurno = new VistaTurnoActual(cambioTurno);
 

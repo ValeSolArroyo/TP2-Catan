@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.tests_unitarios.tests_comercio;
 
-import edu.fiuba.algo3.modelo.comercio.Banca;
-import edu.fiuba.algo3.modelo.comercio.ComercioInterno;
+import edu.fiuba.algo3.modelo.comercio.interno.Banca;
+import edu.fiuba.algo3.modelo.comercio.interno.ComercioInterno;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.excepciones.RecursosInsuficientesError;
