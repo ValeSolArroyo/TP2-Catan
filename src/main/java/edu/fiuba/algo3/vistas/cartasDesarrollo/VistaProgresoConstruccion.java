@@ -45,8 +45,7 @@ public class VistaProgresoConstruccion extends BorderPane {
         HBox tableroContenedor = new HBox(20);
         tableroContenedor.setAlignment(Pos.CENTER);
         tableroContenedor.getChildren().add(this.vistaTablero);
-        HBox.setMargin(this.vistaTablero, new Insets(0, 0, 0, 352));
-        this.vistaTablero.setTranslateY(-40);
+        HBox.setMargin(this.vistaTablero, new Insets(0, 0, 70, 350));
         this.setCenter(tableroContenedor);
 
         inicializarBotones();

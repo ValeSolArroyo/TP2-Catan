@@ -3,7 +3,9 @@ package edu.fiuba.algo3.modelo.jugador;
 import edu.fiuba.algo3.modelo.cartasBonificacion.CartaBonificacion;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
 import edu.fiuba.algo3.modelo.comercio.interno.ComercioInterno;
+import edu.fiuba.algo3.modelo.construcciones.Carretera;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
+import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.recursos.*;
@@ -76,6 +78,11 @@ public class Jugador extends Observable {
     public void construirPrimerosPoblados(Poblado poblado, Vertice vertice) {
         poblado.aplicarCambioPrimerasColocaciones(this, vertice);
         this.agregarConstruccion(poblado);
+    }
+
+    public void construirPrimerasCarreteras(Carretera carretera, Arista arista) {
+        arista.construirCarreteraPrimerasColocaciones(this, carretera);
+        this.agregarConstruccion(carretera);
     }
 
     public void recibirRecurso(Recurso recurso) {

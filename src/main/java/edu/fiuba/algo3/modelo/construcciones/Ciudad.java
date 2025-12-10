@@ -27,7 +27,6 @@ public class Ciudad implements Construccion {
 
     @Override
     public void tieneDePropietarioA(Jugador jugador) {
-
         if (!(this.propietario.equals(jugador))){
             throw new ConstruccionInvalidaError("No se puede mejorar a ciudad un poblado ajeno.");
         }

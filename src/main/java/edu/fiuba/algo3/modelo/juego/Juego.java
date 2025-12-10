@@ -76,7 +76,7 @@ public class Juego {
         Jugador jugador = this.jugadorActual();
 
         jugador.construirPrimerosPoblados(new Poblado(jugador), vertice);
-        jugador.construir(new Carretera(jugador), arista);
+        jugador.construirPrimerasCarreteras(new Carretera(jugador), arista);
 
         if (this.indiceTurno < listaJugadores.size() - 1) {
             this.avanzarTurno();
@@ -87,7 +87,7 @@ public class Juego {
         Jugador jugador = this.jugadorActual();
 
         jugador.construirPrimerosPoblados(new Poblado(jugador), vertice);
-        jugador.construir(new Carretera(jugador), arista);
+        jugador.construirPrimerasCarreteras(new Carretera(jugador), arista);
 
         this.darRecursosIniciales(vertice);
 
