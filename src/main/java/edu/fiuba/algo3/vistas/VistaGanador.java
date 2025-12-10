@@ -4,6 +4,7 @@ import edu.fiuba.algo3.controllers.CambioTurnoControlador;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.vistas.componentes.Brillos;
 import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
+import edu.fiuba.algo3.vistas.componentes.Transicion;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -39,5 +40,6 @@ public class VistaGanador extends BorderPane {
 
         this.setBottom(contenedorBoton);
 
+        Transicion.fade(this);
     }
 }
