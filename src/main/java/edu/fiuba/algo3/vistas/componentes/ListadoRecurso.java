@@ -7,8 +7,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 public class ListadoRecurso extends VBox {
-    private static final double ANCHO = 110;
-    private static final double ALTO  = 145;
+    private static final double ANCHO = 90;
+    private static final double ALTO  = 125;
     public ListadoRecurso(String nombreRecurso, String rutaImagen) {
         super(10);
         this.setAlignment(Pos.CENTER);

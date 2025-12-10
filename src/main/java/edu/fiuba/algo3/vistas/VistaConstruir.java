@@ -30,7 +30,7 @@ public class VistaConstruir extends BorderPane {
         this.vistaTablero = vistaTablero;
         this.construirControlador = controlador;
 
-        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_sin_cartas.jpg"));
+        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_puertos_con_cartas.jpg"));
 
         HBox barraJugadores = new HBox(20);
         barraJugadores.setAlignment(Pos.CENTER);
