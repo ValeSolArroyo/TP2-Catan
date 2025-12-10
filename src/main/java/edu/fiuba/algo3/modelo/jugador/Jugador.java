@@ -19,7 +19,7 @@ public class Jugador extends Observable {
     private final String nombre;
     private final Color color;
     private int puntosVictoria;
-    private int puntosVictoriaCartaDesarrollo;
+    private int puntosVictoriaCartas;
     private final Inventario inventario;
     private List<Construccion> construcciones;
     private List<CartaDesarrollo> cartasDesarrollo;
@@ -32,7 +32,7 @@ public class Jugador extends Observable {
         this.nombre = nombre;
         this.color = color;
         this.puntosVictoria = 0;
-        this.puntosVictoriaCartaDesarrollo = 0;
+        this.puntosVictoriaCartas = 0;
         this.inventario = new Inventario(this);
         this.construcciones = new ArrayList<>();
         this.cartasDesarrollo = new ArrayList<>();
@@ -56,6 +56,7 @@ public class Jugador extends Observable {
 
     public void agregarConstruccion(Construccion construccion) {
         construcciones.add(construccion);
+        this.puntosVictoria += construccion.puntosVictoria();
     }
 
     public void eliminarConstruccion(Construccion construccion) {
@@ -114,13 +115,15 @@ public class Jugador extends Observable {
         return cartasCaballeroJugadas;
     }
 
-    public void recibirCartaBonificacion (CartaBonificacion cartaBonificacion){
+    public void recibirCartaBonificacion(CartaBonificacion cartaBonificacion){
         this.cartasBonificacion.add(cartaBonificacion);
+        this.puntosVictoriaCartas += 2;
         notificarObservadores();
     }
 
-    public void perderCartaBonificacion (CartaBonificacion cartaBonificacion){
+    public void perderCartaBonificacion(CartaBonificacion cartaBonificacion){
         this.cartasBonificacion.remove(cartaBonificacion);
+        this.puntosVictoriaCartas -= 2;
         notificarObservadores();
     }
 
@@ -139,14 +142,9 @@ public class Jugador extends Observable {
         }
         return false;
     }
-    
+
     public int conseguirPuntosDeVictoriaTotales(){
-        int puntosConstruccion = puntosPorConstrucciones();
-        int puntosCartasBonificacion = cartasBonificacion.size() * 2;
-
-        this.puntosVictoria = puntosConstruccion + puntosCartasBonificacion;
-
-        return puntosConstruccion + puntosCartasBonificacion + puntosVictoriaCartaDesarrollo;
+        return this.puntosVictoria + this.puntosVictoriaCartas;
     }
 
     public void sumarCartaCaballeroJugada() {
@@ -161,8 +159,8 @@ public class Jugador extends Observable {
 
     public int getPuntosVictoria() { return this.puntosVictoria; }
 
-    public int getPuntosVictoriaCartaDesarrollo() {
-        return this.puntosVictoriaCartaDesarrollo;
+    public int getPuntosVictoriaCartas() {
+        return this.puntosVictoriaCartas;
     }
 
     public int getId() {
@@ -170,12 +168,14 @@ public class Jugador extends Observable {
     }
 
     public void sumarPVPorCartaDesarollo() {
-        this.puntosVictoriaCartaDesarrollo++;
+        this.puntosVictoriaCartas++;
     }
 
     public Map<String, Integer> getRecursosInventario(){
         return this.inventario.getRecursos();
     }
 
-    public List<CartaDesarrollo> getCartasDesarrollo(){ return this.cartasDesarrollo; }
+    public List<CartaDesarrollo> getCartasDesarrollo() { return this.cartasDesarrollo; }
+
+    public List<CartaBonificacion> getCartasBonificacion() { return this.cartasBonificacion; }
 }

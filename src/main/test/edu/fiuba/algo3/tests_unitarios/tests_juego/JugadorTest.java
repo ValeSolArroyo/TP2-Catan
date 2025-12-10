@@ -86,6 +86,6 @@ public class JugadorTest {
         }
 
         assertTrue(jugador.conseguirPuntosDeVictoriaTotales() == 10);
-        assertTrue(jugador.getPuntosVictoriaCartaDesarrollo() == 10);
+        assertTrue(jugador.getPuntosVictoriaCartas() == 10);
     }
 }
