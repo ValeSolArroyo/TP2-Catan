@@ -9,8 +9,6 @@ import edu.fiuba.algo3.vistas.cartasBonificacion.VistaGranCaballeria;
 import edu.fiuba.algo3.vistas.cartasBonificacion.VistaGranRutaComercial;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-
 
 public class CambioTurnoControlador extends Observable {
     private Juego juego;
@@ -81,6 +79,7 @@ public class CambioTurnoControlador extends Observable {
     }
 
     public void continuarTurno() {
+        System.out.println("Llegué hasta acá");
         activarAccionFinTurno();
     }
 
