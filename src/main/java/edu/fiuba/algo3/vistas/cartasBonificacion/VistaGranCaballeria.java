@@ -24,6 +24,7 @@ public class VistaGranCaballeria extends BorderPane {
         contenido.setAlignment(Pos.CENTER);
 
         Label textoGanador = new Label("¡Enhorabuena " + jugadorActual.getNombre() + " obtuviste la carta de Gran Caballeria!");
+        textoGanador.getStyleClass().add("obtencion-bonificacion");
 
         Image imagenCarta = new Image(getClass().getResource("/images/utils/bonificacion/caballero.png").toExternalForm());
 
@@ -31,7 +32,8 @@ public class VistaGranCaballeria extends BorderPane {
         imagenView.setFitWidth(250);
         imagenView.setPreserveRatio(true);
 
-        Label textoExplicativo = new Label("Si un jugador juega mas cartas de Caballeria que tu,\nperderas esta valiosa carta que otorga un punto de Victoria...");
+        Label textoExplicativo = new Label("Si un jugador juega mas cartas de Caballeria que tu,\nperderas esta valiosa carta que otorga un Punto de Victoria...");
+        textoExplicativo.getStyleClass().add("obtencion-bonificacion");
 
         contenido.getChildren().addAll(textoGanador, imagenView, textoExplicativo);
 

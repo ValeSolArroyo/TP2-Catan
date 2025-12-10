@@ -12,7 +12,7 @@ public class FabricaCartas {
             mazo.add(new Caballero());
         }
 
-        for (int i = 0; i < 5; i++) {
+        /*for (int i = 0; i < 5; i++) {
             mazo.add(new PuntoVictoria());
         }
 
@@ -22,7 +22,7 @@ public class FabricaCartas {
             mazo.add(new ProgresoConstruccion());
         }
 
-        Collections.shuffle(mazo);
+        Collections.shuffle(mazo);*/
 
         return mazo;
     }
