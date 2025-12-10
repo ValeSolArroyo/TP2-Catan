@@ -5,6 +5,7 @@ import edu.fiuba.algo3.modelo.juegoCommand.AccionFinalizarTurno;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.observer.Observable;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
+import edu.fiuba.algo3.vistas.VistaGanador;
 import edu.fiuba.algo3.vistas.VistaLanzarDados;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 import javafx.scene.paint.Color;
@@ -25,6 +26,13 @@ public class CambioTurnoControlador extends Observable {
     }
 
     public void activarAccionFinTurno() {
+        Jugador jugadorActual = juego.jugadorActual();
+        if (jugadorActual.evaluarSiEsGanador()) {
+            VistaGanador vistaGanador = new VistaGanador(jugadorActual);
+            contenedor.setContenido(vistaGanador);
+            return;
+        }
+
         AccionFinalizarTurno accion = new AccionFinalizarTurno(juego);
         juego.ejecutarAccion(accion);
 
