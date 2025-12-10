@@ -10,7 +10,6 @@ public class MenuGlobalControlador {
     }
 
     public void activarPantallaCompleta() {
-        // TODO: no anda :(
         this.stage.setFullScreen(true);
     }
 
