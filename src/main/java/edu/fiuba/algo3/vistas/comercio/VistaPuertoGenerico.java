@@ -45,7 +45,7 @@ public class VistaPuertoGenerico extends BorderPane {
         centro.setPadding(new Insets(40, 20, 0, 20));
         centro.setAlignment(Pos.TOP_CENTER);
 
-        Label titulo = new Label("Intercambio con la Banca: obten 1 recurso por 4 tuyos.");
+        Label titulo = new Label("Intercambio con puerto: obten 1 recurso por 3 tuyos.");
         titulo.getStyleClass().add("titulo-comercio");
 
         HBox hboxBanca = new HBox(40);
@@ -123,18 +123,6 @@ public class VistaPuertoGenerico extends BorderPane {
 
     public void activarBotonesElegir() {
         for (Button boton : listaBotonesElegir) {
-            boton.setDisable(false);
-        }
-    }
-
-    public void desactivarBotonesElegir() {
-        for (Button boton : listaBotonesElegir) {
-            boton.setDisable(true);
-        }
-    }
-
-    public void activarBotonesPuerto() {
-        for (Button boton : listaBotonesPuerto) {
             boton.setDisable(false);
         }
     }
