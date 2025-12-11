@@ -79,7 +79,6 @@ public class CambioTurnoControlador extends Observable {
     }
 
     public void continuarTurno() {
-        System.out.println("Llegué hasta acá");
         activarAccionFinTurno();
     }
 

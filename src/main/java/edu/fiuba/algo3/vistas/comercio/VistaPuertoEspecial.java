@@ -10,6 +10,7 @@ import edu.fiuba.algo3.vistas.componentes.botones.BotonGenerico;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -29,6 +30,12 @@ public class VistaPuertoEspecial extends BorderPane {
 
         inicializarRecursos();
 
+        Label titulo = new Label("Intercambio con puerto: obten 1 recurso por 2 " + puerto.getTipoRecurso().getNombreRecurso() + " tuyos.");
+        titulo.getStyleClass().add("titulo-comercio");
+        this.setTop(titulo);
+        BorderPane.setAlignment(titulo, Pos.CENTER);
+        BorderPane.setMargin(titulo, new Insets(20, 0, 20, 0));
+
         botonEjecutar = new BotonJuego("Confirmar");
         botonEjecutar.setOnAction(e -> controlador.ejecutar());
         botonEjecutar.setDisable(true);
@@ -44,6 +51,9 @@ public class VistaPuertoEspecial extends BorderPane {
     }
 
     private void inicializarRecursos() {
+        Label textoEntregar = new Label("Elige el recurso que quieres recibir:");
+        textoEntregar.getStyleClass().add("texto-comercio");
+        textoEntregar.setAlignment(Pos.CENTER);
         HBox hbox = new HBox(40);
         hbox.setAlignment(Pos.CENTER);
 
@@ -60,7 +70,11 @@ public class VistaPuertoEspecial extends BorderPane {
             contenedor.setAlignment(Pos.CENTER);
             hbox.getChildren().add(contenedor);
         }
-        this.setCenter(hbox);
+        VBox contenedorGeneral = new VBox(20, textoEntregar, hbox);
+        contenedorGeneral.setAlignment(Pos.CENTER);
+        contenedorGeneral.setPadding(new Insets(10, 0, 0, 0));
+
+        this.setCenter(contenedorGeneral);
     }
 
     public void desactivarBotones() {
