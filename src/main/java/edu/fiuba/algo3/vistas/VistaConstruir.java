@@ -25,13 +25,12 @@ public class VistaConstruir extends BorderPane {
     private BotonGenerico botonFinConstruccion;
     private BotonJuego botonCancelar;
 
-
-    public VistaConstruir(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego) {
+    public VistaConstruir(ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego, ConstruirControlador controlador) {
         this.juego = juego;
         this.vistaTablero = vistaTablero;
-        construirControlador = new ConstruirControlador(vistaTablero, juego, this);
+        this.construirControlador = controlador;
 
-        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_sin_cartas.jpg"));
+        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_puertos_con_cartas.jpg"));
 
         HBox barraJugadores = new HBox(20);
         barraJugadores.setAlignment(Pos.CENTER);
@@ -52,11 +51,11 @@ public class VistaConstruir extends BorderPane {
 
         inicializarBotones();
 
-        CambioTurnoControlador cambioTurno = new CambioTurnoControlador(stage, contenedor, juego);
+        CambioTurnoControlador cambioTurno = new CambioTurnoControlador(contenedor, juego);
         cambioTurno.agregarTablero(this.vistaTablero);
         VistaTurnoActual vistaTurno = new VistaTurnoActual(cambioTurno);
 
-        botonFinConstruccion = new BotonGenerico("Finalizar construccion", "boton-fin-turno", 300, 45);
+        botonFinConstruccion = new BotonGenerico("Construir", "boton-fin-turno", 200, 40);
         botonFinConstruccion.setDisable(true);
         botonFinConstruccion.setOnAction(e -> construirControlador.ejecutar());
         HBox contenedorAbajo = new HBox(20);
@@ -68,7 +67,7 @@ public class VistaConstruir extends BorderPane {
         botonVolver.setOnAction(e -> {
             this.vistaTablero.ocultarVertices();
             this.vistaTablero.ocultarAristas();
-            VistaJuegoGeneral nuevaVistaJuego = new VistaJuegoGeneral(stage, contenedor, juego, this.vistaTablero);
+            VistaJuegoGeneral nuevaVistaJuego = new VistaJuegoGeneral(contenedor, juego, this.vistaTablero);
             contenedor.setContenido(nuevaVistaJuego);
         });
         botonVolver.setPrefWidth(100);
@@ -85,7 +84,7 @@ public class VistaConstruir extends BorderPane {
 
         this.setTop(topContainer);
 
-        HBox.setMargin(vistaTurno, new Insets(0, 0, 0, 155));
+        HBox.setMargin(vistaTurno, new Insets(0, 0, 0, 255));
 
         this.setBottom(contenedorAbajo);
 

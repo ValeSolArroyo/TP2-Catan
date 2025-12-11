@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 public class BotonAgregarTema extends VBox {
-
     public BotonAgregarTema(String textoBoton, String textoDescripcion, String rutaMusica, Musica musica, int ancho, int alto) {
         super(5);
         this.setAlignment(Pos.CENTER);

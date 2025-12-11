@@ -5,6 +5,7 @@ import edu.fiuba.algo3.controllers.fasesJuego.RoboControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
+import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.componentes.*;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 import javafx.geometry.Insets;
@@ -12,7 +13,6 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -25,12 +25,12 @@ public class VistaCaballero extends BorderPane {
     private Juego juego;
     private VistaTablero vistaTablero;
 
-    public VistaCaballero(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero, RoboControlador controlador) {
+    public VistaCaballero(ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero, RoboControlador controlador) {
         this.juego = juego;
         this.vistaTablero = vistaTablero;
         this.controlador = controlador;
 
-        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_sin_cartas.jpg"));
+        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_puertos_sin_cartas.jpg"));
 
         HBox barraJugadores = new HBox(20);
         barraJugadores.setAlignment(Pos.CENTER);
@@ -58,7 +58,7 @@ public class VistaCaballero extends BorderPane {
 
         inicializarBotones();
 
-        CambioTurnoControlador cambioTurno = new CambioTurnoControlador(stage, contenedor, juego);
+        CambioTurnoControlador cambioTurno = new CambioTurnoControlador(contenedor, juego);
         cambioTurno.agregarTablero(this.vistaTablero);
         VistaTurnoActual vistaTurno = new VistaTurnoActual(cambioTurno);
 

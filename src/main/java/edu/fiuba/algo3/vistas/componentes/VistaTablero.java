@@ -1,15 +1,13 @@
 package edu.fiuba.algo3.vistas.componentes;
 import edu.fiuba.algo3.controllers.fasesJuego.AccionHexagonoControlador;
 import edu.fiuba.algo3.controllers.fasesJuego.AccionesTableroControlador;
-import edu.fiuba.algo3.modelo.tablero.Arista;
-import edu.fiuba.algo3.modelo.tablero.Hexagono;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
-import edu.fiuba.algo3.modelo.tablero.Vertice;
+import edu.fiuba.algo3.modelo.tablero.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class VistaTablero extends StackPane {
@@ -24,7 +22,7 @@ public class VistaTablero extends StackPane {
         vistaAristas  = new VistaAristas(tablero.getAristas());
         vistaConstrucciones = new VistaConstrucciones();
 
-        this.getChildren().addAll(vistaHexagonos, vistaVertices, vistaAristas, vistaConstrucciones);
+        this.getChildren().addAll(vistaHexagonos, vistaConstrucciones, vistaVertices, vistaAristas);
         ocultarVertices();
         ocultarAristas();
     }
@@ -50,12 +48,12 @@ public class VistaTablero extends StackPane {
 
     public void mostrarVertices() {
         vistaVertices.setDisable(false);
-        vistaVertices.setOpacity(1);
+        vistaVertices.setOpacity(0.8);
     }
 
     public void mostrarAristas(List<Arista> aristas) {
         vistaAristas.setDisable(false);
-        vistaAristas.setOpacity(1);
+        vistaAristas.setOpacity(0.8);
         if(aristas.size() == 0) {
             vistaAristas.mostrarAristas();
         }else {
@@ -66,18 +64,28 @@ public class VistaTablero extends StackPane {
 
     public void mostrarTodasLasAristas() {
         vistaAristas.setDisable(false);
-        vistaAristas.setOpacity(1);
+        vistaAristas.setOpacity(0.8);
         this.vistaAristas.mostrarAristas();
     }
 
-    public void dibujarPobladoEn(Vertice vertice, Color color){
+    public void dibujarPobladoEn(EspacioConstruible vertice, Color color){
         Button boton = vistaVertices.botonDe(vertice);
-        vistaConstrucciones.dibujarPoblado(boton, color);
+        vistaConstrucciones.dibujarPoblado(boton, color, vertice);
     }
 
-    public void dibujarCarreteraEn(Arista arista, Color color){
+    public void dibujarCarreteraEn(EspacioConstruible arista, Color color){
         Button boton = vistaAristas.botonDe(arista);
         vistaConstrucciones.dibujarCarretera(boton, color);
+    }
+
+    public void dibujarCiudadEn(EspacioConstruible vertice, Color color) {
+        Button boton = vistaVertices.botonDe(vertice);
+        vistaConstrucciones.dibujarCiudad(boton, color, vertice);
+    }
+
+    public void mostrarVerticesPuerto() {
+        mostrarVertices();
+        vistaVertices.mostrarVerticesPuerto();
     }
 
     public void mostrarLadronEn(Hexagono hexagono) {

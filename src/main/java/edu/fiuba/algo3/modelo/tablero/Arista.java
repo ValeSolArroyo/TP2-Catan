@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo.tablero;
+import edu.fiuba.algo3.modelo.construcciones.Carretera;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.NullConstruccion;
+import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.excepciones.ConstruccionInvalidaError;
 import edu.fiuba.algo3.modelo.excepciones.YaHayCarreteraError;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
@@ -38,6 +40,17 @@ public class Arista implements EspacioConstruible {
     }
 
     public void construirCarretera(Jugador jugador, Construccion construccion) {
+        this.construccion.ocupar();
+        if (!this.vertice1.validarConstruccionesProximas(jugador) && !this.vertice2.validarConstruccionesProximas(jugador)) {
+            if (!this.vertice1.validarCarreterasProximas(jugador) && !this.vertice2.validarCarreterasProximas(jugador)) {
+                throw new ConstruccionInvalidaError("No se puede colocar la carretera porque no cumple con las condiciones.");
+            }
+        }
+        jugador.cobrarConstruccion(construccion);
+        this.construccion = construccion;
+    }
+
+    public void construirCarreteraPrimerasColocaciones(Jugador jugador, Carretera construccion) {
         this.construccion.ocupar();
         if (!this.vertice1.validarConstruccionesProximas(jugador) && !this.vertice2.validarConstruccionesProximas(jugador)) {
             if (!this.vertice1.validarCarreterasProximas(jugador) && !this.vertice2.validarCarreterasProximas(jugador)) {

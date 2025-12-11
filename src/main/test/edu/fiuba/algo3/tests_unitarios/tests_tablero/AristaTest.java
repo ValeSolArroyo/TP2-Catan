@@ -93,7 +93,7 @@ public class AristaTest {
 
         // Act & Assert
         assertDoesNotThrow(() -> {
-            arista.construirCarretera(jugador, carretera);
+            arista.construirCarreteraPrimerasColocaciones(jugador, carretera);
         });
     }
 }

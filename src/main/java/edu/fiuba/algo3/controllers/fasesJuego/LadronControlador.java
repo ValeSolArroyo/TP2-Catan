@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Set;
 
 public class LadronControlador implements AccionHexagonoControlador, RoboControlador {
-    private final Stage stage;
     private final Juego juego;
     private VistaCaballero vistaLadron;
     private Hexagono nuevoLugar;
@@ -27,8 +26,7 @@ public class LadronControlador implements AccionHexagonoControlador, RoboControl
     private Jugador victima;
     private final ContenedorPrincipalVistas contenedor;
 
-    public LadronControlador(Stage stage, Juego juego, VistaTablero vistaTablero, ContenedorPrincipalVistas contenedor) {
-        this.stage = stage;
+    public LadronControlador(Juego juego, VistaTablero vistaTablero, ContenedorPrincipalVistas contenedor) {
         this.juego = juego;
         this.vistaTablero = vistaTablero;
         this.vistaTablero.setControlador(this);
@@ -70,7 +68,7 @@ public class LadronControlador implements AccionHexagonoControlador, RoboControl
         } catch (NullPointerException e) {
             PopUpInformativo.mostrar("No hay jugadores para robar en donde moviste al ladrón.");
         }
-        VistaJuegoGeneral vistaJuego = new VistaJuegoGeneral(stage, contenedor, juego, vistaTablero);
+        VistaJuegoGeneral vistaJuego = new VistaJuegoGeneral(contenedor, juego, vistaTablero);
         contenedor.setContenido(vistaJuego);
 
     }

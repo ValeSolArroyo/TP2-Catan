@@ -29,7 +29,7 @@ public class VistaProgresoConstruccion extends BorderPane {
         this.juego = juego;
         this.vistaTablero = vistaTablero;
         this.controlador = controlador;
-        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_sin_cartas.jpg"));
+        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_puertos_sin_cartas.jpg"));
 
         HBox barraJugadores = new HBox(20);
         barraJugadores.setAlignment(Pos.CENTER);
@@ -45,8 +45,7 @@ public class VistaProgresoConstruccion extends BorderPane {
         HBox tableroContenedor = new HBox(20);
         tableroContenedor.setAlignment(Pos.CENTER);
         tableroContenedor.getChildren().add(this.vistaTablero);
-        HBox.setMargin(this.vistaTablero, new Insets(0, 0, 0, 352));
-        this.vistaTablero.setTranslateY(-40);
+        HBox.setMargin(this.vistaTablero, new Insets(0, 0, 70, 350));
         this.setCenter(tableroContenedor);
 
         inicializarBotones();

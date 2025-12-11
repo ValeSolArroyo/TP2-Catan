@@ -13,14 +13,12 @@ import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
 import edu.fiuba.algo3.vistas.componentes.popups.PopUpInformativo;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 public class CaballeroControlador implements AccionHexagonoControlador, RoboControlador {
-    private Stage stage;
     private Juego juego;
     private VistaCaballero vistaCaballero;
     private Hexagono nuevoLugar;
@@ -28,8 +26,7 @@ public class CaballeroControlador implements AccionHexagonoControlador, RoboCont
     private Jugador victima;
     private ContenedorPrincipalVistas contenedor;
 
-    public CaballeroControlador(Stage stage, Juego juego, VistaTablero vistaTablero, ContenedorPrincipalVistas contenedor) {
-        this.stage = stage;
+    public CaballeroControlador(Juego juego, VistaTablero vistaTablero, ContenedorPrincipalVistas contenedor) {
         this.juego = juego;
         this.vistaTablero = vistaTablero;
         this.vistaTablero.setControlador(this);
@@ -61,6 +58,7 @@ public class CaballeroControlador implements AccionHexagonoControlador, RoboCont
 
     @Override
     public void ejecutar() {
+        Jugador jugadorActual = juego.jugadorActual();
         try {
             Accion accion = new Caballero(juego, nuevoLugar, victima, juego.jugadorActual());
             juego.ejecutarAccion(accion);
@@ -69,9 +67,9 @@ public class CaballeroControlador implements AccionHexagonoControlador, RoboCont
         } catch (NullPointerException e) {
             PopUpInformativo.mostrar("No hay jugadores para robar en donde moviste al ladrón.");
         }
-        VistaJuegoGeneral vistaJuego = new VistaJuegoGeneral(stage, contenedor, juego, vistaTablero);
+        jugadorActual.eliminarCarta(new Caballero());
+        VistaJuegoGeneral vistaJuego = new VistaJuegoGeneral(contenedor, juego, vistaTablero);
         contenedor.setContenido(vistaJuego);
-
     }
 
     @Override

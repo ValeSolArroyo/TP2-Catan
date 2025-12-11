@@ -1,31 +1,47 @@
 package edu.fiuba.algo3.tests_unitarios.tests_comercio;
 
 import edu.fiuba.algo3.modelo.tablero.Vertice;
-import edu.fiuba.algo3.modelo.comercio.PuertoGenerico;
-import edu.fiuba.algo3.modelo.comercio.PuertoEspecial;
+import edu.fiuba.algo3.modelo.comercio.puertos.PuertoGenerico;
+import edu.fiuba.algo3.modelo.comercio.puertos.PuertoEspecial;
 import edu.fiuba.algo3.modelo.recursos.Madera;
 import edu.fiuba.algo3.modelo.recursos.Ladrillo;
 import edu.fiuba.algo3.modelo.recursos.Lana;
 import edu.fiuba.algo3.modelo.recursos.Grano;
 import edu.fiuba.algo3.modelo.recursos.Mineral;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.construcciones.Construccion;
+import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.excepciones.ComercioInvalidoError;
+import edu.fiuba.algo3.modelo.excepciones.YaHayPobladoError;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class ComercioPuertoTest {
 
     @Test
     public void test01ComerciarConPuertoGenerico3x1() {
-        // Arrange
         Jugador jugador = new Jugador(1, "Carlos", Color.BLUE);
         Vertice vertice = new Vertice();
+
         PuertoGenerico puertoGenerico = new PuertoGenerico();
         vertice.asignarPuerto(puertoGenerico);
+
+        Poblado poblado = mock(Poblado.class);
+        doThrow(new YaHayPobladoError("Ya hay poblado")).when(poblado).ocupar();
+
+        doNothing().when(poblado).tieneDePropietarioA(jugador);
+
+        when(poblado.getIdPropietario()).thenReturn(jugador.getId());
+
+        vertice.construirPobladoPrimerasColocaciones(jugador, (Poblado) poblado);
 
         Madera madera1 = new Madera();
         Madera madera2 = new Madera();
@@ -39,11 +55,10 @@ public class ComercioPuertoTest {
         // Act
         jugador.comerciarConPuerto(vertice, List.of(madera1, madera2, madera3), ladrilloDeseado);
 
-        // Assert
-        assertDoesNotThrow(() -> {
-            jugador.entregarRecursos(List.of(ladrilloDeseado));
-        });
+        assertDoesNotThrow(() -> jugador.entregarRecursos(List.of(ladrilloDeseado)));
     }
+
+
 
     @Test
     public void test02ComerciarConPuertoGenericoFallaCon2Recursos() {
@@ -97,6 +112,16 @@ public class ComercioPuertoTest {
         Madera maderaEspecial = new Madera();
         PuertoEspecial puertoMadera = new PuertoEspecial(maderaEspecial);
         vertice.asignarPuerto(puertoMadera);
+
+        Poblado poblado = mock(Poblado.class);
+        doThrow(new YaHayPobladoError("Ya hay poblado")).when(poblado).ocupar();
+
+        doNothing().when(poblado).tieneDePropietarioA(jugador);
+
+        when(poblado.getIdPropietario()).thenReturn(jugador.getId());
+
+        vertice.construirPobladoPrimerasColocaciones(jugador, (Poblado) poblado);
+
 
         Madera madera1 = new Madera();
         Madera madera2 = new Madera();

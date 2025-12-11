@@ -5,11 +5,14 @@ import edu.fiuba.algo3.modelo.cartasDeDesarrollo.ProgresoMonopolio;
 import edu.fiuba.algo3.modelo.excepciones.RecursosInsuficientesError;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.juegoCommand.Accion;
+import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.cartasDesarrollo.VistaProgresoMonopolio;
-import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
+import edu.fiuba.algo3.vistas.componentes.popups.PopUpInformativo;
+
+import java.util.List;
 
 public class ProgresoMonopolioControlador implements AccionControlador {
     private Juego juego;
@@ -28,36 +31,26 @@ public class ProgresoMonopolioControlador implements AccionControlador {
         this.vista = vista;
     }
 
-    public void elegirRecurso(String tipo){
-        if (tipo.equals("Madera")) {
-            recursoElegido = new Madera();
-        } else if (tipo.equals("Lana")) {
-            recursoElegido = new Lana();
-        } else if (tipo.equals("Grano")) {
-            recursoElegido = new Grano();
-        } else if (tipo.equals("Ladrillo")) {
-            recursoElegido = new Ladrillo();
-        } else if (tipo.equals("Mineral")) {
-            recursoElegido = new Mineral();
-        }
-
+    public void elegirRecurso(Recurso tipo){
+        recursoElegido = tipo;
         vista.desactivarBotones();
         vista.activarBotonEjecutar();
     }
 
     @Override
     public void ejecutar() {
-        Accion accion = new ProgresoMonopolio(juego, recursoElegido, juego.jugadorActual());
+        Jugador jugadorActual =  juego.jugadorActual();
+        Accion accion = new ProgresoMonopolio(juego, recursoElegido, jugadorActual);
         try {
             juego.ejecutarAccion(accion);
         } catch (RecursosInsuficientesError e) {
-            PopUpError.mostrar("Los jugadores que no tienen de ese tipo no pudieron entregar.");
+            PopUpInformativo.mostrar("Los jugadores que no tienen de ese tipo no pudieron entregar.");
+            jugadorActual.eliminarCarta(new ProgresoMonopolio());
         }
-
         contenedor.setContenido(vistaJuego);
     }
 
-    public java.util.List<String> getTiposDeRecurso() {
-        return java.util.List.of("Madera", "Lana", "Grano", "Mineral", "Ladrillo");
+    public List<Recurso> getTiposDeRecurso() {
+        return List.of(new Madera(), new Ladrillo(), new Grano(), new Mineral(), new Lana());
     }
 }

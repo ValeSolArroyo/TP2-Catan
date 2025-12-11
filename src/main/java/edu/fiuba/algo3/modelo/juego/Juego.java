@@ -3,7 +3,7 @@ package edu.fiuba.algo3.modelo.juego;
 import edu.fiuba.algo3.modelo.cartasBonificacion.GranCaballeria;
 import edu.fiuba.algo3.modelo.cartasBonificacion.GranRutaComercial;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.CartaDesarrollo;
-import edu.fiuba.algo3.modelo.comercio.ComercioJugador;
+import edu.fiuba.algo3.modelo.comercio.interno.ComercioJugador;
 import edu.fiuba.algo3.modelo.construcciones.Carretera;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
@@ -76,7 +76,7 @@ public class Juego {
         Jugador jugador = this.jugadorActual();
 
         jugador.construirPrimerosPoblados(new Poblado(jugador), vertice);
-        jugador.construir(new Carretera(jugador), arista);
+        jugador.construirPrimerasCarreteras(new Carretera(jugador), arista);
 
         if (this.indiceTurno < listaJugadores.size() - 1) {
             this.avanzarTurno();
@@ -87,7 +87,7 @@ public class Juego {
         Jugador jugador = this.jugadorActual();
 
         jugador.construirPrimerosPoblados(new Poblado(jugador), vertice);
-        jugador.construir(new Carretera(jugador), arista);
+        jugador.construirPrimerasCarreteras(new Carretera(jugador), arista);
 
         this.darRecursosIniciales(vertice);
 
@@ -117,9 +117,8 @@ public class Juego {
     }
 
     // Comercio con banca e interno
-    public void ejecutarComercioJugador(ComercioJugador comercioJugador) {
-        Jugador jugador = jugadorActual();
-        comercioJugador.ejecutar(jugador);
+    public void ejecutarComercioJugador(ComercioJugador comercioJugador, Jugador jugadorAceptante) {
+        comercioJugador.ejecutar(jugadorAceptante);
     }
 
     public void producirRecursos(int numero) {
@@ -142,26 +141,21 @@ public class Juego {
         this.indiceTurno = (this.indiceTurno - 1 + listaJugadores.size()) % listaJugadores.size();
     }
 
-    public void revisarGranCaballeria(Jugador jugador) {
-        granCaballeria.evaluarCartaBonificacion(jugador, tablero);
+    public boolean revisarGranCaballeria(Jugador jugador) {
+        return granCaballeria.evaluarCartaBonificacion(jugador, tablero);
     }
 
-    public void revisarGranRutaComercial(Jugador jugador) {
-        granRutaComercial.evaluarCartaBonificacion(jugador, tablero);
+    public boolean revisarGranRutaComercial(Jugador jugador) {
+        return granRutaComercial.evaluarCartaBonificacion(jugador, tablero);
     }
 
     public void entregarAJugador(Recurso recursoDeseado) {
         Jugador jugador = jugadorActual();
         for (Jugador jugadorQueEntrega: listaJugadores) {
             if (jugadorQueEntrega == jugador) continue;
-            jugadorQueEntrega.entregarRecursos(List.of(recursoDeseado));
-            jugador.recibirRecurso(recursoDeseado);
-        }
-    }
+            jugadorQueEntrega.entregaMonopolio(recursoDeseado, jugador);
 
-    public void evaluarPVJugadorActual() {
-        Jugador jugador = jugadorActual();
-        jugador.evaluarSiEsGanador();
+        }
     }
 
     public List<Jugador> getJugadores() {

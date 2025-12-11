@@ -11,7 +11,6 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class ContenedorPrincipalVistas extends StackPane {
-
     private Stage stage;
     private BorderPane contenedor;
     private VBox menuGlobal;
@@ -20,8 +19,7 @@ public class ContenedorPrincipalVistas extends StackPane {
     public ContenedorPrincipalVistas(Stage stage) {
         this.stage = stage;
 
-        Musica reproductor = new Musica();
-        reproductor.reproducir("/music/tema_principal.wav");
+        Musica reproductor = Musica.getInstancia();
         MusicaControlador musicaControlador = new MusicaControlador(reproductor);
 
         this.menuGlobalControlador = new MenuGlobalControlador(stage);

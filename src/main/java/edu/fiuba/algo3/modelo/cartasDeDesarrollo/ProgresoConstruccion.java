@@ -1,6 +1,8 @@
 package edu.fiuba.algo3.modelo.cartasDeDesarrollo;
 
 import edu.fiuba.algo3.modelo.construcciones.Carretera;
+import edu.fiuba.algo3.modelo.excepciones.ConstruccionInvalidaError;
+import edu.fiuba.algo3.modelo.excepciones.YaHayCarreteraError;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Ladrillo;
@@ -15,6 +17,7 @@ public class ProgresoConstruccion implements CartaDesarrollo {
     private Juego juego;
     private Jugador jugadorActual;
     private  List<Arista> carreterasAConstruir;
+    private boolean cartaHabilitada= false;
 
 
     public ProgresoConstruccion(Juego juego, Jugador jugador, List<Arista> carreterasAConstruir) {
@@ -31,19 +34,24 @@ public class ProgresoConstruccion implements CartaDesarrollo {
     @Override
     public void ejecutar() {
         for (Arista arista: carreterasAConstruir) {
-            List<Recurso> recursosNecesarios = List.of(new Madera(), new Ladrillo());
-            for (Recurso recurso : recursosNecesarios) {
-                jugadorActual.recibirRecurso(recurso);
-            }
-
-            jugadorActual.construir(new Carretera(jugadorActual), arista);
-            juego.revisarGranRutaComercial(jugadorActual);
+            arista.construirCarreteraPrimerasColocaciones(jugadorActual, new Carretera(jugadorActual));
         }
         jugadorActual.eliminarCarta(new ProgresoConstruccion());
     }
 
     public String getCarta(){
         return "Progreso de Construccion";
+    }
+
+    @Override
+    public void habilitarCarta() {
+        this.cartaHabilitada = true;
+
+    }
+
+    @Override
+    public boolean getHabilitacion() {
+        return cartaHabilitada;
     }
 
     @Override

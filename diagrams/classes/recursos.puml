@@ -56,10 +56,10 @@ interface Recurso{
   + getNombreRecurso(): String
 }
 
-Recurso ..|> Grano
-Recurso ..|> Ladrillo   
-Recurso ..|> Lana
-Recurso ..|> Madera
-Recurso ..|> Mineral
+Recurso <|.. Grano
+Recurso <|.. Ladrillo   
+Recurso <|.. Lana
+Recurso <|.. Madera
+Recurso <|.. Mineral
 
 @enduml

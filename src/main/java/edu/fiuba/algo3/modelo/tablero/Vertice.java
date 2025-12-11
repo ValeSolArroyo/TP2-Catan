@@ -3,8 +3,8 @@ package edu.fiuba.algo3.modelo.tablero;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.fiuba.algo3.modelo.comercio.ComercioPuerto;
-import edu.fiuba.algo3.modelo.comercio.NullPuerto;
+import edu.fiuba.algo3.modelo.comercio.puertos.ComercioPuerto;
+import edu.fiuba.algo3.modelo.comercio.puertos.NullPuerto;
 import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.construcciones.NullConstruccion;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
@@ -12,7 +12,6 @@ import edu.fiuba.algo3.modelo.excepciones.*;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.modelo.terrenos.Terreno;
-import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 
 public class Vertice implements EspacioConstruible {
     private int id;
@@ -53,6 +52,7 @@ public class Vertice implements EspacioConstruible {
         if (!validarCarreterasProximas(jugador)) {
             throw new ConstruccionInvalidaError("No se puede construir si no hay carreteras");
         }
+        jugador.cobrarConstruccion(construccion);
         this.construccion = construccion;
     }
 
@@ -70,10 +70,11 @@ public class Vertice implements EspacioConstruible {
             this.construccion.ocupar();
         } catch (YaHayPobladoError e) {
            this.construccion.tieneDePropietarioA(jugador);
-            Construccion antigua = this.construccion;
-            this.construccion = nuevaConstruccion;
-            jugador.eliminarConstruccion(antigua);
-            return;
+           jugador.cobrarConstruccion(nuevaConstruccion);
+           Construccion antigua = this.construccion;
+           this.construccion = nuevaConstruccion;
+           jugador.eliminarConstruccion(antigua);
+           return;
         } catch (YaHayCiudadError e) {
             throw new ConstruccionInvalidaError("No se puede mejorar donde ya hay una ciudad.");
         }
@@ -120,7 +121,24 @@ public class Vertice implements EspacioConstruible {
         return false;
     }
 
+    public boolean validarConstruccionesActualYProximas(Jugador jugador) {
+        if (this.validarConstruccionesProximas(jugador)) {
+            return true;
+        }
+
+        for (Vertice vecino : vecinos) {
+            if (vecino.validarConstruccionesProximas(jugador)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void ejecutarComercio(Jugador jugador, List<Recurso> recursosEntregados, List<Recurso> recursoDeseado) {
+        if (!this.validarConstruccionesActualYProximas(jugador)) {
+            throw new ComercioInvalidoError("Tiene que haber una construcción propia cercana al puerto para comerciar.");
+        }
         this.puerto.ejecutar(jugador, this, recursosEntregados, recursoDeseado);
     }
 
@@ -132,11 +150,15 @@ public class Vertice implements EspacioConstruible {
         return this.id;
     }
 
-    public List<Arista>  getAristas(){
+    public List<Arista> getAristas(){
         return this.aristas;
     }
 
     public int getIdPropietario() {
         return construccion.getIdPropietario();
+    }
+
+    public ComercioPuerto getPuerto() {
+        return this.puerto;
     }
 }
