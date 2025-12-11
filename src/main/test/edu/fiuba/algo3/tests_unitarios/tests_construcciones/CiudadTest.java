@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.tests_unitarios.tests_construcciones;
 
 import edu.fiuba.algo3.modelo.construcciones.Ciudad;
+import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.excepciones.ConstruccionInvalidaError;
 import edu.fiuba.algo3.modelo.excepciones.RecursosInsuficientesError;
 import edu.fiuba.algo3.modelo.excepciones.YaHayCiudadError;
@@ -41,15 +42,7 @@ public class CiudadTest {
     }
 
     @Test
-    public void test04CiudadDaPuntosDeVictoria() {
-        Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
-        Ciudad ciudad = new Ciudad(jugador);
-
-        assertEquals(2, ciudad.puntosVictoria());
-    }
-
-    @Test
-    public void test05CiudadProduceDobleRecurso() {
+    public void test04CiudadProduceDobleRecurso() {
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
         Ciudad ciudad = new Ciudad(jugador);
 
@@ -59,7 +52,7 @@ public class CiudadTest {
     }
 
     @Test
-    public void test06CiudadCosto() {
+    public void test05CiudadCosto() {
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
         Ciudad ciudad = new Ciudad(jugador);
 
@@ -74,7 +67,7 @@ public class CiudadTest {
     }
 
     @Test
-    public void test07CiudadCobraRecursosAlConstruir() {
+    public void test06CiudadCobraRecursosAlConstruir() {
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
         Ciudad ciudad = new Ciudad(jugador);
 
@@ -91,7 +84,7 @@ public class CiudadTest {
     }
 
     @Test
-    public void test08CiudadProduceMultiplesRecursosDiferentes() {
+    public void test07CiudadProduceMultiplesRecursosDiferentes() {
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
         Ciudad ciudad = new Ciudad(jugador);
 

@@ -150,11 +150,15 @@ public class Vertice implements EspacioConstruible {
         return this.id;
     }
 
-    public List<Arista>  getAristas(){
+    public List<Arista> getAristas(){
         return this.aristas;
     }
 
     public int getIdPropietario() {
         return construccion.getIdPropietario();
+    }
+
+    public ComercioPuerto getPuerto() {
+        return this.puerto;
     }
 }

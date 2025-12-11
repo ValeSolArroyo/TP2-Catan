@@ -1,19 +1,24 @@
 package edu.fiuba.algo3.vistas.comercio;
 
 import edu.fiuba.algo3.controllers.CambioTurnoControlador;
-import edu.fiuba.algo3.controllers.comercio.ComercioPuertoControlador;
 import edu.fiuba.algo3.controllers.VolverControlador;
+import edu.fiuba.algo3.controllers.comercio.ComercioPuertoControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
+import edu.fiuba.algo3.modelo.tablero.Vertice;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.componentes.*;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.Priority;
+
+import java.util.Map;
 
 public class VistaComercioPuerto extends BorderPane {
     private Juego juego;
@@ -21,6 +26,10 @@ public class VistaComercioPuerto extends BorderPane {
     private ComercioPuertoControlador controlador;
     private VistaTablero vistaTablero;
     private VistaJuegoGeneral vistaJuego;
+    private Label textoPuerto;
+    private BotonJuego botonConfirmar;
+    private BotonJuego botonElegirPuerto;
+    private BotonJuego botonVolver;
 
     public VistaComercioPuerto(ComercioPuertoControlador controlador, ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego) {
         this.juego = juego;
@@ -41,10 +50,17 @@ public class VistaComercioPuerto extends BorderPane {
         }
         this.setTop(barraJugadores);
 
+        VBox leftContainer = new VBox();
+        leftContainer.setAlignment(Pos.TOP_CENTER);
+        leftContainer.setPadding(new Insets(100, 0, 0, 20));
+        textoPuerto = new Label("");
+        leftContainer.getChildren().add(textoPuerto);
+        this.setLeft(leftContainer);
+
         HBox tableroContenedor = new HBox(15);
         tableroContenedor.setAlignment(Pos.CENTER);
         tableroContenedor.getChildren().add(this.vistaTablero);
-        HBox.setMargin(this.vistaTablero, new Insets(4, 0, 0, 325));
+        HBox.setMargin(this.vistaTablero, new Insets(4, 0, 0, 320));
         this.setCenter(tableroContenedor);
 
         CambioTurnoControlador cambioTurno = new CambioTurnoControlador(contenedor, juego);
@@ -59,11 +75,49 @@ public class VistaComercioPuerto extends BorderPane {
         VBox derecha = new VBox(30);
         derecha.setAlignment(Pos.TOP_CENTER);
         derecha.setPadding(new Insets(100, 20, 0, 0));
-        BotonJuego botonElegirPuerto = new BotonJuego("Elegir puerto");
-        BotonJuego botonComerciar = new BotonJuego("Comerciar");
-        derecha.getChildren().addAll(botonElegirPuerto, botonComerciar);
+        botonElegirPuerto = new BotonJuego("Elegir puerto");
+        botonElegirPuerto.setOnAction(e -> controlador.elegirPuerto());
+
+        botonConfirmar = new BotonJuego("Confirmar");
+
+        botonVolver = new BotonJuego("Volver");
+        botonVolver.setOnAction(new VolverControlador(contenedor, vistaJuego));
+        derecha.getChildren().addAll(botonElegirPuerto, botonConfirmar, botonVolver);
+        botonConfirmar.setDisable(true);
+        botonConfirmar.setOnAction(e -> controlador.confirmarPuerto());
+
         this.setRight(derecha);
 
         Transicion.fade(this);
     }
+
+    public void actualizarTexto(String texto) {
+        textoPuerto.setText(texto);
+    }
+
+    public void activarBotonConfirmar(){
+        this.botonConfirmar.setDisable(false);
+    }
+
+    public void desactivarBotonConfirmar(){
+        this.botonConfirmar.setDisable(true);
+    }
+
+    public void activarBotonElegir() {
+        this.botonElegirPuerto.setDisable(false);
+    }
+
+    public void desactivarBotonElegir() {
+        this.botonElegirPuerto.setDisable(true);
+    }
+
+    public void activarBotonVolver() {
+        this.botonVolver.setDisable(false);
+    }
+
+    public void desactivarBotonVolver() {
+        this.botonVolver.setDisable(true);
+    }
+
+
 }

@@ -27,8 +27,6 @@ public class VistaProgresoMonopolio extends BorderPane {
 
         inicializarRecursos();
 
-        // TODO: estaría buieno si podemos que se pueda poner volver, y que lo deje
-        // volver a elegir. detalle igual
         botonEjecutar = new BotonJuego("Confirmar");
         botonEjecutar.setOnAction(e -> controlador.ejecutar());
         botonEjecutar.setDisable(true);

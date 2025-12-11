@@ -62,14 +62,14 @@ public class JugadorTest {
         Vertice v2 = new Vertice();
         Vertice v3 = new Vertice();
         Vertice v4 = new Vertice();
-        
+
         Arista arista1 = new Arista(vInicial, v2);
         Arista arista2 = new Arista(v2, v3);
         Arista arista3 = new Arista(v3, v4);
 
-        jugador.construir(new Carretera(jugador), arista1);
-        jugador.construir(new Carretera(jugador), arista2);
-        jugador.construir(new Carretera(jugador), arista3);
+        jugador.construirPrimerasCarreteras(new Carretera(jugador), arista1);
+        jugador.construirPrimerasCarreteras(new Carretera(jugador), arista2);
+        jugador.construirPrimerasCarreteras(new Carretera(jugador), arista3);
 
         List<Recurso> costoPoblado = List.of(new Madera(), new Ladrillo(), new Lana(), new Grano());
         costoPoblado.forEach(jugador::recibirRecurso);

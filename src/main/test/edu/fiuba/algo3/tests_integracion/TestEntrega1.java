@@ -81,7 +81,7 @@ public class TestEntrega1 {
     }
 
     @Test
-    public void test05ProduccionPobladoYCiudad() {
+    public void test05ProduccionPobladoDaUnRecursoYCiudadDaDos() {
         Jugador jugador = new Jugador(1, "Luis", Color.GREEN);
         Vertice verticePoblado = new Vertice();
         Hexagono hexagonoCampo = new Hexagono(new Campo(), 6);
@@ -90,16 +90,20 @@ public class TestEntrega1 {
         Juego juego = new Juego(List.of(jugador), tablero, null);
 
         jugador.construirPrimerosPoblados(new Poblado(jugador), verticePoblado);
-        
+        juego.producirRecursos(6);
+
+        assertDoesNotThrow(() -> jugador.entregarRecursos(List.of(new Grano())));
+
         jugador.recibirRecurso(new Grano());
         jugador.recibirRecurso(new Grano());
         for (int i = 0; i < 3; i++) {
             jugador.recibirRecurso(new Mineral());
         }
-        
-        jugador.construir(new Ciudad(jugador), verticePoblado);
 
-        assertDoesNotThrow(() -> jugador.entregarRecursos(List.of(new Grano())));
+        jugador.construir(new Ciudad(jugador), verticePoblado);
+        juego.producirRecursos(6);
+
+        assertDoesNotThrow(() -> jugador.entregarRecursos(List.of(new Grano(), new Grano())));
     }
 
     @Test
@@ -130,7 +134,7 @@ public class TestEntrega1 {
         java.util.stream.IntStream.range(0, 9).forEach(i -> jugador.recibirRecurso(new Madera()));
 
         juego.descartePorLadron();
-        
+
         List<Recurso> cincoMaderas = java.util.stream.Stream.generate(Madera::new).limit(5).collect(Collectors.toList());
         List<Recurso> seisMaderas = java.util.stream.Stream.generate(Madera::new).limit(6).collect(Collectors.toList());
         assertDoesNotThrow(() -> jugador.entregarRecursos(cincoMaderas));

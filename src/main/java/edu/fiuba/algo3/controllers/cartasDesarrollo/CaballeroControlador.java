@@ -67,7 +67,6 @@ public class CaballeroControlador implements AccionHexagonoControlador, RoboCont
         } catch (NullPointerException e) {
             PopUpInformativo.mostrar("No hay jugadores para robar en donde moviste al ladrón.");
         }
-        jugadorActual.sumarCartaCaballeroJugada();
         jugadorActual.eliminarCarta(new Caballero());
         VistaJuegoGeneral vistaJuego = new VistaJuegoGeneral(contenedor, juego, vistaTablero);
         contenedor.setContenido(vistaJuego);
