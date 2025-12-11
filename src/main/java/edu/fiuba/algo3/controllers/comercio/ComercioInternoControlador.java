@@ -85,7 +85,10 @@ public class ComercioInternoControlador implements AccionControlador  {
             contenedor.setContenido(vistaJuego);
         } catch (RecursosInsuficientesError e) {
             PopUpError.mostrar(e.getMessage());
+            recursosAEntregar.clear();
+            recursosARecibir.clear();
             VistaComercioInterno vistaNueva = new VistaComercioInterno(contenedor, this, recursos, vistaJuego, recursosJugadorActual);
+            this.setVistaComercio(vistaNueva);
             contenedor.setContenido(vistaNueva);
         }
     }
