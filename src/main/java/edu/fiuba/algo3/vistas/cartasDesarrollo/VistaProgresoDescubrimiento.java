@@ -9,6 +9,7 @@ import edu.fiuba.algo3.vistas.componentes.botones.BotonGenerico;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -27,6 +28,15 @@ public class VistaProgresoDescubrimiento extends BorderPane {
         controlador.setVistaProgreso(this);
 
         inicializarRecursos();
+
+        Label titulo = new Label("¡Elige 2 recursos para tu progreso!");
+        titulo.getStyleClass().add("texto-descubrimiento");
+
+        VBox contenedorTitulo = new VBox(titulo);
+        contenedorTitulo.setAlignment(Pos.CENTER);
+        contenedorTitulo.setPadding(new Insets(20, 0, 20, 0));
+
+        this.setTop(contenedorTitulo);
 
         botonEjecutar = new BotonJuego("Confirmar");
         botonEjecutar.setOnAction(e -> controlador.ejecutar());
