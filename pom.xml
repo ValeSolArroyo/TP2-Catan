@@ -104,6 +104,7 @@
         </profile>
     </profiles>
     <build>
+        <finalName>catan</finalName>
         <testSourceDirectory>src/main/test</testSourceDirectory>
         <plugins>
             <plugin>
