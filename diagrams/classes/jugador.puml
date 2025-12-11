@@ -5,7 +5,7 @@ class Jugador {
   - nombre: String
   - color: Color
   - puntosVictoria: int
-  - puntosVictoriaCartaDesarrollo: int
+  - puntosVictoriaCartas: int
   - inventario: Inventario
   - construcciones: List<Construccion>
   - cartasDesarrollo: List<CartaDesarrollo>
@@ -18,22 +18,26 @@ class Jugador {
   + agregarConstruccion(Construccion): void
   + eliminarConstruccion(Construccion): void
   + construir(Construccion, EspacioConstruible): void
+  + cobrarConstruccion(Construccion): void
   + construirPrimerosPoblados(Poblado, Vertice): void
+  + construirPrimerasCarreteras(Carretera, Arista): void
   + recibirRecurso(Recurso): void
   + comerciarConPuerto(Vertice, List<Recurso>, Recurso): void
   + aceptarOferta(Jugador, List<Recurso>, List<Recurso>): void
   + entregarRecursos(List<Recurso>): void
   + guardarCartaDesarrollo(CartaDesarrollo, List<Recurso>): void
   + eliminarCarta(CartaDesarrollo): void
-  + registrarCaballeroJugado(): void
+  + sumarCartaCaballeroJugada(): void
   + conseguirCartasCaballeroJugadas(): int
   + recibirCartaBonificacion(CartaBonificacion): void
   + perderCartaBonificacion(CartaBonificacion): void
-  - puntosPorConstrucciones(): int
-  + evaluarSiEsGanador(): void
+  + evaluarSiEsGanador(): boolean
   + conseguirPuntosDeVictoriaTotales(): int
   + sumarPVPorCartaDesarollo(): void
   + getRecursosInventario(): Map<String, Integer>
+  + getCartasDesarrollo(): List<CartaDesarrollo>
+  + getCartasBonificacion(): List<CartaBonificacion>
+  + entregaMonopolio(Recurso, Jugador): void
 }
 
 class Inventario {
@@ -46,6 +50,7 @@ class Inventario {
   + descartarMitadRecursos(): void
   + quitarRecursoAlAzar(): Recurso
   + getRecursos(): Map<String, Integer>
+  + consumirTodosRecursos(Recurso): List<Recurso>
 }
 
 class Observable {

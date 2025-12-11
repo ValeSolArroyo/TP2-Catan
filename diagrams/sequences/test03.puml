@@ -1,6 +1,14 @@
 @startuml
 title Test 03 Jugador Recibe Recursos Iniciales Al Colocar Segundo Poblado \n Parte 1: Setup y Primera Colocación
 
+participant Test
+participant Jugador
+participant Poblado
+participant Vertice
+participant Hexagono
+participant Tablero
+participant Construccion
+
 Test -> Jugador ** : <<create>> Jugador(1, "Ana", Color.BLUE)
 Test -> Vertice ** : <<create>> Vertice()
 Test -> Hexagono ** : <<create>> Hexagono(Bosque, 8)
@@ -8,7 +16,7 @@ Test -> Hexagono : agregarVertice(vertice)
 Test -> Tablero ** : <<create>> Tablero(hexagonos)
 
 == Construcción Primera Colocación ==
-Test -> Jugador : construirPrimerosPoblados(poblado, vertice)
+Test -> Jugador : construirPrimerosPoblados(new Poblado(jugador), vertice)
 activate Jugador
 
 Jugador -> Poblado ** : <<create>> Poblado(jugador)
@@ -21,7 +29,7 @@ activate Vertice
 Vertice -> Construccion : construccion.ocupar()
 note right: NullConstruccion\nno lanza excepción
 
-Vertice -> Vertice : validarDistancia()
+Vertice -> Vertice : validarReglaDistancia()
 loop Para cada vecino
   Vertice -> Vertice : verticeVecino.validarReglaDistancia()
 end
@@ -41,6 +49,16 @@ deactivate Jugador
 
 @startuml
 title Test 03 - Parte 2: Dar Recursos Iniciales
+
+participant Test
+participant Tablero
+participant Hexagono
+participant Vertice
+participant Terreno
+participant Construccion
+participant Recurso
+participant Jugador
+participant Inventario
 
 Test -> Tablero : darRecursosIniciales(vertice)
 activate Tablero
@@ -63,30 +81,25 @@ loop Para cada hexágono en tablero
     Vertice -> Terreno : producirPara(construccion)
     activate Terreno
 
-    Terreno -> Construccion : producir(madera)
+    Terreno -> Construccion : producir(new Madera())
     activate Construccion
     
     Construccion -> Recurso ** : <<create>> Madera()
     
-    Construccion -> Recurso : asignarA(propietario)
-    activate Recurso
-    
-    Recurso -> Jugador : recibirRecurso(this)
+    Construccion -> Jugador : recibirRecurso(madera)
     activate Jugador
     
     Jugador -> Inventario : agregarRecurso(recurso)
     activate Inventario
     
     Inventario -> Inventario : recursos.add(recurso)
+    Inventario -> Jugador : notificarObservadores()
     
     Inventario --> Jugador
     deactivate Inventario
     
-    Jugador --> Recurso
+    Jugador --> Construccion
     deactivate Jugador
-    
-    Recurso --> Construccion
-    deactivate Recurso
     
     Construccion --> Terreno
     deactivate Construccion
@@ -115,17 +128,26 @@ deactivate Tablero
 
 @startuml
 title Test 03 - Parte 3: Verificación Final del Test
+
+participant Test
+participant Jugador
+participant Inventario
+
 Test -> Jugador : entregarRecursos([Madera])
 activate Jugador
 
 Jugador -> Inventario : consumirRecurso(recursos)
 activate Inventario
 
-Inventario -> Inventario : eliminarRecurso(Madera)
+Inventario -> Inventario : eliminarRecurso(Madera, listaCopia)
+note right: Encuentra y elimina\nla Madera de la lista
+
+Inventario -> Jugador : notificarObservadores()
 
 Inventario --> Jugador : OK (recurso encontrado y eliminado)
 deactivate Inventario
 
 Jugador --> Test : assertDoesNotThrow
 deactivate Jugador
+
 @enduml

@@ -23,7 +23,7 @@ Test -> Tablero ** : <<create>> Tablero(hexagonos)
 Test -> Juego ** : <<create>> Juego(jugadores, tablero, null)
 
 == Construcción del Poblado ==
-Test -> Jugador : construirPrimerosPoblados(new Poblado, vertice)
+Test -> Jugador : construirPrimerosPoblados(new Poblado(jugador), vertice)
 activate Jugador
 
 Jugador -> Poblado ** : <<create>> Poblado(jugador)
@@ -37,7 +37,7 @@ activate Vertice
 Vertice -> Vertice : construccion.ocupar()
 note right: NullConstruccion no lanza excepción
 
-Vertice -> Vertice : validarDistancia()
+Vertice -> Vertice : validarReglaDistancia()
 Vertice -> Vertice : construccion = poblado
 
 Vertice --> Poblado
@@ -59,9 +59,9 @@ title Test 06 - Parte 2: Colocación del Ladrón y Bloqueo de Producción
 actor Test
 participant Hexagono
 participant StrategyConLadron
+participant StrategyHexagono
 participant Juego
 participant Tablero
-participant Vertice
 
 note over Test, StrategyConLadron #FFCCCC
    Se coloca el ladrón en el hexágono
@@ -92,19 +92,19 @@ loop para cada hexágono
   Tablero -> Hexagono : producirRecursos(9)
   activate Hexagono
 
-  Hexagono -> Hexagono : numero == 9 ?
+  Hexagono -> Hexagono : numeroFicha == 9 ?
 
   alt Número coincide
-    Hexagono -> StrategyConLadron : producirRecursos(vertices, terreno)
-    activate StrategyConLadron
+    Hexagono -> StrategyHexagono : producirRecursos(vertices, terreno)
+    activate StrategyHexagono
     
-    note right of StrategyConLadron #FFCCCC
+    note right of StrategyHexagono #FFCCCC
       StrategyConLadron → método vacío
       NO produce recursos
     end note
     
-    StrategyConLadron --> Hexagono
-    deactivate StrategyConLadron
+    StrategyHexagono --> Hexagono
+    deactivate StrategyHexagono
 
   else No coincide
     note right: No produce
@@ -133,12 +133,11 @@ title Test 06 - Parte 3: Verificación - Inventario Vacío y Excepción
 actor Test
 participant Jugador
 participant Inventario
-participant Ladrillo
 
 Test -> Jugador : entregarRecursos([Ladrillo])
 activate Jugador
 
-Jugador -> Inventario : consumirRecurso(ladrillo)
+Jugador -> Inventario : consumirRecurso([ladrillo])
 activate Inventario
 
 note right of Inventario
@@ -146,7 +145,7 @@ note right of Inventario
   no hay ladrillos
 end note
 
-Inventario -> Inventario : eliminarRecurso(ladrillo)
+Inventario -> Inventario : eliminarRecurso(ladrillo, listaCopia)
 
 loop para cada recurso en inventario
   note right: No se encuentra el recurso
@@ -160,6 +159,4 @@ deactivate Inventario
 Jugador --> Test : RecursosInsuficientesError
 deactivate Jugador
 
-
 @enduml
-

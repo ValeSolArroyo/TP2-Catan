@@ -17,6 +17,7 @@ class Tablero {
   + getHexagonos(): List<Hexagono>
   + getVertices(): Map<Integer, Vertice>
   + getAristas(): Map<Integer, Arista>
+  + getListaAristas(): List<Arista>
 }
 
 class Hexagono {
@@ -34,6 +35,10 @@ class Hexagono {
   + entregarRecursoInicialA(Vertice): void
   + notificarLadron(Tablero): void
   + getIdsJugadoresConConstruccion(): Set<Integer>
+  + getTerreno(): String
+  + getFicha(): int
+  + getVertices(): List<Vertice>
+  + getAristas(): List<Arista>
 }
 
 class Vertice {
@@ -54,8 +59,13 @@ class Vertice {
   - validarReglaDistancia(): void
   + validarConstruccionesProximas(Jugador): boolean
   + validarCarreterasProximas(Jugador): boolean
+  + validarConstruccionesActualYProximas(Jugador): boolean
   + ejecutarComercio(Jugador, List<Recurso>, List<Recurso>): void
   + getIdPropietario(): int
+  + setId(int): void
+  + getId(): int
+  + getAristas(): List<Arista>
+  + getPuerto(): ComercioPuerto
 }
 
 class Arista {
@@ -69,7 +79,12 @@ class Arista {
   + construirPoblado(Jugador, Construccion): void
   + construirCiudad(Jugador, Construccion): void
   + construirCarretera(Jugador, Construccion): void
+  + construirCarreteraPrimerasColocaciones(Jugador, Carretera): void
   + validarCarreteraPropia(Jugador): boolean
+  + setId(int): void
+  + getId(): int
+  + getVertice1(): Vertice
+  + getVertice2(): Vertice
 }
 
 interface EspacioConstruible {
@@ -98,7 +113,8 @@ interface TableroFactory {
 }
 
 class TableroCatanFactory {
-  - verticesBorde: Set<Vertice>
+  - verticesPuertoGenerico: List<Vertice>
+  - verticesPuertoEspecial: List<Vertice>
   - todosLosVertices: List<Vertice>
   
   + crearTablero(): Tablero
@@ -115,7 +131,8 @@ class VerticeCatan {
   - todosLosVertices: List<Vertice>
   
   + asignarVertices(List<Hexagono>): void
-  + identificarVerticesBorde(): Set<Vertice>
+  + identificarVerticesPuertoGenerico(): List<Vertice>
+  + identificarVerticesPuertoEspecial(): List<Vertice>
 }
 
 Tablero --> "19" Hexagono
