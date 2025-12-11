@@ -34,8 +34,6 @@ public class ProgresoConstruccion implements CartaDesarrollo {
     public void ejecutar() {
         for (Arista arista: carreterasAConstruir) {
             arista.construirCarreteraPrimerasColocaciones(jugadorActual, new Carretera(jugadorActual));
-            juego.revisarGranRutaComercial(jugadorActual);
-            // TODO: agregar al controlador como hicimos con caballero
         }
         jugadorActual.eliminarCarta(new ProgresoConstruccion());
     }
