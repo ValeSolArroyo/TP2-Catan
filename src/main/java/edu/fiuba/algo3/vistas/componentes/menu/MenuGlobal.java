@@ -49,7 +49,6 @@ public class MenuGlobal {
         submenuOpciones.setTranslateX(-220);
         submenuOpciones.setTranslateY(70);
 
-        // TODO: mejorar estos events feos
         botonOpciones.setOnAction(e -> cerrar_abrir_menu("Opciones", submenuOpciones, botonOpciones));
 
         VBox submenuMusica = new VBox(5);
