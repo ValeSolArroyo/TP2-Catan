@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.modelo.jugador;
 
+import edu.fiuba.algo3.modelo.construcciones.Construccion;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.excepciones.RecursosInsuficientesError;
 import java.util.ArrayList;
@@ -76,6 +77,17 @@ public class Inventario {
             }
         }
         return recursosAMostrar;
+    }
+
+    public List<Recurso> consumirTodosRecursos(Recurso recursoDeseado) {
+        List<Recurso> listaAEntregar =  new ArrayList<>();
+        for (Recurso recurso: recursos) {
+            if (recurso.coincideCon(recursoDeseado)) {
+                listaAEntregar.add(recurso);
+                recursos.remove(recurso);
+            }
+        }
+        return listaAEntregar;
     }
 }
 

@@ -14,18 +14,23 @@ public class GranCaballeria implements CartaBonificacion {
     }
 
     @Override
-    public void evaluarCartaBonificacion(Jugador jugador, Tablero tablero) {
+    public boolean evaluarCartaBonificacion(Jugador jugador, Tablero tablero) {
         int cantidad = jugador.conseguirCartasCaballeroJugadas();
         if ((mayorEjercito == 3) && (cantidad == 3) && (!yaOtorgada)) {
             this.dueño = jugador;
             this.yaOtorgada = true;
             jugador.recibirCartaBonificacion(this);
-
-        } else if (cantidad >this.mayorEjercito) {
+            return true;
+        } else if (cantidad > this.mayorEjercito){
+            if (this.dueño != jugador){
+                dueño.perderCartaBonificacion(this);
+                jugador.recibirCartaBonificacion(this);
+                this.dueño = jugador;
+                return true;
+            }
             this.mayorEjercito = cantidad;
-            dueño.perderCartaBonificacion(this);
-            jugador.recibirCartaBonificacion(this);
-            this.dueño = jugador;
+            return false;
         }
+        return false;
     }
 }

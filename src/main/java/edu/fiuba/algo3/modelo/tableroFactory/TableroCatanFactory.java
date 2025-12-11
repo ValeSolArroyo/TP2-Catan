@@ -1,7 +1,7 @@
 package edu.fiuba.algo3.modelo.tableroFactory;
 
-import edu.fiuba.algo3.modelo.comercio.PuertoEspecial;
-import edu.fiuba.algo3.modelo.comercio.PuertoGenerico;
+import edu.fiuba.algo3.modelo.comercio.puertos.PuertoEspecial;
+import edu.fiuba.algo3.modelo.comercio.puertos.PuertoGenerico;
 import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.modelo.tablero.Arista;
 import edu.fiuba.algo3.modelo.tablero.Hexagono;
@@ -13,12 +13,12 @@ import edu.fiuba.algo3.modelo.terrenosVisitor.VisitanteTerreno;
 import java.util.*;
 
 public class TableroCatanFactory implements TableroFactory {
-    private Set<Vertice> verticesBorde;
+    private List<Vertice> verticesPuertoGenerico;
+    private List<Vertice> verticesPuertoEspecial;
     private List<Vertice> todosLosVertices;
 
     @Override
     public Tablero crearTablero() {
-        verticesBorde = new HashSet<>();
         List<Terreno> terrenosAleatorios = generarTerrenosAleatorios();
         List<Integer> fichasAleatorias = generarFichasAleatorias();
         return construirTablero(terrenosAleatorios, fichasAleatorias);
@@ -37,7 +37,8 @@ public class TableroCatanFactory implements TableroFactory {
         verticeCatan.asignarVertices(hexagonos);
         List<Arista> aristas = conectarAristas(hexagonos);
 
-        verticesBorde = verticeCatan.identificarVerticesBorde();
+        verticesPuertoGenerico = verticeCatan.identificarVerticesPuertoGenerico();
+        verticesPuertoEspecial = verticeCatan.identificarVerticesPuertoEspecial();
         asignarPuertos();
 
         return new Tablero(hexagonos);
@@ -87,26 +88,23 @@ public class TableroCatanFactory implements TableroFactory {
     }
 
     private void asignarPuertos() {
-        List<Vertice> verticesDisponibles = new ArrayList<>(verticesBorde);
-        Collections.shuffle(verticesDisponibles);
-
-        // 4 puertos genéricos
-        for (int i = 0; i < 4; i++) {
-            Vertice vertice = verticesDisponibles.get(i);
+        for (Vertice vertice : verticesPuertoGenerico) {
             vertice.asignarPuerto(new PuertoGenerico());
         }
 
         // 5 puertos especiales (uno de cada recurso)
-        List<Recurso> recursosEspeciales = List.of(
+        List<Recurso> recursosEspeciales = new ArrayList<>(List.of(
                 new Madera(),
                 new Ladrillo(),
                 new Lana(),
                 new Grano(),
                 new Mineral()
-        );
+        ));
+
+        Collections.shuffle(recursosEspeciales);
 
         for (int i = 0; i < 5; i++) {
-            Vertice vertice = verticesDisponibles.get(4 + i);
+            Vertice vertice = verticesPuertoEspecial.get(i);
             Recurso recursoEspecial = recursosEspeciales.get(i);
             vertice.asignarPuerto(new PuertoEspecial(recursoEspecial));
         }

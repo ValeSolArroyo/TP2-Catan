@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.modelo.comercio;
+package edu.fiuba.algo3.modelo.comercio.puertos;
 
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.modelo.recursos.Recurso;

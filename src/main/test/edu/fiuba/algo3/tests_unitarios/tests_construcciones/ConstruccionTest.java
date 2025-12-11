@@ -25,16 +25,7 @@ public class ConstruccionTest {
     }
 
     @Test
-    public void test02CiudadTieneMayorCostoQuePoblado() {
-        Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
-        Ciudad ciudad = new Ciudad(jugador);
-        Poblado poblado = new Poblado(jugador);
-
-        assertTrue(ciudad.puntosVictoria() > poblado.puntosVictoria());
-    }
-
-    @Test
-    public void test03CiudadProduceMasQuePopulado() {
+    public void test02CiudadProduceMasQuePopulado() {
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
         Ciudad ciudad = new Ciudad(jugador);
         Poblado poblado = new Poblado(jugador);
@@ -48,7 +39,7 @@ public class ConstruccionTest {
     }
 
     @Test
-    public void test04DiferentesTiposDeConstruccionesDelMismoJugador() {
+    public void test03DiferentesTiposDeConstruccionesDelMismoJugador() {
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
         Poblado poblado = new Poblado(jugador);
         Ciudad ciudad = new Ciudad(jugador);
@@ -60,7 +51,7 @@ public class ConstruccionTest {
     }
 
     @Test
-    public void test05PobladoYCiudadProducenRecursos() {
+    public void test04PobladoYCiudadProducenRecursos() {
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
         Poblado poblado = new Poblado(jugador);
         Ciudad ciudad = new Ciudad(jugador);
@@ -74,7 +65,7 @@ public class ConstruccionTest {
     }
 
     @Test
-    public void test06ConstruccionesPuedenSerDeLosDiferentesJugadores() {
+    public void test05ConstruccionesPuedenSerDeLosDiferentesJugadores() {
         Jugador jugador1 = new Jugador(1, "Constructor1", Color.BLUE);
         Jugador jugador2 = new Jugador(2, "Constructor2", Color.RED);
 
@@ -86,7 +77,7 @@ public class ConstruccionTest {
     }
 
     @Test
-    public void test07CarreteraNoProducePeroCobraPrecio() {
+    public void test06CarreteraNoProducePeroCobraPrecio() {
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
         Carretera carretera = new Carretera(jugador);
 

@@ -1,201 +1,4 @@
 @startuml
-title Test06: Ladrón Bloquea Producción
-
-actor Test
-participant Jugador
-participant Vertice
-participant Hexagono
-participant Tablero
-participant Juego
-participant Poblado
-participant StrategyConLadron
-participant Inventario
-participant Ladrillo
-
-== Setup: Creación de Objetos ==
-Test -> Jugador ** : <<create>> new Jugador(1, "Maria", Color.YELLOW)
-Test -> Vertice ** : <<create>> new Vertice()
-Test -> Hexagono ** : <<create>> new Hexagono(new Colina(), 9)
-note right: Colina produce Ladrillo\nFicha número 9
-
-Test -> Hexagono : agregarVertice(verticePoblado)
-activate Hexagono
-Hexagono -> Hexagono : vertices.add(vertice)
-Hexagono --> Test
-deactivate Hexagono
-
-Test -> Tablero ** : <<create>> new Tablero(List.of(hexagonoColina))
-Test -> Juego ** : <<create>> new Juego(List.of(jugador), tablero, null)
-
-== Construcción del Poblado Inicial ==
-note over Test
-  Construir poblado en el vértice
-  (sin consumir recursos)
-end note
-
-Test -> Jugador : construirPrimerosPoblados(new Poblado(jugador), verticePoblado)
-activate Jugador
-
-Jugador -> Poblado ** : <<create>> new Poblado(jugador)
-
-Jugador -> Poblado : aplicarCambioPrimerasColocaciones(jugador, verticePoblado)
-activate Poblado
-
-Poblado -> Vertice : construirPobladoPrimerasColocaciones(jugador, this)
-activate Vertice
-
-Vertice -> Vertice : construccion.ocupar()
-note right: NullConstruccion no lanza excepción
-
-Vertice -> Vertice : validarDistancia()
-Vertice -> Vertice : construccion = poblado
-
-Vertice --> Poblado
-deactivate Vertice
-
-Poblado --> Jugador
-deactivate Poblado
-
-Jugador -> Jugador : agregarConstruccion(poblado)
-
-Jugador --> Test
-deactivate Jugador
-
-== COLOCAR EL LADRÓN - Parte Crítica ==
-note over Test, StrategyConLadron #FFCCCC
-  **PARTE CLAVE DEL TEST**
-  Se coloca el ladrón en el hexágono
-  para bloquear la producción
-end note
-
-Test -> Hexagono : ponerLadron()
-activate Hexagono
-
-Hexagono -> StrategyConLadron ** : <<create>> new StrategyConLadron()
-Hexagono -> Hexagono : estrategiaActual = StrategyConLadron
-
-note right of Hexagono
-  Se cambia la estrategia del hexágono
-  de StrategySinLadron a StrategyConLadron
-end note
-
-Hexagono --> Test
-deactivate Hexagono
-
-== Intentar Producir Recursos (BLOQUEADO) ==
-note over Test, Juego
-  Se intenta producir recursos
-  lanzando un 9 (la ficha del hexágono)
-end note
-
-Test -> Juego : producirRecursos(9)
-activate Juego
-
-Juego -> Tablero : producir(9)
-activate Tablero
-
-note right of Tablero
-  El tablero itera por
-  todos sus hexágonos
-end note
-
-loop Para cada hexágono
-  Tablero -> Hexagono : producirRecursos(9)
-  activate Hexagono
-  
-  Hexagono -> Hexagono : numero == this.numeroFicha?
-  note right: 9 == 9 ✓
-  
-  alt Número coincide con la ficha
-    Hexagono -> StrategyConLadron : producirRecursos(vertices, terreno)
-    activate StrategyConLadron
-    
-    note right of StrategyConLadron #FFCCCC
-      **¡BLOQUEO!**
-      StrategyConLadron NO produce recursos
-      El método está vacío, no hace nada
-    end note
-    
-    StrategyConLadron --> Hexagono : (no produce nada)
-    deactivate StrategyConLadron
-    
-  else Número no coincide
-    note right: Hexágono no produce
-  end
-  
-  Hexagono --> Tablero
-  deactivate Hexagono
-end
-
-Tablero --> Juego
-deactivate Tablero
-
-Juego --> Test
-deactivate Juego
-
-note over Test #90EE90
-  El método termina SIN error,
-  pero NO se produjeron recursos
-  debido al ladrón
-end note
-
-== Verificación: El Jugador NO Tiene Recursos ==
-note over Test
-  Se verifica que el jugador
-  NO puede entregar Ladrillo
-  porque nunca lo recibió
-end note
-
-Test -> Jugador : entregarRecursos(List.of(new Ladrillo()))
-activate Jugador
-
-Jugador -> Inventario : consumirRecurso(List.of(ladrillo))
-activate Inventario
-
-note right of Inventario
-  El inventario está VACÍO
-  No hay ladrillos para entregar
-end note
-
-Inventario -> Inventario : eliminarRecurso(ladrillo)
-
-loop Para cada recurso en inventario
-  note right: La lista está vacía,\nno se encuentra el ladrillo
-end
-
-Inventario -> Inventario : throw RecursosInsuficientesError
-
-Inventario --> Jugador : ❌ RecursosInsuficientesError
-deactivate Inventario
-
-Jugador --> Test : ❌ RecursosInsuficientesError
-deactivate Jugador
-
-note over Test #90EE90
-  **TEST EXITOSO**
-  assertThrows(RecursosInsuficientesError)
-  
-  El jugador NO puede entregar Ladrillo,
-  lo que confirma que el ladrón bloqueó
-  correctamente la producción del hexágono
-end note
-
-== Comparación: Sin Ladrón vs Con Ladrón ==
-
-note over Test, StrategyConLadron
-  **SIN LADRÓN (StrategySinLadron)**
-  producirRecursos() → itera vértices → cada vértice produce según terreno
-  
-  **CON LADRÓN (StrategyConLadron)** 
-  producirRecursos() → método vacío → ¡NO PRODUCE NADA!
-  
-  Este es el patrón Strategy aplicado para
-  cambiar el comportamiento del hexágono
-end note
-
-@enduml
-
-@startuml
 title Test 06 Ladron Bloquea Produccion\n Parte 1: Setup y Construcción del Poblado
 
 actor Test
@@ -220,7 +23,7 @@ Test -> Tablero ** : <<create>> Tablero(hexagonos)
 Test -> Juego ** : <<create>> Juego(jugadores, tablero, null)
 
 == Construcción del Poblado ==
-Test -> Jugador : construirPrimerosPoblados(new Poblado, vertice)
+Test -> Jugador : construirPrimerosPoblados(new Poblado(jugador), vertice)
 activate Jugador
 
 Jugador -> Poblado ** : <<create>> Poblado(jugador)
@@ -234,7 +37,7 @@ activate Vertice
 Vertice -> Vertice : construccion.ocupar()
 note right: NullConstruccion no lanza excepción
 
-Vertice -> Vertice : validarDistancia()
+Vertice -> Vertice : validarReglaDistancia()
 Vertice -> Vertice : construccion = poblado
 
 Vertice --> Poblado
@@ -256,9 +59,9 @@ title Test 06 - Parte 2: Colocación del Ladrón y Bloqueo de Producción
 actor Test
 participant Hexagono
 participant StrategyConLadron
+participant StrategyHexagono
 participant Juego
 participant Tablero
-participant Vertice
 
 note over Test, StrategyConLadron #FFCCCC
    Se coloca el ladrón en el hexágono
@@ -289,19 +92,19 @@ loop para cada hexágono
   Tablero -> Hexagono : producirRecursos(9)
   activate Hexagono
 
-  Hexagono -> Hexagono : numero == 9 ?
+  Hexagono -> Hexagono : numeroFicha == 9 ?
 
   alt Número coincide
-    Hexagono -> StrategyConLadron : producirRecursos(vertices, terreno)
-    activate StrategyConLadron
+    Hexagono -> StrategyHexagono : producirRecursos(vertices, terreno)
+    activate StrategyHexagono
     
-    note right of StrategyConLadron #FFCCCC
+    note right of StrategyHexagono #FFCCCC
       StrategyConLadron → método vacío
       NO produce recursos
     end note
     
-    StrategyConLadron --> Hexagono
-    deactivate StrategyConLadron
+    StrategyHexagono --> Hexagono
+    deactivate StrategyHexagono
 
   else No coincide
     note right: No produce
@@ -330,12 +133,11 @@ title Test 06 - Parte 3: Verificación - Inventario Vacío y Excepción
 actor Test
 participant Jugador
 participant Inventario
-participant Ladrillo
 
 Test -> Jugador : entregarRecursos([Ladrillo])
 activate Jugador
 
-Jugador -> Inventario : consumirRecurso(ladrillo)
+Jugador -> Inventario : consumirRecurso([ladrillo])
 activate Inventario
 
 note right of Inventario
@@ -343,7 +145,7 @@ note right of Inventario
   no hay ladrillos
 end note
 
-Inventario -> Inventario : eliminarRecurso(ladrillo)
+Inventario -> Inventario : eliminarRecurso(ladrillo, listaCopia)
 
 loop para cada recurso en inventario
   note right: No se encuentra el recurso
@@ -357,6 +159,4 @@ deactivate Inventario
 Jugador --> Test : RecursosInsuficientesError
 deactivate Jugador
 
-
 @enduml
-

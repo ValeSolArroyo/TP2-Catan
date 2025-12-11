@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.vistas.componentes;
 
 import edu.fiuba.algo3.controllers.fasesJuego.AccionesTableroControlador;
+import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
 import edu.fiuba.algo3.modelo.tablero.Vertice;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +19,7 @@ public class VistaVertices extends StackPane {
     private List<List<Vertice>> verticesPorFila;
     private VBox capaVertices;
     private AccionesTableroControlador tableroControlador;
+    private Map<Vertice, Button> botonesVertices = new HashMap<>();
 
     public VistaVertices(Map<Integer, Vertice> vertices) {
         this.vertices = vertices;
@@ -59,6 +62,8 @@ public class VistaVertices extends StackPane {
                 boton.setPrefSize(20, 20);
                 boton.getStyleClass().add("boton-colocacion-vertice");
 
+                botonesVertices.put(vertice, boton);
+
                 boton.setOnAction(e -> {
                     tableroControlador.obtenerVertice(vertice);
                 });
@@ -74,7 +79,7 @@ public class VistaVertices extends StackPane {
 
     }
 
-    public Button botonDe(Vertice vertice) {
+    public Button botonDe(EspacioConstruible vertice) {
         for (List<Vertice> fila : verticesPorFila) {
             for (Vertice verticeFila : fila) {
                 if (verticeFila == vertice) {
@@ -85,6 +90,23 @@ public class VistaVertices extends StackPane {
             }
         }
         return new Button();
+    }
 
+
+    public void mostrarVerticesPuerto() {
+        List<Vertice> puertosVertices = List.of(vertices.get(5), vertices.get(6), vertices.get(11), vertices.get(14), vertices.get(24), vertices.get(38), vertices.get(46), vertices.get(47), vertices.get(53));
+
+        for (Map.Entry<Vertice, Button> entrada : botonesVertices.entrySet()) {
+            Vertice clave = entrada.getKey();
+            Button valor = entrada.getValue();
+
+            if (puertosVertices.contains(clave)) {
+                valor.setDisable(false);
+                valor.setOpacity(1);
+            } else {
+                valor.setDisable(true);
+                valor.setOpacity(0);
+            }
+        }
     }
 }

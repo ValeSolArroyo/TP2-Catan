@@ -1,6 +1,7 @@
 package edu.fiuba.algo3.vistas.cartasDesarrollo;
 
 import edu.fiuba.algo3.controllers.cartasDesarrollo.ProgresoMonopolioControlador;
+import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
 import edu.fiuba.algo3.vistas.componentes.ListadoRecurso;
 import edu.fiuba.algo3.vistas.componentes.Transicion;
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class VistaProgresoMonopolio extends BorderPane {
-    private Map<String, BotonGenerico> botonesPorRecurso = new HashMap<>();
+    private Map<Recurso, BotonGenerico> botonesPorRecurso = new HashMap<>();
     private ProgresoMonopolioControlador controlador;
     private BotonJuego botonEjecutar;
 
@@ -27,8 +28,6 @@ public class VistaProgresoMonopolio extends BorderPane {
 
         inicializarRecursos();
 
-        // TODO: estaría buieno si podemos que se pueda poner volver, y que lo deje
-        // volver a elegir. detalle igual
         botonEjecutar = new BotonJuego("Confirmar");
         botonEjecutar.setOnAction(e -> controlador.ejecutar());
         botonEjecutar.setDisable(true);
@@ -47,10 +46,10 @@ public class VistaProgresoMonopolio extends BorderPane {
         HBox hbox = new HBox(40);
         hbox.setAlignment(Pos.CENTER);
 
-        for (String tipo : controlador.getTiposDeRecurso()) {
-            String ruta = "/images/utils/recursos/" + tipo + ".png";
+        for (Recurso tipo : controlador.getTiposDeRecurso()) {
+            String ruta = "/images/utils/recursos/" + tipo.getNombreRecurso() + ".png";
 
-            ListadoRecurso recursos = new ListadoRecurso(tipo, ruta);
+            ListadoRecurso recursos = new ListadoRecurso(tipo.getNombreRecurso(), ruta);
 
             BotonGenerico boton = new BotonGenerico("Pedir recurso", "botones-progreso", 230, 80);
             botonesPorRecurso.put(tipo, boton);

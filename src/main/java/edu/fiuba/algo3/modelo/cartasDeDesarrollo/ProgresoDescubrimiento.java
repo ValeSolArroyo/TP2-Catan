@@ -9,6 +9,7 @@ public class ProgresoDescubrimiento implements CartaDesarrollo{
 
     private Jugador jugadorActual;
     private  List<Recurso> recursosDeBanca;
+    private boolean cartaHabilitada= false;
 
     public ProgresoDescubrimiento(){}
 
@@ -30,6 +31,17 @@ public class ProgresoDescubrimiento implements CartaDesarrollo{
 
     public String getCarta(){
         return "Progreso de Descubrimiento";
+    }
+
+    @Override
+    public void habilitarCarta() {
+        this.cartaHabilitada = true;
+
+    }
+
+    @Override
+    public boolean getHabilitacion() {
+        return cartaHabilitada;
     }
 
     @Override

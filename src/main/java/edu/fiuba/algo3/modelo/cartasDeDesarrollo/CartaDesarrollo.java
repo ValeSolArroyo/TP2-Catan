@@ -6,6 +6,8 @@ import edu.fiuba.algo3.modelo.jugador.Jugador;
 public interface CartaDesarrollo extends Accion {
     void ejecutarAlGuardar(Jugador jugador);
     String getCarta();
+    void habilitarCarta();
+    boolean getHabilitacion();
     boolean coincideCon(CartaDesarrollo cartaAComparar);
     boolean coincideConCaballero();
     boolean coincideConProgresoConstruccion();

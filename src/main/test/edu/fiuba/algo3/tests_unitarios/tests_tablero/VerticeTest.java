@@ -5,6 +5,8 @@ import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.construcciones.Ciudad;
 import edu.fiuba.algo3.modelo.construcciones.Carretera;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
+import edu.fiuba.algo3.modelo.recursos.Grano;
+import edu.fiuba.algo3.modelo.recursos.Mineral;
 import edu.fiuba.algo3.modelo.excepciones.ConstruccionInvalidaError;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
@@ -46,6 +48,12 @@ public class VerticeTest {
         Ciudad ciudad = new Ciudad(jugador);
         vertice.construirPobladoPrimerasColocaciones(jugador, new Poblado(jugador));
 
+        jugador.recibirRecurso(new Grano());
+        jugador.recibirRecurso(new Grano());
+        jugador.recibirRecurso(new Mineral());
+        jugador.recibirRecurso(new Mineral());
+        jugador.recibirRecurso(new Mineral());
+
         // Act & Assert
         assertDoesNotThrow(() -> vertice.construirCiudad(jugador, ciudad));
     }
@@ -63,4 +71,3 @@ public class VerticeTest {
         );
     }
 }
-

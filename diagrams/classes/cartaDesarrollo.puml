@@ -1,0 +1,106 @@
+@startuml
+
+interface CartaDesarrollo {
+    + ejecutarAlGuardar(Jugador): void
+    + ejecutar(): void
+    + getCarta(): String
+    + habilitarCarta(): void
+    + getHabilitacion(): boolean
+    + coincideCon(CartaDesarrollo): boolean
+    + coincideConCaballero(): boolean
+    + coincideConProgresoConstruccion(): boolean
+    + coincideConProgresoDescubrimiento(): boolean
+    + coincideConProgresoMonopolio(): boolean
+    + coincideConPuntoVictoria(): boolean
+}
+
+class Caballero {
+    - juego: Juego
+    - nuevoLugar: Hexagono
+    - victima: Jugador
+    - jugadorActual: Jugador
+    - cartaHabilitada: boolean
+
+    + ejecutarAlGuardar(Jugador): void
+    + ejecutar(): void
+    + getCarta(): String
+    + habilitarCarta(): void
+    + getHabilitacion(): boolean
+    + coincideCon(CartaDesarrollo): boolean
+    + coincideConCaballero(): boolean
+}
+
+class PuntoVictoria {
+    - cartaHabilitada: boolean
+    + ejecutarAlGuardar(Jugador): void
+    + ejecutar(): void
+    + getCarta(): String
+    + habilitarCarta(): void
+    + getHabilitacion(): boolean
+    + coincideCon(CartaDesarrollo): boolean
+    + coincideConPuntoVictoria(): boolean
+}
+
+class ProgresoConstruccion {
+    - juego: Juego
+    - jugadorActual: Jugador
+    - carreterasAConstruir: List<Arista>
+    - cartaHabilitada: boolean
+
+    + ejecutarAlGuardar(Jugador): void
+    + ejecutar(): void
+    + getCarta(): String
+    + habilitarCarta(): void
+    + getHabilitacion(): boolean
+    + coincideCon(CartaDesarrollo): boolean
+    + coincideConProgresoConstruccion(): boolean
+}
+
+class ProgresoDescubrimiento {
+    - jugadorActual: Jugador
+    - recursosDeBanca: List<Recurso>
+    - cartaHabilitada: boolean
+
+    + ejecutarAlGuardar(Jugador): void
+    + ejecutar(): void
+    + getCarta(): String
+    + habilitarCarta(): void
+    + getHabilitacion(): boolean
+    + coincideCon(CartaDesarrollo): boolean
+    + coincideConProgresoDescubrimiento(): boolean
+}
+
+class ProgresoMonopolio {
+    - juego: Juego
+    - recursoDeseado: Recurso
+    - jugadorActual: Jugador
+    - cartaHabilitada: boolean
+
+    + ejecutarAlGuardar(Jugador): void
+    + ejecutar(): void
+    + getCarta(): String
+    + habilitarCarta(): void
+    + getHabilitacion(): boolean
+    + coincideCon(CartaDesarrollo): boolean
+    + coincideConProgresoMonopolio(): boolean
+}
+
+class FabricaCartas {
+    + {static} crearMazo(): List<CartaDesarrollo>
+}
+
+CartaDesarrollo <|.. Caballero
+CartaDesarrollo <|.. PuntoVictoria
+CartaDesarrollo <|.. ProgresoConstruccion
+CartaDesarrollo <|.. ProgresoDescubrimiento
+CartaDesarrollo <|.. ProgresoMonopolio
+
+FabricaCartas ..> CartaDesarrollo : crea
+
+interface Accion {
+    + ejecutar(): void
+}
+
+Accion <|.. CartaDesarrollo
+
+@enduml

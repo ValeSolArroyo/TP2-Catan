@@ -2,10 +2,12 @@ package edu.fiuba.algo3.vistas.componentes;
 
 import edu.fiuba.algo3.controllers.fasesJuego.AccionesTableroControlador;
 import edu.fiuba.algo3.modelo.tablero.Arista;
+import edu.fiuba.algo3.modelo.tablero.EspacioConstruible;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -58,37 +60,98 @@ public class VistaAristas extends StackPane {
     }
 
     public void construirBotonesAristas() {
+        int numeroFila = 0;
+
         for (List<Arista> fila : aristasPorFila) {
-            HBox filaAristas = new HBox(20);
-            filaAristas.setAlignment(Pos.CENTER);
-            filaAristas.setSpacing(26);
-            filaAristas.setPadding(new Insets(4, 8, 4, 8));
+            if (numeroFila == 7) {
+                Pane filaEspecial = new Pane();
+                filaEspecial.setPrefHeight(50);
 
-            for (Arista arista : fila) {
-                Button boton = new Button();
-                boton.setPrefSize(2, 35);
-                boton.getStyleClass().add("boton-colocacion-arista");
+                for (Arista arista : fila) {
+                    Button boton = new Button();
+                    boton.setPrefSize(2, 35);
+                    boton.getStyleClass().add("boton-colocacion-arista");
 
-                int id = arista.getId();
+                    int id = arista.getId();
 
-                if (rotacion_45.contains(id)) {
-                    boton.setRotate(45);
-                } else if (rotacion_neg_45.contains(id)) {
-                    boton.setRotate(-45);
-                } else if (rotacion_vertical.contains(id)) {
-                    boton.setRotate(0);
-                    HBox.setMargin(boton, new Insets(0, 22, 0, 22));
+                    if (rotacion_45.contains(id)) {
+                        boton.setRotate(45);
+                    } else if (rotacion_neg_45.contains(id)) {
+                        boton.setRotate(-45);
+                    } else if (rotacion_vertical.contains(id)) {
+                        boton.setRotate(0);
+                    }
+
+                    switch (id) {
+                        case 52:
+                            boton.setLayoutX(82);
+                            boton.setLayoutY(10);
+                            break;
+
+                        case 49:
+                            boton.setLayoutX(167);
+                            boton.setLayoutY(10);
+                            break;
+
+                        case 53:
+                            boton.setLayoutX(252);
+                            boton.setLayoutY(10);
+                            break;
+
+                        case 56:
+                            boton.setLayoutX(337);
+                            boton.setLayoutY(10);
+                            break;
+
+                        case 59:
+                            boton.setLayoutX(422);
+                            boton.setLayoutY(10);
+                            break;
+                    }
+
+                    boton.setOnAction(e -> tableroControlador.obtenerArista(arista));
+                    botonesAristas.put(arista, boton);
+
+                    filaEspecial.getChildren().add(boton);
                 }
 
-                boton.setOnAction(e -> { tableroControlador.obtenerArista(arista);
-                });
-
-                botonesAristas.put(arista, boton);
-
-                filaAristas.getChildren().add(boton);
+                capaAristas.getChildren().add(filaEspecial);
+                numeroFila++;
             }
 
-            capaAristas.getChildren().add(filaAristas);
+            else {
+                HBox filaAristas = new HBox(20);
+                filaAristas.setAlignment(Pos.CENTER);
+                filaAristas.setSpacing(26);
+                filaAristas.setPadding(new Insets(4, 8, 4, 8));
+
+                for (Arista arista : fila) {
+                    Button boton = new Button();
+                    boton.setPrefSize(2, 35);
+                    boton.getStyleClass().add("boton-colocacion-arista");
+
+                    int id = arista.getId();
+
+                    if (rotacion_45.contains(id)) {
+                        boton.setRotate(45);
+                    } else if (rotacion_neg_45.contains(id)) {
+                        boton.setRotate(-45);
+                    } else if (rotacion_vertical.contains(id)) {
+                        boton.setRotate(0);
+                        HBox.setMargin(boton, new Insets(0, 22, 0, 22));
+                    }
+
+                    boton.setOnAction(e -> { tableroControlador.obtenerArista(arista);
+                    });
+
+                    botonesAristas.put(arista, boton);
+
+                    filaAristas.getChildren().add(boton);
+                }
+
+                capaAristas.getChildren().add(filaAristas);
+                numeroFila++;
+            }
         }
     }
 
@@ -124,7 +187,7 @@ public class VistaAristas extends StackPane {
     }
 
 
-    public Button botonDe(Arista arista) {
+    public Button botonDe(EspacioConstruible arista) {
         return botonesAristas.get(arista);
     }
 }

@@ -31,27 +31,13 @@ public class ProgresoDescubrimientoControlador implements AccionControlador {
 
     }
 
-    private void agregar(Recurso recurso, String nombre) {
+    public void agregar(Recurso recurso) {
         if (recursosDeseados.size() == 1) {
             vista.desactivarBotones();
             vista.activarBotonEjecutar();
         }
         recursosDeseados.add(recurso);
-        vista.sumarContador(nombre);
-    }
-
-    public void agregarRecurso(String tipo) {
-        if (tipo.equals("Madera")) {
-            agregar(new Madera(), "Madera");
-        } else if (tipo.equals("Lana")) {
-            agregar(new Lana(), "Lana");
-        } else if (tipo.equals("Grano")) {
-            agregar(new Grano(), "Grano");
-        } else if (tipo.equals("Ladrillo")) {
-            agregar(new Ladrillo(), "Ladrillo");
-        } else if (tipo.equals("Mineral")) {
-            agregar(new Mineral(), "Mineral");
-        }
+        vista.sumarContador(recurso);
     }
 
     @Override
@@ -61,7 +47,7 @@ public class ProgresoDescubrimientoControlador implements AccionControlador {
         contenedor.setContenido(vistaJuego);
     }
 
-    public List<String> getTiposDeRecurso() {
-        return List.of("Madera", "Lana", "Grano", "Mineral", "Ladrillo");
+    public List<Recurso> getTiposDeRecurso() {
+        return List.of(new Madera(), new Ladrillo(), new Grano(), new Mineral(), new Lana());
     }
 }

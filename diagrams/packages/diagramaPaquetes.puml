@@ -1,0 +1,108 @@
+@startuml
+
+package "Juego" {
+  class "Juego" as C_Juego
+  class "Dado" as C_Dado
+}
+
+package "Jugador" {
+  class "Jugador" as C_Jugador
+  class "Inventario" as C_Inventario
+}
+
+package "Tablero" {
+  class "Tablero" as C_Tablero
+  class "Hexagono" as C_Hexagono
+  class "Vertice" as C_Vertice
+  class "Arista" as C_Arista
+  interface "EspacioConstruible" as I_EspacioConstruible
+}
+
+package "Construcciones" {
+  interface "Construccion" as I_Construccion
+}
+
+package "Recursos" {
+  interface "Recurso" as I_Recurso
+}
+
+package "Terrenos" {
+  interface "Terreno" as I_Terreno
+}
+
+package "Cartas de Desarrollo" {
+  interface "CartaDesarrollo" as I_CartaDesarrollo
+  class "FabricaCartas" as C_FabricaCartas
+}
+
+package "Cartas Bonificacion" {
+  interface "CartaBonificacion" as I_CartaBonificacion
+}
+
+package "Comercio" {
+  interface "ComercioJugador" as I_ComercioJugador
+  interface "ComercioPuerto" as I_ComercioPuerto
+}
+
+package "Juego Command" {
+  interface "Accion" as I_Accion
+}
+
+package "Observer" {
+  class "Observable" as C_Observable
+  interface "Observador" as I_Observador
+}
+
+package "Hexagono Strategy" {
+  interface "StrategyHexagono" as I_StrategyHexagono
+  class "StrategyConLadron" as C_StrategyConLadron
+  class "StrategySinLadron" as C_StrategySinLadron
+}
+
+package "Tablero Factory" {
+  interface "TableroFactory" as I_TableroFactory
+  class "TableroCatanFactory" as C_TableroCatanFactory
+  class "VerticeCatan" as C_VerticeCatan
+}
+
+package "Terrenos Visitor" {
+  interface "Visitante" as I_Visitante
+  class "VisitanteTerreno" as C_VisitanteTerreno
+}
+
+C_Juego --> C_Jugador
+C_Juego --> C_Tablero
+C_Juego --> I_CartaDesarrollo
+C_Juego --> I_CartaBonificacion
+C_Juego --> C_Dado
+C_Jugador --> C_Inventario
+C_Inventario --> I_Recurso
+C_Jugador --> I_Construccion
+C_Jugador --> I_CartaDesarrollo
+C_Jugador --> I_CartaBonificacion
+C_Jugador --|> C_Observable
+C_Tablero --> C_Hexagono
+C_Hexagono --> C_Vertice
+C_Hexagono --> C_Arista
+C_Hexagono --> I_Terreno
+C_Hexagono --> I_StrategyHexagono
+C_Vertice --|> I_EspacioConstruible
+C_Arista --|> I_EspacioConstruible
+I_EspacioConstruible --> I_Construccion
+I_Construccion --> I_Recurso
+I_Terreno --> I_Recurso
+C_Jugador --> I_ComercioJugador
+C_Vertice --> I_ComercioPuerto
+I_CartaDesarrollo --|> I_Accion
+I_StrategyHexagono <|.. C_StrategyConLadron
+I_StrategyHexagono <|.. C_StrategySinLadron
+I_TableroFactory <|.. C_TableroCatanFactory
+C_TableroCatanFactory --> C_Tablero
+C_TableroCatanFactory --> C_VerticeCatan
+I_Visitante <|.. C_VisitanteTerreno
+I_Terreno --> I_Visitante
+C_FabricaCartas ..> I_CartaDesarrollo
+C_Dado --|> C_Observable
+Observable --> I_Observador
+
+@enduml

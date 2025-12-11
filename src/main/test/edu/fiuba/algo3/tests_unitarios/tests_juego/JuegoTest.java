@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.tests_unitarios.tests_juego;
 
-import edu.fiuba.algo3.modelo.comercio.Banca;
+import edu.fiuba.algo3.modelo.comercio.interno.Banca;
 import edu.fiuba.algo3.modelo.cartasDeDesarrollo.*;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
@@ -41,7 +41,7 @@ public class JuegoTest {
         Banca comercioConBanca = new Banca(new Madera(), new Ladrillo());
 
         // Act & Assert
-        assertDoesNotThrow(() -> juego.ejecutarComercioJugador(comercioConBanca));
+        assertDoesNotThrow(() -> juego.ejecutarComercioJugador(comercioConBanca, jugador1));
     }
 
     @Test
@@ -57,7 +57,7 @@ public class JuegoTest {
 
         // Act & Assert
         juego.avanzarTurno();
-        assertDoesNotThrow(() -> juego.ejecutarComercioJugador(comercioConBanca));
+        assertDoesNotThrow(() -> juego.ejecutarComercioJugador(comercioConBanca, jugador2));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class JuegoTest {
         juego.avanzarTurno();
 
         // Assert
-        assertDoesNotThrow(() -> juego.ejecutarComercioJugador(comercioConBanca));
+        assertDoesNotThrow(() -> juego.ejecutarComercioJugador(comercioConBanca, jugador1));
     }
 
     @Test

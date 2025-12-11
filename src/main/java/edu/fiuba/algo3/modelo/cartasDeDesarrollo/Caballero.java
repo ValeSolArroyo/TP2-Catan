@@ -10,6 +10,7 @@ public class Caballero implements CartaDesarrollo {
     private Hexagono nuevoLugar;
     private Jugador victima;
     private Jugador jugadorActual;
+    private boolean cartaHabilitada= false;
 
     public Caballero(){}
 
@@ -27,14 +28,23 @@ public class Caballero implements CartaDesarrollo {
     public void ejecutar() {
         juego.moverLadron(nuevoLugar);
         juego.robarCartaDe(victima);
-        jugadorActual.registrarCaballeroJugado();
-        juego.revisarGranCaballeria(jugadorActual);
-        jugadorActual.eliminarCarta(new Caballero());
+        jugadorActual.sumarCartaCaballeroJugada();
     }
 
     public String getCarta(){
         return "Caballero";
     }
+
+    @Override
+    public void habilitarCarta() {
+        this.cartaHabilitada = true;
+    }
+
+    @Override
+    public boolean getHabilitacion() {
+        return cartaHabilitada;
+    }
+
     @Override
     public boolean coincideCon(CartaDesarrollo cartaAComparar) {
         return cartaAComparar.coincideConCaballero();

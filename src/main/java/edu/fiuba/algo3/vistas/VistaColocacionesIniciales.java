@@ -4,7 +4,6 @@ import edu.fiuba.algo3.controllers.CambioTurnoControlador;
 import edu.fiuba.algo3.controllers.fasesJuego.PrimerasColocacionesControlador;
 import edu.fiuba.algo3.modelo.juego.Juego;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
-import edu.fiuba.algo3.modelo.tablero.Tablero;
 import edu.fiuba.algo3.vistas.componentes.*;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonGenerico;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonJuego;
@@ -13,12 +12,10 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class VistaColocacionesIniciales extends BorderPane  {
     private final VistaTurnoActual vistaTurno;
     private Juego juego;
-    private Stage stage;
     private ContenedorPrincipalVistas contenedor;
     private BotonJuego botonPoblado;
     private BotonGenerico botonCarretera;
@@ -27,13 +24,12 @@ public class VistaColocacionesIniciales extends BorderPane  {
     private CambioTurnoControlador cambioTurno;
     private VistaTablero vistaTablero;
 
-    public VistaColocacionesIniciales(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, CambioTurnoControlador cambioTurno, VistaTablero  vistaTablero) {
-        this.stage = stage;
+    public VistaColocacionesIniciales(ContenedorPrincipalVistas contenedor, Juego juego, CambioTurnoControlador cambioTurno, VistaTablero  vistaTablero) {
         this.contenedor = contenedor;
         this.juego = juego;
         this.vistaTablero = vistaTablero;
 
-        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_sin_cartas.jpg"));
+        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_puertos_sin_cartas.jpg"));
         HBox barraJugadores = new HBox(20);
         barraJugadores.setAlignment(Pos.CENTER);
 
@@ -47,7 +43,7 @@ public class VistaColocacionesIniciales extends BorderPane  {
 
         cambioTurno.agregarTablero(this.vistaTablero);
         this.vistaTurno = new VistaTurnoActual(cambioTurno);
-        PrimerasColocacionesControlador controladorColocaciones = new PrimerasColocacionesControlador(juego, vistaTablero, this, cambioTurno);
+        PrimerasColocacionesControlador controladorColocaciones = new PrimerasColocacionesControlador(juego, contenedor, vistaTablero, this, cambioTurno);
         this.vistaTablero.setControlador(controladorColocaciones);
         this.controlador = controladorColocaciones;
 

@@ -1,5 +1,6 @@
 package edu.fiuba.algo3.tests_unitarios.tests_juego;
 
+import edu.fiuba.algo3.modelo.cartasDeDesarrollo.PuntoVictoria;
 import edu.fiuba.algo3.modelo.construcciones.Carretera;
 import edu.fiuba.algo3.modelo.construcciones.Poblado;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
@@ -61,19 +62,30 @@ public class JugadorTest {
         Vertice v2 = new Vertice();
         Vertice v3 = new Vertice();
         Vertice v4 = new Vertice();
-        
+
         Arista arista1 = new Arista(vInicial, v2);
         Arista arista2 = new Arista(v2, v3);
         Arista arista3 = new Arista(v3, v4);
 
-        jugador.construir(new Carretera(jugador), arista1);
-        jugador.construir(new Carretera(jugador), arista2);
-        jugador.construir(new Carretera(jugador), arista3);
+        jugador.construirPrimerasCarreteras(new Carretera(jugador), arista1);
+        jugador.construirPrimerasCarreteras(new Carretera(jugador), arista2);
+        jugador.construirPrimerasCarreteras(new Carretera(jugador), arista3);
 
         List<Recurso> costoPoblado = List.of(new Madera(), new Ladrillo(), new Lana(), new Grano());
         costoPoblado.forEach(jugador::recibirRecurso);
 
         assertDoesNotThrow(() -> jugador.construir(new Poblado(jugador), v4));
         assertThrows(RecursosInsuficientesError.class, () -> jugador.entregarRecursos(costoPoblado));
+    }
+
+    @Test
+    public void test06ValidarQueFuncionenBienPVCarta() {
+        Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
+        for (int i = 0; i < 10; i++) {
+            jugador.guardarCartaDesarrollo(new PuntoVictoria(), List.of());
+        }
+
+        assertTrue(jugador.conseguirPuntosDeVictoriaTotales() == 10);
+        assertTrue(jugador.getPuntosVictoriaCartas() == 10);
     }
 }

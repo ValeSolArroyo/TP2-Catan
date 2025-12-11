@@ -21,7 +21,7 @@ public class VistaSeleccionNombreYColor extends VBox {
     private final List<ComboBox<String>> colores = new ArrayList<>();
     private static final String[] opcionesColores = {"Amarillo", "Magenta", "Azul", "Rosa", "Rojo", "Naranja"};
 
-    public VistaSeleccionNombreYColor(Stage stage, ContenedorPrincipalVistas contenedor, int cantidad) {
+    public VistaSeleccionNombreYColor(ContenedorPrincipalVistas contenedor, int cantidad) {
         this.setAlignment(Pos.CENTER);
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/mar.jpeg"));
         this.setSpacing(20);
@@ -50,12 +50,12 @@ public class VistaSeleccionNombreYColor extends VBox {
         BotonGenerico botonContinuar = new BotonGenerico("Continuar", "boton-confirmar", 200, 60);
         botonContinuar.setLayoutX(200);
         botonContinuar.setLayoutY(390);
-        botonContinuar.setOnAction(new ConfirmarJugadoresControlador(stage, contenedor, nombres, colores));
+        botonContinuar.setOnAction(new ConfirmarJugadoresControlador(contenedor, nombres, colores));
 
         BotonGenerico botonVolver = new BotonGenerico("Volver", "boton-volver-atras", 85, 40);
         botonVolver.setLayoutX(487);
         botonVolver.setLayoutY(7);
-        botonVolver.setOnAction(new VolverControlador(contenedor, new VistaSeleccionCantidadJugadores(stage, contenedor)));
+        botonVolver.setOnAction(new VolverControlador(contenedor, new VistaSeleccionCantidadJugadores(contenedor)));
 
         panelIngresarJugadores.getChildren().addAll(pedidoDatos, listaJugadores, botonContinuar, botonVolver);
         this.getChildren().add(panelIngresarJugadores);

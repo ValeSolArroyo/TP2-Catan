@@ -1,0 +1,78 @@
+@startuml
+
+class Jugador {
+  - id: int
+  - nombre: String
+  - color: Color
+  - puntosVictoria: int
+  - puntosVictoriaCartas: int
+  - inventario: Inventario
+  - construcciones: List<Construccion>
+  - cartasDesarrollo: List<CartaDesarrollo>
+  - cartasBonificacion: List<CartaBonificacion>
+  - cartasCaballeroJugadas: int
+  
+  + descartar(): void
+  + robarCarta(Jugador): void
+  - serRobadoPor(Jugador): void
+  + agregarConstruccion(Construccion): void
+  + eliminarConstruccion(Construccion): void
+  + construir(Construccion, EspacioConstruible): void
+  + cobrarConstruccion(Construccion): void
+  + construirPrimerosPoblados(Poblado, Vertice): void
+  + construirPrimerasCarreteras(Carretera, Arista): void
+  + recibirRecurso(Recurso): void
+  + comerciarConPuerto(Vertice, List<Recurso>, Recurso): void
+  + aceptarOferta(Jugador, List<Recurso>, List<Recurso>): void
+  + entregarRecursos(List<Recurso>): void
+  + guardarCartaDesarrollo(CartaDesarrollo, List<Recurso>): void
+  + eliminarCarta(CartaDesarrollo): void
+  + sumarCartaCaballeroJugada(): void
+  + conseguirCartasCaballeroJugadas(): int
+  + recibirCartaBonificacion(CartaBonificacion): void
+  + perderCartaBonificacion(CartaBonificacion): void
+  + evaluarSiEsGanador(): boolean
+  + conseguirPuntosDeVictoriaTotales(): int
+  + sumarPVPorCartaDesarollo(): void
+  + getRecursosInventario(): Map<String, Integer>
+  + getCartasDesarrollo(): List<CartaDesarrollo>
+  + getCartasBonificacion(): List<CartaBonificacion>
+  + entregaMonopolio(Recurso, Jugador): void
+}
+
+class Inventario {
+  - recursos: List<Recurso>
+  - jugador: Jugador
+  
+  + agregarRecurso(Recurso): void
+  + consumirRecurso(List<Recurso>): void
+  - eliminarRecurso(Recurso, List<Recurso>): void
+  + descartarMitadRecursos(): void
+  + quitarRecursoAlAzar(): Recurso
+  + getRecursos(): Map<String, Integer>
+  + consumirTodosRecursos(Recurso): List<Recurso>
+}
+
+class Observable {
+  - observadores: List<Observador>
+  
+  + agregarObservador(Observador): void
+  + eliminarObservador(Observador): void
+  + notificarObservadores(): void
+}
+
+interface Observador {
+  + actualizar(): void
+}
+
+Jugador --|> Observable
+Jugador --> Inventario
+Jugador --> "0..*" Construccion
+Jugador --> "0..*" CartaDesarrollo
+Jugador --> "0..*" CartaBonificacion
+Inventario --> "0..*" Recurso
+Inventario --> Jugador
+
+Observable --> Observador
+
+@enduml

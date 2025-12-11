@@ -16,11 +16,11 @@ public class VistaJuegoGeneral extends BorderPane {
     private Juego juego;
     private VistaTablero vistaTablero;
 
-    public VistaJuegoGeneral(Stage stage, ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero){
+    public VistaJuegoGeneral(ContenedorPrincipalVistas contenedor, Juego juego, VistaTablero vistaTablero){
         this.juego = juego;
         this.vistaTablero = vistaTablero;
 
-        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo.jpg"));
+        this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/fondo_puertos_con_cartas.jpg"));
 
         HBox barraJugadores = new HBox(20);
         barraJugadores.setAlignment(Pos.CENTER);
@@ -43,7 +43,7 @@ public class VistaJuegoGeneral extends BorderPane {
         botonesDerecha.setAlignment(Pos.CENTER_RIGHT);
         botonesDerecha.setPadding(new Insets(100, 20, 0, 0));
 
-        JuegoControlador controladorJuego = new JuegoControlador(stage, contenedor, this.juego, this.vistaTablero, this);
+        JuegoControlador controladorJuego = new JuegoControlador(contenedor, this.juego, this.vistaTablero, this);
 
         BotonJuego botonComerciar = new BotonJuego("Comerciar");
         botonComerciar.setOnAction( e -> controladorJuego.comerciar());
@@ -59,14 +59,15 @@ public class VistaJuegoGeneral extends BorderPane {
         BotonJuego botonJugarCarta =  new BotonJuego("Mis cartas");
         botonJugarCarta.setOnAction( e -> controladorJuego.jugarCarta());
         HBox contenedorArribaIzquierda = new HBox(botonJugarCarta);
-        //TODO: ver si cambiamos el padding una vez agregamos botones ladron..
+
         contenedorArribaIzquierda.setPadding(new Insets(30, 0, 0, 110));
         contenedorArribaIzquierda.setAlignment(Pos.CENTER_LEFT);
 
         this.setLeft(contenedorArribaIzquierda);
 
-        CambioTurnoControlador cambioTurno = new CambioTurnoControlador(stage, contenedor, juego);
+        CambioTurnoControlador cambioTurno = new CambioTurnoControlador(contenedor, juego);
         cambioTurno.agregarTablero(this.vistaTablero);
+        cambioTurno.setVistaJuego(this);
         VistaTurnoActual vistaTurno = new VistaTurnoActual(cambioTurno);
 
         BotonGenerico botonFinTurno = new BotonGenerico("Finalizar turno", "boton-fin-turno", 230, 45);
