@@ -54,7 +54,7 @@ public class VistaComercioPuerto extends BorderPane {
         HBox tableroContenedor = new HBox(15);
         tableroContenedor.setAlignment(Pos.CENTER);
         tableroContenedor.getChildren().add(this.vistaTablero);
-        HBox.setMargin(this.vistaTablero, new Insets(4, 0, 0, 325));
+        HBox.setMargin(this.vistaTablero, new Insets(8, 0, 0, 323));
 
         textoPuerto = new Label("");
         textoPuerto.getStyleClass().add("texto-puerto");
@@ -77,7 +77,7 @@ public class VistaComercioPuerto extends BorderPane {
         turnoContenedor.setAlignment(Pos.CENTER);
         turnoContenedor.setPadding(new Insets(20));
         this.setBottom(turnoContenedor);
-        HBox.setMargin(vistaTurno, new Insets(0, 0, 40, -80));
+        HBox.setMargin(vistaTurno, new Insets(0, 0, 36, -78));
 
         VBox derecha = new VBox(30);
         derecha.setAlignment(Pos.TOP_CENTER);
