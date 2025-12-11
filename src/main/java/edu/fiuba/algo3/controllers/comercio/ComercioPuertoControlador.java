@@ -56,6 +56,7 @@ public class ComercioPuertoControlador implements AccionesTableroControlador {
             contenedor.setContenido(vistaComercio);
             vistaComercio.desactivarBotonConfirmar();
             vistaComercio.activarBotonElegir();
+            vistaComercio.desactivarTexto();
             listaRecursosAEntregar.clear();
             return;
         }
@@ -65,6 +66,7 @@ public class ComercioPuertoControlador implements AccionesTableroControlador {
 
     public void elegirPuerto() {
         vistaTablero.mostrarVerticesPuerto();
+        vistaComercio.activarTexto();
         vistaTablero.setControlador(this);
         vistaComercio.desactivarBotonElegir();
     }
