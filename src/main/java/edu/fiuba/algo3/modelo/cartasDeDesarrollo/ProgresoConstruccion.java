@@ -17,6 +17,7 @@ public class ProgresoConstruccion implements CartaDesarrollo {
     private Juego juego;
     private Jugador jugadorActual;
     private  List<Arista> carreterasAConstruir;
+    private boolean cartaHabilitada= false;
 
 
     public ProgresoConstruccion(Juego juego, Jugador jugador, List<Arista> carreterasAConstruir) {
@@ -40,6 +41,17 @@ public class ProgresoConstruccion implements CartaDesarrollo {
 
     public String getCarta(){
         return "Progreso de Construccion";
+    }
+
+    @Override
+    public void habilitarCarta() {
+        this.cartaHabilitada = true;
+
+    }
+
+    @Override
+    public boolean getHabilitacion() {
+        return cartaHabilitada;
     }
 
     @Override

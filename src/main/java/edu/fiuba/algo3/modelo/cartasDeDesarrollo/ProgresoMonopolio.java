@@ -8,6 +8,7 @@ public class ProgresoMonopolio implements CartaDesarrollo {
     private Juego juego;
     private Recurso recursoDeseado;
     private Jugador jugadorActual;
+    private boolean cartaHabilitada= false;
 
     public ProgresoMonopolio(){}
 
@@ -28,6 +29,17 @@ public class ProgresoMonopolio implements CartaDesarrollo {
 
     public String getCarta(){
         return "Progreso Monopolio";
+    }
+
+    @Override
+    public void habilitarCarta() {
+        this.cartaHabilitada = true;
+
+    }
+
+    @Override
+    public boolean getHabilitacion() {
+        return cartaHabilitada;
     }
 
     @Override
