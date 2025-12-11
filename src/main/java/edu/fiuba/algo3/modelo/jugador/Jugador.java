@@ -190,4 +190,10 @@ public class Jugador extends Observable {
     public List<CartaBonificacion> getCartasBonificacion() { return this.cartasBonificacion; }
 
 
+    public void habilitarCartasCompradads() {
+        for (CartaDesarrollo carta: cartasDesarrollo) {
+            carta.habilitarCarta();
+        }
+    }
+
 }

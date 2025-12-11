@@ -3,6 +3,8 @@ package edu.fiuba.algo3.modelo.cartasDeDesarrollo;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 
 public class PuntoVictoria implements CartaDesarrollo {
+    private boolean cartaHabilitada= true;
+
     public PuntoVictoria(){}
 
     @Override
@@ -17,6 +19,15 @@ public class PuntoVictoria implements CartaDesarrollo {
 
     public String getCarta(){
         return "Punto de Victoria";
+    }
+
+    @Override
+    public void habilitarCarta() {
+    }
+
+    @Override
+    public boolean getHabilitacion() {
+        return cartaHabilitada;
     }
 
     @Override

@@ -62,9 +62,13 @@ public class JuegoControlador {
         contadorCartas.put("Progreso Monopolio", 0);
 
         for (CartaDesarrollo cartaDesarrollo : cartasDesarrollo) {
+            if (!cartaDesarrollo.getHabilitacion()){
+                continue;
+            }
             String carta = cartaDesarrollo.getCarta();
             contadorCartas.put(carta, contadorCartas.get(carta) + 1);
         }
+
 
         CartasDesarrolloControlador controlador = new CartasDesarrolloControlador(juego, vistaTablero, vistaJuego, contenedor);
 
