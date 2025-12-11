@@ -84,7 +84,6 @@ public class PrimerasColocacionesControlador implements AccionesTableroControlad
 
         try {
             juego.ejecutarAccion(accion);
-
         } catch (ReglaDeDistanciaError | YaHayPobladoError e) {
             PopUpError.mostrar(e.getMessage());
             resetearTurno();
@@ -114,10 +113,6 @@ public class PrimerasColocacionesControlador implements AccionesTableroControlad
     }
 
     public void resetearTurno() {
-        // TODO: chequear... lo unico q se me ocurrio
-        this.vertice = null;
-        this.arista = null;
-
         vistaTablero.ocultarAristas();
         vistaTablero.ocultarVertices();
 

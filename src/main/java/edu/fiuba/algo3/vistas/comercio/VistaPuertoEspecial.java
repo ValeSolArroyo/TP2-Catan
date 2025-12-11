@@ -1,6 +1,8 @@
-package edu.fiuba.algo3.vistas.cartasDesarrollo;
+package edu.fiuba.algo3.vistas.comercio;
 
-import edu.fiuba.algo3.controllers.cartasDesarrollo.ProgresoMonopolioControlador;
+import edu.fiuba.algo3.controllers.comercio.ComercioPuertoControlador;
+import edu.fiuba.algo3.modelo.comercio.puertos.PuertoEspecial;
+import edu.fiuba.algo3.modelo.recursos.Recurso;
 import edu.fiuba.algo3.vistas.componentes.FondoPantalla;
 import edu.fiuba.algo3.vistas.componentes.ListadoRecurso;
 import edu.fiuba.algo3.vistas.componentes.Transicion;
@@ -12,18 +14,18 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-public class VistaProgresoMonopolio extends BorderPane {
-    private Map<String, BotonGenerico> botonesPorRecurso = new HashMap<>();
-    private ProgresoMonopolioControlador controlador;
+public class VistaPuertoEspecial extends BorderPane {
+    private ComercioPuertoControlador controlador;
     private BotonJuego botonEjecutar;
+    private List<BotonGenerico> botonesPorRecurso;
 
-    public VistaProgresoMonopolio(ProgresoMonopolioControlador controlador){
+    public VistaPuertoEspecial(ComercioPuertoControlador controlador, PuertoEspecial puerto) {
         this.setBackground(FondoPantalla.crearFondo("/images/backgrounds/mar.jpeg"));
         this.controlador = controlador;
-        controlador.setVistaProgreso(this);
+        botonesPorRecurso = new ArrayList<>();
 
         inicializarRecursos();
 
@@ -45,14 +47,14 @@ public class VistaProgresoMonopolio extends BorderPane {
         HBox hbox = new HBox(40);
         hbox.setAlignment(Pos.CENTER);
 
-        for (String tipo : controlador.getTiposDeRecurso()) {
-            String ruta = "/images/utils/recursos/" + tipo + ".png";
+        for (Recurso tipo : controlador.getTiposDeRecurso()) {
+            String ruta = "/images/utils/recursos/" + tipo.getNombreRecurso() + ".png";
 
-            ListadoRecurso recursos = new ListadoRecurso(tipo, ruta);
+            ListadoRecurso recursos = new ListadoRecurso(tipo.getNombreRecurso(), ruta);
 
             BotonGenerico boton = new BotonGenerico("Pedir recurso", "botones-progreso", 230, 80);
-            botonesPorRecurso.put(tipo, boton);
-            boton.setOnAction(e -> controlador.elegirRecurso(tipo));
+            botonesPorRecurso.add(boton);
+            boton.setOnAction(e -> controlador.conseguirRecursoDeseadoEspecial(tipo));
 
             VBox contenedor = new VBox(10, recursos, boton);
             contenedor.setAlignment(Pos.CENTER);
@@ -62,9 +64,8 @@ public class VistaProgresoMonopolio extends BorderPane {
     }
 
     public void desactivarBotones() {
-        for (BotonGenerico boton : botonesPorRecurso.values()){
+        for (BotonGenerico boton : botonesPorRecurso){
             boton.setDisable(true);
-            boton.setOpacity(0);
         }
     }
 

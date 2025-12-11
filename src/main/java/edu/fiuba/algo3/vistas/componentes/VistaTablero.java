@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class VistaTablero extends StackPane {
@@ -82,6 +83,10 @@ public class VistaTablero extends StackPane {
         vistaConstrucciones.dibujarCiudad(boton, color, vertice);
     }
 
+    public void mostrarVerticesPuerto() {
+        mostrarVertices();
+        vistaVertices.mostrarVerticesPuerto();
+    }
 
     public void mostrarLadronEn(Hexagono hexagono) {
         vistaHexagonos.mostrarLadronEn(hexagono);

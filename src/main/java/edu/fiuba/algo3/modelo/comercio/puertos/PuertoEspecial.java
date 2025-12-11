@@ -32,5 +32,9 @@ public class PuertoEspecial implements ComercioPuerto {
             jugador.recibirRecurso(recurso);
         }
     }
+
+    public Recurso getTipoRecurso() {
+        return this.tipoEspecial;
+    }
 }
 

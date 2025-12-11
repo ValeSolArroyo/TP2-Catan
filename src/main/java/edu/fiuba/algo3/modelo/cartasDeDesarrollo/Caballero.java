@@ -27,6 +27,7 @@ public class Caballero implements CartaDesarrollo {
     public void ejecutar() {
         juego.moverLadron(nuevoLugar);
         juego.robarCartaDe(victima);
+        jugadorActual.sumarCartaCaballeroJugada();
     }
 
     public String getCarta(){

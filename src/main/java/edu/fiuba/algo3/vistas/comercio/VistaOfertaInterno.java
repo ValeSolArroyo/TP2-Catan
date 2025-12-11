@@ -103,7 +103,7 @@ public class VistaOfertaInterno extends BorderPane {
         BotonJuego botonRechazar = new BotonJuego("Rechazar");
         botonRechazar.setOnAction(e -> controlador.rechazarOferta());
 
-        HBox botones = new HBox(30, botonAceptar, botonRechazar);
+        HBox botones = new HBox(30, botonRechazar, botonAceptar);
         botones.setAlignment(Pos.CENTER);
 
         VBox contenedorABajo = new VBox(15, textoPregunta, botones);

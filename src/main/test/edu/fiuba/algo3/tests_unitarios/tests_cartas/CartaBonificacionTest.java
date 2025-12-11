@@ -42,7 +42,7 @@ public class CartaBonificacionTest {
         GranRutaComercial granRutaComercial = new GranRutaComercial();
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
 
-       Tablero tableroMock = mock(Tablero.class);
+        Tablero tableroMock = mock(Tablero.class);
         when(tableroMock.conseguirRutaMasLarga(jugador)).thenReturn(5);
 
         assertDoesNotThrow(() -> granRutaComercial.evaluarCartaBonificacion(jugador, tableroMock));
@@ -68,9 +68,9 @@ public class CartaBonificacionTest {
         GranCaballeria granCaballeria = new GranCaballeria();
         Jugador jugador = new Jugador(1, "Constructor", Color.BLUE);
 
-        jugador.registrarCaballeroJugado();
-        jugador.registrarCaballeroJugado();
-        jugador.registrarCaballeroJugado();
+        jugador.sumarCartaCaballeroJugada();
+        jugador.sumarCartaCaballeroJugada();
+        jugador.sumarCartaCaballeroJugada();
 
         Tablero tableroMock = mock(Tablero.class);
 
@@ -97,7 +97,7 @@ public class CartaBonificacionTest {
         int pvInicialjugador1 = jugador1.conseguirPuntosDeVictoriaTotales();
         int pvInicialjugador2 = jugador2.conseguirPuntosDeVictoriaTotales();
 
-        
+
         Mockito.when(tablero.conseguirRutaMasLarga(jugador1)).thenReturn(5);
         Mockito.when(tablero.conseguirRutaMasLarga(jugador2)).thenReturn(0);
 
@@ -125,6 +125,6 @@ public class CartaBonificacionTest {
         assertEquals(pvInicialjugador2 + 2, pvFinaljugador2,
                 "jugador2 debe recibir la bonificación ahora");
 
-        
+
     }
 }
