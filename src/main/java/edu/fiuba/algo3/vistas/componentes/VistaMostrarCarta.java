@@ -44,14 +44,27 @@ public class VistaMostrarCarta extends BorderPane {
         cartaConBrillos.getChildren().add(Brillos.crearBrillos());
         this.setCenter(cartaConBrillos);
 
+        String textoCarta = "";
+
+        if (nombreCarta.equals("Punto de Victoria")) {
+            textoCarta = "Se te ha otorgado un punto de victoria adicional";
+        } else {
+            textoCarta = "Esta carta se te acreditara en tu proximo turno";
+        }
+
+        Label mensajeExtra = new Label(textoCarta);
+        mensajeExtra.getStyleClass().add("texto-comercio");
+        mensajeExtra.setAlignment(Pos.CENTER);
+
         BotonJuego botonAceptar = new BotonJuego("Aceptar");
         botonAceptar.setOnAction(new VolverControlador(contenedor, vista));
 
-        VBox botonVbox = new VBox(botonAceptar);
-        botonVbox.setAlignment(Pos.CENTER);
-        botonVbox.setSpacing(10);
+        VBox bottomVBox = new VBox(mensajeExtra, botonAceptar);
+        bottomVBox.setAlignment(Pos.CENTER);
+        bottomVBox.setSpacing(10);
         VBox.setMargin(botonAceptar, new Insets(0, 0, 10, 0));
-        this.setBottom(botonVbox);
+
+        this.setBottom(bottomVBox);
 
         Transicion.fade(this);
     }

@@ -16,7 +16,6 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
         Font.loadFont(getClass().getResourceAsStream("/fonts/Minecraft.ttf"), 20);
-        // TODO: agregar icono app!! está en resources/images pero no lo pude poner
         ContenedorPrincipalVistas contenedor = new ContenedorPrincipalVistas(stage);
 
         VistaTituloJuego tituloJuego = new VistaTituloJuego(stage, contenedor);
