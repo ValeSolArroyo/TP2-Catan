@@ -153,8 +153,8 @@ public class Juego {
         Jugador jugador = jugadorActual();
         for (Jugador jugadorQueEntrega: listaJugadores) {
             if (jugadorQueEntrega == jugador) continue;
-            jugadorQueEntrega.entregarRecursos(List.of(recursoDeseado));
-            jugador.recibirRecurso(recursoDeseado);
+            jugadorQueEntrega.entregaMonopolio(recursoDeseado, jugador);
+
         }
     }
 

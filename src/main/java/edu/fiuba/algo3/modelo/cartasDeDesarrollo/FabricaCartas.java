@@ -22,6 +22,7 @@ public class FabricaCartas {
             mazo.add(new ProgresoConstruccion());
         }
 
+        mazo.add(new ProgresoMonopolio());
         Collections.shuffle(mazo);
 
         return mazo;

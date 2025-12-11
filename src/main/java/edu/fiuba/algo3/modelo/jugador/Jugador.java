@@ -120,6 +120,15 @@ public class Jugador extends Observable {
         }
     }
 
+    public void entregaMonopolio(Recurso recursoDeseado, Jugador jugador) {
+
+        List<Recurso> recursosAEntregar = inventario.consumirTodosRecursos(recursoDeseado);
+        for(Recurso recurso: recursosAEntregar) {
+            jugador.recibirRecurso(recurso);
+        }
+
+    }
+
     public int conseguirCartasCaballeroJugadas() {
         return cartasCaballeroJugadas;
     }
@@ -179,4 +188,6 @@ public class Jugador extends Observable {
     public List<CartaDesarrollo> getCartasDesarrollo() { return this.cartasDesarrollo; }
 
     public List<CartaBonificacion> getCartasBonificacion() { return this.cartasBonificacion; }
+
+
 }
