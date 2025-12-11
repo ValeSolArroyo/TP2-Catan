@@ -73,9 +73,9 @@ public class ComercioPuertoControlador implements AccionesTableroControlador {
         ComercioPuerto puerto = vertice.getPuerto();
         if (puerto.getClass() ==  PuertoEspecial.class) {
             Recurso recurso = ((PuertoEspecial) puerto).getTipoRecurso();
-            this.vistaComercio.actualizarTexto("Puerto de tipo especial,\nrecurso " + recurso.getNombreRecurso());
+            this.vistaComercio.actualizarTexto("Puerto Especial,\nrecurso " + recurso.getNombreRecurso());
         } else {
-            this.vistaComercio.actualizarTexto("Puerto genérico");
+            this.vistaComercio.actualizarTexto("Puerto Genérico");
         }
     }
 
