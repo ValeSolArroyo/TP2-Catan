@@ -20,15 +20,20 @@ class Juego {
   + lanzarDados(): int
   + descartePorLadron(): void
   + ejecutarAccion(Accion): void
-  + ejecutarComercioJugador(ComercioJugador): void
+  + ejecutarComercioJugador(ComercioJugador, Jugador): void
   + producirRecursos(int): void
+  + darRecursosIniciales(Vertice): void
   + jugadorActual(): Jugador
   + avanzarTurno(): void
   + retrocederTurno(): void
-  + revisarGranCaballeria(Jugador): void
-  + revisarGranRutaComercial(Jugador): void
+  + revisarGranCaballeria(Jugador): boolean
+  + revisarGranRutaComercial(Jugador): boolean
   + entregarAJugador(Recurso): void
-  + evaluarPVJugadorActual(): void
+  + getJugadores(): List<Jugador>
+  + getTablero(): Tablero
+  + getDado(): Dado
+  + getIndiceTurno(): int
+  + getCartaComprada(): CartaDesarrollo
 }
 
 class Dado {
