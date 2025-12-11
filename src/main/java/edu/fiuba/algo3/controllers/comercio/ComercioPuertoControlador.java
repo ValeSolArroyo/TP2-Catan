@@ -57,17 +57,16 @@ public class ComercioPuertoControlador implements AccionesTableroControlador {
             vistaComercio.desactivarBotonConfirmar();
             vistaComercio.activarBotonElegir();
             listaRecursosAEntregar.clear();
-            vistaComercio.activarBotonVolver();
             return;
         }
-        contenedor.setContenido(vistaJuego);
+        VistaJuegoGeneral nuevaVistaJuego = new VistaJuegoGeneral(contenedor, juego, this.vistaTablero);
+        contenedor.setContenido(nuevaVistaJuego);
     }
 
     public void elegirPuerto() {
         vistaTablero.mostrarVerticesPuerto();
         vistaTablero.setControlador(this);
         vistaComercio.desactivarBotonElegir();
-        vistaComercio.desactivarBotonVolver();
     }
 
     public void mostrarTextoPuerto(Vertice vertice) {

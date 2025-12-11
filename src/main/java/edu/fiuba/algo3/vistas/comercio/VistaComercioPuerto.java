@@ -60,7 +60,7 @@ public class VistaComercioPuerto extends BorderPane {
         HBox tableroContenedor = new HBox(15);
         tableroContenedor.setAlignment(Pos.CENTER);
         tableroContenedor.getChildren().add(this.vistaTablero);
-        HBox.setMargin(this.vistaTablero, new Insets(4, 0, 0, 320));
+        HBox.setMargin(this.vistaTablero, new Insets(6, 0, 0, 305));
         this.setCenter(tableroContenedor);
 
         CambioTurnoControlador cambioTurno = new CambioTurnoControlador(contenedor, juego);
@@ -81,7 +81,11 @@ public class VistaComercioPuerto extends BorderPane {
         botonConfirmar = new BotonJuego("Confirmar");
 
         botonVolver = new BotonJuego("Volver");
-        botonVolver.setOnAction(new VolverControlador(contenedor, vistaJuego));
+        botonVolver.setOnAction(e -> {
+            vistaTablero.ocultarVertices();
+            VistaJuegoGeneral nuevaVistaJuego = new VistaJuegoGeneral(contenedor, juego, this.vistaTablero);
+            contenedor.setContenido(nuevaVistaJuego);
+        });
         derecha.getChildren().addAll(botonElegirPuerto, botonConfirmar, botonVolver);
         botonConfirmar.setDisable(true);
         botonConfirmar.setOnAction(e -> controlador.confirmarPuerto());
@@ -110,14 +114,4 @@ public class VistaComercioPuerto extends BorderPane {
     public void desactivarBotonElegir() {
         this.botonElegirPuerto.setDisable(true);
     }
-
-    public void activarBotonVolver() {
-        this.botonVolver.setDisable(false);
-    }
-
-    public void desactivarBotonVolver() {
-        this.botonVolver.setDisable(true);
-    }
-
-
 }
