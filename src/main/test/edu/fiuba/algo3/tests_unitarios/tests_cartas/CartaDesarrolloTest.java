@@ -112,7 +112,7 @@ public class CartaDesarrolloTest {
     
         verify(juego).entregarAJugador(recurso);
         verify(jugador).eliminarCarta(any(ProgresoMonopolio.class));
-}
+    }
 
     @Test
     public void test11PuntoVictoriaSeEliminaAlGuardar() {
@@ -149,14 +149,15 @@ public class CartaDesarrolloTest {
     @Test
     public void test14ConstruccionConstruyeCarreteras() {
         Jugador jugador = mock(Jugador.class);
-        Juego juego = mock(Juego.class);
         Arista arista = mock(Arista.class);
 
         List<Arista> aristas = List.of(arista);
-        ProgresoConstruccion carta = new ProgresoConstruccion(juego, jugador, aristas);
+
+        ProgresoConstruccion carta = new ProgresoConstruccion(null, jugador, aristas);
         carta.ejecutar();
 
-        verify(jugador, times(1)).construir(any(Carretera.class), eq(arista));
+        verify(arista, times(1)).construirCarreteraPrimerasColocaciones(eq(jugador), any(Carretera.class));
+        verify(jugador, times(1)).eliminarCarta(any(ProgresoConstruccion.class));
     }
 
     @Test
@@ -182,7 +183,4 @@ public class CartaDesarrolloTest {
         List<CartaDesarrollo> mazo2 = FabricaCartas.crearMazo();
         assertNotEquals(mazo1.toString(), mazo2.toString());
     }
-
-    
-
 }
