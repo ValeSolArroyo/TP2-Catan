@@ -383,3 +383,9 @@
     -fx-background-color: #C3F6FF;
     -fx-background-radius: 10px;
 }
+
+.texto-descubrimiento {
+    -fx-font-family: "Minecraft";
+    -fx-text-fill: #1b1563;
+    -fx-font-size: 25px;
+}
