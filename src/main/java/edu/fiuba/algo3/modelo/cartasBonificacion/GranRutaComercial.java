@@ -22,12 +22,15 @@ public class GranRutaComercial implements CartaBonificacion{
             this.yaOtorgada = true;
             jugador.recibirCartaBonificacion(this);
             return true;
-        } else if (cantidad >this.mayorRutaComercial) {
+        } else if (cantidad > this.mayorRutaComercial) {
+            if (this.dueño != jugador){
+                dueño.perderCartaBonificacion(this);
+                jugador.recibirCartaBonificacion(this);
+                this.dueño = jugador;
+                return true;
+            }
             this.mayorRutaComercial = cantidad;
-            dueño.perderCartaBonificacion(this);
-            jugador.recibirCartaBonificacion(this);
-            this.dueño = jugador;
-            return true;
+            return false;
         }
         return false;
     }

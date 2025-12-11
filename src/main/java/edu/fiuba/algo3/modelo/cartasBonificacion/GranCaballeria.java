@@ -21,12 +21,15 @@ public class GranCaballeria implements CartaBonificacion {
             this.yaOtorgada = true;
             jugador.recibirCartaBonificacion(this);
             return true;
-        } else if (cantidad > this.mayorEjercito) {
+        } else if (cantidad > this.mayorEjercito){
+            if (this.dueño != jugador){
+                dueño.perderCartaBonificacion(this);
+                jugador.recibirCartaBonificacion(this);
+                this.dueño = jugador;
+                return true;
+            }
             this.mayorEjercito = cantidad;
-            dueño.perderCartaBonificacion(this);
-            jugador.recibirCartaBonificacion(this);
-            this.dueño = jugador;
-            return true;
+            return false;
         }
         return false;
     }
