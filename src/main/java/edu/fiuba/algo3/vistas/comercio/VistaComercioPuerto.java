@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.util.Map;
@@ -50,18 +51,24 @@ public class VistaComercioPuerto extends BorderPane {
         }
         this.setTop(barraJugadores);
 
-        VBox leftContainer = new VBox();
-        leftContainer.setAlignment(Pos.TOP_CENTER);
-        leftContainer.setPadding(new Insets(100, 0, 0, 20));
-        textoPuerto = new Label("");
-        leftContainer.getChildren().add(textoPuerto);
-        this.setLeft(leftContainer);
-
         HBox tableroContenedor = new HBox(15);
         tableroContenedor.setAlignment(Pos.CENTER);
         tableroContenedor.getChildren().add(this.vistaTablero);
-        HBox.setMargin(this.vistaTablero, new Insets(6, 0, 0, 305));
-        this.setCenter(tableroContenedor);
+        HBox.setMargin(this.vistaTablero, new Insets(4, 0, 0, 325));
+
+        textoPuerto = new Label("");
+        textoPuerto.getStyleClass().add("texto-puerto");
+
+        HBox texto = new HBox(textoPuerto);
+        texto.setAlignment(Pos.CENTER_LEFT);
+        texto.setPadding(new Insets(0, 0, 0, 40));
+        texto.setMouseTransparent(true);
+        texto.setPickOnBounds(false);
+
+        StackPane tableroYTexto = new StackPane(tableroContenedor, texto);
+
+        this.setCenter(tableroYTexto);
+
 
         CambioTurnoControlador cambioTurno = new CambioTurnoControlador(contenedor, juego);
         VistaTurnoActual vistaTurno = new VistaTurnoActual(cambioTurno);
@@ -97,6 +104,7 @@ public class VistaComercioPuerto extends BorderPane {
 
     public void actualizarTexto(String texto) {
         textoPuerto.setText(texto);
+        textoPuerto.setPadding(new Insets(8, 12, 8, 12));
     }
 
     public void activarBotonConfirmar(){

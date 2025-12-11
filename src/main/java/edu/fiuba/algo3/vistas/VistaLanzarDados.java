@@ -36,7 +36,7 @@ public class VistaLanzarDados extends BorderPane {
         HBox tableroContenedor = new HBox(15);
         tableroContenedor.setAlignment(Pos.CENTER);
         tableroContenedor.getChildren().add(this.vistaTablero);
-        HBox.setMargin(this.vistaTablero, new Insets(4, 0, 0, 325));
+        HBox.setMargin(this.vistaTablero, new Insets(6, 0, 0, 325));
         this.setCenter(tableroContenedor);
 
         CambioTurnoControlador cambioTurno = new CambioTurnoControlador(contenedor, juego);
