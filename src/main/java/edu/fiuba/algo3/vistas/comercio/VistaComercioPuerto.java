@@ -122,4 +122,14 @@ public class VistaComercioPuerto extends BorderPane {
     public void desactivarBotonElegir() {
         this.botonElegirPuerto.setDisable(true);
     }
+
+    public void desactivarTexto() {
+        this.textoPuerto.setOpacity(0);
+        this.textoPuerto.setText("");
+        textoPuerto.setPadding(new Insets(0));
+    }
+
+    public void activarTexto() {
+        this.textoPuerto.setOpacity(1);
+    }
 }
