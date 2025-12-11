@@ -26,19 +26,17 @@ public class   ProgresoConstruccionControlador implements AccionesTableroControl
     private VistaJuegoGeneral vistaJuego;
     private ContenedorPrincipalVistas contenedor;
     private VistaProgresoConstruccion vistaProgreso;
-    private Stage stage;
-
     private List<Arista> aristas = new ArrayList<>();
     private int carreterasConstruidas = 0;
+    private boolean primeraCarreteraColocada;
 
     public ProgresoConstruccionControlador (Juego juego, VistaTablero vistaTablero, VistaJuegoGeneral vistaJuego, ContenedorPrincipalVistas contenedor){
         this.juego = juego;
         this.vistaTablero = vistaTablero;
-
         this.vistaTablero.setControlador(this);
-
         this.vistaJuego = vistaJuego;
         this.contenedor = contenedor;
+        this.primeraCarreteraColocada = false;
     }
 
     public void setVistaProgreso(VistaProgresoConstruccion vistaProgreso){
@@ -73,6 +71,10 @@ public class   ProgresoConstruccionControlador implements AccionesTableroControl
         }
 
         Jugador jugador = juego.jugadorActual();
+        if (!this.primeraCarreteraColocada) {
+            jugador.guardarCartaDesarrollo(new ProgresoConstruccion(), List.of());
+            this.primeraCarreteraColocada = true;
+        }
         Color color = jugador.getColor();
         Arista aristaAConstruir = aristas.get(0);
         Accion accion = new ProgresoConstruccion(juego, jugador, List.of(aristaAConstruir));
@@ -86,7 +88,7 @@ public class   ProgresoConstruccionControlador implements AccionesTableroControl
             return;
         }
 
-        vistaTablero.dibujarCarreteraEn(aristaAConstruir , color);
+        vistaTablero.dibujarCarreteraEn(aristaAConstruir, color);
 
         if (carreterasConstruidas == 2) {
             vistaProgreso.desactivarBotonEjecutar();
