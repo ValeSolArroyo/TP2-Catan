@@ -102,7 +102,7 @@ public class VistaVertices extends StackPane {
 
             if (puertosVertices.contains(clave)) {
                 valor.setDisable(false);
-                valor.setOpacity(0.8);
+                valor.setOpacity(1);
             } else {
                 valor.setDisable(true);
                 valor.setOpacity(0);
