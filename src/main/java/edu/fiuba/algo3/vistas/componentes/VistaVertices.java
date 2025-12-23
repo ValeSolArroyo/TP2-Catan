@@ -109,4 +109,11 @@ public class VistaVertices extends StackPane {
             }
         }
     }
+
+    public void mostrarVertices()  {
+        for (Button boton: botonesVertices.values())  {
+            boton.setDisable(false);
+            boton.setOpacity(1);
+        }
+    }
 }

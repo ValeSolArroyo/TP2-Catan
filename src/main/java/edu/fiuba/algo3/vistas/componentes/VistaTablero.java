@@ -88,6 +88,12 @@ public class VistaTablero extends StackPane {
         vistaVertices.mostrarVerticesPuerto();
     }
 
+    public void mostrarVerticesConstruccion() {
+        vistaVertices.setDisable(false);
+        vistaVertices.setOpacity(0.8);
+        vistaVertices.mostrarVertices();
+    }
+
     public void mostrarLadronEn(Hexagono hexagono) {
         vistaHexagonos.mostrarLadronEn(hexagono);
     }
