@@ -92,7 +92,7 @@ public class ConstruirControlador implements AccionesTableroControlador{
 
     public void construirPoblado() {
         this.construccion = new Poblado(this.juego.jugadorActual());
-        vistaTablero.mostrarVertices();
+        vistaTablero.mostrarVerticesConstruccion();
         vistaConstruir.desactivarBotones();
     }
 
@@ -104,7 +104,7 @@ public class ConstruirControlador implements AccionesTableroControlador{
 
     public void construirCiudad() {
         this.construccion = new Ciudad(this.juego.jugadorActual());
-        vistaTablero.mostrarVertices();
+        vistaTablero.mostrarVerticesConstruccion();
         vistaConstruir.desactivarBotones();
     }
 
