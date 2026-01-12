@@ -11,6 +11,7 @@ import edu.fiuba.algo3.vistas.comercio.VistaComercioInterno;
 import edu.fiuba.algo3.vistas.comercio.VistaOfertaInterno;
 import edu.fiuba.algo3.modelo.jugador.Jugador;
 import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
+import edu.fiuba.algo3.vistas.componentes.popups.PopUpExito;
 import edu.fiuba.algo3.vistas.componentes.popups.PopUpInformativo;
 
 import java.util.ArrayList;
@@ -83,6 +84,8 @@ public class ComercioInternoControlador implements AccionControlador  {
             ComercioInterno comerciointerno = new ComercioInterno(juego.jugadorActual(), recursosAEntregar, recursosARecibir);
             juego.ejecutarComercioJugador(comerciointerno, jugadorAceptante);
             contenedor.setContenido(vistaJuego);
+            PopUpExito.mostrar("El jugador " + jugadorAceptante.getNombre() + " te ha entregado:\n" + recursosATexto(recursosARecibir)
+                    + "\nTú entregaste:\n" + recursosATexto(recursosAEntregar));
         } catch (RecursosInsuficientesError e) {
             PopUpError.mostrar(e.getMessage());
             recursosAEntregar.clear();
@@ -91,5 +94,24 @@ public class ComercioInternoControlador implements AccionControlador  {
             this.setVistaComercio(vistaNueva);
             contenedor.setContenido(vistaNueva);
         }
+    }
+
+    public String recursosATexto(List<Recurso> recursos) {
+        Map<String, Integer> contador = new java.util.HashMap<>();
+        String texto = "";
+
+        for (Recurso recurso : recursos) {
+            String nombre = recurso.getNombreRecurso();
+            if (contador.containsKey(nombre)) {
+                contador.put(nombre, contador.get(nombre) + 1);
+            } else {
+                contador.put(nombre, 1);
+            }
+        }
+
+        for (String nombre : contador.keySet()) {
+            texto += nombre + ": " + contador.get(nombre) + "\n";
+        }
+        return texto;
     }
 }

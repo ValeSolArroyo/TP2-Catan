@@ -172,6 +172,29 @@
     -fx-text-fill: #472727;
 }
 
+.dialog-pane.exito {
+    -fx-font-size: 16px;
+    -fx-background-color: #ccffd5;
+    -fx-text-fill: #0d6d0f;
+}
+
+
+.dialog-pane.exito .header-panel .label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #064304;
+}
+
+.dialog-pane.exito .content.label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #3c8c1f;
+}
+
+.dialog-pane.exito .button {
+    -fx-font-size: 14px;
+    -fx-background-color: #dbffc6;
+    -fx-text-fill: #103900;
+}
+
 .ficha-numero {
     -fx-font-size: 24px;
     -fx-text-fill: #0f0b66;
