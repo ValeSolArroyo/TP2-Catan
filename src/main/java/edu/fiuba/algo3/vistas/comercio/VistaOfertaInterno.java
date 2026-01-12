@@ -27,9 +27,11 @@ public class VistaOfertaInterno extends BorderPane {
         this.recursosOfertados = new HashMap<>();
         this.recursosPedidos = new HashMap<>();
 
-        Label titulo = new Label("Intercambio con otro jugador: el jugador " + jugadorActual.getNombre() + " ha propuesto:");
+        Label titulo = new Label("Intercambio con otro jugador:");
         titulo.getStyleClass().add("titulo-comercio");
-        VBox topContainer = new VBox(titulo);
+        Label subtitulo = new Label("El jugador " + jugadorActual.getNombre() + " ha propuesto:");
+        subtitulo.getStyleClass().add("titulo-comercio");
+        VBox topContainer = new VBox(titulo, subtitulo);
         topContainer.setPadding(new Insets(20, 0, 0, 0));
         topContainer.setAlignment(Pos.CENTER);
         this.setTop(topContainer);
@@ -94,7 +96,7 @@ public class VistaOfertaInterno extends BorderPane {
         columnaDerecha.getChildren().add(filaPedido);
         this.setRight(columnaDerecha);
 
-        Label textoPregunta = new Label("¿" + jugadorAceptante.getNombre() + " qué vas a hacer al respecto?");
+        Label textoPregunta = new Label("¿Jugador " + jugadorAceptante.getNombre() + " qué vas a hacer al respecto?");
         textoPregunta.getStyleClass().add("texto-comercio");
 
         BotonJuego botonAceptar = new BotonJuego("Aceptar");
