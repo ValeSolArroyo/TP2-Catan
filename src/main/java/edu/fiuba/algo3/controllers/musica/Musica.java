@@ -1,4 +1,4 @@
-package edu.fiuba.algo3.vistas.componentes.menu;
+package edu.fiuba.algo3.controllers.musica;
 
 import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
 import javafx.scene.media.Media;
