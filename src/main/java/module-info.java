@@ -25,4 +25,5 @@ module edu.fiuba.algo3 {
     exports edu.fiuba.algo3.modelo.comercio.puertos;
     exports edu.fiuba.algo3.modelo.comercio.interno;
     exports edu.fiuba.algo3.vistas.comercio;
+    exports edu.fiuba.algo3.controllers.musica;
 }

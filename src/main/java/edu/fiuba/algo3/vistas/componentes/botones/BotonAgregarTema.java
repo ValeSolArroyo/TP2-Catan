@@ -1,6 +1,6 @@
 package edu.fiuba.algo3.vistas.componentes.botones;
 
-import edu.fiuba.algo3.vistas.componentes.menu.Musica;
+import edu.fiuba.algo3.controllers.musica.Musica;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;

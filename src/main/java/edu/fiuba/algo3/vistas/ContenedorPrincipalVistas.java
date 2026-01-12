@@ -1,9 +1,9 @@
 package edu.fiuba.algo3.vistas;
 
 import edu.fiuba.algo3.controllers.MenuGlobalControlador;
-import edu.fiuba.algo3.controllers.MusicaControlador;
+import edu.fiuba.algo3.controllers.musica.MusicaControlador;
 import edu.fiuba.algo3.vistas.componentes.menu.MenuGlobal;
-import edu.fiuba.algo3.vistas.componentes.menu.Musica;
+import edu.fiuba.algo3.controllers.musica.Musica;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;

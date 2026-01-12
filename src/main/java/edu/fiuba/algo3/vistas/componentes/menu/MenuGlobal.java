@@ -2,7 +2,7 @@ package edu.fiuba.algo3.vistas.componentes.menu;
 
 import edu.fiuba.algo3.controllers.BotonAyudaControlador;
 import edu.fiuba.algo3.controllers.MenuGlobalControlador;
-import edu.fiuba.algo3.controllers.MusicaControlador;
+import edu.fiuba.algo3.controllers.musica.MusicaControlador;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonGenerico;
 import edu.fiuba.algo3.vistas.componentes.botones.BotonMenu;
@@ -27,6 +27,7 @@ public class MenuGlobal {
 
         BotonMenu botonMusica = new BotonMenu("Musica");
         BotonMenu botonOpciones = new BotonMenu("Opciones");
+
         BotonMenu botonAyuda = new BotonMenu("Ayuda");
         botonAyuda.setOnAction(new BotonAyudaControlador(contenedor));
 
@@ -49,8 +50,7 @@ public class MenuGlobal {
         submenuOpciones.setTranslateX(-220);
         submenuOpciones.setTranslateY(70);
 
-        // TODO: mejorar estos events feos
-        botonOpciones.setOnAction(e -> cerrar_abrir_menu("Opciones", submenuOpciones, botonOpciones));
+        botonOpciones.setOnAction(e -> mostrarOcultarSubmenu("Opciones", submenuOpciones, botonOpciones));
 
         VBox submenuMusica = new VBox(5);
         submenuMusica.setAlignment(Pos.BOTTOM_RIGHT);
@@ -60,20 +60,25 @@ public class MenuGlobal {
         botonElegirTema.setOnAction(e -> this.musicaControlador.elegirTema());
 
         BotonMenu botonSilenciar = new BotonMenu("Silenciar");
-        botonSilenciar.setOnAction(e -> musicaControlador.silenciar());
+        botonSilenciar.setOnAction(e -> {
+                musicaControlador.silenciar();
+                if (botonSilenciar.getText().equals("Silenciar")) {
+                    botonSilenciar.setText("Desilenciar");
+                } else {
+                    botonSilenciar.setText("Silenciar");
+                }
+            });
 
         submenuMusica.getChildren().addAll(botonSilenciar, botonElegirTema);
         submenuMusica.setTranslateX(-330);
 
-        botonMusica.setOnAction(e -> cerrar_abrir_menu("Música", submenuMusica, botonMusica));
+        botonMusica.setOnAction(e -> mostrarOcultarSubmenu("Música", submenuMusica, botonMusica));
 
         botonMenu.setOnAction(e -> {
             boolean estabaAbierto = menuDesplegable.isVisible();
-            menuDesplegable.setVisible(!estabaAbierto);
-            submenuOpciones.setVisible(false);
-            submenuMusica.setVisible(false);
-            botonOpciones.setText("Opciones");
-            botonMusica.setText("Musica");
+            mostrarOcultarMenu(estabaAbierto, menuDesplegable, submenuMusica, botonMusica, "Musica");
+            mostrarOcultarMenu(estabaAbierto, menuDesplegable, submenuOpciones, botonOpciones, "Opciones");
+
             if (!estabaAbierto) {
                 botonMenu.setText("Cerrar");
                 botonMenu.setTranslateY(130);
@@ -91,7 +96,7 @@ public class MenuGlobal {
         return contenidoMenu;
     }
 
-    private void cerrar_abrir_menu(String texto, VBox submenu, BotonMenu boton) {
+    private void mostrarOcultarSubmenu(String texto, VBox submenu, BotonMenu boton) {
         boolean estabaAbierto = submenu.isVisible();
         submenu.setVisible(!estabaAbierto);
         if (!estabaAbierto) {
@@ -99,5 +104,11 @@ public class MenuGlobal {
         } else {
             boton.setText(texto);
         }
+    }
+
+    private void mostrarOcultarMenu(boolean estadoMenu, HBox menuDesplegable, VBox submenu, BotonMenu botonSubmenu, String texto) {
+        menuDesplegable.setVisible(!estadoMenu);
+        submenu.setVisible(false);
+        botonSubmenu.setText(texto);
     }
 }
