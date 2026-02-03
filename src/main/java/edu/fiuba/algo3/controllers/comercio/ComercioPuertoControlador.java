@@ -18,6 +18,7 @@ import edu.fiuba.algo3.vistas.comercio.VistaPuertoEspecial;
 import edu.fiuba.algo3.vistas.comercio.VistaPuertoGenerico;
 import edu.fiuba.algo3.vistas.componentes.VistaTablero;
 import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
+import edu.fiuba.algo3.vistas.componentes.popups.PopUpExito;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +63,7 @@ public class ComercioPuertoControlador implements AccionesTableroControlador {
         }
         VistaJuegoGeneral nuevaVistaJuego = new VistaJuegoGeneral(contenedor, juego, this.vistaTablero);
         contenedor.setContenido(nuevaVistaJuego);
+        PopUpExito.mostrar("Intercambiaste " + listaRecursosAEntregar.size() + " " + listaRecursosAEntregar.get(1).getNombreRecurso() + " por 1 " + recursoDeseado.getNombreRecurso());
     }
 
     public void elegirPuerto() {

@@ -10,6 +10,7 @@ import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.comercio.VistaComercioBanca;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.componentes.popups.PopUpError;
+import edu.fiuba.algo3.vistas.componentes.popups.PopUpExito;
 
 public class ComercioBancaControlador implements AccionControlador {
     private Juego juego;
@@ -35,6 +36,7 @@ public class ComercioBancaControlador implements AccionControlador {
             ComercioJugador comercioJugador = new Banca(recursoAEntregar, recursoDeseado);
             juego.ejecutarComercioJugador(comercioJugador, juego.jugadorActual());
             contenedor.setContenido(vistaJuego);
+            PopUpExito.mostrar("Intercambiaste 4 " + recursoAEntregar.getNombreRecurso() + " por 1 " + recursoDeseado.getNombreRecurso());
         } catch (RecursosInsuficientesError e) {
             PopUpError.mostrar(e.getMessage());
             vista.desactivarBotonEjecutar();
