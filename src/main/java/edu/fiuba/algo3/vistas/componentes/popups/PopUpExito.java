@@ -10,7 +10,7 @@ public class PopUpExito {
 
         alert.getDialogPane().getStylesheets().add(PopUpAcercaDe.class.getResource("/styles/styles.css").toExternalForm());
         alert.getDialogPane().getStyleClass().add("exito");
-        alert.getDialogPane().setPrefHeight(mensaje.length()*4);
+        alert.getDialogPane().setPrefHeight(mensaje.length()*4.5);
         alert.showAndWait();
     }
 }
