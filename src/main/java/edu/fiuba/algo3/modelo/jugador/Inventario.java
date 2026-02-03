@@ -81,12 +81,15 @@ public class Inventario {
 
     public List<Recurso> consumirTodosRecursos(Recurso recursoDeseado) {
         List<Recurso> listaAEntregar =  new ArrayList<>();
+        List<Recurso> recursosARemover = new ArrayList<>();
+
         for (Recurso recurso: recursos) {
             if (recurso.coincideCon(recursoDeseado)) {
                 listaAEntregar.add(recurso);
-                recursos.remove(recurso);
+                recursosARemover.add(recurso);
             }
         }
+        recursos.removeAll(recursosARemover);
         return listaAEntregar;
     }
 }

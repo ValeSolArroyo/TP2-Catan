@@ -8,9 +8,11 @@ import edu.fiuba.algo3.modelo.recursos.*;
 import edu.fiuba.algo3.vistas.ContenedorPrincipalVistas;
 import edu.fiuba.algo3.vistas.VistaJuegoGeneral;
 import edu.fiuba.algo3.vistas.cartasDesarrollo.VistaProgresoDescubrimiento;
+import edu.fiuba.algo3.vistas.componentes.popups.PopUpExito;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ProgresoDescubrimientoControlador implements AccionControlador {
 
@@ -28,7 +30,6 @@ public class ProgresoDescubrimientoControlador implements AccionControlador {
 
     public void setVistaProgreso(VistaProgresoDescubrimiento vista) {
         this.vista = vista;
-
     }
 
     public void agregar(Recurso recurso) {
@@ -44,6 +45,7 @@ public class ProgresoDescubrimientoControlador implements AccionControlador {
     public void ejecutar() {
         Accion accion = new ProgresoDescubrimiento(juego.jugadorActual(), recursosDeseados);
         juego.ejecutarAccion(accion);
+        PopUpExito.mostrar("Obtuviste estos recursos: " + recursosDeseados.get(0).getNombreRecurso() + " y " + recursosDeseados.get(1).getNombreRecurso());
         contenedor.setContenido(vistaJuego);
     }
 
